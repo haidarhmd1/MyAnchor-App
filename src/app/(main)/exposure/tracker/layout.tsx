@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 export default async function Layout({
   children,
 }: {
@@ -17,3 +19,7 @@ export default async function Layout({
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "⚓ MyAnchor - Exposure Tracker",
+};

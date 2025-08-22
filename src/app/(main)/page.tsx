@@ -4,6 +4,7 @@ import { categories } from "@/const/links";
 import { EmergencyButton } from "./_components/EmergencyButton";
 import { QuickTips } from "@/app/(main)/_components/QuickTips";
 import { InspirationForToday } from "./_components/InspirationForToday";
+import { Metadata } from "next";
 
 export default function Home() {
   return (
@@ -34,3 +35,7 @@ export default function Home() {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "⚓ MyAnchor - Home",
+};

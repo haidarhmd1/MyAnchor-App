@@ -1,13 +1,12 @@
 import { tips } from "@/const/tips";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-export default async function Tip({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
+type Props = {
   params: Promise<{ slug: string }>;
-}) {
+};
+
+export default async function Tip({ params }: Props) {
   const { slug } = await params;
 
   const matchedSlug = tips.find((t) => t.slug === slug);
@@ -34,4 +33,14 @@ export default async function Tip({
       </div>
     </>
   );
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const matchedSlug = tips.find((t) => t.slug === slug);
+  if (!matchedSlug) return notFound();
+
+  return {
+    title: `⚓ MyAnchor - Tips - ${matchedSlug.title}`,
+  };
 }

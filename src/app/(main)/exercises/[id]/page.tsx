@@ -3,12 +3,13 @@ import { exerciseList } from "@/const/content";
 import { Lightbulb } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Tracker } from "./_components/Tracker";
+import { Metadata } from "next";
 
-export default async function Page({
-  params,
-}: {
+type Props = {
   params: Promise<{ id: string }>;
-}) {
+};
+
+export default async function Page({ params }: Props) {
   const { id } = await params;
   const exercise = exerciseList.find((e) => e.id === id);
 
@@ -24,4 +25,15 @@ export default async function Page({
       <Tracker exercise={exercise} />
     </>
   );
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const exercise = exerciseList.find((e) => e.id === id);
+
+  if (!exercise) return notFound();
+
+  return {
+    title: `⚓ MyAnchor - Exercises - ${exercise.title}`,
+  };
 }

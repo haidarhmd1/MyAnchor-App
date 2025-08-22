@@ -1,12 +1,13 @@
 import { education } from "@/const/links";
+import { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export default async function Page({
-  params,
-}: {
+type Props = {
   params: Promise<{ slug: string }>;
-}) {
+};
+
+export default async function Page({ params }: Props) {
   const { slug } = await params;
   const matchSlugEducation = education.find((e) => e.slug === slug);
   if (!matchSlugEducation) return notFound();
@@ -48,4 +49,14 @@ export default async function Page({
       </div>
     </>
   );
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const matchSlugEducation = education.find((e) => e.slug === slug);
+  if (!matchSlugEducation) return notFound();
+
+  return {
+    title: `⚓ MyAnchor - Education - ${matchSlugEducation.title}`,
+  };
 }

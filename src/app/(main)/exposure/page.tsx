@@ -1,5 +1,6 @@
 import { CardContainer } from "@/components/Card/Card";
 import { whyThisFeelsHardAtFirst } from "@/const/content";
+import { Metadata } from "next";
 
 export default function Page() {
   return (
@@ -34,3 +35,7 @@ export default function Page() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "⚓ MyAnchor - Exposure",
+};

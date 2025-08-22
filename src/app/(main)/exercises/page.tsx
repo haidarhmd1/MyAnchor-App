@@ -3,6 +3,7 @@ import { Information } from "./_components/Information";
 import { Exercises } from "./_components/Exercises";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MessageCircleWarningIcon } from "lucide-react";
+import { Metadata } from "next";
 
 export default async function Page() {
   return (
@@ -42,3 +43,7 @@ export default async function Page() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "⚓ MyAnchor - Exercises",
+};

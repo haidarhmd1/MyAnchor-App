@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { Metadata } from "next";
 
 export default function NotFound() {
   return (
@@ -40,3 +41,7 @@ export default function NotFound() {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "⚓ MyAnchor - Not Found",
+};

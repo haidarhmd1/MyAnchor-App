@@ -1,5 +1,6 @@
 import { CardContainer } from "@/components/Card/Card";
 import { education } from "@/const/links";
+import { Metadata } from "next";
 
 export default function EducationPage() {
   return (
@@ -45,3 +46,7 @@ export default function EducationPage() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "⚓ MyAnchor - Psychoeducation",
+};

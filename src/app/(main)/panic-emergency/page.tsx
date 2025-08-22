@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { SoothingCircle } from "./_components/SoothingCircle";
 
 export default function Page() {
@@ -9,3 +10,7 @@ export default function Page() {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "⚓ MyAnchor - Panic Emergency",
+};

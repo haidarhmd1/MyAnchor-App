@@ -7,10 +7,10 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="m-auto max-w-[4600px]">
       <Header />
       <div className="min-h-screen">{children}</div>
       <BottomNav />
-    </>
+    </div>
   );
 }

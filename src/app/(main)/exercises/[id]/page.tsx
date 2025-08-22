@@ -26,7 +26,7 @@ export default async function Page({ params }: Props) {
         }}
       />
       <div className="p-4">
-        <Alert variant="default" className="mb-4">
+        <Alert variant="default" className="mb-4 rounded-4xl">
           <Lightbulb />
           <AlertTitle>{exercise.title}</AlertTitle>
           <AlertDescription>{exercise.content}</AlertDescription>

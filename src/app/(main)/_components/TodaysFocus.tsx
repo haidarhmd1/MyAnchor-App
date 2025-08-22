@@ -18,7 +18,7 @@ export const TodaysFocus = () => {
         display: "contents",
       }}
     >
-      <div className="space-y-4 pt-8">
+      <div className="space-y-4">
         <div className="flex flex-col items-start self-stretch">
           <h2>Today&apos;s Focus</h2>
         </div>

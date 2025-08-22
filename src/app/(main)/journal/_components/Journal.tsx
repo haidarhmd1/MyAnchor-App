@@ -213,7 +213,7 @@ const formSteps: FormStep[] = [
   },
 ];
 
-export default function Tracker() {
+export default function Journal() {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string[]>

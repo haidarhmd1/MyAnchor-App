@@ -10,10 +10,11 @@ import {
   House,
   SquareActivity,
   LucideIcon,
+  BookA,
 } from "lucide-react";
 
 type NavLinkProps = {
-  href: "/" | "/education" | "/exercises" | "/exposure";
+  href: "/" | "/education" | "/exercises" | "/exposure" | "/journal";
   label: string;
   icon: LucideIcon;
   /** If true, consider any deeper path under href as active (e.g. /education/*) */
@@ -74,11 +75,12 @@ const NavLink = ({ href, label, icon: Icon, partial = true }: NavLinkProps) => {
 export const BottomNav = () => {
   return (
     <nav
-      className="sticky bottom-0 z-50 grid h-16 w-full grid-cols-4 border-t bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80"
+      className="sticky bottom-0 z-50 grid h-16 w-full grid-cols-5 border-t bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80"
       aria-label="Primary"
     >
       <NavLink href="/" label="Home" icon={House} partial={false} />
       <NavLink href="/education" label="Education" icon={Book} />
+      <NavLink href="/journal" label="Journal" icon={BookA} />
       <NavLink href="/exercises" label="Exercises" icon={SquareActivity} />
       <NavLink href="/exposure" label="Exposure" icon={AudioWaveform} />
     </nav>

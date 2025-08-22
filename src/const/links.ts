@@ -108,7 +108,7 @@ export const categories: {
   },
   {
     id: "0b86e632-447a-487b-90b6-bb5dc312cde6",
-    title: "Exposure Tracker",
+    title: "Confrontation exposure therapy",
     description: "Confront your triggers and become urself again",
     imgSrc: "/illustration/psycho-education.png",
     link: "/exposure",

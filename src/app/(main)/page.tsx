@@ -5,15 +5,23 @@ import { EmergencyButton } from "./_components/EmergencyButton";
 import { QuickTips } from "@/app/(main)/_components/QuickTips";
 import { InspirationForToday } from "./_components/InspirationForToday";
 import { Metadata } from "next";
+import { JournalButton } from "./_components/JournalButton";
+import { DailyChallenge } from "./_components/DailyChallenge";
 
 export default async function Home() {
   return (
     <div className="space-y-6 px-4">
+      <div className="pt-6">
+        <DailyChallenge />
+      </div>
+      <div className="">
+        <EmergencyButton />
+      </div>
       <div>
         <TodaysFocus />
       </div>
       <div>
-        <EmergencyButton />
+        <JournalButton />
       </div>
       <div className="grid grid-cols-1 gap-0">
         {categories.map((c) => (

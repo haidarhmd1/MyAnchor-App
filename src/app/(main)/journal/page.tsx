@@ -1,4 +1,4 @@
-import Tracker from "./_components/Tracker";
+import Journal from "./_components/Journal";
 import { Metadata } from "next";
 
 export default function Page() {
@@ -13,7 +13,7 @@ export default function Page() {
         }}
       />
       <div className="p-4">
-        <Tracker />
+        <Journal />
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import { education } from "@/const/links";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 

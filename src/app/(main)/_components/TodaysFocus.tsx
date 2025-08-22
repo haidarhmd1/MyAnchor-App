@@ -23,7 +23,7 @@ export const TodaysFocus = () => {
           <h2>Today&apos;s Focus</h2>
         </div>
 
-        <div className="flex flex-row items-center justify-between gap-4 self-stretch">
+        <div className="flex flex-row items-center justify-between gap-4 self-stretch rounded-4xl bg-white p-4">
           <div>
             <h3>{item.title}</h3>
             <p className="sub">{item.description}</p>
@@ -33,7 +33,7 @@ export const TodaysFocus = () => {
             src={item.imgSrc}
             width={112}
             height={112}
-            className="h-28 w-28 flex-none rounded-xl object-cover"
+            className="h-28 w-28 flex-none rounded-2xl object-cover"
           />
         </div>
       </div>

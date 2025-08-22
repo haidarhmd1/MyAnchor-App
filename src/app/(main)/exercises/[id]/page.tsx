@@ -17,12 +17,22 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
-      <Alert variant="default" className="mb-4">
-        <Lightbulb />
-        <AlertTitle>{exercise.title}</AlertTitle>
-        <AlertDescription>{exercise.content}</AlertDescription>
-      </Alert>
-      <Tracker exercise={exercise} />
+      <div
+        className="h-60 w-full rounded-b-4xl"
+        style={{
+          backgroundImage: `url(${exercise.imgSrc})`,
+          backgroundPosition: "center",
+          backgroundSize: "contain",
+        }}
+      />
+      <div className="p-4">
+        <Alert variant="default" className="mb-4">
+          <Lightbulb />
+          <AlertTitle>{exercise.title}</AlertTitle>
+          <AlertDescription>{exercise.content}</AlertDescription>
+        </Alert>
+        <Tracker exercise={exercise} />
+      </div>
     </>
   );
 }

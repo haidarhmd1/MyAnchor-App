@@ -1,7 +1,7 @@
 import { BackArrow } from "./_components/BackArrow";
 
 export function Header({
-  title = "MyPsychologyApp",
+  title = "MyAnchor App",
   right,
 }: {
   title?: string;

@@ -49,7 +49,7 @@ export const InspirationForToday = () => {
     <div className="w-full max-w-md space-y-4">
       <h2>Inspiration for today</h2>
 
-      <Card className="border-none bg-[#B5E2D3] p-0 shadow-none">
+      <Card className="rounded-4xl border-none bg-[#B5E2D3] p-0 shadow-none">
         <CardContent className="relative p-6">
           <button
             type="button"

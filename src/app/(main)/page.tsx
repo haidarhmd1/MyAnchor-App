@@ -6,16 +6,16 @@ import { QuickTips } from "@/app/(main)/_components/QuickTips";
 import { InspirationForToday } from "./_components/InspirationForToday";
 import { Metadata } from "next";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <div className="space-y-9 px-4">
+    <div className="space-y-6 px-4">
       <div>
         <TodaysFocus />
       </div>
       <div>
         <EmergencyButton />
       </div>
-      <div className="grid grid-cols-1 gap-2">
+      <div className="grid grid-cols-1 gap-0">
         {categories.map((c) => (
           <CardContainer
             key={c.id}

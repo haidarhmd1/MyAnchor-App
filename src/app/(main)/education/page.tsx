@@ -2,7 +2,7 @@ import { CardContainer } from "@/components/Card/Card";
 import { education } from "@/const/links";
 import { Metadata } from "next";
 
-export default function EducationPage() {
+export default async function EducationPage() {
   return (
     <>
       <div

@@ -17,7 +17,7 @@ export const DailyChallenge = ({
 }: Props) => {
   const variants = {
     [DailyChallengeStatus.Pending]: {
-      href: "/exposure/planner/result",
+      href: "/exposure/challenge/result",
       icon: <Award className="h-5 w-5" aria-hidden="true" />,
       title: "Daily Challenge Pending",
       subtitle: "Did you complete your daily challenge?",
@@ -26,7 +26,7 @@ export const DailyChallenge = ({
       linkable: true,
     },
     [DailyChallengeStatus.NotStarted]: {
-      href: "/exposure/planner",
+      href: "/exposure/challenge",
       icon: <BadgePlus className="h-5 w-5" aria-hidden="true" />,
       title: "Still not set up a daily challenge?",
       subtitle: "Start a new Challenge",

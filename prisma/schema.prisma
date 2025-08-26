@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// model User {
+//   id           String    @id @default(cuid())
+//   email        String    @unique
+//   name         String?
+//   journalEntry Journal[]
+// }
+
+model Journal {
+  id                         String   @id @default(cuid())
+  hasAnxietyAttack           Boolean?
+  hasAvoidedSituations       Boolean?
+  typesOfSituationYouAvoided String[] // array of strings
+  typesOfSituationYouWereIn  String[]
+  whyYourWereAvoidingIt      String[]
+  typesOfBodySymptoms        String[]
+  anxietyLevelRating         Int?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // for soft deletes
+  // userId    String
+  // user      User      @relation(fields: [userId], references: [id])
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum Company {
+  ALONE
+  WITH_OTHERS
+}
+
+enum CHALLENGE_STATUS {
+  NOT_STARTED
+  FINISHED
+}
+
+model Challenge {
+  id              String           @id @default(cuid())
+  company         Company
+  challengeOption Json
+  status          CHALLENGE_STATUS @default(NOT_STARTED)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // for soft deletes
+}

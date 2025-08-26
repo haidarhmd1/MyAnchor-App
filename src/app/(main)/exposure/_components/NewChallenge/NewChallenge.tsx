@@ -6,7 +6,7 @@ import Link from "next/link";
 export const NewChallenge = () => {
   return (
     <Link
-      href="/exposure/planner"
+      href="/exposure/challenge"
       style={{
         display: "contents",
       }}

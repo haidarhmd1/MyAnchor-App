@@ -50,7 +50,7 @@ const formSteps: FormStep[] = [
   },
 ];
 
-export default function PlannerForm() {
+export default function ChallengeForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
@@ -82,8 +82,9 @@ export default function PlannerForm() {
     const label = customInput.trim();
     if (!label) return;
 
+    const trimmedLabel = label.replace(/\s+/g, "-");
     const newOption = {
-      id: `custom-${Date.now()}`,
+      id: `custom-${trimmedLabel}`,
       label,
       description: "Custom option",
       isCustom: true,
@@ -119,8 +120,11 @@ export default function PlannerForm() {
   };
 
   const handleSubmit = () => {
-    console.log("Form submitted:", selectedOptions);
-    alert("Form submitted successfully!");
+    const option = dynamicSteps[0].options.filter(
+      (d) => d.id === selectedOptions.location,
+    );
+    console.log("Form submitted:", selectedOptions.company);
+    console.log("option", option[0]);
   };
 
   return (
@@ -241,37 +245,39 @@ export default function PlannerForm() {
               );
             })}
 
-            {/* Custom input (added under current difficulty on location step) */}
-            <Card className="border-muted-foreground/30 border-2 border-dashed p-0">
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-3">
-                  <div className="flex-1">
-                    <Input
-                      placeholder={
-                        isLocationStep
-                          ? "Add your own challenge..."
-                          : "Add your own option..."
-                      }
-                      value={customInput}
-                      onChange={(e) => setCustomInput(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") handleAddCustomOption();
-                      }}
-                      className="placeholder:text-muted-foreground border-0 bg-transparent p-0 text-base focus-visible:ring-0"
-                    />
+            {isLocationStep && (
+              // {/* Custom input (added under current difficulty on location step) */}
+              <Card className="border-muted-foreground/30 border-2 border-dashed p-0">
+                <CardContent className="p-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex-1">
+                      <Input
+                        placeholder={
+                          isLocationStep
+                            ? "Add your own challenge..."
+                            : "Add your own option..."
+                        }
+                        value={customInput}
+                        onChange={(e) => setCustomInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") handleAddCustomOption();
+                        }}
+                        className="placeholder:text-muted-foreground border-0 bg-transparent p-0 text-base focus-visible:ring-0"
+                      />
+                    </div>
+                    <Button
+                      size="sm"
+                      onClick={handleAddCustomOption}
+                      disabled={!customInput.trim()}
+                      className="h-8 w-8 bg-blue-500 p-0 hover:bg-blue-600"
+                      aria-label="Add custom option"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
                   </div>
-                  <Button
-                    size="sm"
-                    onClick={handleAddCustomOption}
-                    disabled={!customInput.trim()}
-                    className="h-8 w-8 bg-blue-500 p-0 hover:bg-blue-600"
-                    aria-label="Add custom option"
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Navigation */}

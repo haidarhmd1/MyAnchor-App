@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 
 export function AnxietyLevelRating({
   onNext,
-  onPrev,
 }: {
   onNext(): void;
   onPrev?: () => void;

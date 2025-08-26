@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 
 export const HasAvoidedSituation = ({
   onNext,
-  onPrev,
 }: {
   onNext(): void;
   onPrev?: () => void;

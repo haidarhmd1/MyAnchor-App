@@ -18,7 +18,6 @@ type Option = {
 
 export function SituationYouWereIn({
   onNext,
-  onPrev,
   generalOptions,
   controlName,
 }: {

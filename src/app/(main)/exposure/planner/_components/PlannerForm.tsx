@@ -1,11 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Check, ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { challenges } from "@/const/form/formStep";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+type Difficulty = "easy" | "medium" | "hard";
 
 interface FormStep {
   id: string;
@@ -16,7 +20,7 @@ interface FormStep {
     label: string;
     description: string;
     isCustom?: boolean;
-    difficulty?: "easy" | "medium" | "hard";
+    difficulty?: Difficulty;
   }[];
 }
 
@@ -24,198 +28,7 @@ const formSteps: FormStep[] = [
   {
     id: "location",
     label: "Where will you challenge yourself today?",
-    options: [
-      {
-        id: "home",
-        label: "Home",
-        description: "Familiar place, low difficulty",
-        difficulty: "easy",
-      },
-      {
-        id: "outside",
-        label: "Outside",
-        description: "Street, park, small errands",
-        difficulty: "medium",
-      },
-      {
-        id: "work",
-        label: "Work/School",
-        description: "Tasks, meetings, classes",
-        difficulty: "medium",
-      },
-      {
-        id: "transport",
-        label: "Transport",
-        description: "Bus, train, car rides",
-        difficulty: "hard",
-      },
-      {
-        id: "crowd",
-        label: "Crowd/Queue",
-        description: "Busy shops, waiting in line",
-        difficulty: "hard",
-      },
-
-      // Social & events
-      {
-        id: "event_birthday",
-        label: "Birthday",
-        description: "Attend a birthday gathering",
-        difficulty: "medium",
-      },
-      {
-        id: "event_company",
-        label: "Company Event",
-        description: "Work social, offsite, party",
-        difficulty: "hard",
-      },
-      {
-        id: "event_gathering",
-        label: "Friends Gathering",
-        description: "Small/medium social meetup",
-        difficulty: "medium",
-      },
-      {
-        id: "event_festival",
-        label: "Festival/Concert",
-        description: "Large crowd, loud music",
-        difficulty: "hard",
-      },
-
-      // Travel specifics
-      {
-        id: "travel_airport",
-        label: "Airport",
-        description: "Check-in, security, gate",
-        difficulty: "hard",
-      },
-      {
-        id: "travel_flight",
-        label: "Flight",
-        description: "Short- or long-haul flight",
-        difficulty: "hard",
-      },
-      {
-        id: "transport_rideshare",
-        label: "Ride Share/Taxi",
-        description: "Uber/Taxi alone",
-        difficulty: "medium",
-      },
-
-      // Everyday public places
-      {
-        id: "shopping_supermarket",
-        label: "Supermarket",
-        description: "Aisles, checkout line",
-        difficulty: "medium",
-      },
-      {
-        id: "mall",
-        label: "Shopping Mall",
-        description: "Enclosed, busy space",
-        difficulty: "medium",
-      },
-      {
-        id: "dining_restaurant",
-        label: "Restaurant/Café",
-        description: "Stay through full meal",
-        difficulty: "medium",
-      },
-      {
-        id: "cinema",
-        label: "Cinema/Theater",
-        description: "Sit through screening/show",
-        difficulty: "medium",
-      },
-      {
-        id: "gym",
-        label: "Gym/Class",
-        description: "Tolerate heartbeat sensations",
-        difficulty: "medium",
-      },
-      {
-        id: "religious_service",
-        label: "Religious Service",
-        description: "Stay for full service",
-        difficulty: "medium",
-      },
-
-      // Performance/interaction
-      {
-        id: "presentation",
-        label: "Presentation/Meeting",
-        description: "Speak or stay present",
-        difficulty: "hard",
-      },
-      {
-        id: "interview",
-        label: "Interview",
-        description: "Job/School interview",
-        difficulty: "hard",
-      },
-      {
-        id: "phone_call",
-        label: "Phone Call",
-        description: "Make/receive & stay on call",
-        difficulty: "easy",
-      },
-      {
-        id: "video_call",
-        label: "Video Call",
-        description: "Camera on, stay engaged",
-        difficulty: "medium",
-      },
-
-      // Movement & confined spaces
-      {
-        id: "elevator",
-        label: "Elevator",
-        description: "Ride and remain inside",
-        difficulty: "medium",
-      },
-      {
-        id: "bridge_tunnel",
-        label: "Bridge/Tunnel",
-        description: "Cross or drive through",
-        difficulty: "hard",
-      },
-      {
-        id: "highway_driving",
-        label: "Highway Driving",
-        description: "Sustained speed traffic",
-        difficulty: "hard",
-      },
-
-      // Medical contexts
-      {
-        id: "medical_dentist",
-        label: "Dentist",
-        description: "Sit through appointment",
-        difficulty: "hard",
-      },
-      {
-        id: "medical_hospital",
-        label: "Hospital/Clinic",
-        description: "Waiting room, procedures",
-        difficulty: "hard",
-      },
-
-      // Gentle starters
-      {
-        id: "night_walk",
-        label: "Night Walk",
-        description: "Short evening neighborhood walk",
-        difficulty: "easy",
-      },
-
-      // Custom
-      {
-        id: "custom_location",
-        label: "Custom Location",
-        description: "Write your own",
-        isCustom: true,
-      },
-    ],
+    options: challenges, // must include difficulty on each item
   },
   {
     id: "company",
@@ -239,32 +52,43 @@ const formSteps: FormStep[] = [
 
 export default function PlannerForm() {
   const [currentStep, setCurrentStep] = useState(0);
-
-  // One selection per step: { [stepId]: optionId }
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
-
   const [customInput, setCustomInput] = useState("");
   const [dynamicSteps, setDynamicSteps] = useState<FormStep[]>(formSteps);
 
+  // Difficulty tab state (only used on the "location" step)
+  const [difficulty, setDifficulty] = useState<Difficulty>("easy");
+
+  const currentStepData = dynamicSteps[currentStep];
+  const currentStepId = currentStepData.id;
+  const currentSelection = selectedOptions[currentStepId];
+  const isLocationStep = currentStepId === "location";
+
+  // For location step, filter by active tab; for others show all options
+  const visibleOptions = useMemo(() => {
+    if (!isLocationStep) return currentStepData.options;
+    return currentStepData.options.filter(
+      (o) => o.isCustom || o.difficulty === difficulty,
+    );
+  }, [currentStepData.options, isLocationStep, difficulty]);
+
   const handleSelect = (stepId: string, optionId: string) => {
-    setSelectedOptions((prev) => ({
-      ...prev,
-      [stepId]: optionId, // single-select: replace any previous selection
-    }));
+    setSelectedOptions((prev) => ({ ...prev, [stepId]: optionId }));
   };
 
   const handleAddCustomOption = () => {
-    if (!customInput.trim()) return;
+    const label = customInput.trim();
+    if (!label) return;
 
-    const currentStepId = dynamicSteps[currentStep].id;
-    const newOptionId = `custom-${Date.now()}`;
     const newOption = {
-      id: newOptionId,
-      label: customInput.trim(),
+      id: `custom-${Date.now()}`,
+      label,
       description: "Custom option",
       isCustom: true,
+      // attach current difficulty so it appears under the active tab
+      ...(isLocationStep ? { difficulty } : {}),
     };
 
     setDynamicSteps((prev) =>
@@ -276,14 +100,11 @@ export default function PlannerForm() {
     );
 
     // Auto-select the newly added option
-    setSelectedOptions((prev) => ({ ...prev, [currentStepId]: newOptionId }));
+    setSelectedOptions((prev) => ({ ...prev, [currentStepId]: newOption.id }));
     setCustomInput("");
   };
 
-  const canGoNext = () => {
-    const currentStepId = dynamicSteps[currentStep].id;
-    return Boolean(selectedOptions[currentStepId]);
-  };
+  const canGoNext = Boolean(currentSelection);
 
   const handleNext = () => {
     if (currentStep < dynamicSteps.length - 1) {
@@ -301,9 +122,6 @@ export default function PlannerForm() {
     console.log("Form submitted:", selectedOptions);
     alert("Form submitted successfully!");
   };
-
-  const currentStepData = dynamicSteps[currentStep];
-  const currentSelection = selectedOptions[currentStepData.id];
 
   return (
     <div className="flex items-center justify-center py-0">
@@ -333,13 +151,30 @@ export default function PlannerForm() {
             </div>
           </div>
 
-          {/* Options (radiogroup) */}
+          {/* Difficulty Tabs (only on location step) */}
+          {isLocationStep && (
+            <div className="mb-4">
+              <Tabs
+                value={difficulty}
+                onValueChange={(v) => setDifficulty(v as Difficulty)}
+                className="w-full"
+              >
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="easy">Easy</TabsTrigger>
+                  <TabsTrigger value="medium">Medium</TabsTrigger>
+                  <TabsTrigger value="hard">Hard</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+          )}
+
+          {/* Options (radio-style) */}
           <div
             className="space-y-3"
             role="radiogroup"
             aria-label={currentStepData.label}
           >
-            {currentStepData.options.map((option) => {
+            {visibleOptions.map((option) => {
               const isSelected = currentSelection === option.id;
               return (
                 <Card
@@ -350,7 +185,7 @@ export default function PlannerForm() {
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      handleSelect(currentStepData.id, option.id);
+                      handleSelect(currentStepId, option.id);
                     }
                   }}
                   className={cn(
@@ -359,7 +194,7 @@ export default function PlannerForm() {
                       ? "border-blue-500 bg-blue-50 shadow-sm"
                       : "hover:border-muted-foreground/50",
                   )}
-                  onClick={() => handleSelect(currentStepData.id, option.id)}
+                  onClick={() => handleSelect(currentStepId, option.id)}
                 >
                   <CardContent className="p-2">
                     <div className="flex items-start space-x-3">
@@ -406,13 +241,17 @@ export default function PlannerForm() {
               );
             })}
 
-            {/* Custom input */}
+            {/* Custom input (added under current difficulty on location step) */}
             <Card className="border-muted-foreground/30 border-2 border-dashed p-0">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3">
                   <div className="flex-1">
                     <Input
-                      placeholder="Add your own option..."
+                      placeholder={
+                        isLocationStep
+                          ? "Add your own challenge..."
+                          : "Add your own option..."
+                      }
                       value={customInput}
                       onChange={(e) => setCustomInput(e.target.value)}
                       onKeyDown={(e) => {
@@ -450,8 +289,8 @@ export default function PlannerForm() {
             {currentStep === dynamicSteps.length - 1 ? (
               <Button
                 onClick={handleSubmit}
-                disabled={!canGoNext()}
-                className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600"
+                disabled={!canGoNext}
+                className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
               >
                 <span>Submit</span>
                 <Check className="ml-1 h-4 w-4" />
@@ -459,8 +298,8 @@ export default function PlannerForm() {
             ) : (
               <Button
                 onClick={handleNext}
-                disabled={!canGoNext()}
-                className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600"
+                disabled={!canGoNext}
+                className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
               >
                 <span>Next</span>
                 <ChevronRight className="h-4 w-4" />

@@ -2,91 +2,81 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Award, BadgePlus, CheckCheck } from "lucide-react";
 import Link from "next/link";
 
-const isDailyChallengeDone: "pending" | "notStarted" | "finished" = "pending";
+export enum DailyChallengeStatus {
+  Pending = "Pending",
+  NotStarted = "NotStarted",
+  Finished = "Finished",
+}
 
-export const DailyChallenge = () => {
-  switch (isDailyChallengeDone) {
-    case "pending":
-      return (
-        <Link
-          href="journal"
-          style={{
-            display: "contents",
-          }}
-        >
-          <Card className="justify-start rounded-4xl border-2 border-dashed bg-amber-100 align-top shadow-md">
-            <CardContent className="flex flex-row gap-4">
-              <div className="shrink-0">
-                <Award className="h-5 w-5 font-light" />
-              </div>
-              <div>
-                <h5 className="font-light">
-                  Did you complete your daily challenge?
-                </h5>
-                <h4>Daily Challenge Pending</h4>
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-      );
-    case "notStarted":
-      return (
-        <Link
-          href="/exposure/planner"
-          style={{
-            display: "contents",
-          }}
-        >
-          <Card className="justify-start rounded-4xl border-cyan-300 bg-cyan-100 align-top">
-            <CardContent className="flex flex-row gap-4">
-              <div className="shrink-0">
-                <BadgePlus className="h-5 w-5 font-light" />
-              </div>
-              <div className="space-y-2">
-                <h5 className="font-light">Start a new Challenge</h5>
-                <h4>Still not set up a daily challenge?</h4>
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-      );
-    case "finished":
-      return (
-        <Card className="justify-start rounded-4xl border-2 border-green-300 bg-green-100 align-top shadow-md">
-          <CardContent className="flex flex-row gap-4">
-            <div className="shrink-0">
-              <CheckCheck className="h-5 w-5 font-light" />
-            </div>
-            <div>
-              <h5 className="font-light">Amazing!</h5>
-              <h4>Daily Challenge Done</h4>
-            </div>
-          </CardContent>
-        </Card>
-      );
-    default:
-      return (
-        <Link
-          href="/exposure/planner"
-          style={{
-            display: "contents",
-          }}
-        >
-          <Card className="justify-start rounded-4xl border-2 border-dashed bg-amber-100 align-top shadow-md">
-            <CardContent className="flex flex-row gap-4">
-              <div className="shrink-0">
-                <Award className="h-5 w-5 font-light" />
-              </div>
-              <div>
-                <h5 className="font-light">
-                  Start a new Challenge either you can start right away or later
-                  that day it.
-                </h5>
-                <h4>Still not set up a daily challenge?</h4>
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-      );
+type Props = {
+  status?: DailyChallengeStatus; // optional: defaults to NotStarted
+};
+
+export const DailyChallenge = ({
+  status = DailyChallengeStatus.Pending,
+}: Props) => {
+  const variants = {
+    [DailyChallengeStatus.Pending]: {
+      href: "/exposure/planner/result",
+      icon: <Award className="h-5 w-5" aria-hidden="true" />,
+      title: "Daily Challenge Pending",
+      subtitle: "Did you complete your daily challenge?",
+      cardClass:
+        "border-2 border-dashed border-amber-300 bg-amber-100 hover:border-amber-400",
+      linkable: true,
+    },
+    [DailyChallengeStatus.NotStarted]: {
+      href: "/exposure/planner",
+      icon: <BadgePlus className="h-5 w-5" aria-hidden="true" />,
+      title: "Still not set up a daily challenge?",
+      subtitle: "Start a new Challenge",
+      cardClass: "border-2 border-cyan-300 bg-cyan-100 hover:border-cyan-400",
+      linkable: true,
+    },
+    [DailyChallengeStatus.Finished]: {
+      href: undefined,
+      icon: <CheckCheck className="h-5 w-5" aria-hidden="true" />,
+      title: "Daily Challenge Done",
+      subtitle: "Amazing!",
+      cardClass: "border-2 border-green-300 bg-green-100",
+      linkable: false,
+    },
+  } as const;
+
+  const v = variants[status] ?? variants[DailyChallengeStatus.NotStarted];
+
+  const Inner = (
+    <Card
+      className={[
+        "group rounded-3xl shadow-sm transition-colors focus-within:ring-2 focus-within:ring-blue-400 focus-within:ring-offset-2",
+        v.cardClass,
+      ].join(" ")}
+      role={v.linkable ? "link" : undefined}
+      aria-label={v.title}
+    >
+      <CardContent className="flex items-start gap-4 p-4 sm:p-5">
+        <div className="text-foreground/80 shrink-0">{v.icon}</div>
+        <div className="space-y-1">
+          <h5 className="text-foreground/80 text-sm leading-none font-light">
+            {v.subtitle}
+          </h5>
+          <h4 className="text-base font-semibold">{v.title}</h4>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  if (v.linkable && v.href) {
+    return (
+      <Link
+        href={v.href}
+        className="block focus:outline-none"
+        aria-label={v.title}
+      >
+        {Inner}
+      </Link>
+    );
   }
+
+  return Inner;
 };

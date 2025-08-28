@@ -3,15 +3,15 @@
 import Image from "next/image";
 import { useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { FormType } from "../ResultForm";
+import { FormChallengeOutcomeType } from "../helper";
 
-export function DidYouDoTheChallenge({
+export function HadCompletedChallenge({
   onNext,
 }: {
   onNext(): void;
   onPrev?: () => void;
 }) {
-  const { setValue } = useFormContext<FormType>();
+  const { setValue } = useFormContext<FormChallengeOutcomeType>();
 
   return (
     <div className="space-y-6 text-center">
@@ -27,7 +27,7 @@ export function DidYouDoTheChallenge({
           type="button"
           variant="outline"
           onClick={() => {
-            setValue("hasDoneTheChallenge", true, { shouldDirty: true });
+            setValue("hadCompletedChallenge", true, { shouldDirty: true });
             onNext();
           }}
         >
@@ -37,7 +37,7 @@ export function DidYouDoTheChallenge({
           type="button"
           variant="outline"
           onClick={() => {
-            setValue("hasDoneTheChallenge", false, { shouldDirty: true });
+            setValue("hadCompletedChallenge", false, { shouldDirty: true });
             onNext();
           }}
         >

@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { FormType } from "../Journal";
+import { FormJournalType } from "../helper";
 
 type Option = {
   id: string;
@@ -30,19 +30,9 @@ export function SituationYouWereIn({
     isCustom?: boolean;
     difficulty?: "easy" | "medium" | "hard";
   }[];
-  controlName:
-    | "hasAnxietyAttack"
-    | "hasAvoidedSituations"
-    | "typesOfSituationYouAvoided"
-    | "typesOfSituationYouWereIn"
-    | "typesOfBodySymptoms"
-    | "anxietyLevelRating"
-    | "whyYourWhereAvoidingIt"
-    | `typesOfSituationYouAvoided.${number}`
-    | `typesOfSituationYouWereIn.${number}`
-    | `typesOfBodySymptoms.${number}`;
+  controlName: keyof FormJournalType;
 }) {
-  const { control } = useFormContext<FormType>();
+  const { control } = useFormContext<FormJournalType>();
 
   const { field } = useController({
     name: controlName,

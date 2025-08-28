@@ -39,7 +39,7 @@ export default async function Page({ params }: Props) {
               <Link
                 key={sources.id}
                 href={sources.url}
-                className="mt-2 block text-xs font-light break-words text-blue-500"
+                className="mt-2 block rounded-4xl border border-gray-300 p-4 text-xs font-light break-words text-blue-500"
               >
                 {sources.url}
               </Link>

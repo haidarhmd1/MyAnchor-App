@@ -1,9 +1,45 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { BookOpenCheck } from "lucide-react";
+import { BookOpenCheck, CheckCheck } from "lucide-react";
 import Link from "next/link";
+import prisma from "../../../../lib/prisma";
 
-export function JournalButton() {
+export async function JournalButton() {
+  const journalEntry = await prisma.journal.findFirst({
+    where: {
+      deletedAt: null,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (journalEntry) {
+    return (
+      <div className="mb-3 flex justify-center">
+        <Card
+          className={cn(
+            "w-full cursor-pointer rounded-4xl border-green-50 bg-green-50 py-4 transition-all duration-300 hover:shadow-lg",
+          )}
+        >
+          <CardContent>
+            <div className="flex flex-col items-center gap-4">
+              <div className="shrink-0">
+                <CheckCheck className="h-8 w-8 text-green-500" />
+              </div>
+              <div className="text-center">
+                <h5 className="font-light text-green-500">
+                  Your daily journal
+                </h5>
+                <h4 className="text-green-700">Entry for today done!</h4>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <Link
       href="/journal"
@@ -14,15 +50,15 @@ export function JournalButton() {
       <div className="mb-3 flex justify-center">
         <Card
           className={cn(
-            "w-full cursor-pointer rounded-2xl border-blue-50 bg-blue-50 py-4 transition-all duration-300 hover:shadow-lg",
+            "w-full cursor-pointer rounded-4xl border-blue-50 bg-blue-50 py-4 transition-all duration-300 hover:shadow-lg",
           )}
         >
           <CardContent>
-            <div className="flex flex-row items-center gap-4">
+            <div className="flex flex-col items-center gap-4">
               <div className="shrink-0">
                 <BookOpenCheck className="h-8 w-8 text-blue-500" />
               </div>
-              <div>
+              <div className="text-center">
                 <h5 className="font-light text-blue-500">Your daily journal</h5>
                 <h4 className="text-blue-700">Journal</h4>
               </div>

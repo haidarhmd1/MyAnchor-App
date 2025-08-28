@@ -1,5 +1,7 @@
 import { Lexend } from "next/font/google";
 import "./globals.css";
+import TanstackQueryProviders from "./providers";
+import { Toaster } from "sonner";
 
 const lexend = Lexend({
   variable: "--font-lexend",
@@ -16,7 +18,8 @@ export default function RootLayout({
       <body
         className={`${lexend.variable} typography background-color: var(--color-background) antialiased`}
       >
-        {children}
+        <TanstackQueryProviders>{children}</TanstackQueryProviders>
+        <Toaster />
       </body>
     </html>
   );

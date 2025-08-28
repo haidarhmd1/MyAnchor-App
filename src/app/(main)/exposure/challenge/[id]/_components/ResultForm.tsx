@@ -6,9 +6,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
-// Import your step components:
-import { HasAnxietyAttackStep } from "./Steps/HasAnxietyAttack";
-import { HasStoppedTheChallenge } from "./Steps/HasStoppedTheChallenge";
 import { MultipleChoice } from "./Steps/MultipleChoice";
 import {
   afterAttackActionsOptions,
@@ -20,148 +17,53 @@ import {
   symptomOptions,
 } from "@/const/form/formStep";
 import { SingleChoice } from "./Steps/SingleChoice";
-import { DidYouDoTheChallenge } from "./Steps/DidYouDoTheChallenge";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import {
+  ANXIETY_CHECK,
+  AVOIDANCE_STEPS,
+  BASE_STEP,
+  CONTINUED_CHALLENGE,
+  defaultValues,
+  FormChallengeOutcomeType,
+  NO_ANXIETY_STEPS,
+  REASONS_FOR_SKIPPING_CHALLENGE,
+  Step,
+  STOPPED_CHALLENGE,
+} from "./helper";
+import { HadCompletedChallenge } from "./Steps/HadCompletedChallenge";
+import { HadAnxietyAttackStep } from "./Steps/HadAnxietyAttack";
+import { StoppedEarly } from "./Steps/StoppedEarly";
+import { createChallengeOutcome } from "@/lib/api";
+import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export interface FormType {
-  hasDoneTheChallenge: boolean;
-  whyDidntYouDoTheChallenge: string[];
-  hadAnxietyAttack: boolean;
-  hasStoppedTheChallenge: boolean;
-  whyDidYouStoppedTheChallenge?: string[];
-  whatDidYouDo?: string[];
-  typesOfBodySymptoms?: string[];
-  anxietyLevelRating?: number;
-  howDidYouFindThisChallenge?: number;
-  keepOnGoingThoughPanicArises?: string[];
-}
-
-const BASE_STEP = [
-  {
-    id: "hasDoneTheChallenge",
-    title: "",
-    subtitle: "Did you do the challenge?",
-  },
-] as const;
-
-const ANXIETY_CHECK = [
-  {
-    id: "hadAnxietyAttack",
-    title: "Did you had an Anxiety attack",
-    subtitle: "Did you have had an anxiety attack during this challenge?",
-  },
-] as const;
-
-const REASONS_FOR_SKIPPING_CHALLENGE = [
-  {
-    id: "reasonsWhyYouDidNotDoTheChallenge",
-    title: "Why did not you do the challenge?",
-    subtitle: "Reasons on why you did not it",
-  },
-] as const;
-
-const AVOIDANCE_STEPS = [
-  {
-    id: "hasStoppedTheChallenge",
-    title: "Stopped the Challenge",
-    subtitle: "Did you stopped the challenge though?",
-  },
-] as const;
-
-const CONTINUED_CHALLENGE = [
-  {
-    id: "typesOfBodySymptoms",
-    title: "Body Sensations while continuing the challenge",
-    subtitle:
-      "Though you had an anxiety/panic attack what were the symptoms you had?",
-  },
-  {
-    id: "keepOnGoingThoughPanicArises",
-    title: "You kept going though you had an attack!",
-    subtitle: "Tell me about your motivations on why?",
-  },
-  {
-    id: "anxietyLevelRating",
-    title: "Rate Anxiety",
-    subtitle: "How intense was your anxiety?",
-  },
-] as const;
-
-const STOPPED_CHALLENGE = [
-  {
-    id: "whyDidYouStoppedTheChallenge",
-    title: "Reasons why you stopped the challenge",
-    subtitle: "Tell me why you stopped the challenge?",
-  },
-  {
-    id: "whatDidYouDo",
-    title: "",
-    subtitle: "What did you ?",
-  },
-  {
-    id: "typesOfBodySymptoms",
-    title: "Body Sensations",
-    subtitle: "What did you feel in your body?",
-  },
-  {
-    id: "anxietyLevelRating",
-    title: "Rate Anxiety",
-    subtitle: "How intense was your anxiety?",
-  },
-] as const;
-
-const NO_ANXIETY_STEPS = [
-  {
-    id: "howDidYouFindThisChallenge",
-    title: "How did you find this challenge?",
-    subtitle: "Rate how did you find this challenge",
-  },
-] as const;
-
-type BaseStep = (typeof BASE_STEP)[number];
-type DidTheChallenge = (typeof ANXIETY_CHECK)[number];
-type ReasonsWhyYouDidNotDoTheChallenge =
-  (typeof REASONS_FOR_SKIPPING_CHALLENGE)[number];
-type AvoidanceStep = (typeof AVOIDANCE_STEPS)[number];
-type AnxietyStep = (typeof NO_ANXIETY_STEPS)[number];
-type StoppedChallengeStep = (typeof STOPPED_CHALLENGE)[number];
-type ContinuedChallengeThoughAnxiety = (typeof CONTINUED_CHALLENGE)[number];
-
-type Step =
-  | BaseStep
-  | AvoidanceStep
-  | AnxietyStep
-  | StoppedChallengeStep
-  | ContinuedChallengeThoughAnxiety
-  | DidTheChallenge
-  | ReasonsWhyYouDidNotDoTheChallenge;
 export type StepId = Step["id"];
 
-const StepRegistry: Record<
+const STEPS_COMPONENTS: Record<
   StepId,
   React.ComponentType<{ onNext(): void; onPrev(): void }>
 > = {
-  hasDoneTheChallenge: (props) => <DidYouDoTheChallenge {...props} />,
+  hadCompletedChallenge: (props) => <HadCompletedChallenge {...props} />,
   reasonsWhyYouDidNotDoTheChallenge: (props) => (
     <MultipleChoice
       generalOptions={skippedChallengeReasonsOptions}
-      controlName="whyDidYouStoppedTheChallenge"
+      controlName="stopReasons"
       {...props}
     />
   ),
-  hadAnxietyAttack: (props) => <HasAnxietyAttackStep {...props} />,
-  hasStoppedTheChallenge: (props) => <HasStoppedTheChallenge {...props} />,
-  whyDidYouStoppedTheChallenge: (props) => (
+  hadAnxietyAttack: (props) => <HadAnxietyAttackStep {...props} />,
+  stoppedEarly: (props) => <StoppedEarly {...props} />,
+  stopReasons: (props) => (
     <MultipleChoice
-      controlName="whyDidYouStoppedTheChallenge"
+      controlName="stopReasons"
       generalOptions={stopReasonsOptions}
       {...props}
     />
   ),
-  whatDidYouDo: (props) => (
+  actionsTaken: (props) => (
     <MultipleChoice
-      controlName="whatDidYouDo"
+      controlName="actionsTaken"
       generalOptions={afterAttackActionsOptions}
       {...props}
     />
@@ -173,9 +75,9 @@ const StepRegistry: Record<
       {...props}
     />
   ),
-  keepOnGoingThoughPanicArises: (props) => (
+  copingStrategies: (props) => (
     <MultipleChoice
-      controlName="keepOnGoingThoughPanicArises"
+      controlName="copingStrategies"
       generalOptions={keptGoingReasonsOptions}
       {...props}
     />
@@ -187,78 +89,69 @@ const StepRegistry: Record<
       {...props}
     />
   ),
-  howDidYouFindThisChallenge: (props) => (
+  challengeRating: (props) => (
     <SingleChoice
       options={exposureRatingOptions}
-      fieldName="howDidYouFindThisChallenge"
+      fieldName="challengeRating"
       {...props}
     />
   ),
 };
 
-export const ResultForm = () => {
+export function ResultForm({ challengeId }: { challengeId: string }) {
   const router = useRouter();
-  const form = useForm<FormType>({
-    defaultValues: {
-      hadAnxietyAttack: undefined,
-      hasDoneTheChallenge: undefined,
-      whyDidntYouDoTheChallenge: [],
-      hasStoppedTheChallenge: undefined,
-      whyDidYouStoppedTheChallenge: [],
-      whatDidYouDo: [],
-      typesOfBodySymptoms: [],
-      anxietyLevelRating: undefined,
-      howDidYouFindThisChallenge: 0,
-    },
+  const reduce = useReducedMotion();
+  const form = useForm<FormChallengeOutcomeType>({
+    defaultValues,
     mode: "onChange",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
-
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const reduce = useReducedMotion();
 
-  const hasDoneTheChallenge = form.watch("hasDoneTheChallenge");
+  const hadCompletedChallenge = form.watch("hadCompletedChallenge");
   const hadAnxietyAttack = form.watch("hadAnxietyAttack");
-  const hasStoppedTheChallenge = form.watch("hasStoppedTheChallenge");
+  const stoppedEarly = form.watch("stoppedEarly");
 
-  const conditionSteps = useMemo<Step[]>(() => {
+  const steps = useMemo<Step[]>(() => {
     // Not answered yet, wait for first answer
-    if (typeof hasDoneTheChallenge !== "boolean") return [...BASE_STEP];
-
-    if (hasDoneTheChallenge === false)
+    if (typeof hadCompletedChallenge !== "boolean") {
+      return [...BASE_STEP];
+    }
+    if (hadCompletedChallenge === false) {
       return [...BASE_STEP, ...REASONS_FOR_SKIPPING_CHALLENGE];
+    }
 
-    if (typeof hadAnxietyAttack !== "boolean")
+    if (typeof hadAnxietyAttack !== "boolean") {
       return [...BASE_STEP, ...ANXIETY_CHECK];
-
+    }
     // No anxiety today -> simple path
     if (hadAnxietyAttack === false) {
       return [...BASE_STEP, ...ANXIETY_CHECK, ...NO_ANXIETY_STEPS];
     }
+
     const steps: Step[] = [...BASE_STEP, ...ANXIETY_CHECK, AVOIDANCE_STEPS[0]];
-    if (hasStoppedTheChallenge === true) {
+    if (stoppedEarly === true) {
       steps.push(...STOPPED_CHALLENGE);
     } else {
       steps.push(...CONTINUED_CHALLENGE);
     }
-
     return steps;
-  }, [hadAnxietyAttack, hasStoppedTheChallenge, hasDoneTheChallenge]);
+  }, [hadAnxietyAttack, stoppedEarly, hadCompletedChallenge]);
 
   const handleNext = () => {
     // race condition, it keeps on finishing the step after
-    const id = conditionSteps[currentStepIndex].id;
-    if (id === "hasDoneTheChallenge") {
+    if (steps[currentStepIndex].id === "hadCompletedChallenge") {
       setCurrentStepIndex(1);
       return;
     }
-    if (id === "hadAnxietyAttack") {
+    if (steps[currentStepIndex].id === "hadAnxietyAttack") {
       setCurrentStepIndex(2);
       return;
     }
 
-    if (currentStepIndex >= conditionSteps.length - 1) {
+    if (currentStepIndex >= steps.length - 1) {
       form.handleSubmit(onSubmit)();
       return;
     }
@@ -269,19 +162,33 @@ export const ResultForm = () => {
     setCurrentStepIndex(currentStepIndex - 1);
   };
 
-  const onSubmit = (data: FormType) => {
-    console.log("Submit:", data);
-    setIsComplete(true);
-    // …send to API, etc.
+  const onSubmit = async (data: FormChallengeOutcomeType) => {
+    setIsLoading(true);
+    try {
+      await createChallengeOutcome({
+        id: challengeId,
+        data,
+      });
+      setIsComplete(true);
+      toast("Your progress has been save!", {
+        action: {
+          label: "Go back home",
+          onClick: () => {
+            router.replace("/");
+          },
+        },
+      });
+    } catch {
+      setIsComplete(false);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const ActiveStepComponent = useMemo(
-    () =>
-      conditionSteps[currentStepIndex]
-        ? StepRegistry[conditionSteps[currentStepIndex].id as StepId]
-        : () => <div />,
-    [conditionSteps, currentStepIndex],
-  );
+  const ActiveStepComponent = useMemo(() => {
+    const stepId = steps[currentStepIndex].id as StepId;
+    return steps[currentStepIndex] ? STEPS_COMPONENTS[stepId] : () => <div />;
+  }, [steps, currentStepIndex]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
@@ -291,6 +198,24 @@ export const ResultForm = () => {
     animate: { opacity: 1, y: 0, filter: "blur(0px)" },
     exit: { opacity: 0, y: -8, filter: "blur(4px)" },
   };
+
+  if (isLoading) {
+    return (
+      <div className="mx-auto max-w-2xl py-10">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduce ? 0 : 0.25 }}
+          className="mt-8 rounded-4xl bg-white p-8 text-center shadow-sm"
+        >
+          <h2 className="text-2xl font-semibold">Saving data</h2>
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+        </motion.div>
+      </div>
+    );
+  }
 
   if (isComplete) {
     return (
@@ -345,17 +270,15 @@ export const ResultForm = () => {
           <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="mb-6 text-center">
-                <h5 className="font-light">
-                  {conditionSteps[currentStepIndex].title}
-                </h5>
+                <h5 className="font-light">{steps[currentStepIndex].title}</h5>
                 <h2 className="text-foreground text-2xl">
-                  {conditionSteps[currentStepIndex].subtitle}
+                  {steps[currentStepIndex].subtitle}
                 </h2>
               </div>
               <div className="min-h-[260px]">
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key={conditionSteps[currentStepIndex].id}
+                    key={steps[currentStepIndex].id}
                     variants={variants}
                     initial="initial"
                     animate="animate"
@@ -378,4 +301,4 @@ export const ResultForm = () => {
       </div>
     </>
   );
-};
+}

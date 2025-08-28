@@ -4,17 +4,16 @@ import { useController, useFormContext } from "react-hook-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { FormType } from "../ResultForm";
+import { FormChallengeOutcomeType } from "../helper";
 
 export function SingleChoice({
   onNext,
-  onPrev,
   fieldName,
   options,
 }: {
   onNext(): void;
   onPrev?: () => void;
-  fieldName: keyof FormType;
+  fieldName: keyof FormChallengeOutcomeType;
   options: {
     id: string;
     label: string;
@@ -23,7 +22,7 @@ export function SingleChoice({
     difficulty?: "easy" | "medium" | "hard";
   }[];
 }) {
-  const { control } = useFormContext<FormType>();
+  const { control } = useFormContext<FormChallengeOutcomeType>();
 
   const { field } = useController({
     name: fieldName,

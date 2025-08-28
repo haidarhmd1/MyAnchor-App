@@ -8,6 +8,10 @@ import { Check, ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { challenges } from "@/const/form/formStep";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { createChallenge } from "@/lib/api";
+import { Company, Prisma } from "@prisma/client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type Difficulty = "easy" | "medium" | "hard";
 
@@ -35,27 +39,27 @@ const formSteps: FormStep[] = [
     label: "Who will be with you?",
     options: [
       {
-        id: "alone",
+        id: Company.ALONE,
         label: "Alone",
         description: "Face it by yourself",
-        difficulty: "hard",
       },
       {
-        id: "with_others",
+        id: Company.WITH_OTHERS,
         label: "With others",
         description: "Friends, family, or colleagues",
-        difficulty: "medium",
       },
     ],
   },
 ];
 
 export default function ChallengeForm() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
   const [customInput, setCustomInput] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [dynamicSteps, setDynamicSteps] = useState<FormStep[]>(formSteps);
 
   // Difficulty tab state (only used on the "location" step)
@@ -119,12 +123,30 @@ export default function ChallengeForm() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const option = dynamicSteps[0].options.filter(
       (d) => d.id === selectedOptions.location,
     );
-    console.log("Form submitted:", selectedOptions.company);
-    console.log("option", option[0]);
+
+    try {
+      await createChallenge({
+        data: {
+          company: selectedOptions.company as Company,
+          challengeOption: option[0] as Prisma.JsonObject,
+        },
+      });
+      toast("challenge created", {
+        position: "top-center",
+        description: "Challenge ceated",
+        action: {
+          label: "Back to Challenge page",
+          onClick: () => router.replace("/exposure"),
+        },
+      });
+      setIsSubmitted(true);
+    } catch {
+      toast("something went wrong");
+    }
   };
 
   return (
@@ -292,7 +314,7 @@ export default function ChallengeForm() {
               <span>Previous</span>
             </Button>
 
-            {currentStep === dynamicSteps.length - 1 ? (
+            {currentStep === dynamicSteps.length - 1 && !isSubmitted && (
               <Button
                 onClick={handleSubmit}
                 disabled={!canGoNext}
@@ -301,7 +323,9 @@ export default function ChallengeForm() {
                 <span>Submit</span>
                 <Check className="ml-1 h-4 w-4" />
               </Button>
-            ) : (
+            )}
+
+            {currentStep !== dynamicSteps.length - 1 && (
               <Button
                 onClick={handleNext}
                 disabled={!canGoNext}
@@ -309,6 +333,15 @@ export default function ChallengeForm() {
               >
                 <span>Next</span>
                 <ChevronRight className="h-4 w-4" />
+              </Button>
+            )}
+
+            {isSubmitted && (
+              <Button
+                onClick={() => router.replace("/")}
+                className="flex items-center space-x-2 bg-black hover:bg-gray-700 disabled:opacity-50"
+              >
+                <span>Back Home</span>
               </Button>
             )}
           </div>

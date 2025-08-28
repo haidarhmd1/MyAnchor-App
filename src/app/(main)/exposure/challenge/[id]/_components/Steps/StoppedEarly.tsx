@@ -2,32 +2,34 @@
 
 import Image from "next/image";
 import { useFormContext } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { FormType } from "../ResultForm";
 
-export function HasAnxietyAttackStep({
+import { Button } from "@/components/ui/button";
+import { FormChallengeOutcomeType } from "../helper";
+
+export const StoppedEarly = ({
   onNext,
 }: {
   onNext(): void;
   onPrev?: () => void;
-}) {
-  const { setValue } = useFormContext<FormType>();
+}) => {
+  const { setValue } = useFormContext<FormChallengeOutcomeType>();
 
   return (
     <div className="space-y-6 text-center">
       <Image
         className="m-auto"
-        alt="panic_attack_illustration"
-        src="/illustration/compressed_journal_pa.webp"
+        alt="avoidance_illustration"
+        src="/illustration/avoidance.webp"
         width={200}
         height={200}
       />
+
       <div className="flex w-full flex-row justify-between p-8">
         <Button
           type="button"
           variant="outline"
           onClick={() => {
-            setValue("hadAnxietyAttack", true, { shouldDirty: true });
+            setValue("stoppedEarly", true, { shouldDirty: true });
             onNext();
           }}
         >
@@ -37,7 +39,7 @@ export function HasAnxietyAttackStep({
           type="button"
           variant="outline"
           onClick={() => {
-            setValue("hadAnxietyAttack", false, { shouldDirty: true });
+            setValue("stoppedEarly", false, { shouldDirty: true });
             onNext();
           }}
         >
@@ -46,4 +48,4 @@ export function HasAnxietyAttackStep({
       </div>
     </div>
   );
-}
+};

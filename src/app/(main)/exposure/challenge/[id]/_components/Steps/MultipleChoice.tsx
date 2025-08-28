@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FormType } from "../ResultForm";
+import { FormChallengeOutcomeType } from "../helper";
 
 type Option = {
   id: string;
@@ -18,7 +18,6 @@ type Option = {
 
 export function MultipleChoice({
   onNext,
-  onPrev,
   generalOptions,
   controlName,
 }: {
@@ -33,15 +32,15 @@ export function MultipleChoice({
   }[];
   controlName:
     | "hadAnxietyAttack"
-    | "hasStoppedTheChallenge"
-    | "whyDidYouStoppedTheChallenge"
-    | "whatDidYouDo"
+    | "stoppedEarly"
+    | "stopReasons"
+    | "actionsTaken"
     | "typesOfBodySymptoms"
     | "anxietyLevelRating"
-    | "keepOnGoingThoughPanicArises"
-    | "howDidYouFindThisChallenge";
+    | "copingStrategies"
+    | "challengeRating";
 }) {
-  const { control } = useFormContext<FormType>();
+  const { control } = useFormContext<FormChallengeOutcomeType>();
 
   const { field } = useController({
     name: controlName,

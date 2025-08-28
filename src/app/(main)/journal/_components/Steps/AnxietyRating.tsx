@@ -3,9 +3,9 @@
 import { useController, useFormContext } from "react-hook-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import type { FormType } from "../Journal";
 import { anxietyLevelOptions } from "@/const/form/formStep";
 import { Button } from "@/components/ui/button";
+import { FormJournalType } from "../helper";
 
 export function AnxietyLevelRating({
   onNext,
@@ -13,7 +13,7 @@ export function AnxietyLevelRating({
   onNext(): void;
   onPrev?: () => void;
 }) {
-  const { control } = useFormContext<FormType>();
+  const { control } = useFormContext<FormJournalType>();
 
   const { field } = useController({
     name: "anxietyLevelRating",

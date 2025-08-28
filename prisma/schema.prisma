@@ -49,18 +49,40 @@ enum Company {
   WITH_OTHERS
 }
 
-enum CHALLENGE_STATUS {
+enum ChallengeStatus {
   NOT_STARTED
   FINISHED
 }
 
 model Challenge {
-  id              String           @id @default(cuid())
+  id              String            @id @default(cuid())
   company         Company
   challengeOption Json
-  status          CHALLENGE_STATUS @default(NOT_STARTED)
+  status          ChallengeStatus   @default(NOT_STARTED)
+  outcome         ChallengeOutcome?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  deletedAt DateTime? // for soft deletes
+  deletedAt DateTime?
+}
+
+model ChallengeOutcome {
+  id          String    @id @default(cuid())
+  challengeId String    @unique
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+
+  didComplete      Boolean
+  reasonsNotDone   String[]
+  hadAnxietyAttack Boolean?
+  stoppedEarly     Boolean?
+  stopReasons      String[] // was: whyDidYouStoppedTheChallenge
+  actionsTaken     String[] // was: whatDidYouDo
+  bodySymptoms     String[]
+  anxietyLevel     Int?
+  challengeRating  Int?
+  copingStrategies String[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }

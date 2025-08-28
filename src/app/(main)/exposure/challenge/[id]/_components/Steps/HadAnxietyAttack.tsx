@@ -2,35 +2,32 @@
 
 import Image from "next/image";
 import { useFormContext } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
-import { FormType } from "../ResultForm";
+import { FormChallengeOutcomeType } from "../helper";
 
-export const HasStoppedTheChallenge = ({
+export function HadAnxietyAttackStep({
   onNext,
-  onPrev,
 }: {
   onNext(): void;
   onPrev?: () => void;
-}) => {
-  const { setValue } = useFormContext<FormType>();
+}) {
+  const { setValue } = useFormContext<FormChallengeOutcomeType>();
 
   return (
     <div className="space-y-6 text-center">
       <Image
         className="m-auto"
-        alt="avoidance_illustration"
-        src="/illustration/avoidance.webp"
+        alt="panic_attack_illustration"
+        src="/illustration/compressed_journal_pa.webp"
         width={200}
         height={200}
       />
-
       <div className="flex w-full flex-row justify-between p-8">
         <Button
           type="button"
           variant="outline"
           onClick={() => {
-            setValue("hasStoppedTheChallenge", true, { shouldDirty: true });
+            setValue("hadAnxietyAttack", true, { shouldDirty: true });
             onNext();
           }}
         >
@@ -40,7 +37,7 @@ export const HasStoppedTheChallenge = ({
           type="button"
           variant="outline"
           onClick={() => {
-            setValue("hasStoppedTheChallenge", false, { shouldDirty: true });
+            setValue("hadAnxietyAttack", false, { shouldDirty: true });
             onNext();
           }}
         >
@@ -49,4 +46,4 @@ export const HasStoppedTheChallenge = ({
       </div>
     </div>
   );
-};
+}

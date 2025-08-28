@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useFormContext } from "react-hook-form";
-import { FormType } from "../Journal";
 import { Button } from "@/components/ui/button";
+import { FormJournalType } from "../helper";
 
 export const HasAvoidedSituation = ({
   onNext,
@@ -11,7 +11,7 @@ export const HasAvoidedSituation = ({
   onNext(): void;
   onPrev?: () => void;
 }) => {
-  const { setValue } = useFormContext<FormType>();
+  const { setValue } = useFormContext<FormJournalType>();
 
   return (
     <div className="space-y-6 text-center">

@@ -18,74 +18,17 @@ import {
 import { AnxietyLevelRating } from "./Steps/AnxietyRating";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import {
+  AVOIDANCE_STEPS,
+  BASE_STEP,
+  FormJournalType,
+  HAS_ANXIETY_STEPS,
+  Step,
+} from "./helper";
+import { createJournalEntry } from "@/lib/api";
+import { toast } from "sonner";
 
-export interface FormType {
-  hasAnxietyAttack?: boolean;
-  hasAvoidedSituations?: boolean;
-  typesOfSituationYouAvoided?: string[];
-  typesOfSituationYouWereIn?: string[];
-  whyYourWhereAvoidingIt?: string[];
-  typesOfBodySymptoms?: string[];
-  anxietyLevelRating?: number;
-}
-
-const BASE_STEP = [
-  {
-    id: "hasAnxietyAttack",
-    title: "Anxiety attack",
-    subtitle: "Did you have had an anxiety attack today?",
-  },
-] as const;
-
-const AVOIDANCE_STEPS = [
-  {
-    id: "hasAvoidedSituations",
-    title: "Avoidance",
-    subtitle: "Did you avoid any situations today?",
-  },
-  {
-    id: "typesOfSituationYouAvoided",
-    title: "Situations Avoided",
-    subtitle: "Which ones did you avoid?",
-  },
-  {
-    id: "whyYourWhereAvoidingIt",
-    title: "Reasons why you avoided it",
-    subtitle:
-      "Tell me what where you afraid off ? Why you were trying to avoid it?",
-  },
-  {
-    id: "anxietyLevelRating",
-    title: "Rate Anxiety",
-    subtitle: "How afraid where you that something would happen?",
-  },
-] as const;
-
-const HAS_ANXIETY_STEPS = [
-  {
-    id: "typesOfSituationYouWereIn",
-    title: "Situations Faced",
-    subtitle: "Where were you / what was happening?",
-  },
-  {
-    id: "typesOfBodySymptoms",
-    title: "Body Sensations",
-    subtitle: "What did you feel in your body?",
-  },
-  {
-    id: "anxietyLevelRating",
-    title: "Rate Anxiety",
-    subtitle: "How intense was your anxiety?",
-  },
-] as const;
-
-type BaseStep = (typeof BASE_STEP)[number];
-type AvoidanceStep = (typeof AVOIDANCE_STEPS)[number];
-type AnxietyStep = (typeof HAS_ANXIETY_STEPS)[number];
-
-type Step = BaseStep | AvoidanceStep | AnxietyStep;
 export type StepId = Step["id"];
-
 const StepRegistry: Record<
   StepId,
   React.ComponentType<{ onNext(): void; onPrev(): void }>
@@ -124,7 +67,7 @@ const StepRegistry: Record<
 };
 
 export default function Journal() {
-  const form = useForm<FormType>({
+  const form = useForm<FormJournalType>({
     defaultValues: {
       hasAnxietyAttack: undefined,
       hasAvoidedSituations: undefined,
@@ -197,10 +140,24 @@ export default function Journal() {
     setCurrentStepIndex(currentStepIndex - 1);
   };
 
-  const onSubmit = (data: FormType) => {
-    console.log("Submit:", data);
-    setIsComplete(true);
-    // …send to API, etc.
+  const onSubmit = async (data: FormJournalType) => {
+    try {
+      await createJournalEntry({
+        data,
+      });
+      toast("Journal entry has been saved!", {
+        action: {
+          label: "Go back home",
+          onClick: () => {
+            router.replace("/");
+          },
+        },
+      });
+    } catch {
+      setIsComplete(false);
+    } finally {
+      setIsComplete(true);
+    }
   };
 
   const active = conditionSteps[currentStepIndex];

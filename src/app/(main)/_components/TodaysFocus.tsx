@@ -1,6 +1,6 @@
 "use client";
 
-import { education } from "@/const/links";
+import { education } from "@/common/const/links";
 import Image from "next/image";
 import Link from "next/link";
 import { DateTime } from "luxon"; // you prefer Luxon

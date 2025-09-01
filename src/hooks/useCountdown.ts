@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { playBeep } from "./beep";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { playBeep } from "../common/utils/beep";
 
 export const useCountdown = (
   duration: number,
@@ -27,12 +27,12 @@ export const useCountdown = (
     playBeep(200, 800); // precountdown beep
   };
 
-  const stop = () => {
+  const stop = useCallback(() => {
     clearTimer();
     setIsRunning(false);
     setIsPrecountdown(false);
     setCountdown(null);
-  };
+  }, []);
 
   useEffect(() => {
     if (!isRunning || countdown === null) return;
@@ -64,7 +64,7 @@ export const useCountdown = (
     }, 1000);
 
     return () => clearTimer();
-  }, [countdown, isRunning, isPrecountdown, duration]);
+  }, [countdown, isRunning, isPrecountdown, duration, stop, opts]);
 
   return { countdown, isRunning, isPrecountdown, start, stop };
 };

@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-import { interoceptiveExposureGuide } from "@/const/content";
+import { interoceptiveExposureGuide } from "@/common/const/content";
 
 export const Information = () => {
   return (

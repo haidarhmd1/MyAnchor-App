@@ -14,12 +14,82 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User {
-//   id           String    @id @default(cuid())
-//   email        String    @unique
-//   name         String?
-//   journalEntry Journal[]
-// }
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  deletedAt     DateTime? // soft delete
+
+  signInAudits SignInAudit[]
+  consents     Consent[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([deletedAt])
+}
+
+model EmailOTP {
+  id         String    @id @default(cuid())
+  email      String    @db.VarChar(255)
+  tokenHash  String    @db.VarChar(255)
+  expiresAt  DateTime
+  consumedAt DateTime?
+  attempts   Int       @default(0)
+  createdAt  DateTime  @default(now())
+  ip         String?
+  userAgent  String?
+
+  @@index([email])
+  @@index([expiresAt])
+}
+
+model EmailLog {
+  id         String   @id @default(cuid())
+  toEmail    String   @db.VarChar(255)
+  template   String?
+  providerId String?
+  success    Boolean
+  error      String?
+  createdAt  DateTime @default(now())
+
+  @@index([toEmail, createdAt])
+}
+
+model SignInAudit {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  email     String   @db.VarChar(255)
+  ip        String?
+  userAgent String?
+  method    String   @default("email-otp")
+  outcome   String   @default("success") // or "failure"
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model Consent {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  policy      String
+  version     String
+  grantedAt   DateTime  @default(now())
+  withdrawnAt DateTime?
+
+  @@index([userId, policy])
+}
+
+model RateLimitBucket {
+  key       String   @id // e.g. otp:email:user@example.com or otp:ip:1.2.3.4
+  tokens    Int      @default(0)
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
 
 model Journal {
   id                         String   @id @default(cuid())

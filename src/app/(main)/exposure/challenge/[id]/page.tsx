@@ -1,4 +1,4 @@
-import { JSONChallengeParse } from "@/const/common/types";
+import { JSONChallengeParse } from "@/common/types";
 import prisma from "../../../../../../lib/prisma";
 import { ResultForm } from "./_components/ResultForm";
 import { notFound } from "next/navigation";

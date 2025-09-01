@@ -1,8 +1,9 @@
 import { BackArrow } from "./_components/BackArrow";
+import { SignOutButton } from "../SignOutButton/SignOutButton";
 
 export function Header({
   title = "MyAnchor App",
-  right,
+  // right,
 }: {
   title?: string;
   right?: React.ReactNode;
@@ -18,7 +19,8 @@ export function Header({
       </h6>
 
       <div className="flex items-center">
-        {right ?? <div className="w-6" />}
+        {/* {right ?? <div className="w-6" />} */}
+        <SignOutButton />
       </div>
     </header>
   );

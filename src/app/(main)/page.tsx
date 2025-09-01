@@ -1,6 +1,6 @@
 import { CardContainer } from "@/components/Card/Card";
 import { TodaysFocus } from "@/app/(main)/_components/TodaysFocus";
-import { categories } from "@/const/links";
+import { categories } from "@/common/const/links";
 import { EmergencyButton } from "./_components/EmergencyButton";
 import { QuickTips } from "@/app/(main)/_components/QuickTips";
 import { InspirationForToday } from "./_components/InspirationForToday";

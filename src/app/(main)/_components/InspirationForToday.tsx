@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { inspirationQuotes } from "@/const/inspirationalQuotes";
+import { inspirationQuotes } from "@/common/const/inspirationalQuotes";
 import { RefreshCcw } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 

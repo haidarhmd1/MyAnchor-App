@@ -1,7 +1,7 @@
 "use client";
 
-import { Exercise } from "@/const/content";
-import { useCountdown } from "@/lib/useCountdown";
+import { Exercise } from "@/common/const/content";
+import { useCountdown } from "@/hooks/useCountdown";
 import { useState } from "react";
 
 export const Tracker = ({ exercise }: { exercise: Exercise }) => {

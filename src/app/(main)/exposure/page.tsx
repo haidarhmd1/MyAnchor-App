@@ -1,5 +1,5 @@
 import { CardContainer } from "@/components/Card/Card";
-import { whyThisFeelsHardAtFirst } from "@/const/content";
+import { whyThisFeelsHardAtFirst } from "@/common/const/content";
 import { Metadata } from "next";
 import { TabSwitcher } from "./_components/TabSwitcher";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";

@@ -3,7 +3,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { tips } from "@/const/tips";
+import { tips } from "@/common/const/tips";
 import Link from "next/link";
 
 export const QuickTips = () => {

@@ -14,7 +14,7 @@ import {
   avoidanceReasons,
   locationOptions,
   symptomOptions,
-} from "@/const/form/formStep";
+} from "@/common/const/form/formStep";
 import { AnxietyLevelRating } from "./Steps/AnxietyRating";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

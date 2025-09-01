@@ -1,5 +1,5 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { exerciseList } from "@/const/content";
+import { exerciseList } from "@/common/const/content";
 import { Lightbulb } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Tracker } from "./_components/Tracker";

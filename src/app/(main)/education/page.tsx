@@ -1,5 +1,5 @@
 import { CardContainer } from "@/components/Card/Card";
-import { education } from "@/const/links";
+import { education } from "@/common/const/links";
 import { Metadata } from "next";
 
 export default async function EducationPage() {

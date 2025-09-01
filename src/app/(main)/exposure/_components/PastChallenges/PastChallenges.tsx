@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import prisma from "../../../../../../lib/prisma";
 import { ChallengeStatus } from "@prisma/client";
-import { JSONChallengeParse } from "@/const/common/types";
+import { JSONChallengeParse } from "@/common/types";
 
 export const PastChallenges = async () => {
   const pastChallenges = await prisma.challenge.findMany({
@@ -11,8 +11,6 @@ export const PastChallenges = async () => {
       deletedAt: null,
     },
   });
-
-  console.log("pastChallenges", pastChallenges);
 
   if (pastChallenges.length > 0) {
     return pastChallenges.map((pC) => {

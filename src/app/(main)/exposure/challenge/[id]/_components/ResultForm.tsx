@@ -15,7 +15,7 @@ import {
   skippedChallengeReasonsOptions,
   stopReasonsOptions,
   symptomOptions,
-} from "@/const/form/formStep";
+} from "@/common/const/form/formStep";
 import { SingleChoice } from "./Steps/SingleChoice";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

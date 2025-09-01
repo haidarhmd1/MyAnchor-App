@@ -1,5 +1,5 @@
 import { CardContainer } from "@/components/Card/Card";
-import { exerciseList } from "@/const/content";
+import { exerciseList } from "@/common/const/content";
 
 export const Exercises = () => {
   return (

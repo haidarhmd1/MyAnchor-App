@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { reassurences } from "@/const/reassurings";
+import { reassurences } from "@/common/const/reassurings";
 import { useReducedMotion, motion, AnimatePresence } from "motion/react";
 
 import { useMemo, useState } from "react";

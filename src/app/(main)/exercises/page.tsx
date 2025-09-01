@@ -1,4 +1,4 @@
-import { exercisesInteroceptiveContent } from "@/const/content";
+import { exercisesInteroceptiveContent } from "@/common/const/content";
 import { Information } from "./_components/Information";
 import { Exercises } from "./_components/Exercises";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";

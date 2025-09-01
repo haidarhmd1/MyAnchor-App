@@ -1,4 +1,4 @@
-import { tips } from "@/const/tips";
+import { tips } from "@/common/const/tips";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 

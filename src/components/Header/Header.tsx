@@ -1,5 +1,6 @@
+import { CircleUserRound } from "lucide-react";
 import { BackArrow } from "./_components/BackArrow";
-import { SignOutButton } from "../SignOutButton/SignOutButton";
+import Link from "next/link";
 
 export function Header({
   title = "MyAnchor App",
@@ -20,7 +21,10 @@ export function Header({
 
       <div className="flex items-center">
         {/* {right ?? <div className="w-6" />} */}
-        <SignOutButton />
+        <Link href="/profile">
+          <CircleUserRound />
+        </Link>
+        {/* <SignOutButton /> */}
       </div>
     </header>
   );

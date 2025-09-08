@@ -5,8 +5,10 @@ import {
   ChallengeOutcome,
   ChallengeStatus,
   Company,
+  Gender,
   Journal,
   Prisma,
+  User,
 } from "@prisma/client";
 
 type CreateChallengeInput = {
@@ -80,4 +82,27 @@ export async function createJournalEntry({
   }
 
   return (await res.json()) as Journal;
+}
+
+export async function updateUserProfile({
+  data,
+}: {
+  data: {
+    dob?: Date;
+    gender?: Gender;
+    name?: string;
+  };
+}): Promise<User> {
+  const res = await fetch("api/profile", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Updating user failed: ${res.status} ${text}`);
+  }
+
+  return await res.json();
 }

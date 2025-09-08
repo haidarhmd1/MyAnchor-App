@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 import { DateTime } from "luxon";
 import sgMail from "@sendgrid/mail";
 import { hashSync } from "bcryptjs";
+import prisma from "../../../../../../lib/prisma";
 
-const prisma = new PrismaClient();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 function generateCode(length = 6) {

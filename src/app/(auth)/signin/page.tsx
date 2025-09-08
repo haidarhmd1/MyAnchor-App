@@ -39,31 +39,37 @@ export default function SignInPage() {
   }
 
   return (
-    <>
+    <div className="flex flex-col">
       <div
-        className="h-80 w-full rounded-b-4xl"
+        className="h-60 w-full"
         style={{
           backgroundImage: `url(/illustration/welcome-screen.webp)`,
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
       />
-      <div className="mx-auto max-w-sm p-6">
+      <div className="grow rounded-t-4xl bg-white p-6">
         {step === "email" ? (
-          <form onSubmit={handleSubmit(requestCode)} className="space-y-4">
-            <h1 className="text-xl font-semibold">Sign in</h1>
-            <input
-              type="email"
-              placeholder="you@example.com"
-              className="w-full rounded-xl border p-3"
-              {...register("email", { required: true })}
-            />
-            <button
-              className="w-full rounded-xl border p-3"
-              disabled={formState.isSubmitting}
-            >
-              {formState.isSubmitting ? <Spinner /> : "Send code"}
-            </button>
+          <form onSubmit={handleSubmit(requestCode)}>
+            <h2 className="font-semibold">Sign in</h2>
+            <h5 className="font-light">
+              Stay on track with guided challenges, personal insights, and tools
+              to calm your mind. Sign up today, or log in to continue.”
+            </h5>
+            <div className="space-y-4 pt-8">
+              <input
+                type="email"
+                placeholder="you@example.com"
+                className="w-full rounded-xl border p-3"
+                {...register("email", { required: true })}
+              />
+              <button
+                className="bottom-0 w-full rounded-xl border p-3"
+                disabled={formState.isSubmitting}
+              >
+                {formState.isSubmitting ? <Spinner /> : "Send code"}
+              </button>
+            </div>
           </form>
         ) : (
           <form onSubmit={handleSubmit(verifyCode)} className="space-y-4">
@@ -91,6 +97,6 @@ export default function SignInPage() {
           </form>
         )}
       </div>
-    </>
+    </div>
   );
 }

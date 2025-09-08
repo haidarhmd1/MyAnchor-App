@@ -19,11 +19,17 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
+  dob           DateTime?
+  gender        Gender?
   image         String?
   deletedAt     DateTime? // soft delete
 
   signInAudits SignInAudit[]
   consents     Consent[]
+
+  // NEW: relations
+  challenges Challenge[]
+  journals   Journal[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -103,9 +109,18 @@ model Journal {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  deletedAt DateTime? // for soft deletes
-  // userId    String
-  // user      User      @relation(fields: [userId], references: [id])
+  deletedAt DateTime?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([deletedAt])
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
 }
 
 enum Difficulty {
@@ -134,6 +149,11 @@ model Challenge {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([deletedAt])
 }
 
 model ChallengeOutcome {

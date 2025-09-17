@@ -1,6 +1,5 @@
 import { Lexend } from "next/font/google";
 import "./globals.css";
-import TanstackQueryProviders from "./providers";
 import { Toaster } from "sonner";
 import { authCheck } from "@/lib/auth/auth-helpers";
 
@@ -21,7 +20,7 @@ export default async function RootLayout({
       <body
         className={`${lexend.variable} typography background-color: var(--color-background) antialiased`}
       >
-        <TanstackQueryProviders>{children}</TanstackQueryProviders>
+        {children}
         <Toaster />
       </body>
     </html>

@@ -1,14 +1,10 @@
 import prisma from "../../../../lib/prisma";
-import { Appearance } from "./_components/Appearance/Appearance";
-import { Notifications } from "./_components/Notifications/Notifications";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth/auth";
 import { SettingsRowInput } from "./_components/General/SettingsRowInput";
-import { DateTime } from "luxon";
 import { Dob } from "./_components/Input/Dob/Dob";
 import { Name } from "./_components/Input/Name/Name";
 import { GenderPicker } from "./_components/Input/Gender/Gender";
-import { Gender } from "@prisma/client";
 
 export default async function page() {
   const authenticatedUser = await auth();

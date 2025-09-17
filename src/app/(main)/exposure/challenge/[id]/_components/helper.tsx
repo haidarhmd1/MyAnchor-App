@@ -1,28 +1,3 @@
-export interface FormChallengeOutcomeType {
-  hadCompletedChallenge: boolean;
-  reasonsNotDone: string[];
-  hadAnxietyAttack: boolean;
-  stoppedEarly: boolean;
-  stopReasons?: string[];
-  actionsTaken?: string[];
-  typesOfBodySymptoms?: string[];
-  anxietyLevelRating?: number;
-  challengeRating?: number;
-  copingStrategies?: string[];
-}
-
-export const defaultValues = {
-  hadAnxietyAttack: undefined,
-  hadCompletedChallenge: undefined,
-  reasonsNotDone: [],
-  stoppedEarly: undefined,
-  stopReasons: [],
-  actionsTaken: [],
-  typesOfBodySymptoms: [],
-  anxietyLevelRating: undefined,
-  challengeRating: undefined,
-};
-
 export const BASE_STEP = [
   {
     id: "hadCompletedChallenge",

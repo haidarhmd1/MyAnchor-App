@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { challenges } from "@/common/const/form/formStep";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createChallenge } from "@/lib/api";
-import { Company, Prisma } from "@prisma/client";
+import { ChallengeStatus, Company, Prisma } from "@prisma/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -133,6 +133,7 @@ export default function ChallengeForm() {
         data: {
           company: selectedOptions.company as Company,
           challengeOption: option[0] as Prisma.JsonObject,
+          status: ChallengeStatus.NOT_STARTED,
         },
       });
       toast("challenge created", {

@@ -1,26 +1,22 @@
-import { FormChallengeOutcomeType } from "@/app/(main)/exposure/challenge/[id]/_components/helper";
 import { FormJournalType } from "@/app/(main)/journal/_components/helper";
 import {
   Challenge,
   ChallengeOutcome,
-  ChallengeStatus,
   Company,
   Gender,
   Journal,
-  Prisma,
   User,
 } from "@prisma/client";
+import { ChallengeOutcomeSchema, ChallengeSchema } from "./zod.types";
+import { z } from "zod";
 
-type CreateChallengeInput = {
-  company: Company;
-  challengeOption: Prisma.JsonObject;
-  status?: ChallengeStatus;
-};
+type ChallengeOutcomeInputType = z.infer<typeof ChallengeOutcomeSchema>;
+type CreateChallengeInputType = z.infer<typeof ChallengeSchema>;
 
 export async function createChallenge({
   data,
 }: {
-  data: CreateChallengeInput;
+  data: CreateChallengeInputType;
 }): Promise<Challenge> {
   const res = await fetch("/api/challenges", {
     method: "POST",
@@ -47,7 +43,7 @@ export async function createChallengeOutcome({
   data,
 }: {
   id: string;
-  data: FormChallengeOutcomeType;
+  data: ChallengeOutcomeInputType;
 }): Promise<ChallengeOutcome> {
   const res = await fetch(`/api/challenges/${id}`, {
     method: "POST",

@@ -18,15 +18,11 @@ import {
 import { AnxietyLevelRating } from "./Steps/AnxietyRating";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {
-  AVOIDANCE_STEPS,
-  BASE_STEP,
-  FormJournalType,
-  HAS_ANXIETY_STEPS,
-  Step,
-} from "./helper";
+import { AVOIDANCE_STEPS, BASE_STEP, HAS_ANXIETY_STEPS, Step } from "./helper";
 import { createJournalEntry } from "@/lib/api";
 import { toast } from "sonner";
+import { z } from "zod";
+import { JournalFormSchema } from "@/lib/zod.types";
 
 export type StepId = Step["id"];
 const StepRegistry: Record<
@@ -67,7 +63,7 @@ const StepRegistry: Record<
 };
 
 export default function Journal() {
-  const form = useForm<FormJournalType>({
+  const form = useForm<z.infer<typeof JournalFormSchema>>({
     defaultValues: {
       hasAnxietyAttack: undefined,
       hasAvoidedSituations: undefined,
@@ -140,7 +136,7 @@ export default function Journal() {
     setCurrentStepIndex(currentStepIndex - 1);
   };
 
-  const onSubmit = async (data: FormJournalType) => {
+  const onSubmit = async (data: z.infer<typeof JournalFormSchema>) => {
     try {
       await createJournalEntry({
         data,

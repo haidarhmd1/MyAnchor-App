@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { FormProvider, useForm } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { z } from "zod";
 
 import { MultipleChoice } from "./Steps/MultipleChoice";
 import {
@@ -24,8 +25,6 @@ import {
   AVOIDANCE_STEPS,
   BASE_STEP,
   CONTINUED_CHALLENGE,
-  defaultValues,
-  FormChallengeOutcomeType,
   NO_ANXIETY_STEPS,
   REASONS_FOR_SKIPPING_CHALLENGE,
   Step,
@@ -37,6 +36,7 @@ import { StoppedEarly } from "./Steps/StoppedEarly";
 import { createChallengeOutcome } from "@/lib/api";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 
 export type StepId = Step["id"];
 
@@ -101,8 +101,18 @@ const STEPS_COMPONENTS: Record<
 export function ResultForm({ challengeId }: { challengeId: string }) {
   const router = useRouter();
   const reduce = useReducedMotion();
-  const form = useForm<FormChallengeOutcomeType>({
-    defaultValues,
+  const form = useForm<z.infer<typeof ChallengeOutcomeSchema>>({
+    defaultValues: {
+      hadAnxietyAttack: undefined,
+      hadCompletedChallenge: undefined,
+      reasonsNotDone: [],
+      stoppedEarly: undefined,
+      stopReasons: [],
+      actionsTaken: [],
+      typesOfBodySymptoms: [],
+      anxietyLevelRating: undefined,
+      challengeRating: undefined,
+    },
     mode: "onChange",
   });
 
@@ -162,7 +172,7 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
     setCurrentStepIndex(currentStepIndex - 1);
   };
 
-  const onSubmit = async (data: FormChallengeOutcomeType) => {
+  const onSubmit = async (data: z.infer<typeof ChallengeOutcomeSchema>) => {
     setIsLoading(true);
     try {
       await createChallengeOutcome({

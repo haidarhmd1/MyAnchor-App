@@ -1,52 +1,32 @@
-// app/api/profile/route.ts
 import { NextResponse } from "next/server";
 
-import { auth } from "@/lib/auth";
-import { Gender } from "@prisma/client";
 import prisma from "../../../../lib/prisma";
+import { UserSchema } from "@/lib/zod.types";
+import { withAuth } from "@/lib/auth/auth-helpers";
 
-type ProfilePatch = Partial<{
-  name: string | null;
-  gender: Gender | null;
-  dob: string | null; // ISO string | null to clear | omit to leave unchanged
-  image: string | null;
-}>;
+export const PATCH = withAuth(async (request, _ctx, { userId }) => {
+  const body = await request.json();
 
-type UpdateData = {
-  name?: string | null;
-  gender?: Gender | null;
-  image?: string | null;
-  dob?: Date | null;
-};
-
-export async function PATCH(req: Request) {
-  const session = await auth();
-  if (!session)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const body: ProfilePatch = await req.json();
-
-  const data: UpdateData = {};
-  if (body.name !== undefined) data.name = body.name;
-  if (body.gender !== undefined) data.gender = body.gender;
-  if (body.image !== undefined) data.image = body.image;
-  if (body.dob !== undefined) {
-    data.dob = body.dob === null ? null : new Date(body.dob); // guarded -> no overload error
+  const parsed = UserSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: parsed.error.flatten().fieldErrors },
+      { status: 400 },
+    );
   }
 
-  if (Object.keys(data).length === 0) {
-    const current = await prisma.user.findUnique({
-      where: { id: session.user!.id },
-      select: { name: true, email: true, gender: true, image: true, dob: true },
-    });
-    return NextResponse.json({ user: current }, { status: 200 });
-  }
+  const data = parsed.data;
 
   const user = await prisma.user.update({
-    where: { id: session.user!.id }, // unique selector only
-    data, // no `any`, all fields optional & typed
-    select: { name: true, email: true, gender: true, image: true, dob: true },
+    where: { id: userId },
+    data,
+    select: {
+      name: true,
+      email: true,
+      gender: true,
+      dob: true,
+    },
   });
 
   return NextResponse.json({ user }, { status: 200 });
-}
+});

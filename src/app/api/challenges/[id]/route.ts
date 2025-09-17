@@ -1,25 +1,58 @@
-import { NextRequest } from "next/server";
-import prisma from "../../../../../lib/prisma";
-import { FormChallengeOutcomeType } from "@/app/(main)/exposure/challenge/[id]/_components/helper";
+import { NextResponse } from "next/server";
 import { ChallengeStatus } from "@prisma/client";
+import { ChallengeOutcomeSchema } from "@/lib/zod.types";
+import prisma from "../../../../../lib/prisma";
+import { withAuth } from "@/lib/auth/auth-helpers";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+type Ctx = { params: { id: string } };
+
+export const POST = withAuth(async (request: Request, ctx: Ctx, { userId }) => {
   try {
-    const id = (await params).id;
+    const { id } = ctx.params;
     if (!id) {
-      return Response.json({ error: "Missing challenge id" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Missing challenge id" },
+        { status: 400 },
+      );
     }
-    const body = (await request.json()) as FormChallengeOutcomeType;
+
+    const body = await request.json();
+    const parsed = ChallengeOutcomeSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { errors: parsed.error.flatten().fieldErrors },
+        { status: 400 },
+      );
+    }
+
+    const {
+      hadCompletedChallenge,
+      hadAnxietyAttack,
+      reasonsNotDone,
+      stoppedEarly,
+      stopReasons,
+      actionsTaken,
+      typesOfBodySymptoms,
+      anxietyLevelRating,
+      challengeRating,
+      copingStrategies,
+    } = parsed.data;
+
     const challenge = await prisma.challenge.findFirst({
-      where: { id, deletedAt: null, status: ChallengeStatus.NOT_STARTED },
+      where: {
+        id,
+        userId,
+        deletedAt: null,
+        status: ChallengeStatus.NOT_STARTED,
+      },
       select: { id: true },
     });
 
     if (!challenge) {
-      return Response.json({ error: "Challenge not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Challenge not found" },
+        { status: 404 },
+      );
     }
 
     await prisma.challenge.update({
@@ -28,26 +61,29 @@ export async function POST(
         status: ChallengeStatus.FINISHED,
         outcome: {
           create: {
-            didComplete: body.hadCompletedChallenge ?? null,
-            hadAnxietyAttack: body.hadAnxietyAttack ?? null,
-            reasonsNotDone: body.reasonsNotDone ?? [],
-            stoppedEarly: body.stoppedEarly ?? null,
-            stopReasons: body.stopReasons ?? [],
-            actionsTaken: body.actionsTaken ?? [],
-            bodySymptoms: body.typesOfBodySymptoms ?? [],
-            anxietyLevel: body.anxietyLevelRating ?? null,
-            challengeRating: body.challengeRating ?? null,
-            copingStrategies: body.copingStrategies ?? [],
+            didComplete: hadCompletedChallenge ?? null,
+            hadAnxietyAttack: hadAnxietyAttack,
+            reasonsNotDone: reasonsNotDone ?? [],
+            stoppedEarly: stoppedEarly ?? null,
+            stopReasons: stopReasons ?? [],
+            actionsTaken: actionsTaken ?? [],
+            bodySymptoms: typesOfBodySymptoms ?? [],
+            anxietyLevel: anxietyLevelRating ?? null,
+            challengeRating: challengeRating ?? null,
+            copingStrategies: copingStrategies ?? [],
           },
         },
       },
     });
 
-    return Response.json("Challenge outcome saved", { status: 201 });
+    return NextResponse.json(
+      { message: "Challenge outcome saved" },
+      { status: 201 },
+    );
   } catch (err: unknown) {
     console.error("POST /api/challenges/[id] error:", err);
     const message =
       err instanceof Error ? err.message : "Unexpected server error";
-    return Response.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: message }, { status: 500 });
   }
-}
+});

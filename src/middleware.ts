@@ -1,4 +1,4 @@
-export { auth as middleware } from "@/lib/auth";
+export { auth as middleware } from "@/lib/auth/auth";
 
 // We protect everything except /auth/** and some static paths (handled inside authorized()).
 export const config = {

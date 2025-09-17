@@ -1,4 +1,7 @@
 import prisma from "../../../../lib/prisma";
+import { NextResponse } from "next/server";
+import { ChallengeSchema } from "@/lib/zod.types";
+import { withAuth } from "@/lib/auth/auth-helpers";
 
 export async function GET() {
   const challenges = await prisma.challenge.findMany();
@@ -9,12 +12,19 @@ export async function GET() {
   });
 }
 
-export async function POST(request: Request) {
+export const POST = withAuth(async (request, _ctx, { userId }) => {
   const body = await request.json();
-  const { company, challengeOption, status } = body;
-
+  const parsed = ChallengeSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { errors: parsed.error.flatten().fieldErrors },
+      { status: 400 },
+    );
+  }
+  const { company, challengeOption, status } = parsed.data;
   const newChallengeEntry = await prisma.challenge.create({
     data: {
+      userId,
       company,
       challengeOption,
       status,
@@ -25,4 +35,4 @@ export async function POST(request: Request) {
     status: 201,
     headers: { "Content-Type": "application/json" },
   });
-}
+});

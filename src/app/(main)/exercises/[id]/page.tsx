@@ -12,7 +12,6 @@ type Props = {
 export default async function Page({ params }: Props) {
   const { id } = await params;
   const exercise = exerciseList.find((e) => e.id === id);
-
   if (!exercise) return notFound();
 
   return (

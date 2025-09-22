@@ -54,9 +54,6 @@ export const SoothingCircle = () => {
             {current}
           </motion.h2>
         </AnimatePresence>
-        {/* <Button className="absolute bottom-4 mt-4" onClick={onClickHandler}>
-          Next
-        </Button> */}
       </div>
     </>
   );

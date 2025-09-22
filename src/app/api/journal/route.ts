@@ -2,15 +2,27 @@ import { JournalFormSchema } from "@/lib/zod.types";
 import prisma from "../../../../lib/prisma";
 import { NextResponse } from "next/server";
 import { withAuth } from "@/lib/auth/auth-helpers";
+import { DateTime } from "luxon";
+import { TZ } from "@/lib/timezone";
 
-export async function GET(_request: Request) {
-  const journals = await prisma.journal.findMany();
+export const GET = withAuth(async (_request, _ctx, { userId }) => {
+  const start = DateTime.now().setZone(TZ).startOf("day");
+  const end = start.endOf("day");
 
-  return new Response(JSON.stringify(journals), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
+  const journal = await prisma.journal.findFirst({
+    where: {
+      userId,
+      deletedAt: null,
+      createdAt: {
+        gte: start.toJSDate(),
+        lte: end.toJSDate(),
+      },
+    },
+    orderBy: { createdAt: "desc" },
   });
-}
+
+  return NextResponse.json({ journal }, { status: 200 });
+});
 
 export const POST = withAuth(async (request, _ctx, { userId }) => {
   const body = await request.json();

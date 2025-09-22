@@ -102,3 +102,18 @@ export async function updateUserProfile({
 
   return await res.json();
 }
+
+export async function getJorunals(): Promise<Journal> {
+  const res = await fetch("api/journal", {
+    next: { tags: ["journals"] },
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Error fetching journals: ${res.status} ${text}`);
+  }
+
+  return await res.json();
+}

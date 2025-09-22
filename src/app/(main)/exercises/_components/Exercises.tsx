@@ -6,6 +6,7 @@ export const Exercises = () => {
     <div className="mx-4">
       {exerciseList.map((exercise) => (
         <CardContainer
+          link={`/exercises/${exercise.id}`}
           className="mb-4"
           key={exercise.id}
           title={exercise.title}
@@ -20,7 +21,6 @@ export const Exercises = () => {
             />
           }
           description={exercise.description}
-          link={`/exercises/${exercise.id}`}
         />
       ))}
     </div>

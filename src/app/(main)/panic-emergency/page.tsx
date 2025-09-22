@@ -1,4 +1,7 @@
-import Link from "next/link";
+import { Grounding } from "./_components/Grounding/Grounding";
+import { BoxBreathing } from "./_components/BoxBreathing/BoxBreathing";
+import { PhysicalAnchor } from "./_components/PhysicalAnchor/PhysicalAnchor";
+import { PositiveReminder } from "./_components/PositiveReminder/PositiveReminder";
 
 export default function page() {
   return (
@@ -11,31 +14,33 @@ export default function page() {
       <div className="mt-8">
         <h4 className="font-bold">Quick Actions</h4>
         <div className="mt-4 space-y-4">
-          <div className="inline-flex h-10 w-full max-w-[480px] min-w-20 items-center justify-center overflow-hidden rounded-[20px] bg-sky-400 px-4">
-            <div className="inline-flex flex-col items-center justify-start overflow-hidden">
-              <Link
-                href="/panic-emergency/breathing"
-                className="justify-start text-center text-sm leading-tight font-bold text-neutral-900"
-              >
-                Deep Breathing Exercise
-              </Link>
+          <Grounding />
+
+          <BoxBreathing />
+
+          <PhysicalAnchor />
+
+          {/* <div className="flex space-x-4">
+            <div className="flex h-14 w-14 shrink-0 justify-center rounded-2xl bg-gray-200">
+              <Brain className="self-center" />
             </div>
-          </div>
-          <div className="inline-flex h-10 w-full max-w-[480px] min-w-20 items-center justify-center overflow-hidden rounded-[20px] bg-gray-100 px-4">
-            <div className="inline-flex flex-col items-center justify-start overflow-hidden">
-              <button className="justify-start text-center text-sm leading-tight font-bold text-neutral-900">
-                Grounding Techniques
-              </button>
+            <div>
+              <h4>Mental Challenge</h4>
+              <p className="text-sm font-extralight">
+                Challenge anxious thoughts with logical reasoning.
+              </p>
             </div>
-          </div>
-          <div className="inline-flex h-10 w-full max-w-[480px] min-w-20 items-center justify-center overflow-hidden rounded-[20px] bg-gray-100 px-4">
-            <div className="inline-flex flex-col items-center justify-start overflow-hidden">
-              <button className="justify-start text-center text-sm leading-tight font-bold text-neutral-900">
-                Call a Friend
-              </button>
-            </div>
-          </div>
+          </div> */}
+          <PositiveReminder />
         </div>
+        {/* <div className="my-6 h-[1px] w-full bg-gray-200" />
+        <div className="inline-flex h-10 w-full max-w-[480px] min-w-20 items-center justify-center overflow-hidden rounded-[20px] bg-gray-100 px-4">
+          <div className="inline-flex flex-col items-center justify-start overflow-hidden">
+            <button className="justify-start text-center text-sm leading-tight font-bold text-neutral-900">
+              Call a Friend
+            </button>
+          </div>
+        </div> */}
       </div>
     </div>
   );

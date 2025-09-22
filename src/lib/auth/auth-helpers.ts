@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PrismaClient, User } from "@prisma/client";
-import { auth } from "./auth";
 import { NextResponse } from "next/server";
 import { redirect } from "next/navigation";
 import { DateTime } from "luxon";
+import { auth } from "./auth";
 
 const prisma = new PrismaClient();
 

@@ -42,15 +42,15 @@ export type ChallengeInput = z.infer<typeof ChallengeSchema>;
 
 export const ChallengeOutcomeSchema = z.object({
   hadCompletedChallenge: z.boolean(),
-  hadAnxietyAttack: z.boolean(),
+  hadAnxietyAttack: z.boolean().default(false),
   reasonsNotDone: z.string().array(),
-  stoppedEarly: z.boolean().nullable(),
+  stoppedEarly: z.boolean().optional(),
   stopReasons: z.string().array(),
   actionsTaken: z.string().array(),
   typesOfBodySymptoms: z.string().array(),
-  anxietyLevelRating: z.number().nullable(),
-  challengeRating: z.number().nullable(),
-  copingStrategies: z.string().array(),
+  anxietyLevelRating: z.number().optional(),
+  challengeRating: z.number().optional(),
+  copingStrategies: z.string().array().optional(),
 });
 
 export const UserSchema = z.object({

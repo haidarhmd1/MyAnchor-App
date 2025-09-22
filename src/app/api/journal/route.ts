@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { withAuth } from "@/lib/auth/auth-helpers";
 import { DateTime } from "luxon";
 import { TZ } from "@/lib/timezone";
+import z from "zod";
 
 export const GET = withAuth(async (_request, _ctx, { userId }) => {
   const start = DateTime.now().setZone(TZ).startOf("day");
@@ -29,7 +30,7 @@ export const POST = withAuth(async (request, _ctx, { userId }) => {
   const parsed = JournalFormSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: parsed.error.flatten().fieldErrors },
+      { errors: z.treeifyError(parsed.error) },
       { status: 400 },
     );
   }

@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useFormContext } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { FormChallengeOutcomeType } from "../helper";
+import { ChallengeOutcomeSchema } from "@/lib/zod.types";
+import z from "zod";
 
 export const StoppedEarly = ({
   onNext,
@@ -12,7 +13,7 @@ export const StoppedEarly = ({
   onNext(): void;
   onPrev?: () => void;
 }) => {
-  const { setValue } = useFormContext<FormChallengeOutcomeType>();
+  const { setValue } = useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
 
   return (
     <div className="space-y-6 text-center">

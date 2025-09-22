@@ -2,22 +2,25 @@ import prisma from "../../../../lib/prisma";
 import { NextResponse } from "next/server";
 import { ChallengeSchema } from "@/lib/zod.types";
 import { withAuth } from "@/lib/auth/auth-helpers";
+import z from "zod";
 
-export async function GET() {
-  const challenges = await prisma.challenge.findMany();
-
-  return new Response(JSON.stringify(challenges), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
+export const GET = withAuth(async (_request, _ctx, { userId }) => {
+  const challenge = await prisma.challenge.findMany({
+    where: {
+      userId,
+      deletedAt: null,
+    },
   });
-}
+
+  return NextResponse.json({ challenge }, { status: 200 });
+});
 
 export const POST = withAuth(async (request, _ctx, { userId }) => {
   const body = await request.json();
   const parsed = ChallengeSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { errors: parsed.error.flatten().fieldErrors },
+      { errors: z.treeifyError(parsed.error) },
       { status: 400 },
     );
   }

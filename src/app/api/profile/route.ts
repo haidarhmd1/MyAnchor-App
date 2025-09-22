@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
 import { UserSchema } from "@/lib/zod.types";
 import { withAuth } from "@/lib/auth/auth-helpers";
+import z from "zod";
 
 export const PATCH = withAuth(async (request, _ctx, { userId }) => {
   const body = await request.json();
@@ -10,7 +11,7 @@ export const PATCH = withAuth(async (request, _ctx, { userId }) => {
   const parsed = UserSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: parsed.error.flatten().fieldErrors },
+      { errors: z.treeifyError(parsed.error) },
       { status: 400 },
     );
   }

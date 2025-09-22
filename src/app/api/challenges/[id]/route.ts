@@ -3,12 +3,14 @@ import { ChallengeStatus } from "@prisma/client";
 import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import prisma from "../../../../../lib/prisma";
 import { withAuth } from "@/lib/auth/auth-helpers";
+import { z } from "zod";
 
-type Ctx = { params: { id: string } };
+type Ctx = { params: Promise<{ id: string }> };
 
 export const POST = withAuth(async (request: Request, ctx: Ctx, { userId }) => {
   try {
-    const { id } = ctx.params;
+    const { id } = await ctx.params;
+
     if (!id) {
       return NextResponse.json(
         { error: "Missing challenge id" },
@@ -18,9 +20,10 @@ export const POST = withAuth(async (request: Request, ctx: Ctx, { userId }) => {
 
     const body = await request.json();
     const parsed = ChallengeOutcomeSchema.safeParse(body);
+
     if (!parsed.success) {
       return NextResponse.json(
-        { errors: parsed.error.flatten().fieldErrors },
+        { errors: z.treeifyError(parsed.error) },
         { status: 400 },
       );
     }

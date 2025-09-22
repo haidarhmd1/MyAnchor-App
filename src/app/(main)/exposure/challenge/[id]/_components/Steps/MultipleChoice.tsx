@@ -7,7 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FormChallengeOutcomeType } from "../helper";
+import { ChallengeOutcomeSchema } from "@/lib/zod.types";
+import z from "zod";
 
 type Option = {
   id: string;
@@ -40,7 +41,7 @@ export function MultipleChoice({
     | "copingStrategies"
     | "challengeRating";
 }) {
-  const { control } = useFormContext<FormChallengeOutcomeType>();
+  const { control } = useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
 
   const { field } = useController({
     name: controlName,

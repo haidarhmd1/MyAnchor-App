@@ -2,7 +2,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import prisma from "../../../../../../lib/prisma";
 import { ChallengeStatus } from "@prisma/client";
-import { JSONChallengeParse } from "@/common/types";
 
 export const PastChallenges = async () => {
   const pastChallenges = await prisma.challenge.findMany({
@@ -10,11 +9,21 @@ export const PastChallenges = async () => {
       status: ChallengeStatus.FINISHED,
       deletedAt: null,
     },
+    select: {
+      id: true,
+      challengeOption: {
+        select: {
+          label: true,
+          description: true,
+          difficulty: true,
+        },
+      },
+    },
   });
 
   if (pastChallenges.length > 0) {
     return pastChallenges.map((pC) => {
-      const challenge = pC.challengeOption as JSONChallengeParse;
+      const challenge = pC.challengeOption;
       return (
         <Card key={pC.id} className={cn("mt-4 border-2 bg-green-100")}>
           <CardContent className="flex flex-col gap-2">

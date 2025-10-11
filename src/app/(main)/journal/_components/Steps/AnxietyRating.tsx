@@ -3,9 +3,10 @@
 import { useController, useFormContext } from "react-hook-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { anxietyLevelOptions } from "@/common/const/form/formStep";
+
 import { Button } from "@/components/ui/button";
 import { FormJournalType } from "../helper";
+import { anxietyLevelOptions } from "@/common/const/anxietyRating";
 
 export function AnxietyLevelRating({
   onNext,

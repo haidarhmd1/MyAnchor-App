@@ -1,37 +1,24 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { useFormContext, useController } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FormJournalType } from "../helper";
+import { Taxonomy } from "@prisma/client";
 
-type Option = {
-  id: string;
-  label: string;
-  description: string;
-  isCustom?: boolean;
+type Props = {
+  onNext(): void;
+  onPrev?: () => void;
+  generalOptions: Taxonomy[];
+  controlName: keyof FormJournalType;
 };
 
 export function SituationYouWereIn({
   onNext,
   generalOptions,
   controlName,
-}: {
-  onNext(): void;
-  onPrev?: () => void;
-  generalOptions: {
-    id: string;
-    label: string;
-    description: string;
-    isCustom?: boolean;
-    difficulty?: "easy" | "medium" | "hard";
-  }[];
-  controlName: keyof FormJournalType;
-}) {
+}: Props) {
   const { control } = useFormContext<FormJournalType>();
 
   const { field } = useController({
@@ -41,13 +28,13 @@ export function SituationYouWereIn({
 
   const selected: string[] = Array.isArray(field.value) ? field.value : [];
 
-  const [customInput, setCustomInput] = useState("");
-  const [customOptions, setCustomOptions] = useState<Option[]>([]);
+  // const [customInput, setCustomInput] = useState("");
+  // const [customOptions, setCustomOptions] = useState<Taxonomy[]>([]);
 
-  const options = useMemo<Option[]>(
-    () => [...generalOptions, ...customOptions],
-    [generalOptions, customOptions],
-  );
+  // const options = useMemo<Taxonomy[]>(
+  //   () => [...generalOptions, ...customOptions],
+  //   [generalOptions, customOptions],
+  // );
 
   const isChecked = (id: string) => selected.includes(id);
 
@@ -58,28 +45,32 @@ export function SituationYouWereIn({
     field.onChange(next);
   };
 
-  const handleAddCustomOption = () => {
-    const label = customInput.trim();
-    if (!label) return;
+  // const handleAddCustomOption = () => {
+  //   const label = customInput.trim();
+  //   if (!label) return;
 
-    const newOption: Option = {
-      id: `custom-${Date.now()}`,
-      label,
-      description: "Custom option",
-      isCustom: true,
-    };
+  //   if (!taxonomyType) {
+  //     toast.error("Cannot add custom item: taxonomy type not provided.");
+  //     return;
+  //   }
 
-    setCustomOptions((prev) => [...prev, newOption]);
-    // auto-select the new option
-    field.onChange([...selected, newOption.id]);
+  //   const newOption: Taxonomy = {
+  //     id: `custom-${Date.now()}`,
+  //     label,
+  //     description: "Custom option",
+  //   };
 
-    setCustomInput("");
-  };
+  //   setCustomOptions((prev) => [...prev, newOption]);
+  //   // auto-select the new option
+  //   field.onChange([...selected, newOption.id]);
+
+  //   setCustomInput("");
+  // };
 
   return (
     <div className="space-y-4">
       <div className="space-y-3" role="group" aria-label="Where were you?">
-        {options.map((option) => {
+        {generalOptions.map((option) => {
           const checked = isChecked(option.id);
           return (
             <Card
@@ -156,7 +147,7 @@ export function SituationYouWereIn({
         })}
 
         {/* Custom input */}
-        <Card className="border-muted-foreground/30 border-2 border-dashed p-0">
+        {/* <Card className="border-muted-foreground/30 border-2 border-dashed p-0">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
               <div className="flex-1">
@@ -181,7 +172,7 @@ export function SituationYouWereIn({
               </Button>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
 
       <div className="pt-2 text-right">

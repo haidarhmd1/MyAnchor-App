@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { CheckCheck, Frown, Smile } from "lucide-react";
 import { TZ } from "@/lib/timezone";
+import { TaxonomyType } from "@prisma/client";
 
 export default async function Page() {
   const session = await auth();
@@ -21,6 +22,17 @@ export default async function Page() {
   if (!user || user.deletedAt) {
     redirect("/");
   }
+
+  const taxonomies = await prisma.taxonomy.findMany({});
+  const locationOptions = taxonomies.filter(
+    (t) => t.type === TaxonomyType.LOCATION,
+  );
+  const avoidanceReasons = taxonomies.filter(
+    (t) => t.type === TaxonomyType.AVOIDANCE_REASON,
+  );
+  const symptomOptions = taxonomies.filter(
+    (t) => t.type === TaxonomyType.SYMPTOM,
+  );
 
   const start = DateTime.now().setZone(TZ).startOf("day");
   const end = start.endOf("day");
@@ -100,7 +112,11 @@ export default async function Page() {
 
   return (
     <div className="p-4">
-      <Journal />
+      <Journal
+        locationOptions={locationOptions}
+        avoidanceReasons={avoidanceReasons}
+        symptomOptions={symptomOptions}
+      />
     </div>
   );
 }

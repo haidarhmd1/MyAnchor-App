@@ -1,10 +1,4 @@
-import {
-  ChallengeStatus,
-  Company,
-  Difficulty,
-  Gender,
-  Prisma,
-} from "@prisma/client";
+import { ChallengeStatus, Company, Gender, Prisma } from "@prisma/client";
 import { z } from "zod";
 
 const JsonValueSchema: z.ZodType<Prisma.InputJsonValue> = z.lazy(() =>
@@ -21,20 +15,10 @@ export const JournalFormSchema = z.object({
   anxietyLevelRating: z.number().optional(),
 });
 
-// accept "easy" | "medium" | "hard" and convert to Prisma Difficulty enum
-const ChallengeOptionSchema = z.object({
-  id: z.string().min(1),
-  label: z.string().min(1),
-  description: z.string().min(1),
-  difficulty: z
-    .enum(["easy", "medium", "hard"])
-    .transform((v) => v.toUpperCase() as Difficulty),
-});
-
 export const ChallengeSchema = z.object({
-  company: z.nativeEnum(Company),
-  challengeOption: ChallengeOptionSchema,
-  status: z.nativeEnum(ChallengeStatus).default(ChallengeStatus.NOT_STARTED),
+  company: z.enum(Company),
+  challengeOptionId: z.cuid(),
+  status: z.enum(ChallengeStatus).default(ChallengeStatus.NOT_STARTED),
 });
 
 // Types

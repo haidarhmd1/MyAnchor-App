@@ -3,136 +3,109 @@
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Check, ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { challenges } from "@/common/const/form/formStep";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createChallenge } from "@/lib/api";
-import { ChallengeStatus, Company, Prisma } from "@prisma/client";
+import { ChallengeStatus, Company, Difficulty } from "@prisma/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-type Difficulty = "easy" | "medium" | "hard";
+// enum STEP_ID = "LOCATION" | "COMPANY";
 
-interface FormStep {
-  id: string;
-  label: string;
-  description?: string;
-  options: {
-    id: string;
-    label: string;
-    description: string;
-    isCustom?: boolean;
-    difficulty?: Difficulty;
-  }[];
+enum STEP_ID {
+  LOCATION = "LOCATION",
+  COMPANY = "COMPANY",
 }
 
-const formSteps: FormStep[] = [
-  {
-    id: "location",
-    label: "Where will you challenge yourself today?",
-    options: challenges, // must include difficulty on each item
-  },
-  {
-    id: "company",
-    label: "Who will be with you?",
-    options: [
-      {
-        id: Company.ALONE,
-        label: "Alone",
-        description: "Face it by yourself",
-      },
-      {
-        id: Company.WITH_OTHERS,
-        label: "With others",
-        description: "Friends, family, or colleagues",
-      },
-    ],
-  },
-];
+type ChallengeOptions = {
+  id: string;
+  label: string;
+  description: string | null;
+  difficulty: Difficulty | null;
+};
 
-export default function ChallengeForm() {
+export default function ChallengeForm({
+  challenges,
+}: {
+  challenges: ChallengeOptions[];
+}) {
   const router = useRouter();
-  const [currentStep, setCurrentStep] = useState(0);
+  const formStep = useMemo(() => {
+    return [
+      {
+        id: STEP_ID.LOCATION,
+        label: "Where will you challenge yourself today?",
+        options: challenges,
+      },
+      {
+        id: STEP_ID.COMPANY,
+        label: "Who will be with you?",
+        options: [
+          {
+            id: Company.ALONE,
+            label: "Alone",
+            description: "Face it by yourself",
+            difficulty: null,
+          },
+          {
+            id: Company.WITH_OTHERS,
+            label: "With others",
+            description: "Friends, family, or colleagues",
+            difficulty: null,
+          },
+        ],
+      },
+    ];
+  }, [challenges]);
+
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
-  const [customInput, setCustomInput] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [dynamicSteps, setDynamicSteps] = useState<FormStep[]>(formSteps);
+  const [difficultyTab, setDifficultyTab] = useState<Difficulty>(
+    Difficulty.EASY,
+  );
 
-  // Difficulty tab state (only used on the "location" step)
-  const [difficulty, setDifficulty] = useState<Difficulty>("easy");
-
-  const currentStepData = dynamicSteps[currentStep];
-  const currentStepId = currentStepData.id;
-  const currentSelection = selectedOptions[currentStepId];
-  const isLocationStep = currentStepId === "location";
+  const currentStep = formStep[currentStepIndex];
+  const isLocationStep = currentStep.id === STEP_ID.LOCATION;
 
   // For location step, filter by active tab; for others show all options
   const visibleOptions = useMemo(() => {
-    if (!isLocationStep) return currentStepData.options;
-    return currentStepData.options.filter(
-      (o) => o.isCustom || o.difficulty === difficulty,
-    );
-  }, [currentStepData.options, isLocationStep, difficulty]);
+    if (!isLocationStep) return currentStep.options;
+    return currentStep.options.filter((o) => o.difficulty === difficultyTab);
+  }, [currentStep.options, isLocationStep, difficultyTab]);
 
-  const handleSelect = (stepId: string, optionId: string) => {
+  const handleSelect = (stepId: STEP_ID, optionId: string) => {
     setSelectedOptions((prev) => ({ ...prev, [stepId]: optionId }));
   };
 
-  const handleAddCustomOption = () => {
-    const label = customInput.trim();
-    if (!label) return;
-
-    const trimmedLabel = label.replace(/\s+/g, "-");
-    const newOption = {
-      id: `custom-${trimmedLabel}`,
-      label,
-      description: "Custom option",
-      isCustom: true,
-      // attach current difficulty so it appears under the active tab
-      ...(isLocationStep ? { difficulty } : {}),
-    };
-
-    setDynamicSteps((prev) =>
-      prev.map((step) =>
-        step.id === currentStepId
-          ? { ...step, options: [...step.options, newOption] }
-          : step,
-      ),
-    );
-
-    // Auto-select the newly added option
-    setSelectedOptions((prev) => ({ ...prev, [currentStepId]: newOption.id }));
-    setCustomInput("");
-  };
-
-  const canGoNext = Boolean(currentSelection);
+  const canGoNext = Boolean(selectedOptions[currentStep.id]);
 
   const handleNext = () => {
-    if (currentStep < dynamicSteps.length - 1) {
-      setCurrentStep((s) => s + 1);
+    if (currentStepIndex < formStep.length - 1) {
+      setCurrentStepIndex((s) => s + 1);
     }
   };
 
   const handlePrevious = () => {
-    if (currentStep > 0) {
-      setCurrentStep((s) => s - 1);
+    if (currentStepIndex > 0) {
+      setCurrentStepIndex((s) => s - 1);
     }
   };
 
   const handleSubmit = async () => {
-    const option = dynamicSteps[0].options.filter(
-      (d) => d.id === selectedOptions.location,
-    );
+    const challengeOptionId = challenges.filter(
+      (locationChallenge) =>
+        locationChallenge.id === selectedOptions[STEP_ID.LOCATION],
+    )[0].id;
 
     try {
       await createChallenge({
         data: {
-          company: selectedOptions.company as Company,
-          challengeOption: option[0] as Prisma.JsonObject,
+          company: selectedOptions[STEP_ID.COMPANY] as Company,
+          challengeOptionId,
           status: ChallengeStatus.NOT_STARTED,
         },
       });
@@ -145,8 +118,9 @@ export default function ChallengeForm() {
         },
       });
       setIsSubmitted(true);
-    } catch {
-      toast("something went wrong");
+    } catch (e) {
+      console.error(e);
+      toast.error("something went wrong");
     }
   };
 
@@ -155,24 +129,24 @@ export default function ChallengeForm() {
       <div className="mx-auto w-full max-w-2xl">
         <div className="space-y-6">
           <div>
-            <h5 className="font-light">{currentStepData.label}</h5>
+            <h5 className="font-light">{currentStep.label}</h5>
           </div>
 
           {/* Progress */}
           <div className="mb-8">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-muted-foreground text-sm">
-                Step {currentStep + 1} of {dynamicSteps.length}
+                Step {currentStepIndex + 1} of {formStep.length}
               </span>
               <span className="text-muted-foreground text-sm">
-                {Math.round(((currentStep + 1) / dynamicSteps.length) * 100)}%
+                {Math.round(((currentStepIndex + 1) / formStep.length) * 100)}%
               </span>
             </div>
             <div className="bg-muted h-2 w-full rounded-full">
               <div
                 className="h-2 rounded-full bg-blue-500 transition-all duration-300"
                 style={{
-                  width: `${((currentStep + 1) / dynamicSteps.length) * 100}%`,
+                  width: `${((currentStepIndex + 1) / formStep.length) * 100}%`,
                 }}
               />
             </div>
@@ -182,14 +156,14 @@ export default function ChallengeForm() {
           {isLocationStep && (
             <div className="mb-4">
               <Tabs
-                value={difficulty}
-                onValueChange={(v) => setDifficulty(v as Difficulty)}
+                value={difficultyTab}
+                onValueChange={(value) => setDifficultyTab(value as Difficulty)}
                 className="w-full"
               >
                 <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="easy">Easy</TabsTrigger>
-                  <TabsTrigger value="medium">Medium</TabsTrigger>
-                  <TabsTrigger value="hard">Hard</TabsTrigger>
+                  <TabsTrigger value={Difficulty.EASY}>Easy</TabsTrigger>
+                  <TabsTrigger value={Difficulty.MEDIUM}>Medium</TabsTrigger>
+                  <TabsTrigger value={Difficulty.HARD}>Hard</TabsTrigger>
                 </TabsList>
               </Tabs>
             </div>
@@ -199,10 +173,10 @@ export default function ChallengeForm() {
           <div
             className="space-y-3"
             role="radiogroup"
-            aria-label={currentStepData.label}
+            aria-label={currentStep.label}
           >
             {visibleOptions.map((option) => {
-              const isSelected = currentSelection === option.id;
+              const isSelected = selectedOptions[currentStep.id] === option.id;
               return (
                 <Card
                   key={option.id}
@@ -212,7 +186,7 @@ export default function ChallengeForm() {
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      handleSelect(currentStepId, option.id);
+                      handleSelect(currentStep.id, option.id);
                     }
                   }}
                   className={cn(
@@ -221,7 +195,7 @@ export default function ChallengeForm() {
                       ? "border-blue-500 bg-blue-50 shadow-sm"
                       : "hover:border-muted-foreground/50",
                   )}
-                  onClick={() => handleSelect(currentStepId, option.id)}
+                  onClick={() => handleSelect(currentStep.id, option.id)}
                 >
                   <CardContent className="p-2">
                     <div className="flex items-start space-x-3">
@@ -267,40 +241,6 @@ export default function ChallengeForm() {
                 </Card>
               );
             })}
-
-            {isLocationStep && (
-              // {/* Custom input (added under current difficulty on location step) */}
-              <Card className="border-muted-foreground/30 border-2 border-dashed p-0">
-                <CardContent className="p-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-1">
-                      <Input
-                        placeholder={
-                          isLocationStep
-                            ? "Add your own challenge..."
-                            : "Add your own option..."
-                        }
-                        value={customInput}
-                        onChange={(e) => setCustomInput(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") handleAddCustomOption();
-                        }}
-                        className="placeholder:text-muted-foreground border-0 bg-transparent p-0 text-base focus-visible:ring-0"
-                      />
-                    </div>
-                    <Button
-                      size="sm"
-                      onClick={handleAddCustomOption}
-                      disabled={!customInput.trim()}
-                      className="h-8 w-8 bg-blue-500 p-0 hover:bg-blue-600"
-                      aria-label="Add custom option"
-                    >
-                      <Plus className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
           </div>
 
           {/* Navigation */}
@@ -308,14 +248,14 @@ export default function ChallengeForm() {
             <Button
               variant="secondary"
               onClick={handlePrevious}
-              disabled={currentStep === 0}
+              disabled={currentStepIndex === 0}
               className="flex items-center space-x-2 bg-transparent"
             >
               <ChevronLeft className="h-4 w-4" />
               <span>Previous</span>
             </Button>
 
-            {currentStep === dynamicSteps.length - 1 && !isSubmitted && (
+            {currentStepIndex === formStep.length - 1 && !isSubmitted && (
               <Button
                 onClick={handleSubmit}
                 disabled={!canGoNext}
@@ -326,7 +266,7 @@ export default function ChallengeForm() {
               </Button>
             )}
 
-            {currentStep !== dynamicSteps.length - 1 && (
+            {currentStepIndex !== formStep.length - 1 && (
               <Button
                 onClick={handleNext}
                 disabled={!canGoNext}

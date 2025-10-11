@@ -24,12 +24,12 @@ export const POST = withAuth(async (request, _ctx, { userId }) => {
       { status: 400 },
     );
   }
-  const { company, challengeOption, status } = parsed.data;
+  const { company, challengeOptionId, status } = parsed.data;
   const newChallengeEntry = await prisma.challenge.create({
     data: {
       userId,
       company,
-      challengeOption,
+      challengeOptionId,
       status,
     },
   });

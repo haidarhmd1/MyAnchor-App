@@ -10,9 +10,7 @@ import {
 import { ChallengeOutcomeSchema, ChallengeSchema } from "./zod.types";
 import { z } from "zod";
 
-type ChallengeOutcomeInputType = z.infer<typeof ChallengeOutcomeSchema>;
 type CreateChallengeInputType = z.infer<typeof ChallengeSchema>;
-
 export async function createChallenge({
   data,
 }: {
@@ -23,7 +21,7 @@ export async function createChallenge({
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       company: data.company === "ALONE" ? Company.ALONE : Company.WITH_OTHERS,
-      challengeOption: data.challengeOption,
+      challengeOptionId: data.challengeOptionId,
       status: data.status ?? "NOT_STARTED",
     }),
     // optional in Next.js to avoid caching for mutations:
@@ -38,6 +36,7 @@ export async function createChallenge({
   return (await res.json()) as Challenge;
 }
 
+type ChallengeOutcomeInputType = z.infer<typeof ChallengeOutcomeSchema>;
 export async function createChallengeOutcome({
   id,
   data,
@@ -103,7 +102,7 @@ export async function updateUserProfile({
   return await res.json();
 }
 
-export async function getJorunals(): Promise<Journal> {
+export async function getJournals(): Promise<Journal> {
   const res = await fetch("api/journal", {
     next: { tags: ["journals"] },
     method: "GET",

@@ -86,6 +86,7 @@ export const categories: {
   title: string;
   description: string;
   link: string;
+  gradient: { from: string; to: string };
   imgSrc: string | StaticImageData;
   slug: string;
 }[] = [
@@ -96,6 +97,10 @@ export const categories: {
     imgSrc: "/illustration/psycho-education.png",
     link: "/education",
     slug: "education",
+    gradient: {
+      from: "from-sky-400",
+      to: "to-sky-600",
+    },
   },
   {
     id: "78d869da-2632-4d0e-9329-9e161bb38696",
@@ -105,6 +110,11 @@ export const categories: {
     imgSrc: "/illustration/exercises.png",
     link: "/exercises",
     slug: "exercises",
+
+    gradient: {
+      from: "from-indigo-400",
+      to: "to-indigo-600",
+    },
   },
   {
     id: "0b86e632-447a-487b-90b6-bb5dc312cde6",
@@ -113,5 +123,10 @@ export const categories: {
     imgSrc: "/illustration/psycho-education.png",
     link: "/exposure",
     slug: "exposure",
+
+    gradient: {
+      from: "from-violet-400",
+      to: "to-violet-600",
+    },
   },
 ];

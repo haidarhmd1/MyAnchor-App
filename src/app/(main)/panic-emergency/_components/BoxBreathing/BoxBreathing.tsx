@@ -1,18 +1,11 @@
 "use client";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { Wind } from "lucide-react";
 import { easeInOut } from "motion";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import * as React from "react";
+import { Sheet } from "react-modal-sheet";
 
 type Phase = "inhale" | "hold1" | "exhale" | "hold2";
 
@@ -109,8 +102,8 @@ export const BoxBreathing = ({
       : { duration: secondsPerSide, ease: easeInOut };
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger className="w-full">
+    <div>
+      <div onClick={() => setOpen(true)} className="w-full">
         <div className="flex space-x-4">
           <div className="flex h-14 w-14 shrink-0 justify-center rounded-2xl bg-gray-200 align-middle">
             <Wind className="self-center" />
@@ -122,109 +115,109 @@ export const BoxBreathing = ({
             </p>
           </div>
         </div>
-      </SheetTrigger>
+      </div>
 
-      <SheetContent side="bottom" className="h-11/12 overflow-auto">
-        <SheetHeader>
-          <SheetTitle className="flex items-center justify-between">
-            <span>Box Breathing</span>
-          </SheetTitle>
+      <Sheet isOpen={open} onClose={() => setOpen(false)}>
+        <Sheet.Container>
+          <Sheet.Header />
+          <Sheet.Content>
+            <div className="mx-auto mt-4 flex max-w-sm flex-col items-center gap-6">
+              <motion.div
+                key={`${phase}-${roundIndex}`}
+                className={`my-12 min-h-64 min-w-64 rounded-xl ${phaseColor}`}
+                animate={scaleAnim}
+                transition={scaleTransition}
+                style={{
+                  boxShadow:
+                    "0 8px 30px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
+                }}
+              />
 
-          <div className="mx-auto mt-4 flex max-w-sm flex-col items-center gap-6">
-            <motion.div
-              key={`${phase}-${roundIndex}`}
-              className={`my-12 min-h-64 min-w-64 rounded-xl ${phaseColor}`}
-              animate={scaleAnim}
-              transition={scaleTransition}
-              style={{
-                boxShadow:
-                  "0 8px 30px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
-              }}
-            />
+              <div className="inset-0 flex flex-col items-center justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={phase}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-2xl font-medium tracking-wide"
+                    aria-live="polite"
+                  >
+                    {phaseLabel[phase]}
+                  </motion.div>
+                </AnimatePresence>
 
-            <div className="inset-0 flex flex-col items-center justify-center">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={phase}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-2xl font-medium tracking-wide"
-                  aria-live="polite"
+                <div className="text-muted-foreground mt-2 text-sm">
+                  {phaseHint[phase]}
+                </div>
+
+                {/* countdown */}
+                <div className="mt-4 text-4xl tabular-nums">
+                  {Math.max(0, countdown)}
+                </div>
+
+                {/* round progress */}
+                <div className="text-muted-foreground mt-2 text-xs">
+                  Round{" "}
+                  {Math.min(
+                    roundIndex + 1,
+                    rounds === "infinite" ? Infinity : (rounds as number),
+                  )}
+                  {isFinite && typeof rounds === "number" ? ` / ${rounds}` : ""}
+                </div>
+              </div>
+
+              {/* controls */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl bg-black px-4 py-2 text-sm text-white"
                 >
-                  {phaseLabel[phase]}
-                </motion.div>
+                  Done
+                </button>
+
+                <button
+                  onClick={() => {
+                    // restart
+                    setPhaseIndex(0);
+                    setRoundIndex(0);
+                    setCountdown(secondsPerSide);
+                  }}
+                  className="rounded-xl border px-4 py-2 text-sm"
+                >
+                  Restart
+                </button>
+              </div>
+
+              {/* completion banner */}
+              <AnimatePresence>
+                {done && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    className="w-full rounded-xl bg-emerald-50 p-3 text-center text-emerald-700"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    Nice work. Notice how your body feels now.
+                  </motion.div>
+                )}
               </AnimatePresence>
 
-              <div className="text-muted-foreground mt-2 text-sm">
-                {phaseHint[phase]}
-              </div>
-
-              {/* countdown */}
-              <div className="mt-4 text-4xl tabular-nums">
-                {Math.max(0, countdown)}
-              </div>
-
-              {/* round progress */}
-              <div className="text-muted-foreground mt-2 text-xs">
-                Round{" "}
-                {Math.min(
-                  roundIndex + 1,
-                  rounds === "infinite" ? Infinity : (rounds as number),
-                )}
-                {isFinite && typeof rounds === "number" ? ` / ${rounds}` : ""}
-              </div>
-            </div>
-
-            {/* controls */}
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setOpen(false)}
-                className="rounded-xl bg-black px-4 py-2 text-sm text-white"
-              >
-                Done
-              </button>
-
-              <button
-                onClick={() => {
-                  // restart
-                  setPhaseIndex(0);
-                  setRoundIndex(0);
-                  setCountdown(secondsPerSide);
-                }}
-                className="rounded-xl border px-4 py-2 text-sm"
-              >
-                Restart
-              </button>
-            </div>
-
-            {/* completion banner */}
-            <AnimatePresence>
-              {done && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  className="w-full rounded-xl bg-emerald-50 p-3 text-center text-emerald-700"
-                  role="status"
-                  aria-live="polite"
-                >
-                  Nice work. Notice how your body feels now.
-                </motion.div>
+              {/* accessibility note */}
+              {reduce && (
+                <div className="text-muted-foreground text-xs">
+                  Reduced motion is enabled — showing timed prompts without
+                  movement.
+                </div>
               )}
-            </AnimatePresence>
-
-            {/* accessibility note */}
-            {reduce && (
-              <div className="text-muted-foreground text-xs">
-                Reduced motion is enabled — showing timed prompts without
-                movement.
-              </div>
-            )}
-          </div>
-        </SheetHeader>
-      </SheetContent>
-    </Sheet>
+            </div>
+          </Sheet.Content>
+        </Sheet.Container>
+        <Sheet.Backdrop />
+      </Sheet>
+    </div>
   );
 };

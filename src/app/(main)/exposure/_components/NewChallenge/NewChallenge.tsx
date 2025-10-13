@@ -32,7 +32,7 @@ export const NewChallenge = async () => {
       >
         <Card
           className={
-            "group mt-4 rounded-3xl border-2 border-dashed border-amber-300 bg-amber-100 shadow-sm transition-colors focus-within:ring-2 hover:border-amber-400"
+            "group mt-4 border-2 border-dashed border-amber-300 bg-gradient-to-br from-amber-100 to-amber-200 shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-colors focus-within:ring-2 hover:border-amber-400"
           }
           aria-label="Daily Challenge Completion Pending"
         >

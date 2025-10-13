@@ -49,16 +49,29 @@ export const InspirationForToday = () => {
     <div className="w-full max-w-md space-y-4">
       <h2>Inspiration for today</h2>
 
-      <Card className="rounded-4xl border-none bg-[#B5E2D3] p-0 shadow-none">
+      <Card className="rounded-[22px] border-none bg-gradient-to-br from-green-300 to-green-500 p-0 shadow-[0_6px_18px_rgba(0,0,0,0.15)]">
         <CardContent className="relative p-6">
-          <button
+          <div
+            className={`absolute top-4 right-4 z-50 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/35 shadow-inner backdrop-blur-[2px]`}
+            aria-hidden
+            onClick={nextRandom}
+          >
+            <div className="text-white drop-shadow">
+              <RefreshCcw
+                size={18}
+                strokeWidth={2.25}
+                className="h-5 w-5 stroke-1"
+              />
+            </div>
+          </div>
+          {/* <button
             type="button"
             onClick={nextRandom}
             aria-label="Show another inspirational quote"
             className="absolute top-4 right-4 z-50 inline-flex items-center justify-center rounded-md p-2 text-[#2E3D49]/70 transition hover:bg-white/30 hover:text-[#2E3D49] focus:ring-2 focus:ring-[#8AB6A9] focus:outline-none"
           >
             <RefreshCcw className="h-5 w-5 stroke-1" />
-          </button>
+          </button> */}
 
           <div className="min-h-[88px] space-y-3 pr-8">
             <AnimatePresence mode="wait">
@@ -75,10 +88,12 @@ export const InspirationForToday = () => {
                   }}
                   className="space-y-3"
                 >
-                  <p className="text-xs tracking-wider text-[#4F6B75]">
+                  {/* <p className="text-xs tracking-wider text-[#4F6B75]"> */}
+                  <p className="text-xs tracking-wider text-white">
                     {quote.author}
                   </p>
-                  <p className="leading-relaxed text-[#2E3D49]">{quote.text}</p>
+                  {/* <p className="leading-relaxed text-[#2E3D49]">{quote.text}</p> */}
+                  <p className="leading-relaxed text-white">{quote.text}</p>
                 </motion.div>
               ) : (
                 <motion.div

@@ -89,7 +89,7 @@ export function SituationYouWereIn({
                 "cursor-pointer p-2 transition-all duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40",
                 checked
                   ? "border-blue-500 bg-blue-50 shadow-sm"
-                  : "hover:border-muted-foreground/50",
+                  : "hover:border-muted-foreground/50 border-gray-500 bg-gray-50",
               )}
             >
               <CardContent className="p-2">

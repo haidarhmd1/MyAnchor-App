@@ -25,7 +25,7 @@ export default async function EducationPage() {
           {education.map((e) => (
             <CardContainer
               key={e.id}
-              className="mx-4 mb-4"
+              className="mb-4"
               title={e.title}
               description={e.description}
               icon={

@@ -27,8 +27,10 @@ export const CardContainer = ({
         <CardContent className="flex px-4">
           {icon && <div className="mr-2 shrink-0">{icon}</div>}
           <div>
-            <h4 className="text-[16px] leading-[24px] font-medium">{title}</h4>
-            <p className="text-[14px] leading-[21px] font-normal text-[#617D8A]">
+            <h4 className="text-[16px] leading-[24px] font-medium drop-shadow">
+              {title}
+            </h4>
+            <p className="text-[14px] leading-[21px] font-normal text-[#617D8A] shadow-inner backdrop-blur-[2px]">
               {description}
             </p>
           </div>

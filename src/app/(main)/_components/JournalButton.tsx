@@ -1,5 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { BookOpenCheck, CheckCheck } from "lucide-react";
 import Link from "next/link";
 import prisma from "../../../../lib/prisma";
@@ -7,6 +5,7 @@ import { DateTime } from "luxon";
 import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
 import { TZ } from "@/lib/timezone";
+import ShortcutsCard from "./ShortcutsCard";
 
 export async function JournalButton() {
   const session = await auth();
@@ -38,27 +37,15 @@ export async function JournalButton() {
 
   if (journalEntry) {
     return (
-      <div className="mb-3 flex justify-center">
-        <Card
-          className={cn(
-            "w-full cursor-pointer rounded-4xl border-green-50 bg-green-50 py-4 transition-all duration-300 hover:shadow-lg",
-          )}
-        >
-          <CardContent>
-            <div className="flex flex-col items-center gap-4">
-              <div className="shrink-0">
-                <CheckCheck className="h-8 w-8 text-green-500" />
-              </div>
-              <div className="text-center">
-                <h5 className="font-light text-green-500">
-                  Your daily journal
-                </h5>
-                <h4 className="text-green-700">Entry for today done!</h4>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <ShortcutsCard
+        title="Your daily journal"
+        subtitle="Entry for today done!"
+        icon={<CheckCheck className="h-5 w-5" aria-hidden="true" />}
+        gradient={{
+          from: "bg-green-300",
+          to: "bg-green-100",
+        }}
+      />
     );
   }
 
@@ -69,25 +56,15 @@ export async function JournalButton() {
         display: "contents",
       }}
     >
-      <div className="mb-3 flex justify-center">
-        <Card
-          className={cn(
-            "w-full cursor-pointer rounded-4xl border-blue-50 bg-blue-50 py-4 transition-all duration-300 hover:shadow-lg",
-          )}
-        >
-          <CardContent>
-            <div className="flex flex-col items-center gap-4">
-              <div className="shrink-0">
-                <BookOpenCheck className="h-8 w-8 text-blue-500" />
-              </div>
-              <div className="text-center">
-                <h5 className="font-light text-blue-500">Your daily journal</h5>
-                <h4 className="text-blue-700">Journal</h4>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <ShortcutsCard
+        title="Your daily journal"
+        subtitle="Journal"
+        icon={<BookOpenCheck className="h-5 w-5" aria-hidden="true" />}
+        gradient={{
+          from: "bg-blue-300",
+          to: "bg-blue-100",
+        }}
+      />
     </Link>
   );
 }

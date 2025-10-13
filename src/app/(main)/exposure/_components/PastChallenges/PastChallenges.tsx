@@ -25,7 +25,12 @@ export const PastChallenges = async () => {
     return pastChallenges.map((pC) => {
       const challenge = pC.challengeOption;
       return (
-        <Card key={pC.id} className={cn("mt-4 border-2 bg-green-100")}>
+        <Card
+          key={pC.id}
+          className={cn(
+            "group mt-4 border-2 border-dashed border-green-300 bg-gradient-to-br from-green-100 to-green-200 shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-colors focus-within:ring-2 hover:border-green-400",
+          )}
+        >
           <CardContent className="flex flex-col gap-2">
             <p className="text-xs">{challenge.label}</p>
             <p className="text-md">{challenge.description}</p>

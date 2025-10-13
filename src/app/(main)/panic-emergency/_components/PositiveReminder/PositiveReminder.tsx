@@ -27,7 +27,10 @@ export const PositiveReminder = () => {
 
   return (
     <div>
-      <div onClick={() => setIsOpen(true)}>
+      <div
+        onClick={() => setIsOpen(true)}
+        className="flex transform space-x-4 rounded-[22px] p-4 shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition will-change-transform focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40 active:scale-[0.99]"
+      >
         <div className="flex space-x-4">
           <div className="flex h-14 w-14 shrink-0 justify-center rounded-2xl bg-gray-200">
             <Heart className="self-center" />
@@ -52,10 +55,10 @@ export const PositiveReminder = () => {
                     ? undefined
                     : { duration: 8, repeat: Infinity, ease: "easeInOut" }
                 }
-                className="m-auto flex h-32 w-32 items-center justify-center rounded-full bg-[#B5E2D3]"
+                className="m-auto flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-sky-300 to-sky-500"
                 onClick={onClickHandler}
               >
-                <h6 className="font-medium">Next</h6>
+                <h3 className="font-medium text-white">Next</h3>
               </motion.div>
 
               <div className="mt-24 min-h-[2.5rem] text-center">

@@ -3,8 +3,9 @@
 import { Wind } from "lucide-react";
 import { easeInOut } from "motion";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { Sheet } from "react-modal-sheet";
 
 type Phase = "inhale" | "hold1" | "exhale" | "hold2";
@@ -32,23 +33,22 @@ export const BoxBreathing = ({
   secondsPerSide?: number;
   rounds?: number | "infinite";
 }) => {
-  const reduce = useReducedMotion();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
-  const [phaseIndex, setPhaseIndex] = React.useState(0);
-  const [roundIndex, setRoundIndex] = React.useState(0);
-  const [countdown, setCountdown] = React.useState(secondsPerSide);
+  const [phaseIndex, setPhaseIndex] = useState(0);
+  const [roundIndex, setRoundIndex] = useState(0);
+  const [countdown, setCountdown] = useState(secondsPerSide);
 
   const phase = PHASES[phaseIndex];
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!open) return;
     setPhaseIndex(0);
     setRoundIndex(0);
     setCountdown(secondsPerSide);
   }, [open, secondsPerSide]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!open) return;
     let raf: number; // requestAnimationFrame
     let start: number | null = null;
@@ -81,29 +81,27 @@ export const BoxBreathing = ({
   const isFinite = rounds !== "infinite";
   const done = isFinite && roundIndex >= (rounds as number);
 
-  const activeSide = phase;
+  const scaleAnim = {
+    scale:
+      phase === "inhale"
+        ? [1, 1.08]
+        : phase === "hold1"
+          ? [1.08]
+          : phase === "exhale"
+            ? [1.08, 1]
+            : phase === "hold2"
+              ? [1]
+              : [1.08],
+  };
 
-  // colors per phase
-  const phaseColor =
-    phase === "inhale"
-      ? "bg-emerald-300"
-      : phase === "exhale"
-        ? "bg-sky-300"
-        : "bg-teal-200";
-
-  const scaleAnim =
-    reduce || phase.includes("hold")
-      ? { scale: 1 }
-      : { scale: phase === "inhale" ? [1, 1.08] : [1.08, 1] };
-
-  const scaleTransition =
-    reduce || phase.includes("hold")
-      ? { duration: secondsPerSide }
-      : { duration: secondsPerSide, ease: easeInOut };
+  const scaleTransition = { duration: secondsPerSide, ease: easeInOut };
 
   return (
     <div>
-      <div onClick={() => setOpen(true)} className="w-full">
+      <div
+        onClick={() => setOpen(true)}
+        className="flex transform space-x-4 rounded-[22px] p-4 shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition will-change-transform focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40 active:scale-[0.99]"
+      >
         <div className="flex space-x-4">
           <div className="flex h-14 w-14 shrink-0 justify-center rounded-2xl bg-gray-200 align-middle">
             <Wind className="self-center" />
@@ -124,7 +122,7 @@ export const BoxBreathing = ({
             <div className="mx-auto mt-4 flex max-w-sm flex-col items-center gap-6">
               <motion.div
                 key={`${phase}-${roundIndex}`}
-                className={`my-12 min-h-64 min-w-64 rounded-xl ${phaseColor}`}
+                className={`my-12 min-h-64 min-w-64 rounded-[22px] bg-gradient-to-br from-sky-300 to-sky-500`}
                 animate={scaleAnim}
                 transition={scaleTransition}
                 style={{
@@ -137,12 +135,7 @@ export const BoxBreathing = ({
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={phase}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.2 }}
                     className="text-2xl font-medium tracking-wide"
-                    aria-live="polite"
                   >
                     {phaseLabel[phase]}
                   </motion.div>
@@ -205,14 +198,6 @@ export const BoxBreathing = ({
                   </motion.div>
                 )}
               </AnimatePresence>
-
-              {/* accessibility note */}
-              {reduce && (
-                <div className="text-muted-foreground text-xs">
-                  Reduced motion is enabled — showing timed prompts without
-                  movement.
-                </div>
-              )}
             </div>
           </Sheet.Content>
         </Sheet.Container>

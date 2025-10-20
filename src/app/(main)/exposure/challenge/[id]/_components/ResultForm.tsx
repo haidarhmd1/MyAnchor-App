@@ -10,7 +10,6 @@ import { z } from "zod";
 import { MultipleChoice } from "./Steps/MultipleChoice";
 
 import { SingleChoice } from "./Steps/SingleChoice";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   ANXIETY_CHECK,
@@ -28,22 +27,22 @@ import { StoppedEarly } from "./Steps/StoppedEarly";
 import { createChallengeOutcome } from "@/lib/api";
 import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import { Taxonomy } from "@prisma/client";
-import {
-  anxietyLevelOptions,
-  AnxietyLevelOptionsType,
-} from "@/common/const/anxietyRating";
-import {
-  exposureRatingOptions,
-  ExposureRatingOptionsType,
-} from "@/common/const/exposureRatingOptions";
+import { anxietyLevelOptions } from "@/common/const/anxietyRating";
+import { exposureRatingOptions } from "@/common/const/exposureRatingOptions";
 import { toast } from "sonner";
 
 export type StepId = Step["id"];
 
+export type FormFieldType = {
+  id: string;
+  label: string;
+  description: string | null;
+};
+
 type StepComponentProps = {
   onNext(): void;
   onPrev(): void;
-  option: Taxonomy[] | AnxietyLevelOptionsType[] | ExposureRatingOptionsType[];
+  option: FormFieldType[];
 };
 
 const STEPS_COMPONENTS: Record<
@@ -51,10 +50,10 @@ const STEPS_COMPONENTS: Record<
   React.ComponentType<StepComponentProps>
 > = {
   hadCompletedChallenge: (props) => <HadCompletedChallenge {...props} />,
-  reasonsWhyYouDidNotDoTheChallenge: (props) => (
+  reasonsNotDone: (props) => (
     <MultipleChoice
-      generalOptions={props.option as Taxonomy[]} // skippedChallengeReasonsOptions
-      controlName="stopReasons"
+      fieldName="reasonsNotDone"
+      options={props.option} // skippedChallengeReasonsOptions
       {...props}
     />
   ),
@@ -62,43 +61,43 @@ const STEPS_COMPONENTS: Record<
   stoppedEarly: (props) => <StoppedEarly {...props} />,
   stopReasons: (props) => (
     <MultipleChoice
-      controlName="stopReasons"
-      generalOptions={props.option as Taxonomy[]} // stopReasonsOptions
+      fieldName="stopReasons"
+      options={props.option} // stopReasonsOptions
       {...props}
     />
   ),
   actionsTaken: (props) => (
     <MultipleChoice
-      controlName="actionsTaken"
-      generalOptions={props.option as Taxonomy[]} // afterAttackActionsOptions
+      fieldName="actionsTaken"
+      options={props.option} // afterAttackActionsOptions
       {...props}
     />
   ),
   typesOfBodySymptoms: (props) => (
     <MultipleChoice
-      controlName="typesOfBodySymptoms"
-      generalOptions={props.option as Taxonomy[]} // symptomOptions
+      fieldName="typesOfBodySymptoms"
+      options={props.option} // symptomOptions
       {...props}
     />
   ),
   copingStrategies: (props) => (
     <MultipleChoice
-      controlName="copingStrategies"
-      generalOptions={props.option as Taxonomy[]} // keptGoingReasonsOptions
+      fieldName="copingStrategies"
+      options={props.option} // keptGoingReasonsOptions
       {...props}
     />
   ),
   anxietyLevelRating: (props) => (
     <SingleChoice
-      options={props.option as AnxietyLevelOptionsType[]} // anxietyLevelOptions
       fieldName="anxietyLevelRating"
+      options={props.option} // anxietyLevelOptions
       {...props}
     />
   ),
   challengeRating: (props) => (
     <SingleChoice
-      options={props.option as ExposureRatingOptionsType[]} // exposureRatingOptions
       fieldName="challengeRating"
+      options={props.option} // exposureRatingOptions
       {...props}
     />
   ),
@@ -143,7 +142,7 @@ export function ResultForm({
   const hadAnxietyAttack = form.watch("hadAnxietyAttack");
   const stoppedEarly = form.watch("stoppedEarly");
 
-  const conditionSteps = useMemo<Step[]>(() => {
+  const formStep = useMemo<Step[]>(() => {
     // Not answered yet, wait for first answer
     if (typeof hadCompletedChallenge !== "boolean") {
       return [...BASE_STEP];
@@ -169,14 +168,9 @@ export function ResultForm({
     return steps;
   }, [hadAnxietyAttack, stoppedEarly, hadCompletedChallenge]);
 
-  const optionByStep: Partial<
-    Record<
-      StepId,
-      Taxonomy[] | ExposureRatingOptionsType[] | AnxietyLevelOptionsType[]
-    >
-  > = useMemo(
+  const optionByStep: Partial<Record<StepId, FormFieldType[]>> = useMemo(
     () => ({
-      reasonsWhyYouDidNotDoTheChallenge: skippedChallengeReasonsOptions,
+      reasonsNotDone: skippedChallengeReasonsOptions,
       stopReasons: stopReasonsOptions,
       actionsTaken: afterAttackActionsOptions,
       typesOfBodySymptoms: symptomOptions,
@@ -195,16 +189,16 @@ export function ResultForm({
 
   const handleNext = () => {
     // race condition, it keeps on finishing the step after
-    if (conditionSteps[currentStepIndex].id === "hadCompletedChallenge") {
+    if (formStep[currentStepIndex].id === "hadCompletedChallenge") {
       setCurrentStepIndex(1);
       return;
     }
-    if (conditionSteps[currentStepIndex].id === "hadAnxietyAttack") {
+    if (formStep[currentStepIndex].id === "hadAnxietyAttack") {
       setCurrentStepIndex(2);
       return;
     }
 
-    if (currentStepIndex >= conditionSteps.length - 1) {
+    if (currentStepIndex >= formStep.length - 1) {
       form.handleSubmit(onSubmit)();
       return;
     }
@@ -212,7 +206,16 @@ export function ResultForm({
   };
 
   const handlePrevious = () => {
-    setCurrentStepIndex(currentStepIndex - 1);
+    if (currentStepIndex > 0) {
+      const currentField = formStep[currentStepIndex].id;
+      form.setValue(currentField, undefined, {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      });
+
+      setCurrentStepIndex(currentStepIndex - 1);
+    }
   };
 
   const onSubmit = async (data: z.infer<typeof ChallengeOutcomeSchema>) => {
@@ -221,19 +224,21 @@ export function ResultForm({
         id: challengeId,
         data,
       });
+      router.refresh();
+      router.replace("/exposure");
     } catch (e) {
       console.error(e);
       toast.error("something went wrong");
     }
   };
 
-  const active = conditionSteps[currentStepIndex];
+  const active = formStep[currentStepIndex];
   const ActiveStepComponent = useMemo(() => {
-    const stepId = conditionSteps[currentStepIndex].id as StepId;
-    return conditionSteps[currentStepIndex]
+    const stepId = formStep[currentStepIndex].id as StepId;
+    return formStep[currentStepIndex]
       ? STEPS_COMPONENTS[stepId]
       : () => <div />;
-  }, [conditionSteps, currentStepIndex]);
+  }, [formStep, currentStepIndex]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
@@ -245,72 +250,36 @@ export function ResultForm({
     exit: { opacity: 0, y: -8, filter: "blur(4px)" },
   };
 
-  if (form.formState.isSubmitSuccessful) {
-    return (
-      <div className="mx-auto max-w-2xl py-10">
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduce ? 0 : 0.25 }}
-          className="mt-8 rounded-[22px] bg-white p-8 text-center"
-        >
-          <h2 className="text-2xl font-semibold">Challenge done!</h2>
-
-          <Image
-            className="m-auto mb-6"
-            width={200}
-            height={240}
-            src="/illustration/journal_finished.webp"
-            alt="Journal Finished"
-          />
-          <p className="text-muted-foreground mt-2">
-            Thank yourself for trying to do that challenge, no matter if you did
-            it or not, even thinking about doing one is a step towards feeling
-            better!
-          </p>
-          <Button
-            className="mt-6"
-            onClick={() => {
-              router.replace("/");
-            }}
-          >
-            Back to home
-          </Button>
-        </motion.div>
-      </div>
-    );
-  }
-
   const option = optionByStep[active.id as StepId] ?? [];
 
   return (
     <>
-      {currentStepIndex !== 0 ? (
-        <div className="mb-8 flex justify-between">
-          <Button variant="secondary" onClick={handlePrevious}>
-            <ChevronLeft className="h-4 w-4" />
-            <span>Previous</span>
-          </Button>
-        </div>
-      ) : (
-        <div className="h-[69px]" />
-      )}
+      <div className="mb-8 flex justify-between">
+        <Button
+          variant="secondary"
+          disabled={currentStepIndex === 0}
+          onClick={handlePrevious}
+        >
+          <ChevronLeft className="h-4 w-4" />
+          <span>Previous</span>
+        </Button>
+      </div>
       <div className="flex items-center justify-center py-0">
         <div className="mx-auto w-full max-w-2xl">
           <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="mb-6 text-center">
                 <h5 className="font-light">
-                  {conditionSteps[currentStepIndex].title}
+                  {formStep[currentStepIndex].title}
                 </h5>
                 <h2 className="text-foreground text-2xl">
-                  {conditionSteps[currentStepIndex].subtitle}
+                  {formStep[currentStepIndex].subtitle}
                 </h2>
               </div>
               <div className="min-h-[260px]">
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key={conditionSteps[currentStepIndex].id}
+                    key={formStep[currentStepIndex].id}
                     variants={variants}
                     initial="initial"
                     animate="animate"

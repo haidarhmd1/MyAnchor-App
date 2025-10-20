@@ -6,10 +6,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import z from "zod";
-import { Taxonomy } from "@prisma/client";
-import { ExposureRatingOptionsType } from "@/common/const/exposureRatingOptions";
-import { AnxietyLevelOptionsType } from "@/common/const/anxietyRating";
 import { Spinner } from "@/components/Spinner/Spinner";
+import { FormFieldType } from "../ResultForm";
 
 export function SingleChoice({
   onNext,
@@ -19,7 +17,7 @@ export function SingleChoice({
   onNext(): void;
   onPrev?: () => void;
   fieldName: keyof z.infer<typeof ChallengeOutcomeSchema>;
-  options: Taxonomy[] | ExposureRatingOptionsType[] | AnxietyLevelOptionsType[];
+  options: FormFieldType[];
 }) {
   const { control, formState } =
     useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();

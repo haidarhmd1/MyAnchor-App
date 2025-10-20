@@ -16,7 +16,7 @@ export const ANXIETY_CHECK = [
 
 export const REASONS_FOR_SKIPPING_CHALLENGE = [
   {
-    id: "reasonsWhyYouDidNotDoTheChallenge",
+    id: "reasonsNotDone",
     title: "Why did not you do the challenge?",
     subtitle: "Reasons on why you did not it",
   },

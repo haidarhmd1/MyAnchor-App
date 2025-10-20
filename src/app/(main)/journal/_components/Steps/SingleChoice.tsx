@@ -90,7 +90,6 @@ export const SingleChoice = ({
         })}
       </div>
 
-      {/* Optional step-level Next */}
       <div className="pt-2 text-right">
         {formState.isSubmitting ? (
           <Button disabled className="bg-blue-500 hover:bg-blue-600">

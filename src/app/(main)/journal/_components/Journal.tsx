@@ -10,7 +10,6 @@ import { HasAnxietyAttackStep } from "./Steps/HasAnxietyAttack";
 import { HasAvoidedSituation } from "./Steps/HasAvoidedSituation";
 import { MultipleChoice } from "./Steps/MultipleChoice";
 import { AnxietyLevelRating } from "./Steps/AnxietyRating";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   AVOIDANCE_STEPS,
@@ -26,7 +25,6 @@ import { z } from "zod";
 import { JournalFormSchema } from "@/lib/zod.types";
 import type { Taxonomy } from "@prisma/client";
 import { SingleChoice } from "./Steps/SingleChoice";
-import { revalidateTag } from "next/cache";
 
 export type StepId = Step["id"];
 
@@ -105,11 +103,10 @@ export default function Journal({
   const reduce = useReducedMotion();
   const router = useRouter();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-
   const hasAnxietyAttack = form.watch("hasAnxietyAttack");
   const hasAvoidedSituations = form.watch("hasAvoidedSituations");
 
-  const conditionSteps = useMemo<Step[]>(() => {
+  const formStep = useMemo<Step[]>(() => {
     if (typeof hasAnxietyAttack !== "boolean") return [...BASE_STEP];
     if (hasAnxietyAttack === true) return [...BASE_STEP, ...HAS_ANXIETY_STEPS];
 
@@ -131,7 +128,7 @@ export default function Journal({
   );
 
   const handleNext = () => {
-    const id = conditionSteps[currentStepIndex].id;
+    const id = formStep[currentStepIndex].id;
 
     if (id === "hasAnxietyAttack") {
       setCurrentStepIndex(1);
@@ -147,7 +144,7 @@ export default function Journal({
       return;
     }
 
-    const lastIndex = conditionSteps.length - 1;
+    const lastIndex = formStep.length - 1;
     if (currentStepIndex >= lastIndex) {
       form.handleSubmit(onSubmit)();
       return;
@@ -156,7 +153,16 @@ export default function Journal({
   };
 
   const handlePrevious = () => {
-    setCurrentStepIndex((i) => Math.max(0, i - 1));
+    if (currentStepIndex > 0) {
+      const currentField = formStep[currentStepIndex].id;
+      form.setValue(currentField, undefined, {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      });
+
+      setCurrentStepIndex((s) => s - 1);
+    }
   };
 
   const onSubmit = async (data: z.infer<typeof JournalFormSchema>) => {
@@ -170,7 +176,7 @@ export default function Journal({
     }
   };
 
-  const active = conditionSteps[currentStepIndex];
+  const active = formStep[currentStepIndex];
   const ActiveStepComponent = useMemo(
     () => (active ? STEPS_COMPONENTS[active.id as StepId] : () => <div />),
     [active],
@@ -188,16 +194,16 @@ export default function Journal({
   const option = optionByStep[active.id as StepId] ?? [];
   return (
     <>
-      {currentStepIndex !== 0 ? (
-        <div className="mb-8 flex justify-between">
-          <Button variant="secondary" onClick={handlePrevious}>
-            <ChevronLeft className="h-4 w-4" />
-            <span>Previous</span>
-          </Button>
-        </div>
-      ) : (
-        <div className="h-[69px]" />
-      )}
+      <div className="mb-8 flex justify-between">
+        <Button
+          variant="secondary"
+          disabled={currentStepIndex === 0}
+          onClick={handlePrevious}
+        >
+          <ChevronLeft className="h-4 w-4" />
+          <span>Previous</span>
+        </Button>
+      </div>
 
       <div className="flex items-center justify-center py-0">
         <div className="mx-auto w-full max-w-2xl">

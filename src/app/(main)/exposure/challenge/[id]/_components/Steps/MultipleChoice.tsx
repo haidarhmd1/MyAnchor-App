@@ -6,29 +6,24 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import z from "zod";
-import { Taxonomy } from "@prisma/client";
-import { ExposureRatingOptionsType } from "@/common/const/exposureRatingOptions";
-import { AnxietyLevelOptionsType } from "@/common/const/anxietyRating";
 import { Spinner } from "@/components/Spinner/Spinner";
+import { FormFieldType } from "../ResultForm";
 
 export function MultipleChoice({
   onNext,
-  generalOptions,
-  controlName,
+  options,
+  fieldName,
 }: {
   onNext(): void;
   onPrev?: () => void;
-  generalOptions:
-    | Taxonomy[]
-    | AnxietyLevelOptionsType[]
-    | ExposureRatingOptionsType[];
-  controlName: keyof z.infer<typeof ChallengeOutcomeSchema>;
+  options: FormFieldType[];
+  fieldName: keyof z.infer<typeof ChallengeOutcomeSchema>;
 }) {
   const { control, formState } =
     useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
 
   const { field } = useController({
-    name: controlName,
+    name: fieldName,
     control,
   });
 
@@ -45,7 +40,7 @@ export function MultipleChoice({
   return (
     <div className="space-y-4">
       <div className="space-y-3" role="group" aria-label="Where were you?">
-        {generalOptions.map((option) => {
+        {options.map((option) => {
           const checked = isChecked(option.id);
           return (
             <Card

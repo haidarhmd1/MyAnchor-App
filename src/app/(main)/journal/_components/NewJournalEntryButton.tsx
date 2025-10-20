@@ -53,8 +53,8 @@ export const NewJournalEntryButton = ({
 
       <Sheet isOpen={isOpen} onClose={() => setOpen(false)}>
         <Sheet.Container>
-          <Sheet.Header />
-          <Sheet.Content className="p-4">
+          <Sheet.Header className="bg-gray-50" />
+          <Sheet.Content className="bg-gray-50 p-4">
             <Journal
               callback={() => setOpen(false)}
               locationOptions={locationOptions}

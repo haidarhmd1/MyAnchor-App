@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { FormFieldType, FormJournalType } from "../helper";
+import { Spinner } from "@/components/Spinner/Spinner";
 
 type Props = {
   onNext(): void;
@@ -14,7 +15,7 @@ type Props = {
 };
 
 export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
-  const { control } = useFormContext<FormJournalType>();
+  const { control, formState } = useFormContext<FormJournalType>();
 
   const { field } = useController({
     name: fieldName,
@@ -102,45 +103,24 @@ export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
             </Card>
           );
         })}
-
-        {/* Custom input */}
-        {/* <Card className="border-muted-foreground/30 border-2 border-dashed p-0">
-          <CardContent className="p-4">
-            <div className="flex items-center space-x-3">
-              <div className="flex-1">
-                <Input
-                  placeholder="Add your own option..."
-                  value={customInput}
-                  onChange={(e) => setCustomInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") handleAddCustomOption();
-                  }}
-                  className="placeholder:text-muted-foreground border-0 bg-transparent p-0 text-base focus-visible:ring-0"
-                />
-              </div>
-              <Button
-                size="sm"
-                onClick={handleAddCustomOption}
-                disabled={!customInput.trim()}
-                className="h-8 w-8 bg-blue-500 p-0 hover:bg-blue-600"
-                aria-label="Add custom option"
-              >
-                <Plus className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card> */}
       </div>
 
       <div className="pt-2 text-right">
-        <Button
-          type="button"
-          onClick={onNext}
-          disabled={selected.length === 0}
-          className="bg-blue-500 hover:bg-blue-600"
-        >
-          Next
-        </Button>
+        {formState.isSubmitting ? (
+          <Button disabled className="bg-blue-500 hover:bg-blue-600">
+            <Spinner />
+            <span>Submitting</span>
+          </Button>
+        ) : (
+          <Button
+            type="button"
+            onClick={onNext}
+            disabled={selected.length === 0}
+            className="bg-blue-500 hover:bg-blue-600"
+          >
+            Next
+          </Button>
+        )}
       </div>
     </div>
   );

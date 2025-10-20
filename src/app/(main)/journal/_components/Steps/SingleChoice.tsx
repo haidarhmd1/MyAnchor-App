@@ -4,9 +4,8 @@ import { useController, useFormContext } from "react-hook-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import z from "zod";
 import { Spinner } from "@/components/Spinner/Spinner";
-import { WhenDidItHappenType, FormJournalType } from "../helper";
+import { FormJournalType, FormFieldType } from "../helper";
 
 export function SingleChoice({
   onNext,
@@ -16,9 +15,10 @@ export function SingleChoice({
   onNext(): void;
   onPrev?: () => void;
   fieldName: keyof FormJournalType;
-  options: WhenDidItHappenType[];
+  options: FormFieldType[];
 }) {
   const { control, formState } = useFormContext<FormJournalType>();
+  console.log("options", options);
 
   const { field } = useController({
     name: fieldName,

@@ -1,4 +1,4 @@
-import { WhenDidItHappen } from "@prisma/client";
+import { Taxonomy, WhenDidItHappen } from "@prisma/client";
 
 export interface FormJournalType {
   hasAnxietyAttack?: boolean;
@@ -7,9 +7,18 @@ export interface FormJournalType {
   typesOfSituationYouWereIn?: string[];
   whyYourWhereAvoidingIt?: string[];
   typesOfBodySymptoms?: string[];
-  whenDidItHappen: WhenDidItHappen;
+  whenDidItHappen?: WhenDidItHappen;
   anxietyLevelRating?: number;
 }
+
+// used it for the bare minimum to not pass dozens of T1 | T2 | T3 types when changing anything
+export type FormFieldType = {
+  id: string;
+  label: string;
+  description: string | null;
+  whenDidItHappen?: WhenDidItHappen;
+  TaxonomyType?: Taxonomy[];
+};
 
 export type WhenDidItHappenType = {
   id: string;
@@ -66,11 +75,6 @@ export const AVOIDANCE_STEPS = [
     subtitle: "Did you avoid any situations?",
   },
   {
-    id: "whenDidItHappen",
-    title: "When did it happen?",
-    subtitle: "Tell us when this happened?",
-  },
-  {
     id: "typesOfSituationYouAvoided",
     title: "Situations Avoided",
     subtitle: "Which ones did you avoid?",
@@ -89,6 +93,11 @@ export const AVOIDANCE_STEPS = [
 ] as const;
 
 export const HAS_ANXIETY_STEPS = [
+  {
+    id: "whenDidItHappen",
+    title: "When did it happen?",
+    subtitle: "Tell us when this happened?",
+  },
   {
     id: "typesOfSituationYouWereIn",
     title: "Situations Faced",

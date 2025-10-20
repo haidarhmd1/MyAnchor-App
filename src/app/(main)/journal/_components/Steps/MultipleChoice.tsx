@@ -4,20 +4,19 @@ import { useFormContext, useController } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { FormJournalType } from "../helper";
-import { Taxonomy } from "@prisma/client";
+import { FormFieldType, FormJournalType } from "../helper";
 
 type Props = {
   onNext(): void;
   onPrev?: () => void;
-  generalOptions: Taxonomy[];
-  controlName: keyof FormJournalType;
+  options: FormFieldType[];
+  fieldName: keyof FormJournalType;
 };
 
-export function SituationYouWereIn({
+export function MultipleChoice({
   onNext,
-  generalOptions,
-  controlName,
+  options: generalOptions,
+  fieldName: controlName,
 }: Props) {
   const { control } = useFormContext<FormJournalType>();
 

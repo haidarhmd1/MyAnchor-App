@@ -8,17 +8,17 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 import { HasAnxietyAttackStep } from "./Steps/HasAnxietyAttack";
 import { HasAvoidedSituation } from "./Steps/HasAvoidedSituation";
-import { SituationYouWereIn } from "./Steps/SituationYouWereIn";
+import { MultipleChoice } from "./Steps/MultipleChoice";
 import { AnxietyLevelRating } from "./Steps/AnxietyRating";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   AVOIDANCE_STEPS,
   BASE_STEP,
+  FormFieldType,
   HAS_ANXIETY_STEPS,
   Step,
   whenDidItHappenConst,
-  WhenDidItHappenType,
 } from "./helper";
 import { createJournalEntry } from "@/lib/api";
 import { toast } from "sonner";
@@ -34,43 +34,43 @@ const STEPS_COMPONENTS: Record<
   React.ComponentType<{
     onNext(): void;
     onPrev(): void;
-    option: Taxonomy[] | WhenDidItHappenType[];
+    option: FormFieldType[];
   }>
 > = {
   hasAnxietyAttack: (props) => <HasAnxietyAttackStep {...props} />,
   hasAvoidedSituations: (props) => <HasAvoidedSituation {...props} />,
   typesOfSituationYouAvoided: (props) => (
-    <SituationYouWereIn
-      controlName="typesOfSituationYouAvoided"
-      generalOptions={props.option as Taxonomy[]}
+    <MultipleChoice
+      fieldName="typesOfSituationYouAvoided"
+      options={props.option}
       {...props}
     />
   ),
   whenDidItHappen: (props) => (
     <SingleChoice
       fieldName="whenDidItHappen"
-      options={props.option as WhenDidItHappenType[]}
+      options={props.option}
       {...props}
     />
   ),
   typesOfSituationYouWereIn: (props) => (
-    <SituationYouWereIn
-      controlName="typesOfSituationYouWereIn"
-      generalOptions={props.option as Taxonomy[]}
+    <SingleChoice
+      fieldName="typesOfSituationYouWereIn"
+      options={props.option}
       {...props}
     />
   ),
   whyYourWhereAvoidingIt: (props) => (
-    <SituationYouWereIn
-      controlName="whyYourWhereAvoidingIt"
-      generalOptions={props.option as Taxonomy[]}
+    <MultipleChoice
+      fieldName="whyYourWhereAvoidingIt"
+      options={props.option}
       {...props}
     />
   ),
   typesOfBodySymptoms: (props) => (
-    <SituationYouWereIn
-      controlName="typesOfBodySymptoms"
-      generalOptions={props.option as Taxonomy[]}
+    <MultipleChoice
+      fieldName="typesOfBodySymptoms"
+      options={props.option}
       {...props}
     />
   ),
@@ -119,9 +119,7 @@ export default function Journal({
     return steps;
   }, [hasAnxietyAttack, hasAvoidedSituations]);
 
-  const optionByStep: Partial<
-    Record<StepId, Taxonomy[] | WhenDidItHappenType[]>
-  > = useMemo(
+  const optionByStep: Partial<Record<StepId, FormFieldType[]>> = useMemo(
     () => ({
       typesOfSituationYouWereIn: locationOptions,
       typesOfSituationYouAvoided: locationOptions,

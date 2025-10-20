@@ -40,7 +40,8 @@ export const POST = withAuth(async (request, _ctx, { userId }) => {
     hasAvoidedSituations,
     typesOfSituationYouAvoided,
     typesOfSituationYouWereIn,
-    whyYourWhereAvoidingIt,
+    whyYouWereAvoidingIt,
+    whenDidItHappen,
     typesOfBodySymptoms,
     anxietyLevelRating,
   } = parsed.data;
@@ -52,12 +53,12 @@ export const POST = withAuth(async (request, _ctx, { userId }) => {
       hasAvoidedSituations,
       typesOfSituationYouAvoided,
       typesOfSituationYouWereIn,
-      whyYourWereAvoidingIt: whyYourWhereAvoidingIt,
+      whyYouWereAvoidingIt,
+      whenDidItHappen,
       typesOfBodySymptoms,
       anxietyLevelRating,
     },
   });
-
   return new Response(JSON.stringify(newJournalEntry), {
     status: 201,
     headers: { "Content-Type": "application/json" },

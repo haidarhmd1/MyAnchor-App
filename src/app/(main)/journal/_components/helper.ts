@@ -4,8 +4,8 @@ export interface FormJournalType {
   hasAnxietyAttack?: boolean;
   hasAvoidedSituations?: boolean;
   typesOfSituationYouAvoided?: string[];
-  typesOfSituationYouWereIn?: string[];
-  whyYourWhereAvoidingIt?: string[];
+  typesOfSituationYouWereIn?: string;
+  whyYouWereAvoidingIt?: string[];
   typesOfBodySymptoms?: string[];
   whenDidItHappen?: WhenDidItHappen;
   anxietyLevelRating?: number;
@@ -21,7 +21,7 @@ export type FormFieldType = {
 };
 
 export type WhenDidItHappenType = {
-  id: string;
+  id: WhenDidItHappen;
   label: string;
   description: string;
   whenDidItHappen: WhenDidItHappen;
@@ -29,31 +29,31 @@ export type WhenDidItHappenType = {
 
 export const whenDidItHappenConst: WhenDidItHappenType[] = [
   {
-    id: "1",
+    id: WhenDidItHappen.MORNING,
     label: "In the morning",
     description: "",
     whenDidItHappen: WhenDidItHappen.MORNING,
   },
   {
-    id: "2",
+    id: WhenDidItHappen.NOON,
     label: "At noon",
     description: "",
     whenDidItHappen: WhenDidItHappen.NOON,
   },
   {
-    id: "3",
+    id: WhenDidItHappen.AFTERNOON,
     label: "In the afternoon",
     description: "",
     whenDidItHappen: WhenDidItHappen.AFTERNOON,
   },
   {
-    id: "4",
+    id: WhenDidItHappen.EVENING,
     label: "In the evening",
     description: "",
     whenDidItHappen: WhenDidItHappen.EVENING,
   },
   {
-    id: "5",
+    id: WhenDidItHappen.NIGHT,
     label: "At night",
     description: "",
     whenDidItHappen: WhenDidItHappen.NIGHT,
@@ -80,10 +80,9 @@ export const AVOIDANCE_STEPS = [
     subtitle: "Which ones did you avoid?",
   },
   {
-    id: "whyYourWhereAvoidingIt",
+    id: "whyYouWereAvoidingIt",
     title: "Reasons why you avoided it",
-    subtitle:
-      "Tell me what where you afraid off ? Why you were trying to avoid it?",
+    subtitle: "Tell me why you were trying to avoid it?",
   },
   {
     id: "anxietyLevelRating",
@@ -101,7 +100,7 @@ export const HAS_ANXIETY_STEPS = [
   {
     id: "typesOfSituationYouWereIn",
     title: "Situations Faced",
-    subtitle: "Where were you / what was happening?",
+    subtitle: "Where were you?",
   },
   {
     id: "typesOfBodySymptoms",

@@ -15,11 +15,11 @@ export const JournalFormSchema = z.object({
   hasAnxietyAttack: z.boolean().optional(),
   hasAvoidedSituations: z.boolean().optional(),
   typesOfSituationYouAvoided: z.string().array(),
-  typesOfSituationYouWereIn: z.string().array(),
-  whyYourWhereAvoidingIt: z.string().array(),
+  typesOfSituationYouWereIn: z.string().optional(),
+  whyYouWereAvoidingIt: z.string().array(),
   typesOfBodySymptoms: z.string().array(),
   anxietyLevelRating: z.number().optional(),
-  whenDidItHappen: z.enum(WhenDidItHappen),
+  whenDidItHappen: z.enum(WhenDidItHappen).optional(),
 });
 
 export const ChallengeSchema = z.object({

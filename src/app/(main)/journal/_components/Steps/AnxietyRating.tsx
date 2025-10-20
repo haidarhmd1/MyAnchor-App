@@ -36,13 +36,12 @@ export function AnxietyLevelRating({
               key={option.id}
               role="radio"
               aria-checked={isSelected}
-              tabIndex={0}
               onClick={() => field.onChange(Number(option.id))}
               className={cn(
                 "cursor-pointer p-2 transition-all duration-200 hover:shadow-md",
                 isSelected
                   ? "border-blue-500 bg-blue-50 shadow-sm"
-                  : "hover:border-muted-foreground/50 border-gray-500 bg-gray-50",
+                  : "hover:border-muted-foreground/50",
               )}
             >
               <CardContent className="p-2">

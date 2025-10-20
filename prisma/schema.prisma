@@ -222,13 +222,13 @@ model RateLimitBucket {
 }
 
 model Journal {
-  id                         String          @id @default(cuid())
+  id                         String           @id @default(cuid())
   hasAnxietyAttack           Boolean?
   hasAvoidedSituations       Boolean?
-  typesOfSituationYouAvoided String[] // array of strings
-  whenDidItHappen            WhenDidItHappen
-  typesOfSituationYouWereIn  String[]
-  whyYourWereAvoidingIt      String[]
+  typesOfSituationYouAvoided String[]
+  whenDidItHappen            WhenDidItHappen?
+  typesOfSituationYouWereIn  String?
+  whyYouWereAvoidingIt       String[]
   typesOfBodySymptoms        String[]
   anxietyLevelRating         Int?
 

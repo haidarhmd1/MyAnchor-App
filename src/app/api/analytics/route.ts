@@ -7,8 +7,6 @@ export const GET = withAuth(async (request, _ctx, { userId }) => {
   const { searchParams } = new URL(request.url);
   const startParam = searchParams.get("startDate");
 
-  console.log("startParam", startParam);
-
   let start: DateTime;
   if (startParam) {
     start = DateTime.fromISO(startParam).startOf("month");
@@ -60,8 +58,8 @@ export const GET = withAuth(async (request, _ctx, { userId }) => {
     typesOfBodySymptoms: a.typesOfBodySymptoms.map((symptomId: string) =>
       taxonomy.find((t) => t.id === symptomId),
     ),
-    typesOfSituationYouWereIn: a.typesOfSituationYouWereIn.map(
-      (situationId: string) => taxonomy.find((t) => t.id === situationId),
+    typesOfSituationYouWereIn: taxonomy.find(
+      (t) => t.id === a.typesOfSituationYouWereIn,
     ),
   }));
 

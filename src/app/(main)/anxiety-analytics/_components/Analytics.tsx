@@ -34,14 +34,13 @@ export type AnalyticsRow = {
       }
     | undefined
   )[];
-  typesOfSituationYouWereIn: (
+  typesOfSituationYouWereIn:
     | {
         label: string;
         id: string;
         type: TaxonomyType;
       }
-    | undefined
-  )[];
+    | undefined;
 };
 
 type AnalyticsProps = {
@@ -120,9 +119,7 @@ export const Analytics = ({ journalWithLabels, dateRange }: AnalyticsProps) => {
                 <TimelineHeader>
                   <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5" />
                   <TimelineTitle className="mt-0.5">
-                    {item.typesOfSituationYouWereIn
-                      .map((t) => t?.label)
-                      .join(" ,")}
+                    {item.typesOfSituationYouWereIn?.label}
                   </TimelineTitle>
                   <TimelineIndicator className="bg-primary/10 group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center border-none group-data-[orientation=vertical]/timeline:-left-7" />
                 </TimelineHeader>

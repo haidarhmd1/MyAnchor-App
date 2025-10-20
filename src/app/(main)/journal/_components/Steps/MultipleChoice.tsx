@@ -9,19 +9,15 @@ import { FormFieldType, FormJournalType } from "../helper";
 type Props = {
   onNext(): void;
   onPrev?: () => void;
-  options: FormFieldType[];
   fieldName: keyof FormJournalType;
+  options: FormFieldType[];
 };
 
-export function MultipleChoice({
-  onNext,
-  options: generalOptions,
-  fieldName: controlName,
-}: Props) {
+export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
   const { control } = useFormContext<FormJournalType>();
 
   const { field } = useController({
-    name: controlName,
+    name: fieldName,
     control,
   });
 
@@ -37,27 +33,20 @@ export function MultipleChoice({
 
   return (
     <div className="space-y-4">
-      <div className="space-y-3" role="group" aria-label="Where were you?">
-        {generalOptions.map((option) => {
+      <div className="space-y-3" role="group">
+        {options.map((option) => {
           const checked = isChecked(option.id);
           return (
             <Card
               key={option.id}
               role="checkbox"
               aria-checked={checked}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === " " || e.key === "Enter") {
-                  e.preventDefault();
-                  toggleOption(option.id);
-                }
-              }}
               onClick={() => toggleOption(option.id)}
               className={cn(
-                "cursor-pointer p-2 transition-all duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40",
+                "cursor-pointer p-2 transition-all duration-200 hover:shadow-md",
                 checked
                   ? "border-blue-500 bg-blue-50 shadow-sm"
-                  : "hover:border-muted-foreground/50 border-gray-500 bg-gray-50",
+                  : "hover:border-muted-foreground/50",
               )}
             >
               <CardContent className="p-2">
@@ -155,4 +144,4 @@ export function MultipleChoice({
       </div>
     </div>
   );
-}
+};

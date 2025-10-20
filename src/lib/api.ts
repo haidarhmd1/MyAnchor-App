@@ -5,7 +5,6 @@ import {
   Company,
   Gender,
   Journal,
-  TaxonomyType,
   User,
 } from "@prisma/client";
 import { ChallengeOutcomeSchema, ChallengeSchema } from "./zod.types";
@@ -77,7 +76,6 @@ export async function createJournalEntry({
     const text = await res.text();
     throw new Error(`Create journal entry failed: ${res.status} ${text}`);
   }
-
   return (await res.json()) as Journal;
 }
 

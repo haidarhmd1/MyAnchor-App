@@ -136,13 +136,10 @@ async function getFirstLoadAnxietyAnalyticsRow(userId: string) {
       typesOfBodySymptoms: a.typesOfBodySymptoms.map((symptomId: string) =>
         taxonomy.find((t) => t.id === symptomId),
       ),
-      typesOfSituationYouWereIn: a.typesOfSituationYouWereIn.map(
-        (situationId: string) => taxonomy.find((t) => t.id === situationId),
+      typesOfSituationYouWereIn: taxonomy.find(
+        (t) => t.id === a.typesOfSituationYouWereIn,
       ),
     }));
-
-    console.log(journalWithLabels[0].typesOfBodySymptoms);
-
     return journalWithLabels;
   }
 }

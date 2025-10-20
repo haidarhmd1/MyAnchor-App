@@ -26,6 +26,7 @@ import { z } from "zod";
 import { JournalFormSchema } from "@/lib/zod.types";
 import type { Taxonomy } from "@prisma/client";
 import { SingleChoice } from "./Steps/SingleChoice";
+import { revalidateTag } from "next/cache";
 
 export type StepId = Step["id"];
 
@@ -60,9 +61,9 @@ const STEPS_COMPONENTS: Record<
       {...props}
     />
   ),
-  whyYourWhereAvoidingIt: (props) => (
+  whyYouWereAvoidingIt: (props) => (
     <MultipleChoice
-      fieldName="whyYourWhereAvoidingIt"
+      fieldName="whyYouWereAvoidingIt"
       options={props.option}
       {...props}
     />
@@ -78,10 +79,12 @@ const STEPS_COMPONENTS: Record<
 };
 
 export default function Journal({
+  callback,
   locationOptions,
   avoidanceReasons,
   symptomOptions,
 }: {
+  callback?: VoidFunction;
   locationOptions: Taxonomy[];
   avoidanceReasons: Taxonomy[];
   symptomOptions: Taxonomy[];
@@ -92,18 +95,15 @@ export default function Journal({
       hasAvoidedSituations: undefined,
       whenDidItHappen: undefined,
       typesOfSituationYouAvoided: [],
-      typesOfSituationYouWereIn: [],
-      whyYourWhereAvoidingIt: [],
+      typesOfSituationYouWereIn: undefined,
+      whyYouWereAvoidingIt: [],
       typesOfBodySymptoms: [],
       anxietyLevelRating: undefined,
     },
     mode: "onChange",
   });
-
-  const router = useRouter();
   const reduce = useReducedMotion();
-
-  const [isComplete, setIsComplete] = useState(false);
+  const router = useRouter();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const hasAnxietyAttack = form.watch("hasAnxietyAttack");
@@ -123,7 +123,7 @@ export default function Journal({
     () => ({
       typesOfSituationYouWereIn: locationOptions,
       typesOfSituationYouAvoided: locationOptions,
-      whyYourWhereAvoidingIt: avoidanceReasons,
+      whyYouWereAvoidingIt: avoidanceReasons,
       typesOfBodySymptoms: symptomOptions,
       whenDidItHappen: whenDidItHappenConst,
     }),
@@ -162,13 +162,11 @@ export default function Journal({
   const onSubmit = async (data: z.infer<typeof JournalFormSchema>) => {
     try {
       await createJournalEntry({ data });
-      toast("Journal entry has been saved!", {
-        action: { label: "Go back home", onClick: () => router.replace("/") },
-      });
-    } catch {
-      setIsComplete(false);
-    } finally {
-      setIsComplete(true);
+      router.refresh();
+      callback?.();
+    } catch (e) {
+      console.error("e", e);
+      toast.error("Journal entry not saved, something wen't wrong :/");
     }
   };
 
@@ -187,38 +185,7 @@ export default function Journal({
     animate: { opacity: 1, y: 0, filter: "blur(0px)" },
     exit: { opacity: 0, y: -8, filter: "blur(4px)" },
   };
-
-  if (isComplete) {
-    return (
-      <div className="mx-auto h-full max-w-2xl py-10">
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduce ? 0 : 0.25 }}
-          className="rounded-4xl bg-white p-8 text-center shadow-sm"
-        >
-          <h2 className="text-2xl font-semibold">Journal saved</h2>
-          <Image
-            className="m-auto mb-6"
-            width={200}
-            height={240}
-            src="/illustration/journal_finished.webp"
-            alt="Journal Finished"
-          />
-          <p className="text-muted-foreground mt-2">
-            Thanks for checking in today. You’re building confidence one step at
-            a time.
-          </p>
-          <Button className="mt-6" onClick={() => router.replace("/")}>
-            Back to home
-          </Button>
-        </motion.div>
-      </div>
-    );
-  }
-
   const option = optionByStep[active.id as StepId] ?? [];
-
   return (
     <>
       {currentStepIndex !== 0 ? (

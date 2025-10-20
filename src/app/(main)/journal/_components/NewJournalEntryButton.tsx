@@ -56,6 +56,7 @@ export const NewJournalEntryButton = ({
           <Sheet.Header />
           <Sheet.Content className="p-4">
             <Journal
+              callback={() => setOpen(false)}
               locationOptions={locationOptions}
               avoidanceReasons={avoidanceReasons}
               symptomOptions={symptomOptions}

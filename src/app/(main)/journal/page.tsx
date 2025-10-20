@@ -1,37 +1,19 @@
 import Journal from "./_components/Journal";
 import { Metadata } from "next";
-import prisma from "../../../../lib/prisma";
 import { DateTime } from "luxon";
 import { CheckCheck, Frown, SmileIcon } from "lucide-react";
 import { TZ } from "@/lib/timezone";
-import { TaxonomyType } from "@prisma/client";
 import ShortcutsCard from "../_components/ShortcutsCard";
 import { NewJournalEntryButton } from "./_components/NewJournalEntryButton";
 import { requireAuth } from "@/lib/auth/require-auth";
+import { getPastEntries, getTaxonomies, today } from "./helper";
 
 export default async function Page() {
   const { user } = await requireAuth();
-
-  const taxonomies = await prisma.taxonomy.findMany({});
-  const locationOptions = taxonomies.filter(
-    (t) => t.type === TaxonomyType.LOCATION,
-  );
-  const avoidanceReasons = taxonomies.filter(
-    (t) => t.type === TaxonomyType.AVOIDANCE_REASON,
-  );
-  const symptomOptions = taxonomies.filter(
-    (t) => t.type === TaxonomyType.SYMPTOM,
-  );
-
-  const today = DateTime.now().setZone(TZ).startOf("day");
-
-  const pastEntries = await prisma.journal.findMany({
-    where: {
-      userId: user.id,
-      deletedAt: null,
-    },
-    orderBy: { createdAt: "desc" },
-  });
+  const [taxonomies, pastEntries] = await Promise.all([
+    getTaxonomies(),
+    getPastEntries(user.id),
+  ]);
 
   if (pastEntries.length > 0) {
     return (
@@ -56,30 +38,32 @@ export default async function Page() {
             />
           )}
           <NewJournalEntryButton
-            locationOptions={locationOptions}
-            avoidanceReasons={avoidanceReasons}
-            symptomOptions={symptomOptions}
+            locationOptions={taxonomies.locationOptions}
+            avoidanceReasons={taxonomies.avoidanceReasons}
+            symptomOptions={taxonomies.symptomOptions}
           />
-          <div className="mt-12">
-            <h3 className="text-sm font-light">Past entries:</h3>
-            <div className="mt-2 space-y-4">
-              {pastEntries.slice(1).map((pE) => (
-                <ShortcutsCard
-                  key={pE.id}
-                  size="sm"
-                  icon={pE.hasAnxietyAttack ? <Frown /> : <SmileIcon />}
-                  title="Your journal entry"
-                  subtitle={`${DateTime.fromJSDate(pE.createdAt)
-                    .setZone(TZ)
-                    .toFormat("yyyy LLL dd - HH:mm")}`}
-                  gradient={{
-                    from: "from-green-500",
-                    to: pE.hasAnxietyAttack ? "to-amber-500" : "to-blue-600",
-                  }}
-                />
-              ))}
+          {pastEntries.length > 1 && (
+            <div className="mt-12">
+              <h3 className="text-sm font-light">Past entries:</h3>
+              <div className="mt-2 space-y-4">
+                {pastEntries.slice(1).map((pE) => (
+                  <ShortcutsCard
+                    key={pE.id}
+                    size="sm"
+                    icon={pE.hasAnxietyAttack ? <Frown /> : <SmileIcon />}
+                    title="Your journal entry"
+                    subtitle={`${DateTime.fromJSDate(pE.createdAt)
+                      .setZone(TZ)
+                      .toFormat("yyyy LLL dd - HH:mm")}`}
+                    gradient={{
+                      from: "from-green-500",
+                      to: pE.hasAnxietyAttack ? "to-amber-500" : "to-blue-600",
+                    }}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     );
@@ -88,9 +72,9 @@ export default async function Page() {
   return (
     <div className="p-4">
       <Journal
-        locationOptions={locationOptions}
-        avoidanceReasons={avoidanceReasons}
-        symptomOptions={symptomOptions}
+        locationOptions={taxonomies.locationOptions}
+        avoidanceReasons={taxonomies.avoidanceReasons}
+        symptomOptions={taxonomies.symptomOptions}
       />
     </div>
   );

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { FormJournalType, FormFieldType } from "../helper";
 
-export function SingleChoice({
+export const SingleChoice = ({
   onNext,
   fieldName,
   options,
@@ -16,9 +16,8 @@ export function SingleChoice({
   onPrev?: () => void;
   fieldName: keyof FormJournalType;
   options: FormFieldType[];
-}) {
+}) => {
   const { control, formState } = useFormContext<FormJournalType>();
-  console.log("options", options);
 
   const { field } = useController({
     name: fieldName,
@@ -40,8 +39,7 @@ export function SingleChoice({
               key={option.id}
               role="radio"
               aria-checked={isSelected}
-              tabIndex={0}
-              onClick={() => field.onChange(Number(option.id))}
+              onClick={() => field.onChange(option.id)}
               className={cn(
                 "cursor-pointer p-2 transition-all duration-200 hover:shadow-md",
                 isSelected
@@ -112,4 +110,4 @@ export function SingleChoice({
       </div>
     </div>
   );
-}
+};

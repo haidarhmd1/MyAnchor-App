@@ -49,7 +49,6 @@ export const authConfig = {
         code: { label: "Code", type: "text" },
       },
       authorize: async (creds, req) => {
-        console.log("creds", creds);
         const email = String(creds?.email ?? "")
           .trim()
           .toLowerCase();
@@ -65,7 +64,6 @@ export const authConfig = {
 
           if (master && code === master && allow) {
             let user = await prisma.user.findUnique({ where: { email } });
-            console.log("user", user);
             if (!user) {
               user = await prisma.user.create({
                 data: { email, emailVerified: new Date() },

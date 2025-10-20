@@ -10,8 +10,7 @@ import { createChallenge } from "@/lib/api";
 import { ChallengeStatus, Company, Difficulty } from "@prisma/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-
-// enum STEP_ID = "LOCATION" | "COMPANY";
+import { Spinner } from "@/components/Spinner/Spinner";
 
 enum STEP_ID {
   LOCATION = "LOCATION",
@@ -63,6 +62,7 @@ export default function ChallengeForm({
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
+  const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [difficultyTab, setDifficultyTab] = useState<Difficulty>(
     Difficulty.EASY,
@@ -101,6 +101,7 @@ export default function ChallengeForm({
         locationChallenge.id === selectedOptions[STEP_ID.LOCATION],
     )[0].id;
 
+    setIsLoading(true);
     try {
       await createChallenge({
         data: {
@@ -109,15 +110,9 @@ export default function ChallengeForm({
           status: ChallengeStatus.NOT_STARTED,
         },
       });
-      toast("challenge created", {
-        position: "top-center",
-        description: "Challenge ceated",
-        action: {
-          label: "Back to Challenge page",
-          onClick: () => router.replace("/exposure"),
-        },
-      });
       setIsSubmitted(true);
+      setIsLoading(false);
+      router.replace("/exposure");
     } catch (e) {
       console.error(e);
       toast.error("something went wrong");
@@ -255,16 +250,31 @@ export default function ChallengeForm({
               <span>Previous</span>
             </Button>
 
-            {currentStepIndex === formStep.length - 1 && !isSubmitted && (
-              <Button
-                onClick={handleSubmit}
-                disabled={!canGoNext}
-                className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
-              >
-                <span>Submit</span>
-                <Check className="ml-1 h-4 w-4" />
-              </Button>
-            )}
+            {currentStepIndex === formStep.length - 1 &&
+              !isSubmitted &&
+              !isLoading && (
+                <Button
+                  onClick={handleSubmit}
+                  disabled={!canGoNext}
+                  className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
+                >
+                  <span>Submit</span>
+                  <Check className="ml-1 h-4 w-4" />
+                </Button>
+              )}
+
+            {currentStepIndex === formStep.length - 1 &&
+              !isSubmitted &&
+              isLoading && (
+                <Button
+                  onClick={handleNext}
+                  disabled
+                  className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
+                >
+                  <Spinner />
+                  <span>Submitting</span>
+                </Button>
+              )}
 
             {currentStepIndex !== formStep.length - 1 && (
               <Button

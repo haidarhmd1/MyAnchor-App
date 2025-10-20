@@ -12,46 +12,65 @@ import { SituationYouWereIn } from "./Steps/SituationYouWereIn";
 import { AnxietyLevelRating } from "./Steps/AnxietyRating";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { AVOIDANCE_STEPS, BASE_STEP, HAS_ANXIETY_STEPS, Step } from "./helper";
+import {
+  AVOIDANCE_STEPS,
+  BASE_STEP,
+  HAS_ANXIETY_STEPS,
+  Step,
+  whenDidItHappenConst,
+  WhenDidItHappenType,
+} from "./helper";
 import { createJournalEntry } from "@/lib/api";
 import { toast } from "sonner";
 import { z } from "zod";
 import { JournalFormSchema } from "@/lib/zod.types";
-import type { Taxonomy } from "@prisma/client"; // Difficulty/TaxonomyType not needed here
+import type { Taxonomy } from "@prisma/client";
+import { SingleChoice } from "./Steps/SingleChoice";
 
 export type StepId = Step["id"];
 
 const STEPS_COMPONENTS: Record<
   StepId,
-  React.ComponentType<{ onNext(): void; onPrev(): void; option: Taxonomy[] }>
+  React.ComponentType<{
+    onNext(): void;
+    onPrev(): void;
+    option: Taxonomy[] | WhenDidItHappenType[];
+  }>
 > = {
   hasAnxietyAttack: (props) => <HasAnxietyAttackStep {...props} />,
   hasAvoidedSituations: (props) => <HasAvoidedSituation {...props} />,
   typesOfSituationYouAvoided: (props) => (
     <SituationYouWereIn
       controlName="typesOfSituationYouAvoided"
-      generalOptions={props.option}
+      generalOptions={props.option as Taxonomy[]}
+      {...props}
+    />
+  ),
+  whenDidItHappen: (props) => (
+    <SingleChoice
+      fieldName="whenDidItHappen"
+      options={props.option as WhenDidItHappenType[]}
       {...props}
     />
   ),
   typesOfSituationYouWereIn: (props) => (
     <SituationYouWereIn
       controlName="typesOfSituationYouWereIn"
-      generalOptions={props.option}
+      generalOptions={props.option as Taxonomy[]}
       {...props}
     />
   ),
   whyYourWhereAvoidingIt: (props) => (
     <SituationYouWereIn
       controlName="whyYourWhereAvoidingIt"
-      generalOptions={props.option}
+      generalOptions={props.option as Taxonomy[]}
       {...props}
     />
   ),
   typesOfBodySymptoms: (props) => (
     <SituationYouWereIn
       controlName="typesOfBodySymptoms"
-      generalOptions={props.option}
+      generalOptions={props.option as Taxonomy[]}
       {...props}
     />
   ),
@@ -71,6 +90,7 @@ export default function Journal({
     defaultValues: {
       hasAnxietyAttack: undefined,
       hasAvoidedSituations: undefined,
+      whenDidItHappen: undefined,
       typesOfSituationYouAvoided: [],
       typesOfSituationYouWereIn: [],
       whyYourWhereAvoidingIt: [],
@@ -99,12 +119,15 @@ export default function Journal({
     return steps;
   }, [hasAnxietyAttack, hasAvoidedSituations]);
 
-  const optionByStep: Partial<Record<StepId, Taxonomy[]>> = useMemo(
+  const optionByStep: Partial<
+    Record<StepId, Taxonomy[] | WhenDidItHappenType[]>
+  > = useMemo(
     () => ({
       typesOfSituationYouWereIn: locationOptions,
       typesOfSituationYouAvoided: locationOptions,
       whyYourWhereAvoidingIt: avoidanceReasons,
       typesOfBodySymptoms: symptomOptions,
+      whenDidItHappen: whenDidItHappenConst,
     }),
     [locationOptions, avoidanceReasons, symptomOptions],
   );

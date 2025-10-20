@@ -1,23 +1,18 @@
 import prisma from "../../../../lib/prisma";
-import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth/auth";
 import { SettingsRowInput } from "./_components/General/SettingsRowInput";
 import { Dob } from "./_components/Input/Dob/Dob";
 import { Name } from "./_components/Input/Name/Name";
 import { GenderPicker } from "./_components/Input/Gender/Gender";
+import { requireAuth } from "@/lib/auth/require-auth";
 
 export default async function page() {
-  const authenticatedUser = await auth();
+  const userSession = await requireAuth();
 
-  if (!authenticatedUser) return redirect("/");
-
-  const user = await prisma.user.findFirst({
+  const user = await prisma.user.findFirstOrThrow({
     where: {
-      id: authenticatedUser.user?.id,
+      id: userSession.id,
     },
   });
-
-  if (!user) return redirect("/");
 
   return (
     <div>

@@ -1,27 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PrismaClient, User } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { redirect } from "next/navigation";
-import { DateTime } from "luxon";
 import { auth } from "./auth";
 
 const prisma = new PrismaClient();
-
-export async function authCheck() {
-  const session = await auth();
-  if (!session) {
-    redirect("/signin");
-  }
-  const expires = DateTime.fromISO(session.expires);
-  if (!expires.isValid || expires <= DateTime.now()) {
-    redirect("/signin");
-  }
-
-  const userId = session.user?.id;
-  if (!userId) {
-    redirect("/signin");
-  }
-}
 
 export async function requireUser() {
   const session = await auth();

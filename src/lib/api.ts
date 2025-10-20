@@ -5,10 +5,12 @@ import {
   Company,
   Gender,
   Journal,
+  TaxonomyType,
   User,
 } from "@prisma/client";
 import { ChallengeOutcomeSchema, ChallengeSchema } from "./zod.types";
 import { z } from "zod";
+import { AnalyticsRow } from "@/app/(main)/anxiety-analytics/_components/Analytics";
 
 type CreateChallengeInputType = z.infer<typeof ChallengeSchema>;
 export async function createChallenge({
@@ -112,6 +114,22 @@ export async function getJournals(): Promise<Journal> {
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`Error fetching journals: ${res.status} ${text}`);
+  }
+
+  return await res.json();
+}
+
+export async function getAnxietyAnalytics(
+  startDate: string,
+): Promise<AnalyticsRow[]> {
+  const res = await fetch(`api/analytics?startDate=${startDate}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Error fetching analytics: ${res.status} ${text}`);
   }
 
   return await res.json();

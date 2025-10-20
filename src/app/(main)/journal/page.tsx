@@ -9,19 +9,10 @@ import { TZ } from "@/lib/timezone";
 import { TaxonomyType } from "@prisma/client";
 import ShortcutsCard from "../_components/ShortcutsCard";
 import { NewJournalEntryButton } from "./_components/NewJournalEntryButton";
+import { requireAuth } from "@/lib/auth/require-auth";
 
 export default async function Page() {
-  const session = await auth();
-
-  if (!session?.user?.id) {
-    redirect("/");
-  }
-
-  const user = await prisma.user.findUnique({ where: { id: session.user.id } });
-
-  if (!user || user.deletedAt) {
-    redirect("/");
-  }
+  const user = await requireAuth();
 
   const taxonomies = await prisma.taxonomy.findMany({});
   const locationOptions = taxonomies.filter(
@@ -34,47 +25,38 @@ export default async function Page() {
     (t) => t.type === TaxonomyType.SYMPTOM,
   );
 
-  const start = DateTime.now().setZone(TZ).startOf("day");
-  const end = start.endOf("day");
-
-  const journalEntry = await prisma.journal.findFirst({
-    where: {
-      userId: user.id,
-      deletedAt: null,
-      createdAt: {
-        gte: start.toJSDate(),
-        lte: end.toJSDate(),
-      },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+  const today = DateTime.now().setZone(TZ).startOf("day");
 
   const pastEntries = await prisma.journal.findMany({
     where: {
       userId: user.id,
       deletedAt: null,
     },
+    orderBy: { createdAt: "desc" },
   });
 
-  if (journalEntry) {
+  if (pastEntries.length > 0) {
     return (
       <div className="p-4">
         <div className="mb-3 flex flex-col justify-center">
-          <ShortcutsCard
-            icon={<CheckCheck />}
-            title="Your journal entry"
-            subtitle={`Entry for today done! ${DateTime.fromJSDate(
-              journalEntry.createdAt,
-            )
-              .setZone(TZ)
-              .toFormat("yyyy LLL dd - HH:mm")}`}
-            gradient={{
-              from: "from-green-500",
-              to: !journalEntry.hasAnxietyAttack
-                ? "from-sky-500"
-                : "to-amber-600",
-            }}
-          />
+          {DateTime.fromJSDate(pastEntries[0].createdAt).toISODate() ===
+            today.toISODate() && (
+            <ShortcutsCard
+              icon={<CheckCheck />}
+              title="Your journal entry"
+              subtitle={`Entry done! ${DateTime.fromJSDate(
+                pastEntries[0].createdAt,
+              )
+                .setZone(TZ)
+                .toFormat("yyyy LLL dd - HH:mm")}`}
+              gradient={{
+                from: "from-green-500",
+                to: !pastEntries[0].hasAnxietyAttack
+                  ? "from-sky-500"
+                  : "to-amber-600",
+              }}
+            />
+          )}
           <NewJournalEntryButton
             locationOptions={locationOptions}
             avoidanceReasons={avoidanceReasons}
@@ -83,7 +65,7 @@ export default async function Page() {
           <div className="mt-12">
             <h3 className="text-sm font-light">Past entries:</h3>
             <div className="mt-2 space-y-4">
-              {pastEntries.map((pE) => (
+              {pastEntries.slice(1).map((pE) => (
                 <ShortcutsCard
                   key={pE.id}
                   size="sm"

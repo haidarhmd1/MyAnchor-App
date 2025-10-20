@@ -26,8 +26,6 @@ import { HadCompletedChallenge } from "./Steps/HadCompletedChallenge";
 import { HadAnxietyAttackStep } from "./Steps/HadAnxietyAttack";
 import { StoppedEarly } from "./Steps/StoppedEarly";
 import { createChallengeOutcome } from "@/lib/api";
-import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import { Taxonomy } from "@prisma/client";
 import {
@@ -38,6 +36,7 @@ import {
   exposureRatingOptions,
   ExposureRatingOptionsType,
 } from "@/common/const/exposureRatingOptions";
+import { toast } from "sonner";
 
 export type StepId = Step["id"];
 
@@ -138,8 +137,6 @@ export function ResultForm({
   const router = useRouter();
   const reduce = useReducedMotion();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const hadCompletedChallenge = form.watch("hadCompletedChallenge");
@@ -219,25 +216,14 @@ export function ResultForm({
   };
 
   const onSubmit = async (data: z.infer<typeof ChallengeOutcomeSchema>) => {
-    setIsLoading(true);
     try {
       await createChallengeOutcome({
         id: challengeId,
         data,
       });
-      setIsComplete(true);
-      toast("Your progress has been save!", {
-        action: {
-          label: "Go back home",
-          onClick: () => {
-            router.replace("/");
-          },
-        },
-      });
-    } catch {
-      setIsComplete(false);
-    } finally {
-      setIsLoading(false);
+    } catch (e) {
+      console.error(e);
+      toast.error("something went wrong");
     }
   };
 
@@ -259,32 +245,14 @@ export function ResultForm({
     exit: { opacity: 0, y: -8, filter: "blur(4px)" },
   };
 
-  if (isLoading) {
+  if (form.formState.isSubmitSuccessful) {
     return (
       <div className="mx-auto max-w-2xl py-10">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduce ? 0 : 0.25 }}
-          className="mt-8 rounded-4xl bg-white p-8 text-center shadow-sm"
-        >
-          <h2 className="text-2xl font-semibold">Saving data</h2>
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-        </motion.div>
-      </div>
-    );
-  }
-
-  if (isComplete) {
-    return (
-      <div className="mx-auto max-w-2xl py-10">
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduce ? 0 : 0.25 }}
-          className="mt-8 rounded-4xl bg-white p-8 text-center shadow-sm"
+          className="mt-8 rounded-[22px] bg-white p-8 text-center"
         >
           <h2 className="text-2xl font-semibold">Challenge done!</h2>
 

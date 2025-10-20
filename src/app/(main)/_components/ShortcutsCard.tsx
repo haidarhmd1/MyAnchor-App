@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Play, MoreHorizontal, Share2, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 /**
  * iOS Shortcuts-style Card
@@ -115,7 +115,6 @@ export default function ShortcutsCard({
 
       {/* Content */}
       <div className="relative h-full p-3.5 sm:p-4">
-        {children && children}
         {/* Top Row: Title + Glyph */}
         <div className="flex items-start justify-between">
           <div className="min-w-0 pr-2">
@@ -140,6 +139,7 @@ export default function ShortcutsCard({
             </div>
           </div>
         </div>
+        {children && children}
       </div>
 
       {/* Pressed sheen */}

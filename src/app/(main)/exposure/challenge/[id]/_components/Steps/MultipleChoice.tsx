@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useFormContext, useController } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,6 +9,7 @@ import z from "zod";
 import { Taxonomy } from "@prisma/client";
 import { ExposureRatingOptionsType } from "@/common/const/exposureRatingOptions";
 import { AnxietyLevelOptionsType } from "@/common/const/anxietyRating";
+import { Spinner } from "@/components/Spinner/Spinner";
 
 export function MultipleChoice({
   onNext,
@@ -22,17 +22,10 @@ export function MultipleChoice({
     | Taxonomy[]
     | AnxietyLevelOptionsType[]
     | ExposureRatingOptionsType[];
-  controlName:
-    | "hadAnxietyAttack"
-    | "stoppedEarly"
-    | "stopReasons"
-    | "actionsTaken"
-    | "typesOfBodySymptoms"
-    | "anxietyLevelRating"
-    | "copingStrategies"
-    | "challengeRating";
+  controlName: keyof z.infer<typeof ChallengeOutcomeSchema>;
 }) {
-  const { control } = useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
+  const { control, formState } =
+    useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
 
   const { field } = useController({
     name: controlName,
@@ -40,15 +33,6 @@ export function MultipleChoice({
   });
 
   const selected: string[] = Array.isArray(field.value) ? field.value : [];
-
-  const [customInput, setCustomInput] = useState("");
-  // const [customOptions, setCustomOptions] = useState<Option[]>([]);
-
-  // const options = useMemo<Option[]>(
-  //   () => [...generalOptions, ...customOptions],
-  //   [generalOptions, customOptions],
-  // );
-
   const isChecked = (id: string) => selected.includes(id);
 
   const toggleOption = (id: string) => {
@@ -57,24 +41,6 @@ export function MultipleChoice({
       : [...selected, id];
     field.onChange(next);
   };
-
-  // const handleAddCustomOption = () => {
-  //   const label = customInput.trim();
-  //   if (!label) return;
-
-  //   const newOption: Option = {
-  //     id: `custom-${Date.now()}`,
-  //     label,
-  //     description: "Custom option",
-  //     isCustom: true,
-  //   };
-
-  //   setCustomOptions((prev) => [...prev, newOption]);
-  //   // auto-select the new option
-  //   field.onChange([...selected, newOption.id]);
-
-  //   setCustomInput("");
-  // };
 
   return (
     <div className="space-y-4">
@@ -154,45 +120,24 @@ export function MultipleChoice({
             </Card>
           );
         })}
-
-        {/* Custom input */}
-        {/* <Card className="border-muted-foreground/30 border-2 border-dashed p-0">
-          <CardContent className="p-4">
-            <div className="flex items-center space-x-3">
-              <div className="flex-1">
-                <Input
-                  placeholder="Add your own option..."
-                  value={customInput}
-                  onChange={(e) => setCustomInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") handleAddCustomOption();
-                  }}
-                  className="placeholder:text-muted-foreground border-0 bg-transparent p-0 text-base focus-visible:ring-0"
-                />
-              </div>
-              <Button
-                size="sm"
-                onClick={handleAddCustomOption}
-                disabled={!customInput.trim()}
-                className="h-8 w-8 bg-blue-500 p-0 hover:bg-blue-600"
-                aria-label="Add custom option"
-              >
-                <Plus className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card> */}
       </div>
 
       <div className="pt-2 text-right">
-        <Button
-          type="button"
-          onClick={onNext}
-          disabled={selected.length === 0}
-          className="bg-blue-500 hover:bg-blue-600"
-        >
-          Next
-        </Button>
+        {formState.isSubmitting ? (
+          <Button disabled className="bg-blue-500 hover:bg-blue-600">
+            <Spinner />
+            <span>Submitting</span>
+          </Button>
+        ) : (
+          <Button
+            type="button"
+            onClick={onNext}
+            disabled={selected.length === 0}
+            className="bg-blue-500 hover:bg-blue-600"
+          >
+            Next
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import { WhenDidItHappen } from "@prisma/client";
+
 export interface FormJournalType {
   hasAnxietyAttack?: boolean;
   hasAvoidedSituations?: boolean;
@@ -5,14 +7,55 @@ export interface FormJournalType {
   typesOfSituationYouWereIn?: string[];
   whyYourWhereAvoidingIt?: string[];
   typesOfBodySymptoms?: string[];
+  whenDidItHappen: WhenDidItHappen;
   anxietyLevelRating?: number;
 }
+
+export type WhenDidItHappenType = {
+  id: string;
+  label: string;
+  description: string;
+  whenDidItHappen: WhenDidItHappen;
+};
+
+export const whenDidItHappenConst: WhenDidItHappenType[] = [
+  {
+    id: "1",
+    label: "In the morning",
+    description: "",
+    whenDidItHappen: WhenDidItHappen.MORNING,
+  },
+  {
+    id: "2",
+    label: "At noon",
+    description: "",
+    whenDidItHappen: WhenDidItHappen.NOON,
+  },
+  {
+    id: "3",
+    label: "In the afternoon",
+    description: "",
+    whenDidItHappen: WhenDidItHappen.AFTERNOON,
+  },
+  {
+    id: "4",
+    label: "In the evening",
+    description: "",
+    whenDidItHappen: WhenDidItHappen.EVENING,
+  },
+  {
+    id: "5",
+    label: "At night",
+    description: "",
+    whenDidItHappen: WhenDidItHappen.NIGHT,
+  },
+];
 
 export const BASE_STEP = [
   {
     id: "hasAnxietyAttack",
     title: "Anxiety attack",
-    subtitle: "Did you have had an anxiety attack today?",
+    subtitle: "Did you have had an anxiety attack?",
   },
 ] as const;
 
@@ -20,7 +63,12 @@ export const AVOIDANCE_STEPS = [
   {
     id: "hasAvoidedSituations",
     title: "Avoidance",
-    subtitle: "Did you avoid any situations today?",
+    subtitle: "Did you avoid any situations?",
+  },
+  {
+    id: "whenDidItHappen",
+    title: "When did it happen?",
+    subtitle: "Tell us when this happened?",
   },
   {
     id: "typesOfSituationYouAvoided",

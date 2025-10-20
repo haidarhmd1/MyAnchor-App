@@ -3,19 +3,30 @@ import Credentials from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
 import { compareSync } from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-// Simple helper: treat anything not under /auth as protected (your (main) group)
+const PUBLIC_ROUTES = new Set<string>([
+  "/signin",
+  "/error",
+  "/robots.txt",
+  "/sitemap.xml",
+  "/favicon.ico",
+]);
+
+// Public prefixes for assets/framework internals
+const PUBLIC_PREFIXES = ["/_next", "/assets", "/images", "/api/auth"];
+
+/** Return true if this pathname is public (no auth required) */
+function isPublicPath(pathname: string) {
+  if (PUBLIC_ROUTES.has(pathname)) return true;
+  return PUBLIC_PREFIXES.some((p) => pathname.startsWith(p));
+}
+
+/** Return true if this pathname must be protected */
 function isProtectedPath(pathname: string) {
-  return !(
-    pathname.startsWith("/auth") ||
-    pathname.startsWith("/api") ||
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/favicon") ||
-    pathname === "/robots.txt" ||
-    pathname === "/sitemap.xml"
-  );
+  return !isPublicPath(pathname);
 }
 
 export const authConfig = {
@@ -174,6 +185,18 @@ export const authConfig = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.uid = user.id;
+
+      // 2) Hard block deleted users on every request
+      if (token?.uid) {
+        const u = await prisma.user.findUnique({
+          where: { id: token.uid as string },
+          select: { deletedAt: true },
+        });
+        if (u?.deletedAt) {
+          // Remove uid — this effectively "invalidates" the session
+          delete token.uid;
+        }
+      }
       return token;
     },
     async session({ session, token }) {
@@ -184,9 +207,22 @@ export const authConfig = {
       return session;
     },
     authorized({ auth, request }) {
+      const { nextUrl } = request;
+      const pathname = nextUrl.pathname;
       const isLoggedIn = !!auth?.user;
-      const pathname = request.nextUrl.pathname;
-      if (isProtectedPath(pathname) && !isLoggedIn) return false;
+
+      // Public paths always allowed
+      if (!isProtectedPath(pathname)) return true;
+
+      // Protected:
+      if (!isLoggedIn) {
+        const url = new URL("/signin", nextUrl);
+        url.searchParams.set("callbackUrl", nextUrl.pathname + nextUrl.search);
+        return NextResponse.redirect(url);
+      }
+
+      // If logged in but session was nulled by callbacks (e.g., soft-deleted),
+      // auth?.user will be undefined on subsequent requests and hit the branch above.
       return true;
     },
   },

@@ -1,7 +1,7 @@
 import { Lexend } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-import { authCheck } from "@/lib/auth/auth-helpers";
+import { Providers } from "./Provider";
 
 const lexend = Lexend({
   variable: "--font-lexend",
@@ -13,14 +13,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  await authCheck();
-
   return (
     <html lang="en">
       <body
         className={`${lexend.variable} typography background-color: var(--color-background) antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
         <Toaster />
       </body>
     </html>

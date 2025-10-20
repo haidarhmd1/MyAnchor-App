@@ -27,15 +27,6 @@ export function SituationYouWereIn({
   });
 
   const selected: string[] = Array.isArray(field.value) ? field.value : [];
-
-  // const [customInput, setCustomInput] = useState("");
-  // const [customOptions, setCustomOptions] = useState<Taxonomy[]>([]);
-
-  // const options = useMemo<Taxonomy[]>(
-  //   () => [...generalOptions, ...customOptions],
-  //   [generalOptions, customOptions],
-  // );
-
   const isChecked = (id: string) => selected.includes(id);
 
   const toggleOption = (id: string) => {
@@ -44,28 +35,6 @@ export function SituationYouWereIn({
       : [...selected, id];
     field.onChange(next);
   };
-
-  // const handleAddCustomOption = () => {
-  //   const label = customInput.trim();
-  //   if (!label) return;
-
-  //   if (!taxonomyType) {
-  //     toast.error("Cannot add custom item: taxonomy type not provided.");
-  //     return;
-  //   }
-
-  //   const newOption: Taxonomy = {
-  //     id: `custom-${Date.now()}`,
-  //     label,
-  //     description: "Custom option",
-  //   };
-
-  //   setCustomOptions((prev) => [...prev, newOption]);
-  //   // auto-select the new option
-  //   field.onChange([...selected, newOption.id]);
-
-  //   setCustomInput("");
-  // };
 
   return (
     <div className="space-y-4">

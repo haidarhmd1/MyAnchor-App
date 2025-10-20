@@ -25,6 +25,14 @@ enum TaxonomyType {
   SKIPPED_CHALLENGE_REASON
 }
 
+enum WhenDidItHappen {
+  MORNING
+  NOON
+  AFTERNOON
+  EVENING
+  NIGHT
+}
+
 enum Gender {
   MALE
   FEMALE
@@ -214,10 +222,11 @@ model RateLimitBucket {
 }
 
 model Journal {
-  id                         String   @id @default(cuid())
+  id                         String          @id @default(cuid())
   hasAnxietyAttack           Boolean?
   hasAvoidedSituations       Boolean?
   typesOfSituationYouAvoided String[] // array of strings
+  whenDidItHappen            WhenDidItHappen
   typesOfSituationYouWereIn  String[]
   whyYourWereAvoidingIt      String[]
   typesOfBodySymptoms        String[]

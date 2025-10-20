@@ -84,13 +84,13 @@ export const BoxBreathing = ({
   const scaleAnim = {
     scale:
       phase === "inhale"
-        ? [1, 1.08]
+        ? [0.7, 1.08]
         : phase === "hold1"
           ? [1.08]
           : phase === "exhale"
-            ? [1.08, 1]
+            ? [1.08, 0.7]
             : phase === "hold2"
-              ? [1]
+              ? [0.7]
               : [1.08],
   };
 

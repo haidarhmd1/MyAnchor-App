@@ -1,4 +1,10 @@
-import { ChallengeStatus, Company, Gender, Prisma } from "@prisma/client";
+import {
+  ChallengeStatus,
+  Company,
+  Gender,
+  Prisma,
+  WhenDidItHappen,
+} from "@prisma/client";
 import { z } from "zod";
 
 const JsonValueSchema: z.ZodType<Prisma.InputJsonValue> = z.lazy(() =>
@@ -13,6 +19,7 @@ export const JournalFormSchema = z.object({
   whyYourWhereAvoidingIt: z.string().array(),
   typesOfBodySymptoms: z.string().array(),
   anxietyLevelRating: z.number().optional(),
+  whenDidItHappen: z.enum(WhenDidItHappen),
 });
 
 export const ChallengeSchema = z.object({

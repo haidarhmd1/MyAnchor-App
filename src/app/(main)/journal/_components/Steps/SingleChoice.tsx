@@ -4,12 +4,9 @@ import { useController, useFormContext } from "react-hook-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import z from "zod";
-import { Taxonomy } from "@prisma/client";
-import { ExposureRatingOptionsType } from "@/common/const/exposureRatingOptions";
-import { AnxietyLevelOptionsType } from "@/common/const/anxietyRating";
 import { Spinner } from "@/components/Spinner/Spinner";
+import { WhenDidItHappenType, FormJournalType } from "../helper";
 
 export function SingleChoice({
   onNext,
@@ -18,11 +15,10 @@ export function SingleChoice({
 }: {
   onNext(): void;
   onPrev?: () => void;
-  fieldName: keyof z.infer<typeof ChallengeOutcomeSchema>;
-  options: Taxonomy[] | ExposureRatingOptionsType[] | AnxietyLevelOptionsType[];
+  fieldName: keyof FormJournalType;
+  options: WhenDidItHappenType[];
 }) {
-  const { control, formState } =
-    useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
+  const { control, formState } = useFormContext<FormJournalType>();
 
   const { field } = useController({
     name: fieldName,

@@ -34,7 +34,7 @@ export default function SignInPage() {
       email,
       code,
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: "/home",
     });
   }
 

@@ -1,4 +1,3 @@
-import prisma from "../../../../lib/prisma";
 import { SettingsRowInput } from "./_components/General/SettingsRowInput";
 import { Dob } from "./_components/Input/Dob/Dob";
 import { Name } from "./_components/Input/Name/Name";
@@ -6,13 +5,7 @@ import { GenderPicker } from "./_components/Input/Gender/Gender";
 import { requireAuth } from "@/lib/auth/require-auth";
 
 export default async function page() {
-  const userSession = await requireAuth();
-
-  const user = await prisma.user.findFirstOrThrow({
-    where: {
-      id: userSession.id,
-    },
-  });
+  const { user } = await requireAuth();
 
   return (
     <div>

@@ -1,7 +1,5 @@
-import { auth } from "@/lib/auth/auth";
 import Journal from "./_components/Journal";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
 import prisma from "../../../../lib/prisma";
 import { DateTime } from "luxon";
 import { CheckCheck, Frown, SmileIcon } from "lucide-react";
@@ -12,7 +10,7 @@ import { NewJournalEntryButton } from "./_components/NewJournalEntryButton";
 import { requireAuth } from "@/lib/auth/require-auth";
 
 export default async function Page() {
-  const user = await requireAuth();
+  const { user } = await requireAuth();
 
   const taxonomies = await prisma.taxonomy.findMany({});
   const locationOptions = taxonomies.filter(

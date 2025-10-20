@@ -17,7 +17,7 @@ export default function SignInPage() {
     code: string;
   }>();
 
-  async function requestCode({ email }: { email: string }) {
+  const requestCode = async ({ email }: { email: string }) => {
     try {
       await axios.post("/api/auth/otp/request", { email });
       setEmail(email);
@@ -27,16 +27,16 @@ export default function SignInPage() {
     } catch (e: any) {
       toast.error(e?.response?.data?.error ?? "Failed to send code");
     }
-  }
+  };
 
-  async function verifyCode({ code }: { code: string }) {
+  const verifyCode = async ({ code }: { code: string }) => {
     await signIn("otp", {
       email,
       code,
       redirect: true,
       callbackUrl: "/home",
     });
-  }
+  };
 
   return (
     <div className="flex flex-col">

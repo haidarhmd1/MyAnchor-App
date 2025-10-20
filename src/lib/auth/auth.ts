@@ -49,6 +49,7 @@ export const authConfig = {
         code: { label: "Code", type: "text" },
       },
       authorize: async (creds, req) => {
+        console.log("creds", creds);
         const email = String(creds?.email ?? "")
           .trim()
           .toLowerCase();
@@ -64,6 +65,7 @@ export const authConfig = {
 
           if (master && code === master && allow) {
             let user = await prisma.user.findUnique({ where: { email } });
+            console.log("user", user);
             if (!user) {
               user = await prisma.user.create({
                 data: { email, emailVerified: new Date() },
@@ -185,18 +187,6 @@ export const authConfig = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.uid = user.id;
-
-      // 2) Hard block deleted users on every request
-      if (token?.uid) {
-        const u = await prisma.user.findUnique({
-          where: { id: token.uid as string },
-          select: { deletedAt: true },
-        });
-        if (u?.deletedAt) {
-          // Remove uid — this effectively "invalidates" the session
-          delete token.uid;
-        }
-      }
       return token;
     },
     async session({ session, token }) {

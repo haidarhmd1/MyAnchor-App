@@ -16,8 +16,8 @@ import { requireAuth } from "@/lib/auth/require-auth";
 
 export default async function Page() {
   // Middleware already blocked unauth/soft-deleted users.
-  const userSession = await requireAuth(); // optional callback
-  const userId = userSession.id!;
+  const { user } = await requireAuth(); // optional callback
+  const userId = user.id;
 
   const [journalWithLabels, dateRange] = await Promise.all([
     getFirstLoadAnxietyAnalyticsRow(userId),

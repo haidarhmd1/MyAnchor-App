@@ -1,5 +1,5 @@
 import { TaxonomyType } from "@prisma/client";
-import prisma from "../../../../../../lib/prisma";
+import prisma from "../../../../../../../lib/prisma";
 
 export const getTaxonomies = async () => {
   const taxonomies = await prisma.taxonomy.findMany();

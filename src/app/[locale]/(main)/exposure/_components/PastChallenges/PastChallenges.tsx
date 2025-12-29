@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import prisma from "../../../../../../lib/prisma";
+import prisma from "../../../../../../../lib/prisma";
 import { ChallengeStatus } from "@prisma/client";
 
 export const PastChallenges = async () => {

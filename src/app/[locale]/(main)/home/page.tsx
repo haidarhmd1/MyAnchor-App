@@ -1,7 +1,7 @@
-import { TodaysFocus } from "@/app/(main)/_components/TodaysFocus";
+import { TodaysFocus } from "@/app/[locale]/(main)/_components/TodaysFocus";
 
 import { EmergencyButton } from "../_components/EmergencyButton";
-import { QuickTips } from "@/app/(main)/_components/QuickTips";
+import { QuickTips } from "@/app/[locale]/(main)/_components/QuickTips";
 
 import { Metadata } from "next";
 

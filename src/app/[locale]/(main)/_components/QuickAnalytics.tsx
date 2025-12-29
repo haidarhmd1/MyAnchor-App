@@ -1,5 +1,5 @@
 import { AlertCircleIcon } from "lucide-react";
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../../../lib/prisma";
 import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
 import ShortcutsCard from "./ShortcutsCard";

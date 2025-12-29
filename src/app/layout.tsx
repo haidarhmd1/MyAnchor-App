@@ -1,3 +1,4 @@
+import { NextIntlClientProvider } from "next-intl";
 import { Lexend } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
@@ -18,7 +19,10 @@ export default async function RootLayout({
       <body
         className={`${lexend.variable} typography background-color: var(--color-background) antialiased`}
       >
-        <Providers>{children}</Providers>
+        <NextIntlClientProvider>
+          {children}
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
         <Toaster />
       </body>
     </html>

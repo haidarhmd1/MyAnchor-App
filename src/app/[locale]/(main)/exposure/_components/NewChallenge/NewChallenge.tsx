@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Award, BadgePlus } from "lucide-react";
 import Link from "next/link";
-import prisma from "../../../../../../lib/prisma";
+import prisma from "../../../../../../../lib/prisma";
 import { ChallengeStatus } from "@prisma/client";
 
 export const NewChallenge = async () => {

@@ -1,6 +1,6 @@
 import { BookOpenCheck, CheckCheck } from "lucide-react";
 import Link from "next/link";
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../../../lib/prisma";
 import { DateTime } from "luxon";
 import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";

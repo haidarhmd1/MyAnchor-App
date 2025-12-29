@@ -1,4 +1,4 @@
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../../../lib/prisma";
 import { Metadata } from "next";
 import { Analytics } from "./_components/Analytics";
 import { DateTime } from "luxon";

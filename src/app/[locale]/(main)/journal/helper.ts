@@ -1,5 +1,5 @@
 import { TaxonomyType } from "@prisma/client";
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../../../lib/prisma";
 import { DateTime } from "luxon";
 import { TZ } from "@/lib/timezone";
 

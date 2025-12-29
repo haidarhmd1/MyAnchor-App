@@ -1,4 +1,4 @@
-import { FormJournalType } from "@/app/(main)/journal/_components/helper";
+import { FormJournalType } from "@/app/[locale]/(main)/journal/_components/helper";
 import {
   Challenge,
   ChallengeOutcome,
@@ -9,7 +9,7 @@ import {
 } from "@prisma/client";
 import { ChallengeOutcomeSchema, ChallengeSchema } from "./zod.types";
 import { z } from "zod";
-import { AnalyticsRow } from "@/app/(main)/anxiety-analytics/_components/Analytics";
+import { AnalyticsRow } from "@/app/[locale]/(main)/anxiety-analytics/_components/Analytics";
 
 type CreateChallengeInputType = z.infer<typeof ChallengeSchema>;
 export async function createChallenge({

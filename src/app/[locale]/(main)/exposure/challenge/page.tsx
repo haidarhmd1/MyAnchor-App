@@ -1,5 +1,5 @@
 import { TaxonomyType } from "@prisma/client";
-import prisma from "../../../../../lib/prisma";
+import prisma from "../../../../../../lib/prisma";
 import ChallengeForm from "./_components/ChallengeForm";
 
 export default async function Page() {

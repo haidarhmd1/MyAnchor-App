@@ -4,13 +4,17 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { tips } from "@/common/const/tips";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
-export const QuickTips = () => {
+import { getTranslations } from "next-intl/server";
+
+export const QuickTips = async () => {
+  const t = await getTranslations("common");
+  const t2 = await getTranslations();
   return (
     <div className="space-y-4">
       <div className="flex flex-col items-start self-stretch">
-        <h2>Tips</h2>
+        <h2>{t("tip")}</h2>
       </div>
       <Carousel>
         <CarouselContent>
@@ -32,9 +36,9 @@ export const QuickTips = () => {
                     }}
                   />
                   <div className="mt-4">
-                    <h3>{c.title}</h3>
+                    <h3>{t2(c.titleKey)}</h3>
                     <p className="sub line-clamp-2 overflow-hidden text-ellipsis">
-                      {c.description}
+                      {t2(c.descriptionKey)}
                     </p>
                   </div>
                 </Link>

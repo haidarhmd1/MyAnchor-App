@@ -8,6 +8,7 @@ import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import z from "zod";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { FormFieldType } from "../ResultForm";
+import { useTranslations } from "next-intl";
 
 export function SingleChoice({
   onNext,
@@ -19,6 +20,7 @@ export function SingleChoice({
   fieldName: keyof z.infer<typeof ChallengeOutcomeSchema>;
   options: FormFieldType[];
 }) {
+  const t = useTranslations("form");
   const { control, formState } =
     useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
 
@@ -99,7 +101,7 @@ export function SingleChoice({
         {formState.isSubmitting ? (
           <Button disabled className="bg-blue-500 hover:bg-blue-600">
             <Spinner />
-            <span>Submitting</span>
+            <span>{t("submitting")}</span>
           </Button>
         ) : (
           <Button
@@ -108,7 +110,7 @@ export function SingleChoice({
             disabled={!hasSelection}
             className="bg-blue-500 hover:bg-blue-600"
           >
-            Next
+            {t("next")}
           </Button>
         )}
       </div>

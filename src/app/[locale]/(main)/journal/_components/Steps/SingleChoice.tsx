@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { FormJournalType, FormFieldType } from "../helper";
+import { useTranslations } from "next-intl";
 
 export const SingleChoice = ({
   onNext,
@@ -17,6 +18,7 @@ export const SingleChoice = ({
   fieldName: keyof FormJournalType;
   options: FormFieldType[];
 }) => {
+  const t = useTranslations();
   const { control, formState } = useFormContext<FormJournalType>();
 
   const { field } = useController({
@@ -72,16 +74,20 @@ export const SingleChoice = ({
                         isSelected ? "text-blue-700" : "text-foreground",
                       )}
                     >
-                      {option.label}
+                      {t(option.label)}
                     </h3>
-                    <p
-                      className={cn(
-                        "mt-1 text-sm",
-                        isSelected ? "text-blue-600" : "text-muted-foreground",
-                      )}
-                    >
-                      {option.description}
-                    </p>
+                    {option.description && (
+                      <p
+                        className={cn(
+                          "mt-1 text-sm",
+                          isSelected
+                            ? "text-blue-600"
+                            : "text-muted-foreground",
+                        )}
+                      >
+                        {t(option.description)}
+                      </p>
+                    )}
                   </div>
                 </div>
               </CardContent>
@@ -94,7 +100,7 @@ export const SingleChoice = ({
         {formState.isSubmitting ? (
           <Button disabled className="bg-blue-500 hover:bg-blue-600">
             <Spinner />
-            <span>Submitting</span>
+            <span>{t("form.submitting")}</span>
           </Button>
         ) : (
           <Button
@@ -103,7 +109,7 @@ export const SingleChoice = ({
             disabled={!hasSelection}
             className="bg-blue-500 hover:bg-blue-600"
           >
-            Next
+            {t("form.next")}
           </Button>
         )}
       </div>

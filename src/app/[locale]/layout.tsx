@@ -34,7 +34,6 @@ export default async function RootLayout({
         className={`${lexend.variable} typography background-color: var(--color-background) antialiased`}
       >
         <NextIntlClientProvider>
-          {children}
           <Providers>{children}</Providers>
         </NextIntlClientProvider>
         <Toaster />

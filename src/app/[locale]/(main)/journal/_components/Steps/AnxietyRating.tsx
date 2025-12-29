@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FormJournalType } from "../helper";
 import { anxietyLevelOptions } from "@/common/const/anxietyRating";
+import { useTranslations } from "next-intl";
 
 export function AnxietyLevelRating({
   onNext,
@@ -14,6 +15,7 @@ export function AnxietyLevelRating({
   onNext(): void;
   onPrev?: () => void;
 }) {
+  const t = useTranslations();
   const { control } = useFormContext<FormJournalType>();
 
   const { field } = useController({
@@ -69,7 +71,7 @@ export function AnxietyLevelRating({
                         isSelected ? "text-blue-700" : "text-foreground",
                       )}
                     >
-                      {option.label}
+                      {t(option.label)}
                     </h3>
                     <p
                       className={cn(
@@ -77,7 +79,7 @@ export function AnxietyLevelRating({
                         isSelected ? "text-blue-600" : "text-muted-foreground",
                       )}
                     >
-                      {option.description}
+                      {t(option.description)}
                     </p>
                   </div>
                 </div>
@@ -95,7 +97,7 @@ export function AnxietyLevelRating({
           disabled={!hasSelection}
           className="bg-blue-500 hover:bg-blue-600"
         >
-          Next
+          {t("form.next")}
         </Button>
       </div>
     </div>

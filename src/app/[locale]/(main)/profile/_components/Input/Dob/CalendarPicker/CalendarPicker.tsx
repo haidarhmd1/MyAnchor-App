@@ -12,6 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Label } from "@/components/ui/label";
+import { useTranslations } from "next-intl";
 
 export function CalendarPicker({
   date,
@@ -20,12 +21,13 @@ export function CalendarPicker({
   date: Date | undefined;
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
 }) {
+  const t = useTranslations("dob");
   const [open, setOpen] = React.useState(false);
 
   return (
     <div className="flex flex-col gap-3">
       <Label htmlFor="date" className="px-1">
-        Date of birth
+        {t("label")}
       </Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
@@ -34,7 +36,7 @@ export function CalendarPicker({
             id="date"
             className="justify-between font-normal"
           >
-            {date ? date.toLocaleDateString() : "Select date"}
+            {date ? date.toLocaleDateString() : t("pickDate")}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>

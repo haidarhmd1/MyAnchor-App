@@ -1,8 +1,11 @@
 import { Activity } from "lucide-react";
-import Link from "next/link";
-import ShortcutsCard from "./ShortcutsCard";
+import { Link } from "@/i18n/navigation";
 
-export function EmergencyButton() {
+import ShortcutsCard from "./ShortcutsCard";
+import { getTranslations } from "next-intl/server";
+
+export async function EmergencyButton() {
+  const t = await getTranslations("panicShortcut");
   return (
     <Link
       href="panic-emergency"
@@ -11,8 +14,8 @@ export function EmergencyButton() {
       }}
     >
       <ShortcutsCard
-        title="Currently inside a Panic Attack?"
-        subtitle="Press the button and take a deep breath, you are safe"
+        title={t("title")}
+        subtitle={t("subtitle")}
         icon={<Activity className="h-5 w-5" aria-hidden="true" />}
         gradient={{
           from: "from-red-300",

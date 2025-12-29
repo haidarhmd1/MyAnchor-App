@@ -1,1 +1,1 @@
-export const TZ = "Asia/Beirut";
+export const TZ = "Europe/Berlin";

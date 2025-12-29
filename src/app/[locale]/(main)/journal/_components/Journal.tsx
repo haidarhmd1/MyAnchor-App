@@ -25,6 +25,8 @@ import { z } from "zod";
 import { JournalFormSchema } from "@/lib/zod.types";
 import type { Taxonomy } from "@prisma/client";
 import { SingleChoice } from "./Steps/SingleChoice";
+import { useTranslations } from "next-intl";
+import { mapTaxonomiesToFormFields } from "@/i18n/taxonomy-mapper";
 
 export type StepId = Step["id"];
 
@@ -87,6 +89,11 @@ export default function Journal({
   avoidanceReasons: Taxonomy[];
   symptomOptions: Taxonomy[];
 }) {
+  const t = useTranslations();
+  const reduce = useReducedMotion();
+  const router = useRouter();
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
   const form = useForm<z.infer<typeof JournalFormSchema>>({
     defaultValues: {
       hasAnxietyAttack: undefined,
@@ -100,9 +107,7 @@ export default function Journal({
     },
     mode: "onChange",
   });
-  const reduce = useReducedMotion();
-  const router = useRouter();
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
   const hasAnxietyAttack = form.watch("hasAnxietyAttack");
   const hasAvoidedSituations = form.watch("hasAvoidedSituations");
 
@@ -110,7 +115,6 @@ export default function Journal({
     if (typeof hasAnxietyAttack !== "boolean") return [...BASE_STEP];
     if (hasAnxietyAttack === true) return [...BASE_STEP, ...HAS_ANXIETY_STEPS];
 
-    // no attack -> ask if avoided
     const steps: Step[] = [...BASE_STEP, AVOIDANCE_STEPS[0]];
     if (hasAvoidedSituations === true) steps.push(...AVOIDANCE_STEPS.slice(1));
     return steps;
@@ -118,13 +122,13 @@ export default function Journal({
 
   const optionByStep: Partial<Record<StepId, FormFieldType[]>> = useMemo(
     () => ({
-      typesOfSituationYouWereIn: locationOptions,
-      typesOfSituationYouAvoided: locationOptions,
-      whyYouWereAvoidingIt: avoidanceReasons,
-      typesOfBodySymptoms: symptomOptions,
-      whenDidItHappen: whenDidItHappenConst,
+      typesOfSituationYouWereIn: mapTaxonomiesToFormFields(locationOptions, t),
+      typesOfSituationYouAvoided: mapTaxonomiesToFormFields(locationOptions, t),
+      whyYouWereAvoidingIt: mapTaxonomiesToFormFields(avoidanceReasons, t),
+      typesOfBodySymptoms: mapTaxonomiesToFormFields(symptomOptions, t),
+      whenDidItHappen: whenDidItHappenConst, // this one is already local consts
     }),
-    [locationOptions, avoidanceReasons, symptomOptions],
+    [locationOptions, avoidanceReasons, symptomOptions, t],
   );
 
   const handleNext = () => {
@@ -134,6 +138,7 @@ export default function Journal({
       setCurrentStepIndex(1);
       return;
     }
+
     if (id === "hasAvoidedSituations") {
       const latest = form.getValues("hasAvoidedSituations");
       if (latest === false) {
@@ -149,20 +154,21 @@ export default function Journal({
       form.handleSubmit(onSubmit)();
       return;
     }
+
     setCurrentStepIndex((i) => Math.min(i + 1, lastIndex));
   };
 
   const handlePrevious = () => {
-    if (currentStepIndex > 0) {
-      const currentField = formStep[currentStepIndex].id;
-      form.setValue(currentField, undefined, {
-        shouldDirty: true,
-        shouldTouch: true,
-        shouldValidate: true,
-      });
+    if (currentStepIndex <= 0) return;
 
-      setCurrentStepIndex((s) => s - 1);
-    }
+    const currentField = formStep[currentStepIndex].id;
+    form.setValue(currentField, undefined, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+
+    setCurrentStepIndex((s) => s - 1);
   };
 
   const onSubmit = async (data: z.infer<typeof JournalFormSchema>) => {
@@ -171,8 +177,8 @@ export default function Journal({
       router.refresh();
       callback?.();
     } catch (e) {
-      console.error("e", e);
-      toast.error("Journal entry not saved, something wen't wrong :/");
+      console.error(e);
+      toast.error(t("journal.journalQuestionnaire.errors.saveFailed"));
     }
   };
 
@@ -191,7 +197,9 @@ export default function Journal({
     animate: { opacity: 1, y: 0, filter: "blur(0px)" },
     exit: { opacity: 0, y: -8, filter: "blur(4px)" },
   };
+
   const option = optionByStep[active.id as StepId] ?? [];
+
   return (
     <>
       <div className="mb-8 flex justify-between">
@@ -201,7 +209,7 @@ export default function Journal({
           onClick={handlePrevious}
         >
           <ChevronLeft className="h-4 w-4" />
-          <span>Previous</span>
+          <span>{t("common.previous")}</span>
         </Button>
       </div>
 
@@ -210,8 +218,10 @@ export default function Journal({
           <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="mb-6 text-center">
-                <h5 className="font-light">{active.title}</h5>
-                <h2 className="text-foreground text-2xl">{active.subtitle}</h2>
+                <h5 className="font-light">{t(active.titleKey)}</h5>
+                <h2 className="text-foreground text-2xl">
+                  {t(active.subtitleKey)}
+                </h2>
               </div>
 
               <div className="min-h-[260px]">

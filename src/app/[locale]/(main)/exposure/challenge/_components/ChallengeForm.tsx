@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useMemo, useState } from "react";
@@ -7,13 +8,20 @@ import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createChallenge } from "@/lib/api";
-import { ChallengeStatus, Company, Difficulty } from "@prisma/client";
+import {
+  ChallengeStatus,
+  Company,
+  Difficulty,
+  TaxonomyType,
+} from "@prisma/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { useForm } from "react-hook-form";
 import { ChallengeSchema } from "@/lib/zod.types";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
+import { mapTaxonomiesToFormFields } from "@/i18n/taxonomy-mapper";
 
 enum STEP_ID {
   LOCATION = "LOCATION",
@@ -22,9 +30,16 @@ enum STEP_ID {
 
 type ChallengeOptions = {
   id: string;
-  label: string;
+  type: TaxonomyType;
+  slug: string;
   description: string | null;
   difficulty: Difficulty | null;
+};
+
+type CompanyOption = {
+  id: Company;
+  slug: "alone" | "with_others";
+  description: string | null;
 };
 
 type FormValues = z.infer<typeof ChallengeSchema>;
@@ -35,36 +50,62 @@ export default function ChallengeForm({
   challenges: ChallengeOptions[];
 }) {
   const router = useRouter();
+  const t = useTranslations();
+
+  const companyOptions: CompanyOption[] = useMemo(
+    () => [
+      {
+        id: Company.ALONE,
+        slug: "alone",
+        description: "Face it by yourself",
+      },
+      {
+        id: Company.WITH_OTHERS,
+        slug: "with_others",
+        description: "Friends, family, or colleagues",
+      },
+    ],
+    [],
+  );
+
+  const localizedChallenges = useMemo(() => {
+    // returns items that include `difficulty` because input contains it
+    return mapTaxonomiesToFormFields(challenges, t) as Array<{
+      id: string;
+      label: string;
+      description: string | null;
+      difficulty: Difficulty | null;
+    }>;
+  }, [t, challenges]);
+
+  const localizedCompanyOptions = useMemo(() => {
+    // company is not a DB taxonomy, so translate directly
+    return companyOptions.map((o) => ({
+      id: o.id,
+      label: t(`taxonomy.COMPANY.${o.slug}.label`),
+      description: o.description
+        ? t(`taxonomy.COMPANY.${o.slug}.description`)
+        : null,
+      difficulty: null as Difficulty | null,
+    }));
+  }, [t, companyOptions]);
 
   const formStep = useMemo(() => {
     return [
       {
         id: STEP_ID.LOCATION,
         fieldName: "challengeOptionId" as const,
-        label: "Where will you challenge yourself today?",
-        options: challenges,
+        labelKey: "exposure.challengeForm.steps.location.label",
+        options: localizedChallenges,
       },
       {
         id: STEP_ID.COMPANY,
         fieldName: "company" as const,
-        label: "Who will be with you?",
-        options: [
-          {
-            id: Company.ALONE,
-            label: "Alone",
-            description: "Face it by yourself",
-            difficulty: null,
-          },
-          {
-            id: Company.WITH_OTHERS,
-            label: "With others",
-            description: "Friends, family, or colleagues",
-            difficulty: null,
-          },
-        ],
+        labelKey: "exposure.challengeForm.steps.company.label",
+        options: localizedCompanyOptions,
       },
     ];
-  }, [challenges]);
+  }, [localizedChallenges, localizedCompanyOptions]);
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -91,7 +132,7 @@ export default function ChallengeForm({
   }, [currentStep.options, isLocationStep, difficultyTab]);
 
   const handleSelect = (optionId: string) => {
-    form.setValue(currentStep.fieldName, optionId, {
+    form.setValue(currentStep.fieldName, optionId as any, {
       shouldDirty: true,
       shouldTouch: true,
       shouldValidate: true,
@@ -99,22 +140,20 @@ export default function ChallengeForm({
   };
 
   const handleNext = () => {
-    if (currentStepIndex < formStep.length - 1) {
+    if (currentStepIndex < formStep.length - 1)
       setCurrentStepIndex((s) => s + 1);
-    }
   };
 
   const handlePrevious = () => {
-    if (currentStepIndex > 0) {
-      // Clear the selection of the current step before going back
-      const currentField = formStep[currentStepIndex].fieldName;
-      form.setValue(currentField, "", {
-        shouldDirty: true,
-        shouldTouch: true,
-        shouldValidate: true,
-      });
-      setCurrentStepIndex((s) => s - 1);
-    }
+    if (currentStepIndex <= 0) return;
+
+    const currentField = formStep[currentStepIndex].fieldName;
+    form.setValue(currentField, undefined as any, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+    setCurrentStepIndex((s) => s - 1);
   };
 
   const onSubmit = async (data: FormValues) => {
@@ -130,7 +169,7 @@ export default function ChallengeForm({
       router.replace("/exposure");
     } catch (e) {
       console.error(e);
-      toast.error("Something went wrong while creating the challenge.");
+      toast.error(t("exposure.challengeForm.errors.createFailed"));
     }
   };
 
@@ -139,14 +178,14 @@ export default function ChallengeForm({
       <div className="mx-auto w-full max-w-2xl">
         <div className="space-y-6">
           <div>
-            <h5 className="font-light">{currentStep.label}</h5>
+            <h5 className="font-light">{t(currentStep.labelKey)}</h5>
           </div>
 
-          {/* Progress */}
           <div className="mb-8">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-muted-foreground text-sm">
-                Step {currentStepIndex + 1} of {formStep.length}
+                {t("common.step")} {currentStepIndex + 1} {t("common.of")}{" "}
+                {formStep.length}
               </span>
               <span className="text-muted-foreground text-sm">
                 {Math.round(((currentStepIndex + 1) / formStep.length) * 100)}%
@@ -161,8 +200,8 @@ export default function ChallengeForm({
               />
             </div>
           </div>
+
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            {/* Difficulty Tabs (only on location step) */}
             {isLocationStep && (
               <div className="mb-4">
                 <Tabs
@@ -173,19 +212,24 @@ export default function ChallengeForm({
                   className="w-full"
                 >
                   <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value={Difficulty.EASY}>Easy</TabsTrigger>
-                    <TabsTrigger value={Difficulty.MEDIUM}>Medium</TabsTrigger>
-                    <TabsTrigger value={Difficulty.HARD}>Hard</TabsTrigger>
+                    <TabsTrigger value={Difficulty.EASY}>
+                      {t("common.difficulty.easy")}
+                    </TabsTrigger>
+                    <TabsTrigger value={Difficulty.MEDIUM}>
+                      {t("common.difficulty.medium")}
+                    </TabsTrigger>
+                    <TabsTrigger value={Difficulty.HARD}>
+                      {t("common.difficulty.hard")}
+                    </TabsTrigger>
                   </TabsList>
                 </Tabs>
               </div>
             )}
 
-            {/* Options (radio-style) */}
             <div
               className="space-y-3"
               role="radiogroup"
-              aria-label={currentStep.label}
+              aria-label={t(currentStep.labelKey)}
             >
               {visibleOptions.map((option) => {
                 const isSelected = selectedValue === option.id;
@@ -205,7 +249,6 @@ export default function ChallengeForm({
                   >
                     <CardContent className="p-2">
                       <div className="flex items-start space-x-3">
-                        {/* Radio visual */}
                         <div
                           className={cn(
                             "mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition-colors",
@@ -231,16 +274,19 @@ export default function ChallengeForm({
                           >
                             {option.label}
                           </h3>
-                          <p
-                            className={cn(
-                              "mt-1 text-sm",
-                              isSelected
-                                ? "text-blue-600"
-                                : "text-muted-foreground",
-                            )}
-                          >
-                            {option.description}
-                          </p>
+
+                          {option.description ? (
+                            <p
+                              className={cn(
+                                "mt-1 text-sm",
+                                isSelected
+                                  ? "text-blue-600"
+                                  : "text-muted-foreground",
+                              )}
+                            >
+                              {option.description}
+                            </p>
+                          ) : null}
                         </div>
                       </div>
                     </CardContent>
@@ -249,7 +295,6 @@ export default function ChallengeForm({
               })}
             </div>
 
-            {/* Navigation */}
             <div className="flex justify-between pt-6">
               <Button
                 type="button"
@@ -259,7 +304,7 @@ export default function ChallengeForm({
                 className="flex items-center space-x-2 bg-transparent"
               >
                 <ChevronLeft className="h-4 w-4" />
-                <span>Previous</span>
+                <span>{t("common.previous")}</span>
               </Button>
 
               {currentStepIndex === formStep.length - 1 ? (
@@ -269,7 +314,7 @@ export default function ChallengeForm({
                     className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
                   >
                     <Spinner />
-                    <span>Submitting</span>
+                    <span>{t("common.submitting")}</span>
                   </Button>
                 ) : (
                   <Button
@@ -277,7 +322,7 @@ export default function ChallengeForm({
                     disabled={!canGoNext}
                     className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
                   >
-                    <span>Submit</span>
+                    <span>{t("common.submit")}</span>
                     <Check className="ml-1 h-4 w-4" />
                   </Button>
                 )
@@ -288,7 +333,7 @@ export default function ChallengeForm({
                   disabled={!canGoNext || form.formState.isSubmitting}
                   className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
                 >
-                  <span>Next</span>
+                  <span>{t("common.next")}</span>
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               )}

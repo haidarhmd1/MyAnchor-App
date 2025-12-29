@@ -1,8 +1,8 @@
 import { StaticImageData } from "next/image";
 
-type Source = { id: string; url: string };
+export type Source = { id: string; url: string };
 
-type Paragraph = {
+export type Paragraph = {
   id: string;
   textKey: string;
 };

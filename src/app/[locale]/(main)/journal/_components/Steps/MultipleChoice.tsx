@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { FormFieldType, FormJournalType } from "../helper";
 import { Spinner } from "@/components/Spinner/Spinner";
+import { useTranslations } from "next-intl";
 
 type Props = {
   onNext(): void;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
+  const t = useTranslations();
   const { control, formState } = useFormContext<FormJournalType>();
 
   const { field } = useController({
@@ -87,16 +89,18 @@ export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
                         checked ? "text-blue-700" : "text-foreground",
                       )}
                     >
-                      {option.label}
+                      {t(option.label)}
                     </h3>
-                    <p
-                      className={cn(
-                        "mt-1 text-sm",
-                        checked ? "text-blue-600" : "text-muted-foreground",
-                      )}
-                    >
-                      {option.description}
-                    </p>
+                    {option.description && (
+                      <p
+                        className={cn(
+                          "mt-1 text-sm",
+                          checked ? "text-blue-600" : "text-muted-foreground",
+                        )}
+                      >
+                        {t(option.description)}
+                      </p>
+                    )}
                   </div>
                 </div>
               </CardContent>
@@ -109,7 +113,7 @@ export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
         {formState.isSubmitting ? (
           <Button disabled className="bg-blue-500 hover:bg-blue-600">
             <Spinner />
-            <span>Submitting</span>
+            <span>{t("form.submitting")}</span>
           </Button>
         ) : (
           <Button
@@ -118,7 +122,7 @@ export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
             disabled={selected.length === 0}
             className="bg-blue-500 hover:bg-blue-600"
           >
-            Next
+            {t("form.next")}
           </Button>
         )}
       </div>

@@ -17,54 +17,58 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 
 export const Name = ({ name }: { name: string }) => {
+  const t = useTranslations("name");
   const router = useRouter();
+
   const [open, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const { register, handleSubmit } = useForm({
-    defaultValues: {
-      name,
-    },
+    defaultValues: { name },
   });
+
   const handleSave = async (data: { name: string }) => {
-    const { name } = data;
     try {
       await updateUserProfile({
-        data: {
-          name,
-        },
+        data: { name: data.name },
       });
-      toast.success("User successfull updated");
+
+      toast.success(t("toast.success"));
       setIsOpen(false);
-      // Invalidate + re-fetch server components
+
       startTransition(() => {
         router.refresh();
       });
     } catch (error) {
-      toast.error("User could not be updated, something wen't wrong");
+      toast.error(t("toast.error"));
       console.error(error);
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={(open) => setIsOpen(open)}>
+    <Dialog open={open} onOpenChange={(o) => setIsOpen(o)}>
       <DialogTrigger>
-        <SettingsRowInput label="Name" value={name} />
+        <SettingsRowInput label={t("label")} value={name} />
       </DialogTrigger>
+
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Enter your name</DialogTitle>
+          <DialogTitle>{t("dialogTitle")}</DialogTitle>
         </DialogHeader>
+
         <form className="space-y-4" onSubmit={handleSubmit(handleSave)}>
           <Input {...register("name")} />
+
           <DialogFooter className="grid grid-cols-2">
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">{t("actions.cancel")}</Button>
             </DialogClose>
+
             <Button type="submit" disabled={isPending}>
-              {isPending ? "Saving..." : "Save changes"}
+              {isPending ? t("actions.saving") : t("actions.saveChanges")}
             </Button>
           </DialogFooter>
         </form>

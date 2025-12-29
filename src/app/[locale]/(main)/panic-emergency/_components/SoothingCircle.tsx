@@ -1,18 +1,20 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { reassurences } from "@/common/const/reassurings";
+import { reassurances } from "@/common/const/reassurings";
 import { useReducedMotion, motion, AnimatePresence } from "motion/react";
+import { useTranslations } from "next-intl";
 
 import { useMemo, useState } from "react";
 
 export const SoothingCircle = () => {
+  const t = useTranslations();
+
   const [counter, setCounter] = useState(0);
   const reduce = useReducedMotion();
 
-  const messages = useMemo(() => reassurences ?? [], []);
+  const messages = useMemo(() => reassurances, []);
   const index = messages.length ? counter % messages.length : 0;
-  const current = messages.length ? messages[index] : "";
+  const current = messages.length ? t(messages[index].textKey) : "";
 
   const onClickHandler = () => {
     if (!messages.length) return;
@@ -37,7 +39,7 @@ export const SoothingCircle = () => {
         className="m-auto flex h-64 w-64 items-center justify-center rounded-full bg-[#B5E2D3]"
         onClick={onClickHandler}
       >
-        <h6 className="font-medium">Next</h6>
+        <h6 className="font-medium">{t("form.next")}</h6>
       </motion.div>
 
       <div className="mt-24 min-h-[2.5rem] text-center">

@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import z from "zod";
+import { useTranslations } from "next-intl";
 
 export function HadCompletedChallenge({
   onNext,
@@ -12,6 +13,7 @@ export function HadCompletedChallenge({
   onNext(): void;
   onPrev?: () => void;
 }) {
+  const t = useTranslations("form");
   const { setValue } = useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
 
   return (
@@ -32,7 +34,7 @@ export function HadCompletedChallenge({
             onNext();
           }}
         >
-          Yes
+          {t("yes")}
         </Button>
         <Button
           type="button"
@@ -42,7 +44,7 @@ export function HadCompletedChallenge({
             onNext();
           }}
         >
-          No
+          {t("no")}
         </Button>
       </div>
     </div>

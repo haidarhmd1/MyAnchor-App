@@ -4,8 +4,11 @@ import { Exercises } from "./_components/Exercises";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MessageCircleWarningIcon } from "lucide-react";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export default function Page() {
+export default async function Page() {
+  const t = await getTranslations();
+
   return (
     <>
       <div
@@ -17,24 +20,23 @@ export default function Page() {
         }}
       />
       <div className="p-4">
-        <h5 className="font-light">{exercisesInteroceptiveContent.title}</h5>
-        <h2>{exercisesInteroceptiveContent.subtitle}</h2>
+        <h5 className="font-light">
+          {t(exercisesInteroceptiveContent.titleKey)}
+        </h5>
+        <h2>{t(exercisesInteroceptiveContent.subtitleKey)}</h2>
 
         <Alert
           variant="default"
           className="border-muted my-4 rounded-4xl bg-amber-50 shadow-none"
         >
           <MessageCircleWarningIcon />
-          <AlertTitle>Tip</AlertTitle>
-          <AlertDescription>
-            Always remind yourself before starting — “This is practice. My body
-            is safe. These are just sensations.”
-          </AlertDescription>
+          <AlertTitle>{t("common.tip")}</AlertTitle>
+          <AlertDescription>{t("exercisesPage.reminder")}</AlertDescription>
         </Alert>
         <div className="mb-4">
           {exercisesInteroceptiveContent.content.map((content) => (
             <p key={content.id} className="mt-4">
-              {content.text}
+              {t(content.textKey)}
             </p>
           ))}
         </div>

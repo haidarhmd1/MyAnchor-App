@@ -1,5 +1,6 @@
 import { tips } from "@/common/const/tips";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
 };
 
 export default async function Tip({ params }: Props) {
+  const t = await getTranslations();
   const { slug } = await params;
 
   const matchedSlug = tips.find((t) => t.slug === slug);
@@ -23,11 +25,11 @@ export default async function Tip({ params }: Props) {
         }}
       />
       <div className="p-4">
-        <h5 className="font-light">{matchedSlug.title}</h5>
-        <h2 className="text-2xl">{matchedSlug.description}</h2>
+        <h5 className="font-light">{t(matchedSlug.titleKey)}</h5>
+        <h2 className="text-2xl">{t(matchedSlug.descriptionKey)}</h2>
         {matchedSlug.content.map((content) => (
           <p key={content.id} className="mt-4 text-lg">
-            {content.text}
+            {t(content.textKey)}
           </p>
         ))}
       </div>
@@ -36,11 +38,12 @@ export default async function Tip({ params }: Props) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations();
   const { slug } = await params;
   const matchedSlug = tips.find((t) => t.slug === slug);
   if (!matchedSlug) return notFound();
 
   return {
-    title: `⚓ MyAnchor - Tips - ${matchedSlug.title}`,
+    title: `⚓ MyAnchor - Tips - ${t(matchedSlug.titleKey)}`,
   };
 }

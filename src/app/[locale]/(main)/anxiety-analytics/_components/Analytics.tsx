@@ -90,7 +90,7 @@ export const Analytics = ({ journalWithLabels, dateRange }: AnalyticsProps) => {
             <SelectValue className="w-full" placeholder="Month" />
           </SelectTrigger>
           <SelectContent>
-            {dateRange.map((d, i) => (
+            {dateRange.map((d) => (
               <SelectItem
                 key={`${d.month} ${d.year}`}
                 value={`${d.month} ${d.year}`}

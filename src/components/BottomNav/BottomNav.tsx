@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useSelectedLayoutSegments } from "next/navigation";
+import { Link } from "@/i18n/navigation";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
   AudioWaveform,
@@ -12,34 +11,52 @@ import {
   LucideIcon,
   BookA,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { routing } from "@/i18n/routing";
+
+type NavKey = "home" | "education" | "journal" | "exercises" | "exposure";
 
 type NavLinkProps = {
   href: "/home" | "/education" | "/exercises" | "/exposure" | "/journal";
-  label: string;
+  labelKey: NavKey;
   icon: LucideIcon;
   /** If true, consider any deeper path under href as active (e.g. /education/*) */
   partial?: boolean;
 };
 
-const NavLink = ({ href, label, icon: Icon, partial = true }: NavLinkProps) => {
-  const segments = useSelectedLayoutSegments();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+function stripLocale(pathname: string) {
+  // pathname could be: /en/education/slug or /education/slug (depending on setup)
+  const locales = routing.locales as readonly string[];
+  const parts = pathname.split("/").filter(Boolean);
 
-  // Derive current top-level segment ("" for root)
-  const currentTop = segments[0] ?? "";
-  const currentPath = `/${currentTop}`;
+  if (parts.length === 0) return "/";
 
-  // Determine active state
+  const maybeLocale = parts[0];
+  if (locales.includes(maybeLocale)) {
+    const rest = parts.slice(1).join("/");
+    return "/" + rest; // "/" if empty
+  }
+
+  return pathname;
+}
+
+const NavLink = ({
+  href,
+  labelKey,
+  icon: Icon,
+  partial = true,
+}: NavLinkProps) => {
+  const t = useTranslations("bottomNav");
+  const pathname = usePathname();
+
+  const path = stripLocale(pathname);
   const isRoot = href === "/home";
-  const isActive = isRoot
-    ? currentTop === "" // only root is active
-    : partial
-      ? currentPath === href // top segment match -> active for all subroutes
-      : currentPath === href && segments.length <= 1; // exact section only
 
-  // Until mounted, render neutral styles to avoid SSR/CSR mismatches
-  const active = mounted && isActive;
+  const active = isRoot
+    ? path === "/" || path === "/home"
+    : partial
+      ? path === href || path.startsWith(`${href}/`)
+      : path === href;
 
   return (
     <Link
@@ -58,9 +75,9 @@ const NavLink = ({ href, label, icon: Icon, partial = true }: NavLinkProps) => {
         )}
       />
       <span className={cn(active ? "font-medium" : "font-normal")}>
-        {label}
+        {t(labelKey)}
       </span>
-      {/* subtle underline for active */}
+
       <span
         className={cn(
           "mt-0.5 block h-0.5 w-6 rounded-full transition-opacity",
@@ -78,11 +95,11 @@ export const BottomNav = () => {
       className="sticky bottom-0 z-50 grid h-16 w-full grid-cols-5 border-t bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80"
       aria-label="Primary"
     >
-      <NavLink href="/home" label="Home" icon={House} partial={false} />
-      <NavLink href="/education" label="Education" icon={Book} />
-      <NavLink href="/journal" label="Journal" icon={BookA} />
-      <NavLink href="/exercises" label="Exercises" icon={SquareActivity} />
-      <NavLink href="/exposure" label="Exposure" icon={AudioWaveform} />
+      <NavLink href="/home" labelKey="home" icon={House} partial={false} />
+      <NavLink href="/education" labelKey="education" icon={Book} />
+      <NavLink href="/journal" labelKey="journal" icon={BookA} />
+      <NavLink href="/exercises" labelKey="exercises" icon={SquareActivity} />
+      <NavLink href="/exposure" labelKey="exposure" icon={AudioWaveform} />
     </nav>
   );
 };

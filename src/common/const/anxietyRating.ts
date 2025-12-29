@@ -1,45 +1,52 @@
-export type AnxietyLevelOptionsType = {
+export type AnxietyLevelOption = {
   id: string;
+  value: number;
+  difficulty: "easy" | "medium" | "hard";
   label: string;
   description: string;
-  difficulty: string;
 };
 
-export const anxietyLevelOptions: AnxietyLevelOptionsType[] = [
+export const anxietyLevelOptions: AnxietyLevelOption[] = [
   {
     id: "0",
-    label: "0 – Calm",
-    description: "Completely relaxed, no anxiety",
+    value: 0,
+    label: "anxietyLevels.0.label",
+    description: "anxietyLevels.0.description",
     difficulty: "easy",
   },
   {
     id: "2",
-    label: "2 – Mild",
-    description: "Slight unease, manageable",
+    value: 2,
+    label: "anxietyLevels.2.label",
+    description: "anxietyLevels.2.description",
     difficulty: "easy",
   },
   {
     id: "4",
-    label: "4 – Noticeable",
-    description: "Clear anxiety, but can still function",
+    value: 4,
+    label: "anxietyLevels.4.label",
+    description: "anxietyLevels.4.description",
     difficulty: "medium",
   },
   {
     id: "6",
-    label: "6 – Strong",
-    description: "Very uncomfortable, intrusive symptoms",
+    value: 6,
+    label: "anxietyLevels.6.label",
+    description: "anxietyLevels.6.description",
     difficulty: "medium",
   },
   {
     id: "8",
-    label: "8 – Intense",
-    description: "Difficult to stay present, fear is high",
+    value: 8,
+    label: "anxietyLevels.8.label",
+    description: "anxietyLevels.8.description",
     difficulty: "hard",
   },
   {
     id: "10",
-    label: "10 – Extreme",
-    description: "Full panic, overwhelming, feels unbearable",
+    value: 10,
+    label: "anxietyLevels.10.label",
+    description: "anxietyLevels.10.description",
     difficulty: "hard",
   },
 ];

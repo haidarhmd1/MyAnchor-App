@@ -31,18 +31,18 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { DateTime } from "luxon";
+import { useLocale, useTranslations } from "next-intl";
 
 export const Dob = ({ dob }: { dob: Date | null }) => {
+  const t = useTranslations("dob");
+  const locale = useLocale();
   const router = useRouter();
 
   const form = useForm({
-    defaultValues: {
-      dob,
-    },
+    defaultValues: { dob },
   });
 
   const [open, setIsOpen] = useState(false);
@@ -51,36 +51,48 @@ export const Dob = ({ dob }: { dob: Date | null }) => {
   const handleSave = async (data: { dob: Date | null }) => {
     try {
       await updateUserProfile({
-        data: {
-          dob: data.dob!,
-        },
+        data: { dob: data.dob! },
       });
-      toast.success("User date of birth successfull updated");
+
+      toast.success(t("toast.success"));
       setIsOpen(false);
-      // Invalidate + re-fetch server components
+
       startTransition(() => {
         router.refresh();
       });
     } catch (error) {
-      toast.error("User could not be updated, something wen't wrong");
+      toast.error(t("toast.error"));
       console.error(error);
     }
   };
-  const dt = dob ? DateTime.fromJSDate(dob) : DateTime.now();
-  const dobFormatted = dt.toFormat("dd/LL/yyyy");
+
+  // display on settings row (you can change format if you prefer)
+  const dobFormatted = dob
+    ? DateTime.fromJSDate(dob)
+        .setLocale(locale)
+        .toLocaleString(DateTime.DATE_SHORT)
+    : null;
+
+  // display in button (localized “medium” date)
+  const selectedLabel = (value: Date) =>
+    DateTime.fromJSDate(value)
+      .setLocale(locale)
+      .toLocaleString(DateTime.DATE_MED);
 
   return (
     <Dialog open={open} onOpenChange={(open) => setIsOpen(open)}>
       <DialogTrigger>
         <SettingsRowInput
-          label="Date of birth"
-          value={dob ? dobFormatted : "Not set yet"}
+          label={t("label")}
+          value={dob ? (dobFormatted as string) : t("notSet")}
         />
       </DialogTrigger>
+
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Chose a date of birth</DialogTitle>
+          <DialogTitle>{t("dialogTitle")}</DialogTitle>
         </DialogHeader>
+
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSave)}
@@ -91,26 +103,28 @@ export const Dob = ({ dob }: { dob: Date | null }) => {
               name="dob"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Date of birth</FormLabel>
+                  <FormLabel>{t("label")}</FormLabel>
+
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
-                          variant={"outline"}
+                          variant="outline"
                           className={cn(
                             "w-full pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground",
                           )}
                         >
                           {field.value ? (
-                            format(field.value, "PPP")
+                            selectedLabel(field.value)
                           ) : (
-                            <span>Pick a date</span>
+                            <span>{t("pickDate")}</span>
                           )}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
+
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
@@ -123,6 +137,7 @@ export const Dob = ({ dob }: { dob: Date | null }) => {
                       />
                     </PopoverContent>
                   </Popover>
+
                   <FormMessage />
                 </FormItem>
               )}
@@ -130,10 +145,11 @@ export const Dob = ({ dob }: { dob: Date | null }) => {
 
             <DialogFooter className="grid grid-cols-2">
               <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">{t("actions.cancel")}</Button>
               </DialogClose>
+
               <Button type="submit" disabled={isPending}>
-                {isPending ? "Saving..." : "Save changes"}
+                {isPending ? t("actions.saving") : t("actions.saveChanges")}
               </Button>
             </DialogFooter>
           </form>

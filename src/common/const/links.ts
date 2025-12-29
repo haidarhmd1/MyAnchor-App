@@ -2,40 +2,33 @@ import { StaticImageData } from "next/image";
 import {
   findYourWayOut,
   panicDisorderExplained,
+  Paragraph,
   rewireEffect,
+  Source,
   theCurveOfPanic,
   understandingAnxiety,
 } from "./content";
 
-type ContentItem = {
+type EducationItem = {
   id: string;
-  text: string;
-};
-
-type URLItem = {
-  id: string;
-  url: string;
-};
-
-export const education: {
-  id: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   link: string;
   imgSrc: string | StaticImageData;
   slug: string;
   content: {
-    title: string;
-    subtitle: string;
-    content: ContentItem[];
-    sources: URLItem[] | [];
+    titleKey: string;
+    subtitleKey: string;
+    content: Paragraph[];
+    sources: Source[];
   };
-}[] = [
+};
+
+export const education: EducationItem[] = [
   {
     id: "7bf613f7-e7d2-44fa-8dec-55cde37e8c5a",
-    title: "Understanding Anxiety",
-    description:
-      "Learn about the nature of anxiety and its impact on your life.",
+    titleKey: "educationIndex.items.understandingAnxiety.title",
+    descriptionKey: "educationIndex.items.understandingAnxiety.description",
     link: "education/understanding-anxiety",
     imgSrc: "/illustration/education/u-anxiety.png",
     slug: "understanding-anxiety",
@@ -43,8 +36,8 @@ export const education: {
   },
   {
     id: "b007ac64-a246-472f-bd64-06e3c7488af8",
-    title: "Panic Disorder Explained",
-    description: "Explore the causes and symptoms of panic disorder.",
+    titleKey: "educationIndex.items.panicDisorderExplained.title",
+    descriptionKey: "educationIndex.items.panicDisorderExplained.description",
     link: "education/panic-disorder-explained",
     imgSrc: "/illustration/education/panic-d-explained.png",
     slug: "panic-disorder-explained",
@@ -52,10 +45,8 @@ export const education: {
   },
   {
     id: "72703978-c8ca-4d8c-a2eb-c43d9473724a",
-    title: "What maintains anxiety",
-    // description:
-    //   "Discover effective strategies for managing anxiety and panic.",
-    description: "The curve of panic",
+    titleKey: "educationIndex.items.whatMaintainsAnxiety.title",
+    descriptionKey: "educationIndex.items.whatMaintainsAnxiety.description",
     link: "education/what-maintains-anxiety",
     imgSrc: "/illustration/education/what-maintains-anxiety.png",
     slug: "what-maintains-anxiety",
@@ -63,8 +54,8 @@ export const education: {
   },
   {
     id: "0e03bd68-df94-4a3a-9ee3-c955293c98dd",
-    title: "Find your way out",
-    description: "Explore and learn what you can do.",
+    titleKey: "educationIndex.items.findYourWayOut.title",
+    descriptionKey: "educationIndex.items.findYourWayOut.description",
     link: "education/find-your-way-out",
     imgSrc: "/illustration/education/healing.png",
     slug: "find-your-way-out",
@@ -72,8 +63,8 @@ export const education: {
   },
   {
     id: "b29f45fe-b76f-47af-848f-50e65a0fa943",
-    title: "Rewire Effect",
-    description: "How to rewire your brain",
+    titleKey: "educationIndex.items.rewireEffect.title",
+    descriptionKey: "educationIndex.items.rewireEffect.description",
     link: "education/rewire-effect",
     imgSrc: "/illustration/education/rewire-effect.png",
     slug: "rewire-effect",
@@ -81,52 +72,42 @@ export const education: {
   },
 ];
 
-export const categories: {
+type Category = {
   id: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   link: string;
   gradient: { from: string; to: string };
   imgSrc: string | StaticImageData;
   slug: string;
-}[] = [
+};
+
+export const categories: Category[] = [
   {
     id: "767859eb-303f-4f05-a158-f9d41fa19f9a",
-    title: "Psycho-education",
-    description: "Learn and understand your anxiety and panic disorders",
+    titleKey: "educationIndex.categories.education.title",
+    descriptionKey: "educationIndex.categories.education.description",
     imgSrc: "/illustration/psycho-education.png",
     link: "/education",
     slug: "education",
-    gradient: {
-      from: "from-sky-400",
-      to: "to-sky-600",
-    },
+    gradient: { from: "from-sky-400", to: "to-sky-600" },
   },
   {
     id: "78d869da-2632-4d0e-9329-9e161bb38696",
-    title: "Trigger Exercises",
-    description:
-      "Confront your triggers using interoceptive exposure exercises",
+    titleKey: "educationIndex.categories.exercises.title",
+    descriptionKey: "educationIndex.categories.exercises.description",
     imgSrc: "/illustration/exercises.png",
     link: "/exercises",
     slug: "exercises",
-
-    gradient: {
-      from: "from-indigo-400",
-      to: "to-indigo-600",
-    },
+    gradient: { from: "from-indigo-400", to: "to-indigo-600" },
   },
   {
     id: "0b86e632-447a-487b-90b6-bb5dc312cde6",
-    title: "Confrontation exposure therapy",
-    description: "Confront your triggers and become urself again",
+    titleKey: "educationIndex.categories.exposure.title",
+    descriptionKey: "educationIndex.categories.exposure.description",
     imgSrc: "/illustration/psycho-education.png",
     link: "/exposure",
     slug: "exposure",
-
-    gradient: {
-      from: "from-violet-400",
-      to: "to-violet-600",
-    },
+    gradient: { from: "from-violet-400", to: "to-violet-600" },
   },
 ];

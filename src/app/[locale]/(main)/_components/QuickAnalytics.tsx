@@ -3,22 +3,20 @@ import prisma from "../../../../../lib/prisma";
 import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
 import ShortcutsCard from "./ShortcutsCard";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { TZ } from "@/lib/timezone";
 import { DateTime } from "luxon";
+import { getTranslations } from "next-intl/server";
 
 export const QuickAnalytics = async () => {
-  const session = await auth();
+  const t = await getTranslations("analyticsShortcut");
 
-  if (!session?.user?.id) {
-    redirect("/");
-  }
+  const session = await auth();
+  if (!session?.user?.id) redirect("/");
 
   const user = await prisma.user.findUnique({ where: { id: session.user.id } });
-
-  if (!user || user.deletedAt) {
-    redirect("/");
-  }
+  if (!user || user.deletedAt) redirect("/");
 
   const anxietyAttackJournal = await prisma.journal.findMany({
     where: {
@@ -44,8 +42,8 @@ export const QuickAnalytics = async () => {
         <ShortcutsCard
           size="sm"
           icon={<AlertCircleIcon />}
-          subtitle={`Anxiety Attack(s): ${anxietyAttackJournal.length}`}
-          title="Anxiety Quick overview"
+          title={t("title")}
+          subtitle={t("subtitle", { count: anxietyAttackJournal.length })}
           gradient={{
             from: "from-sky-400",
             to: "to-yellow-200",

@@ -2,9 +2,11 @@
 
 import { Exercise } from "@/common/const/content";
 import { useCountdown } from "@/hooks/useCountdown";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export const Tracker = ({ exercise }: { exercise: Exercise }) => {
+  const t = useTranslations("tracker");
   const [finished, setFinished] = useState(false);
 
   const { countdown, isRunning, isPrecountdown, start, stop } = useCountdown(
@@ -27,8 +29,10 @@ export const Tracker = ({ exercise }: { exercise: Exercise }) => {
     <>
       <div className="grid grid-cols-2 gap-4">
         <div className="block overflow-hidden rounded-md border border-[#DBE5E0] bg-white p-4">
-          <h3>Duration:</h3>
-          <p>{exercise.duration} seconds</p>
+          <h3>{t("duration")}:</h3>
+          <p>
+            {exercise.duration} {t("seconds")}
+          </p>
         </div>
         <div
           className={`block overflow-hidden rounded-md border ${
@@ -39,15 +43,15 @@ export const Tracker = ({ exercise }: { exercise: Exercise }) => {
                 : "border-[#DBE5E0] bg-white"
           } p-4`}
         >
-          <h3>Status:</h3>
+          <h3>{t("status")}:</h3>
           <p>
             {isRunning
               ? isPrecountdown
-                ? "Get ready…"
-                : "Counting…"
+                ? t("timer.getReady")
+                : t("timer.counting")
               : finished
-                ? "Finished"
-                : "Not started"}
+                ? t("timer.finished")
+                : t("timer.notStarted")}
           </p>
         </div>
       </div>
@@ -59,7 +63,9 @@ export const Tracker = ({ exercise }: { exercise: Exercise }) => {
             !isRunning ? "cursor-pointer bg-blue-100" : "bg-gray-200"
           }`}
         >
-          <p className="text-2xl">{countdown !== null ? countdown : "Start"}</p>
+          <p className="text-2xl">
+            {countdown !== null ? countdown : t("start")}
+          </p>
         </div>
 
         {isRunning && (
@@ -67,7 +73,7 @@ export const Tracker = ({ exercise }: { exercise: Exercise }) => {
             onClick={handleStop}
             className="rounded-md bg-red-500 px-6 py-2 text-white hover:bg-red-600"
           >
-            Stop
+            {t("stop")}
           </button>
         )}
       </div>

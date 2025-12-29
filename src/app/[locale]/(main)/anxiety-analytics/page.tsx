@@ -10,11 +10,15 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { Button } from "@/components/ui/button";
 import { requireAuth } from "@/lib/auth/require-auth";
+import { getTranslations } from "next-intl/server";
 
 export default async function Page() {
+  const t = await getTranslations("analyticsPage");
+
   // Middleware already blocked unauth/soft-deleted users.
   const { user } = await requireAuth(); // optional callback
   const userId = user.id;
@@ -29,17 +33,13 @@ export default async function Page() {
       <div className="p-4">
         <Empty>
           <EmptyHeader>
-            <EmptyMedia variant="default"></EmptyMedia>
-            <EmptyTitle>No entries</EmptyTitle>
-            <EmptyDescription>
-              Journal analytics provide insights into your anxiety patterns over
-              time. By logging entries, you can track symptoms, situations, and
-              trends to better understand your mental health journey.
-            </EmptyDescription>
+            <EmptyMedia variant="default" />
+            <EmptyTitle>{t("empty.title")}</EmptyTitle>
+            <EmptyDescription>{t("empty.description")}</EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
             <Button asChild size="lg" className="w-full max-w-xs">
-              <Link href="/journal">Log Journal</Link>
+              <Link href="/journal">{t("empty.cta")}</Link>
             </Button>
           </EmptyContent>
         </Empty>
@@ -53,10 +53,12 @@ export default async function Page() {
     </div>
   );
 }
-
-export const metadata: Metadata = {
-  title: "⚓ MyAnchor - User Analytics",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("analyticsPage");
+  return {
+    title: t("metaTitle"),
+  };
+}
 
 function toMonthISO(month: number, year: number): string {
   const m = String(month).padStart(2, "0");

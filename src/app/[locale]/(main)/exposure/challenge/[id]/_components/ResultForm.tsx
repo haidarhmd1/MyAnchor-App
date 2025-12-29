@@ -30,6 +30,8 @@ import { Taxonomy } from "@prisma/client";
 import { anxietyLevelOptions } from "@/common/const/anxietyRating";
 import { exposureRatingOptions } from "@/common/const/exposureRatingOptions";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
+import { mapTaxonomiesToFormFields } from "@/i18n/taxonomy-mapper";
 
 export type StepId = Step["id"];
 
@@ -118,6 +120,7 @@ export function ResultForm({
   symptomOptions: Taxonomy[];
   keptGoingReasonsOptions: Taxonomy[];
 }) {
+  const t = useTranslations();
   const form = useForm<z.infer<typeof ChallengeOutcomeSchema>>({
     defaultValues: {
       hadAnxietyAttack: undefined,
@@ -170,11 +173,14 @@ export function ResultForm({
 
   const optionByStep: Partial<Record<StepId, FormFieldType[]>> = useMemo(
     () => ({
-      reasonsNotDone: skippedChallengeReasonsOptions,
-      stopReasons: stopReasonsOptions,
-      actionsTaken: afterAttackActionsOptions,
-      typesOfBodySymptoms: symptomOptions,
-      copingStrategies: keptGoingReasonsOptions,
+      reasonsNotDone: mapTaxonomiesToFormFields(
+        skippedChallengeReasonsOptions,
+        t,
+      ),
+      stopReasons: mapTaxonomiesToFormFields(stopReasonsOptions, t),
+      actionsTaken: mapTaxonomiesToFormFields(afterAttackActionsOptions, t),
+      typesOfBodySymptoms: mapTaxonomiesToFormFields(symptomOptions, t),
+      copingStrategies: mapTaxonomiesToFormFields(keptGoingReasonsOptions, t),
       anxietyLevelRating: anxietyLevelOptions,
       challengeRating: exposureRatingOptions,
     }),
@@ -184,6 +190,7 @@ export function ResultForm({
       afterAttackActionsOptions,
       symptomOptions,
       keptGoingReasonsOptions,
+      t,
     ],
   );
 
@@ -261,7 +268,7 @@ export function ResultForm({
           onClick={handlePrevious}
         >
           <ChevronLeft className="h-4 w-4" />
-          <span>Previous</span>
+          <span>{t("form.previous")}</span>
         </Button>
       </div>
       <div className="flex items-center justify-center py-0">
@@ -270,10 +277,10 @@ export function ResultForm({
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="mb-6 text-center">
                 <h5 className="font-light">
-                  {formStep[currentStepIndex].title}
+                  {t(formStep[currentStepIndex].titleKey)}
                 </h5>
                 <h2 className="text-foreground text-2xl">
-                  {formStep[currentStepIndex].subtitle}
+                  {t(formStep[currentStepIndex].subtitleKey)}
                 </h2>
               </div>
               <div className="min-h-[260px]">

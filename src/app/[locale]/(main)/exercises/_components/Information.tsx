@@ -6,8 +6,10 @@ import {
 } from "@/components/ui/accordion";
 
 import { interoceptiveExposureGuide } from "@/common/const/content";
+import { getTranslations } from "next-intl/server";
 
-export const Information = () => {
+export const Information = async () => {
+  const t = await getTranslations();
   return (
     <div className="mt-4">
       <Accordion
@@ -17,13 +19,13 @@ export const Information = () => {
       >
         {interoceptiveExposureGuide.map((guide) => (
           <AccordionItem key={guide.id} value={`item-${guide.id}`}>
-            <AccordionTrigger>{guide.title}</AccordionTrigger>
+            <AccordionTrigger>{t(guide.titleKey)}</AccordionTrigger>
             <AccordionContent>
-              {guide.description && <div>{guide.description}</div>}
+              {t(guide.descriptionKey) && <div>{t(guide.descriptionKey)}</div>}
               <ul>
                 {guide.content.map((content) => (
                   <li key={content.id} className="mb-2 list-disc">
-                    {content.text}
+                    {t(content.textKey)}
                   </li>
                 ))}
               </ul>

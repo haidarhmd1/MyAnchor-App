@@ -1,4 +1,110 @@
 {
+  "common": {
+    "tip": "Tipp",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "submit": "Speichern",
+    "submitting": "Wird gespeichert …",
+    "step": "Schritt",
+    "of": "von",
+    "difficulty": {
+      "easy": "Leicht",
+      "medium": "Mittel",
+      "hard": "Schwer"
+    }
+  },
+  "form": {
+    "next": "Weiter",
+    "previous": "Zurück",
+    "submit": "Absenden",
+    "yes": "Ja",
+    "no": "Nein",
+    "submitting": "Wird gesendet…"
+  },
+  "tracker": {
+    "duration": "Dauer",
+    "seconds": "Sekunden",
+    "stop": "Stopp",
+    "status": "Status",
+    "start": "Start",
+    "timer": {
+      "getReady": "Mach dich bereit…",
+      "counting": "Läuft…",
+      "finished": "Abgeschlossen",
+      "notStarted": "Noch nicht gestartet"
+    }
+  },
+  "exercisesPage": {
+    "title": "Übungen",
+    "items": {
+      "deepBreathing": {
+        "title": "Tiefes Atmen",
+        "description": ""
+      },
+      "copingStrategies": {
+        "title": "Bewältigungsstrategien",
+        "description": ""
+      },
+      "relaxationTechniques": {
+        "title": "Entspannungstechniken",
+        "description": ""
+      },
+      "cognitiveTechniques": {
+        "title": "Kognitive Techniken",
+        "description": ""
+      },
+      "behavioralTechniques": {
+        "title": "Verhaltenstechniken",
+        "description": ""
+      }
+    },
+    "reminder": "Erinnere dich vor Beginn immer daran — „Das ist Übung. Mein Körper ist sicher. Das sind nur Empfindungen.“"
+  },
+  "educationPage": {
+    "hero": {
+      "eyebrow": "Psychoedukation",
+      "title": "Verstehe, was Panik und Angst sind.",
+      "subtitle": "Lerne und verstehe, was eine Panik- und Angstattacke oder -störung ist, und versuche die Symptome zu verstehen"
+    }
+  },
+  "educationIndex": {
+    "items": {
+      "understandingAnxiety": {
+        "title": "Angst verstehen",
+        "description": "Lerne, was Angst ist und wie sie dein Leben beeinflusst."
+      },
+      "panicDisorderExplained": {
+        "title": "Panikstörung erklärt",
+        "description": "Erkunde die Ursachen und Symptome einer Panikstörung."
+      },
+      "whatMaintainsAnxiety": {
+        "title": "Was Angst aufrechterhält",
+        "description": "Die Panikkurve"
+      },
+      "findYourWayOut": {
+        "title": "Finde deinen Weg hinaus",
+        "description": "Entdecke und lerne, was du tun kannst."
+      },
+      "rewireEffect": {
+        "title": "Der Rewire-Effekt",
+        "description": "Wie du dein Gehirn umtrainierst"
+      }
+    },
+    "categories": {
+      "education": {
+        "title": "Psychoedukation",
+        "description": "Lerne und verstehe deine Angst und Panik"
+      },
+      "exercises": {
+        "title": "Trigger-Übungen",
+        "description": "Konfrontiere deine Trigger mit interozeptiven Expositionsübungen"
+      },
+      "exposure": {
+        "title": "Konfrontations-Expositionstherapie",
+        "description": "Konfrontiere deine Trigger und werde wieder du selbst"
+      }
+    }
+  },
   "education": {
     "understandingAnxiety": {
       "title": "Angst verstehen",
@@ -137,6 +243,1089 @@
         "title": "Wärme-/Hitzewelle",
         "description": "Damit du eine kurze Hitzewelle spürst, wenn mehr Blut zur Haut geht.",
         "content": "Eine Wärme-/Hitzewelle bedeutet, dass du plötzlich warm wirst oder im Gesicht errötest. Du kannst sie auslösen, indem du 10–15 Sekunden den Atem anhältst oder ein heißes Getränk schluckweise trinkst. Das simuliert die Hitze und Röte bei Panik und erinnert dich: Es ist nur Blut, das stärker zur Haut fließt. Meist klingt es in 30 bis 60 Sekunden von selbst ab."
+      }
+    }
+  },
+  "dailyChallenge": {
+    "startNew": {
+      "title": "Neue Challenge starten",
+      "subtitle": "Du hast noch keine tägliche Challenge eingerichtet?",
+      "aria": "Noch keine tägliche Challenge eingerichtet?"
+    },
+    "pending": {
+      "title": "Tägliche Challenge noch offen",
+      "subtitle": "Hast du deine tägliche Challenge abgeschlossen? Wenn ja, klicke hier und sag uns, wie es lief!",
+      "aria": "Tägliche Challenge noch offen"
+    },
+    "done": {
+      "title": "Tägliche Challenge abgeschlossen!",
+      "subtitle": "Großartig! Tippe hier, um eine neue zu starten!",
+      "aria": "Tägliche Challenge abgeschlossen"
+    }
+  },
+  "panicShortcut": {
+    "title": "Steckst du gerade in einer Panikattacke?",
+    "subtitle": "Drücke den Button und atme tief durch – du bist in Sicherheit"
+  },
+  "inspiration": {
+    "title": "Inspiration für heute",
+    "refreshAria": "Noch ein inspirierendes Zitat anzeigen",
+    "empty": "Gerade sind keine Zitate verfügbar."
+  },
+  "journalShortcut": {
+    "title": "Dein tägliches Journal",
+    "doneSubtitle": "Eintrag für heute erledigt!",
+    "ctaSubtitle": "Journal"
+  },
+  "analyticsShortcut": {
+    "title": "Schneller Überblick: Angst",
+    "subtitle": "{count, plural, =0 {Angstattacken: 0} one {Angstattacke: #} other {Angstattacken: #}}"
+  },
+  "tips": {
+    "items": {
+      "9WaysToCalm": {
+        "title": "9 Wege, dich während einer Panikattacke zu beruhigen",
+        "description": "Jeder dieser Schritte ist für sich klein – zusammen trainieren sie jedoch das Alarmsystem deines Gehirns um. Mit der Zeit verliert Panik ihren Griff, und du gewinnst Freiheit zurück.",
+        "content": {
+          "remind": {
+            "title": "Erinnere dich daran, was es ist",
+            "text": "Wenn Panik einsetzt, ist der erste Impuls oft die Angst vor dem Unbekannten – „Sterbe ich? Stimmt etwas nicht mit mir?“ Der wirkungsvollste Schritt ist, es zu benennen: „Das ist eine Panikattacke.“ Wenn du dich daran erinnerst, dass Panik ein Fehlalarm deines Alarmsystems ist – kein Herzinfarkt, kein Ersticken, kein Kontrollverlust – sinkt das Gefühl von Geheimnis und Gefahr sofort. Das Benennen schenkt dir einen Moment Abstand und sagt deinem Gehirn: „Ich weiß, was das ist – ich war schon einmal hier.“"
+          },
+          "stay": {
+            "title": "Bleib, wo du bist",
+            "text": "Dein Gehirn will, dass du rennst, flüchtest oder nach Sicherheit greifst. Doch Flucht lehrt das Gehirn, dass die Situation tatsächlich gefährlich war. Wenn du sicher dort bleiben kannst – auch nur eine Minute länger – sendest du die gegenteilige Botschaft: „Dieser Ort ist sicher, auch wenn mein Körper Angst spürt.“ Mit der Zeit hilft dir das Bleiben, dein Gehirn umzuschulen, sodass die nächste Panikwelle weniger bedrohlich wirkt. Das Ziel ist nicht, dich festzusetzen, sondern sanft Präsenz zu üben, bis die Angstkurve nachlässt."
+          },
+          "allow": {
+            "title": "Lass die Empfindungen zu",
+            "text": "Je mehr du gegen Panikempfindungen kämpfst, desto stärker fühlen sie sich an. Anstatt zu widerstehen, lass deinen Körper tun, was er tut. Nimm das Herzrasen, die Enge beim Atmen oder das Zittern wahr – und sage dann: „Das ist nur Adrenalin. Es ist nicht schädlich.“ Wenn du die Gefühle existieren lässt, ohne sie sofort stoppen zu wollen, lernt dein Gehirn: unangenehm – aber nicht gefährlich. Dieser Wechsel vom Kämpfen zum Zulassen ist die Grundlage langfristiger Erholung."
+          },
+          "wave": {
+            "title": "Reite die Welle",
+            "text": "Denk an Panik wie an eine Meereswelle: Sie steigt, schwillt an – und fällt dann immer wieder ab. Wenn du sie surfst, kommst du durch; wenn du gegen die Welle kämpfst, wirst du kämpfen. Erinnere dich: „Diese Panik wird ihren Höhepunkt erreichen und wieder abklingen.“ Durch die Kurve präsent zu bleiben, lehrt dein Nervensystem, dass Panik vorübergehend ist – nicht endlos. Du musst Ruhe nicht erzwingen – du musst die Welle nur durchrollen lassen und darauf vertrauen, dass dein Körper sich wieder einpendeln kann."
+          },
+          "breathing": {
+            "title": "Mach deine Atmung weicher",
+            "text": "Während Panik atmen viele Menschen schnell und flach – das kann Schwindel und Enge in der Brust verstärken. Statt tiefe Atemzüge zu erzwingen, ziele auf weiche, gleichmäßige Atmung: durch die Nase ein, durch den Mund aus, langsam und sanft. Denk eher an ein Seufzen als an Kontrolle. So signalisierst du deinem Beruhigungssystem (parasympathisches Nervensystem) Sicherheit – und nimmst der Panik die Spitze, ohne daraus eine „Rettungstechnik“ zu machen."
+          },
+          "ground": {
+            "title": "Verankere dich im Hier und Jetzt",
+            "text": "Panik lässt deine Aufmerksamkeit nach innen kreisen – in Herzschlag, Lunge, Ängste. Um diese Schleife zu unterbrechen, verschiebe den Fokus sanft nach außen. Nutze Grounding: 5 Dinge sehen, 4 Dinge fühlen, 3 Dinge hören. Es geht nicht ums Ablenken, sondern darum, deinem Gehirn zu zeigen: „Die Welt um mich herum ist stabil und sicher.“ Grounding zieht dich aus dem Sturm im Körper heraus und verankert dich im gegenwärtigen Moment."
+          },
+          "dropSafety": {
+            "title": "Lass Sicherheitsgewohnheiten los",
+            "text": "Es ist verlockend, den Puls zu prüfen, Wasser zu trinken, am Handy zu scrollen oder den Fluchtweg zu planen, sobald Panik steigt. Das fühlt sich kurzfristig hilfreich an, lehrt das Gehirn aber: „Ich brauche Rettung“ – und hält Panik am Leben. Sicherheitsverhalten loszulassen ist schwer, aber jedes Mal beweist du dir: Ich kann Panik ohne Krücken aushalten. Das heißt nicht, sofort jeden Komfort zu streichen, sondern sanft zu üben, mit der Panik zu sein – ohne nach Rettung zu greifen."
+          },
+          "selfTalk": {
+            "title": "Nutze beruhigenden Selbst-Dialog",
+            "text": "Deine innere Stimme kann Panik anfeuern oder beruhigen. Statt „Ich schaffe das nicht“ probiere Sätze wie: „Ich habe das schon erlebt. Mein Körper weiß, wie er runterfährt. Panik geht immer vorbei.“ Beruhigung lässt Panik nicht sofort verschwinden, aber sie verändert den Ton in deinem Kopf. Selbstgespräche wirken wie eine stabile Hand auf deiner Schulter – sie erinnern dich daran, dass du nicht in Gefahr bist und die Stärke hast, diese Welle zu reiten."
+          },
+          "wait": {
+            "title": "Warte auf die Kurve",
+            "text": "Panikattacken sind stark, aber zeitlich begrenzt. Die meisten erreichen ihren Höhepunkt innerhalb von 5–10 Minuten und klingen dann ab. Die Angst, es werde „nie aufhören“, ist Teil der Illusion. Indem du wartest – ohne zu kämpfen – beweist du dir, dass Panik immer endet. Denk daran wie an ein Gewitter: intensiv, aber kein Sturm dauert ewig. Jedes Mal, wenn du Panik ihren Lauf nehmen lässt, sammelst du neue Beweise, dass die Kurve immer wieder sinkt – und dein Gehirn lernt nach und nach, Panik nicht mehr als Bedrohung zu behandeln."
+          }
+        }
+      },
+
+      "typesOfAnxiety": {
+        "title": "Die verschiedenen Arten von Angst verstehen",
+        "description": "Angststörungen gehören zu den häufigsten psychischen Erkrankungen. Gelegentliche Sorgen sind normal – Angststörungen verursachen jedoch intensive, anhaltende Angst oder Nervosität, die den Alltag beeinträchtigt.",
+        "content": {
+          "panicDisorder": {
+            "title": "Panikstörung",
+            "text": "Eine Panikstörung ist geprägt durch wiederkehrende Panikattacken – plötzliche Wellen intensiver Angst mit starken Körpersymptomen wie Herzrasen, Atemnot, Schwindel oder Brustschmerzen. Viele fürchten Kontrollverlust, Ohnmacht oder zu sterben. Weil Attacken unvorhersehbar wirken können, beginnen manche, Orte oder Aktivitäten zu vermeiden – was die Einschränkungen mit der Zeit verstärken kann."
+          },
+          "gad": {
+            "title": "Generalisierte Angststörung (GAS)",
+            "text": "Die GAS beinhaltet chronische, übermäßige Sorgen über Alltagsthemen – Arbeit, Gesundheit, Finanzen, Beziehungen – oft selbst dann, wenn es wenig Grund zur Sorge gibt. Betroffene fühlen sich häufig unruhig, angespannt, müde oder haben Probleme mit Konzentration und Schlaf. Anders als bei der Panikstörung steht hier eher eine dauerhafte Grundsorge im Vordergrund als plötzliche intensive Episoden."
+          },
+          "socialAnxiety": {
+            "title": "Soziale Angststörung",
+            "text": "Auch soziale Phobie genannt: starke Angst, in sozialen Situationen bewertet, beschämt oder abgelehnt zu werden. Es geht über Schüchternheit hinaus – Menschen vermeiden z. B. Partys, öffentliches Sprechen oder sogar alltägliche Interaktionen wie vor anderen zu essen, was Schule, Arbeit und Beziehungen stark beeinflussen kann."
+          },
+          "phobias": {
+            "title": "Spezifische Phobien",
+            "text": "Phobien sind intensive, irrationale Ängste vor bestimmten Objekten oder Situationen – z. B. Fliegen, Höhen, Spinnen oder Blut. Die Angst ist unverhältnismäßig zur tatsächlichen Gefahr, doch der Körper reagiert mit starker Angst oder Panik, wenn der Auslöser auftaucht. Viele meiden das gefürchtete Objekt oder die Situation konsequent."
+          },
+          "agoraphobia": {
+            "title": "Agoraphobie",
+            "text": "Agoraphobie ist die Angst, an Orten zu sein, an denen Flucht schwierig wäre oder Hilfe während einer Panikattacke nicht verfügbar scheint. Häufige Ängste sind öffentliche Verkehrsmittel, offene oder überfüllte Räume oder allein das Haus zu verlassen. Sie entwickelt sich oft nach wiederholten Panikattacken und kann dazu führen, dass Betroffene kaum noch das Haus verlassen."
+          },
+          "separationAnxiety": {
+            "title": "Trennungsangststörung",
+            "text": "Am häufigsten bei Kindern, kann aber auch Erwachsene betreffen. Sie beinhaltet starke Belastung beim Getrenntsein von Bezugspersonen, oft mit Sorgen, dass ihnen (oder einem selbst) etwas Schlimmes passieren könnte. Es geht über normale Bindung hinaus und kann den Alltag deutlich beeinträchtigen."
+          },
+          "ptsd": {
+            "title": "Posttraumatische Belastungsstörung (PTBS)",
+            "text": "Ebenfalls eigenständig, aber verwandt: PTBS umfasst Angstsymptome nach Trauma, z. B. Flashbacks, Vermeidung und Hypervigilanz."
+          },
+          "ocd": {
+            "title": "Zwangsstörung (OCD)",
+            "text": "Früher getrennt klassifiziert: Zwangsstörungen beinhalten aufdringliche Gedanken (Zwänge/Obsessionen) und wiederholte Handlungen (Kompulsionen), um Angst zu reduzieren."
+          }
+        }
+      },
+
+      "commonSymptoms": {
+        "title": "Häufige Symptome von Angst und Panik",
+        "description": "Angst und Panik betreffen sowohl Geist als auch Körper. Die Intensität kann von Person zu Person variieren – das sind die am häufigsten erlebten Symptome.",
+        "content": {
+          "mental": {
+            "title": "Mentale & emotionale Symptome",
+            "text": "Übermäßige Sorgen: Ständige „Was-wäre-wenn“-Gedanken über die Zukunft. Rasende Gedanken: Schwierigkeiten, den Kopf zu beruhigen. Angst vor Kontrollverlust: Sorge, ohnmächtig zu werden, „verrückt zu werden“ oder sich zu blamieren. Erwartungsangst: Angst vor der nächsten Attacke oder stressigen Situation. Unruhe: Sich aufgewühlt fühlen oder nicht entspannen können. Konzentrationsprobleme: Nebeliger, abgelenkter Kopf. Reizbarkeit: Leichter frustriert oder angespannt sein."
+          },
+          "physical": {
+            "title": "Körperliche Symptome",
+            "text": "Herzrasen/Herzstolpern (Palpitationen): Gefühl, dass das Herz stark schlägt oder aussetzt. Atemnot: Enge in der Brust, schwer tief einzuatmen. Brustschmerz oder Druck: Wird oft mit einem Herzinfarkt verwechselt. Schwindel/Benommenheit: Sich schwach oder unsicher fühlen. Schwitzen oder Schüttelfrost: Plötzliche Hitze- oder Kältewellen. Zittern: Hände, Beine oder ganzer Körper. Muskelanspannung: Steifheit, besonders in Schultern, Kiefer oder Nacken. Übelkeit/Magenbeschwerden: „Schmetterlinge“, Krämpfe oder Unwohlsein. Kribbeln/Taubheit: Oft in Händen, Füßen oder Gesicht. Schlafprobleme: Einschlaf- oder Durchschlafprobleme durch Grübeln."
+          },
+          "panicSpecific": {
+            "title": "Typisch für Panikattacken",
+            "text": "Panikattacken bringen oft plötzliche, intensive Versionen der obigen Symptome. Sie erreichen typischerweise innerhalb von 10 Minuten ihren Höhepunkt und können beinhalten: überwältigendes Unheilsgefühl (als würde etwas Schreckliches passieren), Todesangst (zu glauben, man habe einen Herzinfarkt oder bekomme keine Luft) sowie ein „außerhalb des Körpers“-Gefühl: Derealisation (die Welt wirkt unwirklich) oder Depersonalisation (sich von sich selbst getrennt fühlen)."
+          },
+          "important": {
+            "title": "Wichtig zu wissen:",
+            "text": "Diese Symptome sind real und können beängstigend sein, aber sie entstehen durch einen Fehlalarm deines Alarmsystems – nicht durch tatsächliche körperliche Gefahr. Sie zu verstehen ist der erste Schritt, um den Angstkreislauf zu durchbrechen."
+          }
+        }
+      }
+    }
+  },
+  "analyticsPage": {
+    "metaTitle": "⚓ MyAnchor - Nutzer-Analysen",
+    "empty": {
+      "title": "Keine Einträge",
+      "description": "Journal-Analysen geben dir Einblicke in deine Angst-Muster über die Zeit. Durch das Protokollieren von Einträgen kannst du Symptome, Situationen und Trends verfolgen, um deinen mentalen Weg besser zu verstehen.",
+      "cta": "Journal-Eintrag erstellen"
+    }
+  },
+  "exposurePage": {
+    "metaTitle": "⚓ MyAnchor - Exposition",
+    "hero": {
+      "eyebrow": "Konfrontations-Expositionstherapie",
+      "title": "Hol dir dein Leben und deine Freiheit zurück",
+      "description": "Jeder Tag ist eine Chance, stärker gegenüber Angst zu werden. Hier kannst du deine persönliche tägliche Challenge festlegen — ein Schritt in der Konfrontations-Expositionstherapie. Wähle eine Situation, die Unbehagen auslöst, und entscheide dich, ihr dich heute zu stellen. Du kannst sofort starten oder dir am Morgen Zeit nehmen, dich vorzubereiten und die Challenge später am Tag zu machen. Entscheidend ist die Entscheidung — und dir selbst die Chance zu geben zu beweisen, dass du sicher bist, fähig bist und stärker als deine Ängste."
+    },
+    "alert": {
+      "title": "Warum ist das gut und wofür?",
+      "description": "Tägliche Expositions-Challenges sind ein zentraler Teil der Angstbewältigung. Indem du bewusst eine Situation auswählst, die Angst auslöst, und dich verpflichtest, ihr dich heute zu stellen, lernt dein Gehirn, dass diese Empfindungen und Orte nicht gefährlich sind. Du kannst sofort beginnen oder dir Zeit zur Vorbereitung nehmen und die Challenge später durchführen. Das Wichtigste ist die Konsequenz: Jede Exposition ist eine Lerngelegenheit — und mit jeder wird Vermeidung schwächer und Vertrauen stärker."
+    }
+  },
+  "challengePlanner": {
+    "eyebrow": "Planer",
+    "title": "Plane deine Herausforderung",
+    "error": "Etwas ist schiefgelaufen"
+  },
+  "challengeResult": {
+    "eyebrow": "Sag uns",
+    "title": "Wie war deine Erfahrung mit der Challenge?"
+  },
+  "challengeSteps": {
+    "hadCompletedChallenge": {
+      "title": "Challenge",
+      "subtitle": "Hast du die Challenge gemacht?"
+    },
+    "hadAnxietyAttack": {
+      "title": "Angst-Check",
+      "subtitle": "Hattest du während dieser Challenge eine Angst-/Panikattacke?"
+    },
+    "reasonsNotDone": {
+      "title": "Warum hast du die Challenge nicht gemacht?",
+      "subtitle": "Sag uns, warum du sie nicht gemacht hast."
+    },
+    "stoppedEarly": {
+      "title": "Challenge abgebrochen",
+      "subtitle": "Hast du die Challenge vorzeitig abgebrochen?"
+    },
+    "copingStrategies": {
+      "title": "Du hast weitergemacht, obwohl du eine Attacke hattest!",
+      "subtitle": "Was hat dir geholfen, weiterzumachen?"
+    },
+    "typesOfBodySymptomsWhileContinuing": {
+      "title": "Körperempfindungen während du weitergemacht hast",
+      "subtitle": "Welche Symptome hast du gespürt?"
+    },
+    "anxietyLevelRating": {
+      "title": "Angst bewerten",
+      "subtitle": "Wie intensiv war deine Angst?"
+    },
+    "challengeRating": {
+      "title": "Challenge bewerten",
+      "subtitle": "Wie hast du diese Challenge erlebt?"
+    },
+    "stopReasons": {
+      "title": "Warum hast du die Challenge gestoppt?",
+      "subtitle": "Sag uns, was dich zum Stoppen gebracht hat."
+    },
+    "actionsTaken": {
+      "title": "Was hast du danach gemacht?",
+      "subtitle": "Welche Schritte hast du unternommen?"
+    },
+    "typesOfBodySymptoms": {
+      "title": "Körperempfindungen",
+      "subtitle": "Was hast du in deinem Körper gespürt?"
+    }
+  },
+  "panicEmergency": {
+    "boxBreathing": {
+      "card": {
+        "title": "Box-Atmung",
+        "subtitle": "Reguliere deine Atmung, um dein Nervensystem zu beruhigen."
+      },
+      "phases": {
+        "inhale": "Einatmen",
+        "hold": "Halten",
+        "exhale": "Ausatmen"
+      },
+      "hints": {
+        "inhale": "Atme langsam durch die Nase ein.",
+        "hold1": "Halte sanft. Lass die Schultern weich.",
+        "exhale": "Atme langsam durch den Mund aus.",
+        "hold2": "Halten. Spüre die Ruhe zwischen den Atemzügen."
+      },
+      "progress": {
+        "round": "Runde {current}{total, select, none {} other { / {total}}}"
+      },
+      "actions": {
+        "done": "Fertig",
+        "restart": "Neu starten"
+      },
+      "completion": "Gute Arbeit. Spüre, wie sich dein Körper jetzt anfühlt."
+    },
+    "grounding": {
+      "card": {
+        "title": "5-4-3-2-1 Grounding",
+        "subtitle": "Nutze deine Sinne, um dich im gegenwärtigen Moment zu verankern."
+      },
+      "sheet": {
+        "intro": "Nutze deine Sinne, um ins Hier und Jetzt zurückzukehren."
+      },
+      "steps": {
+        "see": {
+          "title": "5 Dinge, die du sehen kannst",
+          "subtitle": "Schau dich um und benenne fünf Dinge."
+        },
+        "touch": {
+          "title": "4 Dinge, die du berühren kannst",
+          "subtitle": "Nimm vier unterschiedliche Texturen wahr."
+        },
+        "hear": {
+          "title": "3 Dinge, die du hören kannst",
+          "subtitle": "Erkenne drei verschiedene Geräusche."
+        },
+        "smell": {
+          "title": "2 Dinge, die du riechen kannst",
+          "subtitle": "Nimm zwei unterschiedliche Gerüche wahr."
+        },
+        "taste": {
+          "title": "1 Sache, die du schmecken kannst",
+          "subtitle": "Nimm eine Sache wahr, die du schmecken kannst."
+        }
+      }
+    },
+    "physicalAnchor": {
+      "card": {
+        "title": "Physischer Anker",
+        "subtitle": "Fokussiere dich auf ein reales Objekt, um dich in der Realität zu verankern."
+      },
+      "sections": {
+        "meaning": {
+          "title": "Was bedeutet das?",
+          "p1": "Ein physischer Anker ist ein greifbarer Gegenstand, auf den du dich mit deinen Sinnen konzentrierst, um in den gegenwärtigen Moment zurückzukommen. Wenn Angst oder Panik sich hochschaukelt, kann sich dein Kopf abgekoppelt oder überfordert anfühlen. Indem du dich auf etwas Reales, Festes und direkt Hier konzentrierst, erinnerst du dein Nervensystem: Ich bin sicher. Ich bin im Jetzt."
+        },
+        "how": {
+          "title": "So machst du es",
+          "steps": {
+            "1": "Wähle einen Gegenstand in deiner Nähe (z. B. einen Stift, einen Stein, dein Handy, Schlüssel, eine Tasse, die Kante eines Stuhls).",
+            "2": "Schau ihn dir genau an. Achte auf Form, Größe, Farben und kleine Details.",
+            "3": "Berühre ihn langsam. Spüre Temperatur, Gewicht, Oberfläche und Kanten. Fahre mit den Fingern darüber.",
+            "4": "Benenne, was du bemerkst – laut oder in Gedanken. Zum Beispiel: „Dieser Stift ist glatt. Er fühlt sich kühl an. Er hat schwarze Tinte. Er liegt fest in meiner Hand.“",
+            "5": "Bleib 30–60 Sekunden dabei. Atme ruhig und halte deine Aufmerksamkeit auf dem Objekt."
+          }
+        },
+        "why": {
+          "title": "Warum es hilft",
+          "points": {
+            "1": "Unterbricht Grübelschleifen, indem die Aufmerksamkeit nach außen gelenkt wird.",
+            "2": "Beruhigt den Körper — die Festigkeit eines Gegenstands steht im Kontrast zum „unwirklichen“ Gefühl bei Panik.",
+            "3": "Aktiviert mehrere Sinne (Sehen, Tasten, manchmal auch Riechen) und stärkt dadurch das Grounding."
+          }
+        }
+      }
+    },
+    "positiveReminder": {
+      "card": {
+        "title": "Positive Erinnerungen",
+        "subtitle": "Stärke positive Überzeugungen, um negative Gedanken auszugleichen."
+      },
+      "actions": {
+        "next": "Weiter"
+      }
+    }
+  },
+  "panicSupportPage": {
+    "title": "Du bist nicht allein",
+    "description": "Denk daran: Dieses Gefühl ist vorübergehend. Du bist stark und du wirst da durchkommen. Konzentriere dich auf deinen Atem und geh Schritt für Schritt weiter.",
+    "quickActions": "Schnelle Aktionen"
+  },
+  "account": {
+    "title": "Konto",
+    "email": "E-Mail",
+    "notSet": "Noch nicht festgelegt"
+  },
+  "settings": {
+    "title": "Darstellung",
+    "theme": "Design",
+    "language": "Sprache",
+    "system": "System",
+    "light": "Hell",
+    "english": "Englisch"
+  },
+  "dob": {
+    "label": "Geburtsdatum",
+    "notSet": "Noch nicht festgelegt",
+    "dialogTitle": "Wähle dein Geburtsdatum",
+    "pickDate": "Datum auswählen",
+    "toast": {
+      "success": "Dein Geburtsdatum wurde erfolgreich aktualisiert.",
+      "error": "Dein Profil konnte nicht aktualisiert werden. Etwas ist schiefgelaufen."
+    },
+    "actions": {
+      "cancel": "Abbrechen",
+      "saving": "Wird gespeichert…",
+      "saveChanges": "Änderungen speichern"
+    }
+  },
+  "gender": {
+    "label": "Geschlecht",
+    "dialogTitle": "Wähle dein Geschlecht",
+    "placeholder": "Geschlecht auswählen",
+    "options": {
+      "male": "Männlich",
+      "female": "Weiblich",
+      "other": "Divers"
+    },
+    "notSet": "Noch nicht festgelegt",
+    "toast": {
+      "success": "Dein Profil wurde erfolgreich aktualisiert.",
+      "error": "Dein Profil konnte nicht aktualisiert werden. Etwas ist schiefgelaufen."
+    },
+    "actions": {
+      "cancel": "Abbrechen",
+      "saving": "Wird gespeichert…",
+      "saveChanges": "Änderungen speichern"
+    }
+  },
+  "name": {
+    "label": "Name",
+    "dialogTitle": "Gib deinen Namen ein",
+    "toast": {
+      "success": "Dein Profil wurde erfolgreich aktualisiert.",
+      "error": "Dein Profil konnte nicht aktualisiert werden. Etwas ist schiefgelaufen."
+    },
+    "actions": {
+      "cancel": "Abbrechen",
+      "saving": "Wird gespeichert…",
+      "saveChanges": "Änderungen speichern"
+    }
+  },
+  "notifications": {
+    "title": "Benachrichtigungen",
+    "practiceReminders": {
+      "title": "Übungserinnerungen",
+      "description": "Tägliche Erinnerungen zum Üben"
+    },
+    "newContent": {
+      "title": "Neue Inhalte",
+      "description": "Benachrichtigungen über neue Inhalte erhalten"
+    }
+  },
+  "anxietyLevels": {
+    "0": {
+      "label": "0 – Ruhig",
+      "description": "Völlig entspannt, keine Angst"
+    },
+    "2": {
+      "label": "2 – Leicht",
+      "description": "Leichte Unruhe, gut kontrollierbar"
+    },
+    "4": {
+      "label": "4 – Spürbar",
+      "description": "Deutliche Angst, aber funktionsfähig"
+    },
+    "6": {
+      "label": "6 – Stark",
+      "description": "Sehr unangenehm, aufdringliche Symptome"
+    },
+    "8": {
+      "label": "8 – Intensiv",
+      "description": "Schwer präsent zu bleiben, hohe Angst"
+    },
+    "10": {
+      "label": "10 – Extrem",
+      "description": "Vollständige Panik, überwältigend"
+    }
+  },
+  "exposureRating": {
+    "0": {
+      "label": "0 - Sehr leicht",
+      "description": "Ruhig gefühlt, keine Anstrengung"
+    },
+    "1": { "label": "1", "description": "Fast keine Schwierigkeit" },
+    "2": { "label": "2", "description": "Gut machbar, nur leichtes Unbehagen" },
+    "3": {
+      "label": "3",
+      "description": "Leichte Herausforderung, blieb aber okay"
+    },
+    "4": { "label": "4", "description": "Etwas Anstrengung, aber machbar" },
+    "5": {
+      "label": "5 - Mittel",
+      "description": "Zeitweise herausfordernd, aber möglich"
+    },
+    "6": { "label": "6", "description": "Deutlich schwierig, aber ich blieb" },
+    "7": {
+      "label": "7",
+      "description": "Ziemlich schwer, Weitergehen war schwierig"
+    },
+    "8": { "label": "8", "description": "Sehr schwer, fast abgebrochen" },
+    "9": { "label": "9", "description": "Extrem schwer, gerade so geschafft" },
+    "10": {
+      "label": "10 - Überwältigend",
+      "description": "Konnte nicht weitermachen / musste abbrechen"
+    }
+  },
+  "inspirationQuotes": {
+    "mooji": {
+      "author": "Mooji",
+      "text": "Gefühle sind nur Besucher. Lass sie kommen und gehen."
+    },
+    "buddhist": {
+      "author": "Inspiriert von buddhistischer Lehre",
+      "text": "Nichts im Geist ist dauerhaft, nicht einmal der Sturm der Panik."
+    },
+    "kabatZinn": {
+      "author": "Jon Kabat-Zinn",
+      "text": "Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen."
+    },
+    "angelou": {
+      "author": "Maya Angelou",
+      "text": "Auch das geht vorbei. Jeder Sturm verliert irgendwann seinen Regen."
+    },
+    "emerson": {
+      "author": "Ralph Waldo Emerson",
+      "text": "Gefühle sind nur Besucher. Lass sie kommen und gehen."
+    },
+    "quran946": {
+      "author": "Koran 94:6",
+      "text": "Mit der Erschwernis kommt Erleichterung."
+    },
+    "cbt": {
+      "author": "KVT-Prinzip",
+      "text": "Deine schlimmsten Gedanken sind keine Fakten — es sind nur Gedanken."
+    },
+    "unknown1": {
+      "author": "Unbekannt",
+      "text": "Atme. Du bist stärker als du denkst, mutiger als du dich fühlst und sicherer als du glaubst."
+    },
+    "aliFear": {
+      "author": "Ali ibn Abi Talib",
+      "text": "Wenn du dich vor etwas fürchtest, stürz dich hinein — die Intensität der Angst ist größer als die des Dinges selbst."
+    },
+    "exposure": {
+      "author": "Moderne Expositionstherapie",
+      "text": "Jedes Mal, wenn du Panik steigen und wieder abklingen lässt, lehrst du deinem Gehirn Freiheit."
+    },
+    "aliRemedy": {
+      "author": "Ali ibn Abi Talib",
+      "text": "Dein Heilmittel ist in dir, doch du spürst es nicht. Deine Krankheit ist von dir, doch du erkennst sie nicht."
+    }
+  },
+  "reassurances": {
+    "panic_not_emergency": "Du hast gerade eine Panikattacke. Ich weiß, es fühlt sich überwältigend an, aber es ist kein medizinischer Notfall.",
+    "body_is_safe": "Dein Körper ist sicher, auch wenn sich die Empfindungen beängstigend anfühlen. Es ist nur dein Alarmsystem, das zu stark reagiert.",
+    "panic_is_wave": "Panik kommt in Wellen. Sie steigt an, erreicht ihren Höhepunkt und ebbt wieder ab. Du musst die Welle nur aushalten.",
+    "no_need_to_escape": "Du musst nicht weglaufen. Du musst nicht fliehen. Du kannst hier bleiben und es wird okay sein.",
+    "just_adrenaline": "Was du gerade fühlst, ist nur Adrenalin in deinem Körper. Es ist unangenehm, aber nicht gefährlich.",
+    "you_survived_before": "Du hast das schon einmal erlebt – und jedes Mal bist du hindurchgekommen. Dieses Mal ist es nicht anders.",
+    "body_knows_how": "Auch wenn dein Herz rast oder dir schwindelig ist, weiß dein Körper genau, wie er sich selbst beruhigt.",
+    "no_fighting": "Du musst diese Empfindungen nicht kontrollieren oder bekämpfen. Lass sie einfach da sein und von selbst abklingen.",
+    "others_cant_see": "Niemand sieht, was in dir vorgeht. Nach außen wirkst du völlig in Ordnung.",
+    "teaching_your_brain": "In diesem Moment bringst du deinem Gehirn etwas Wichtiges bei: Diese Empfindungen sind sicher und nicht gefährlich."
+  },
+  "bottomNav": {
+    "home": "Start",
+    "education": "Wissen",
+    "journal": "Tagebuch",
+    "exercises": "Übungen",
+    "exposure": "Exposition"
+  },
+  "journal": {
+    "entry": {
+      "title": "Dein Tagebucheintrag",
+      "doneAt": "Eintrag abgeschlossen!"
+    },
+    "newEntry": {
+      "title": "Neuen Tagebucheintrag erstellen",
+      "ariaOpen": "Neuen Tagebucheintrag erstellen"
+    },
+    "pastEntries": "Vergangene Einträge:",
+    "noEntries": "Keine bisherigen Einträge.",
+    "journalQuestionnaire": {
+      "errors": {
+        "saveFailed": "Der Journaleintrag wurde nicht gespeichert. Bitte versuche es erneut."
+      },
+      "whenDidItHappen": {
+        "morning": "Morgens",
+        "noon": "Mittags",
+        "afternoon": "Nachmittags",
+        "evening": "Abends",
+        "night": "Nachts"
+      },
+      "steps": {
+        "hasAnxietyAttack": {
+          "title": "Angstreaktion",
+          "subtitle": "Hattest du eine Angstreaktion?"
+        },
+        "hasAvoidedSituations": {
+          "title": "Vermeidungsverhalten",
+          "subtitle": "Hast du bestimmte Situationen vermieden?"
+        },
+        "typesOfSituationYouAvoided": {
+          "title": "Vermiedene Situationen",
+          "subtitle": "Welche Situationen hast du vermieden?"
+        },
+        "whyYouWereAvoidingIt": {
+          "title": "Gründe für die Vermeidung",
+          "subtitle": "Was waren deine Gründe, diese Situationen zu vermeiden?"
+        },
+        "whenDidItHappen": {
+          "title": "Zeitpunkt",
+          "subtitle": "Zu welchem Zeitpunkt ist dies aufgetreten?"
+        },
+        "typesOfSituationYouWereIn": {
+          "title": "Aktuelle Situation",
+          "subtitle": "In welcher Situation hast du dich befunden?"
+        },
+        "typesOfBodySymptoms": {
+          "title": "Körperliche Reaktionen",
+          "subtitle": "Welche körperlichen Reaktionen hast du wahrgenommen?"
+        },
+        "anxietyLevelRating": {
+          "title": "Angstintensität",
+          "subtitleAttack": "Wie intensiv hast du die Angst erlebt?",
+          "subtitleAvoidance": "Wie stark war die Befürchtung, dass etwas Negatives passieren könnte?"
+        }
+      }
+    }
+  },
+  "taxonomy": {
+    "LOCATION": {
+      "home": {
+        "label": "Zuhause",
+        "description": "Zuhause / vertraute Umgebung"
+      },
+      "outside": {
+        "label": "Draußen",
+        "description": "Straße, Park, kurze Erledigungen"
+      },
+      "work": {
+        "label": "Arbeit/Schule",
+        "description": "Aufgaben, Meetings, Unterricht"
+      },
+      "transport": {
+        "label": "Verkehrsmittel",
+        "description": "Bus, Bahn, Autofahrten"
+      },
+      "crowd": {
+        "label": "Menschenmenge/Warteschlange",
+        "description": "Belebte Geschäfte, Anstehen"
+      },
+      "event_birthday": {
+        "label": "Geburtstag",
+        "description": "An einer Geburtstagsfeier teilnehmen"
+      },
+      "event_company": {
+        "label": "Firmenevent",
+        "description": "Betriebsfeier, Offsite, Party"
+      },
+      "event_gathering": {
+        "label": "Treffen mit Freunden",
+        "description": "Kleines/mittleres soziales Treffen"
+      },
+      "event_festival": {
+        "label": "Festival/Konzert",
+        "description": "Große Menge, laute Musik"
+      },
+      "travel_airport": {
+        "label": "Flughafen",
+        "description": "Check-in, Security, Gate"
+      },
+      "travel_flight": {
+        "label": "Flug",
+        "description": "Kurz- oder Langstreckenflug"
+      },
+      "transport_rideshare": {
+        "label": "Taxi/Ride-Share",
+        "description": "Uber/Taxi allein"
+      },
+      "shopping_supermarket": {
+        "label": "Supermarkt",
+        "description": "Gänge, Kasse, Warteschlange"
+      },
+      "mall": {
+        "label": "Einkaufszentrum",
+        "description": "Geschlossener, belebter Raum"
+      },
+      "dining_restaurant": {
+        "label": "Restaurant/Café",
+        "description": "Eine Mahlzeit vollständig einnehmen"
+      },
+      "cinema": {
+        "label": "Kino/Theater",
+        "description": "Vorführung/Show durchgängig ansehen"
+      },
+      "gym": {
+        "label": "Fitness/Kurs",
+        "description": "Herzklopfen-Sensationen aushalten"
+      },
+      "religious_service": {
+        "label": "Religiöser Gottesdienst",
+        "description": "Bis zum Ende bleiben"
+      },
+      "presentation": {
+        "label": "Präsentation/Meeting",
+        "description": "Sprechen oder präsent bleiben"
+      },
+      "interview": {
+        "label": "Vorstellungsgespräch",
+        "description": "Job-/Schulinterview"
+      },
+      "phone_call": {
+        "label": "Telefonat",
+        "description": "Anrufen/angenommen bleiben"
+      },
+      "video_call": {
+        "label": "Videoanruf",
+        "description": "Kamera an, aufmerksam bleiben"
+      },
+      "elevator": {
+        "label": "Aufzug",
+        "description": "Mitfahren und drinnen bleiben"
+      },
+      "bridge_tunnel": {
+        "label": "Brücke/Tunnel",
+        "description": "Überqueren oder durchfahren"
+      },
+      "highway_driving": {
+        "label": "Autobahn",
+        "description": "Längere Fahrt im Verkehr"
+      },
+      "medical_dentist": {
+        "label": "Zahnarzt",
+        "description": "Termin durchstehen"
+      },
+      "medical_hospital": {
+        "label": "Klinik/Krankenhaus",
+        "description": "Wartebereich, Untersuchungen"
+      },
+      "night_walk": {
+        "label": "Abendspaziergang",
+        "description": "Kurzer Spaziergang am Abend"
+      }
+    },
+    "AVOIDANCEREASION": {
+      "crowds_overwhelming": {
+        "label": "Große Menschenansammlungen",
+        "description": "Zu überwältigend; Sorge, die Kontrolle zu verlieren"
+      },
+      "loud_noises": {
+        "label": "Laute Geräusche",
+        "description": "Geräusche wirken reizend oder überfordernd"
+      },
+      "fear_judgment": {
+        "label": "Angst vor Bewertung",
+        "description": "Sorge, dass es peinlich wird oder andere es bemerken"
+      },
+      "fear_panic": {
+        "label": "Angst vor einer Panikattacke",
+        "description": "Vermeidung aus Sorge vor starken Symptomen"
+      },
+      "trapped_feeling": {
+        "label": "Gefühl, gefangen zu sein",
+        "description": "Kein einfacher Ausweg oder schwer zu verlassen"
+      },
+      "social_pressure": {
+        "label": "Sozialer Druck",
+        "description": "Erwartung zu sprechen, zu funktionieren oder mitzuhalten"
+      },
+      "physical_exertion": {
+        "label": "Körperliche Anstrengung",
+        "description": "Erhöhter Puls oder Atemnot fühlt sich unsicher an"
+      },
+      "medical_fear": {
+        "label": "Medizinische Ängste",
+        "description": "Klinik, Zahnarzt oder Prozeduren wirken bedrohlich"
+      },
+      "confined_spaces": {
+        "label": "Enge Räume",
+        "description": "Aufzug, Tunnel oder Stau fühlt sich beklemmend an"
+      },
+      "uncertainty": {
+        "label": "Unvorhersehbarkeit",
+        "description": "Angst vor unbekannten Auslösern oder Überraschungen"
+      },
+      "safety_behaviors": {
+        "label": "Ohne Sicherheitsstrategien",
+        "description": "Vermeidung, wenn ich niemanden mitnehmen oder meinen Körper nicht kontrollieren kann"
+      },
+      "exhaustion": {
+        "label": "Erschöpfung",
+        "description": "Vermeidung, weil ich Stress möglicherweise nicht gut bewältige"
+      },
+      "night_time": {
+        "label": "Nachtzeit",
+        "description": "Draußen im Dunkeln fühlt sich unsicher an"
+      }
+    },
+    "SYMPTOM": {
+      "racing_heart": {
+        "label": "Herzrasen",
+        "description": "Schneller oder pochender Herzschlag wirkt bedrohlich"
+      },
+      "shortness_breath": {
+        "label": "Kurzatmigkeit",
+        "description": "Gefühl, nicht genug Luft zu bekommen"
+      },
+      "dizziness": {
+        "label": "Schwindel",
+        "description": "Sorge, ohnmächtig zu werden oder das Gleichgewicht zu verlieren"
+      },
+      "chest_tightness": {
+        "label": "Enge in der Brust",
+        "description": "Druck oder Schweregefühl im Brustkorb"
+      },
+      "nausea": {
+        "label": "Übelkeit",
+        "description": "Sorge vor Erbrechen oder Magenbeschwerden"
+      },
+      "tingling": {
+        "label": "Kribbeln",
+        "description": "Kribbeln in Gesicht oder Händen"
+      },
+      "sweating": {
+        "label": "Schwitzen",
+        "description": "Sorge, dass andere das Schwitzen bemerken"
+      },
+      "hot_flush": {
+        "label": "Hitzewallung",
+        "description": "Plötzliche Wärme oder Erröten"
+      },
+      "shaking": {
+        "label": "Zittern",
+        "description": "Zittern oder bebende Hände"
+      },
+      "blurred_vision": {
+        "label": "Verschwommenes Sehen",
+        "description": "Schwierigkeiten zu fokussieren; Sorge vor Kollaps"
+      },
+      "feeling_unreal": {
+        "label": "Unwirklichkeitsgefühl",
+        "description": "Gefühl von Distanz oder Unwirklichkeit"
+      },
+      "cold_chills": {
+        "label": "Kälteschauer",
+        "description": "Plötzliche Kälte oder Frösteln"
+      }
+    },
+    "CHALLENGE": {
+      "short_walk": {
+        "label": "Kurzer Spaziergang",
+        "description": "5–10 Minuten in der Umgebung spazieren"
+      },
+      "corner_shop": {
+        "label": "Kleiner Laden",
+        "description": "Kurz hinein, 1 Sache kaufen"
+      },
+      "coffee_takeaway": {
+        "label": "Kaffee zum Mitnehmen",
+        "description": "Getränk bestellen und warten"
+      },
+      "friend_chat": {
+        "label": "Kurzes Gespräch",
+        "description": "Small Talk mit Freund oder Nachbar"
+      },
+      "supermarket_quick": {
+        "label": "Kurzer Supermarktbesuch",
+        "description": "5–10 Minuten bleiben und an der Kasse abschließen"
+      },
+      "bus_one_stop": {
+        "label": "Busfahrt (1 Station)",
+        "description": "Eine Station fahren und sitzen bleiben"
+      },
+      "restaurant_meal": {
+        "label": "Essen gehen",
+        "description": "Im Café sitzen und eine Mahlzeit beenden"
+      },
+      "exercise_session": {
+        "label": "Leichte Bewegung",
+        "description": "20 Minuten aktiv sein und Herzklopfen tolerieren"
+      },
+      "social_small": {
+        "label": "Kleines Treffen",
+        "description": "30–60 Minuten mit 2–3 Personen"
+      },
+      "crowded_train": {
+        "label": "Volle Bahn/Bus",
+        "description": "Mehrere Stationen in Stoßzeit bleiben"
+      },
+      "public_speaking": {
+        "label": "Vor anderen sprechen",
+        "description": "Präsentation, Unterricht, Gruppengespräch"
+      },
+      "mall_weekend": {
+        "label": "Belebtes Einkaufszentrum",
+        "description": "Zu einer vollen Zeit hindurchgehen"
+      },
+      "theater_movie": {
+        "label": "Kino/Theater",
+        "description": "Komplette Vorführung durchhalten"
+      },
+      "airport_checkin": {
+        "label": "Flughafen",
+        "description": "Security, am Gate warten"
+      },
+      "flight_short": {
+        "label": "Kurzflug",
+        "description": "Inlands-/Kurzstreckenflug"
+      },
+      "social_large": {
+        "label": "Großes Treffen",
+        "description": "30–60 Minuten in einem vollen Ort bleiben"
+      },
+      "doctor_waiting": {
+        "label": "Arzttermin",
+        "description": "Ruhig im Warte-/Behandlungsbereich bleiben"
+      },
+      "dentist_chair": {
+        "label": "Zahnarzt",
+        "description": "Routinekontrolle durchstehen"
+      },
+      "video_meeting": {
+        "label": "Videoanruf",
+        "description": "Mit Kamera an dabei bleiben"
+      },
+      "phone_call_stranger": {
+        "label": "Telefonat",
+        "description": "Eine fremde Person anrufen (z. B. Termin)"
+      }
+    },
+    "STOP_REASON": {
+      "fear_symptoms": {
+        "label": "Körperliche Symptome waren zu stark",
+        "description": "Herzrasen, Schwindel oder Enge in der Brust fühlten sich überwältigend an"
+      },
+      "fear_losing_control": {
+        "label": "Angst, die Kontrolle zu verlieren",
+        "description": "Sorge, ohnmächtig zu werden, die Kontrolle zu verlieren oder mich zu blamieren"
+      },
+      "embarrassment": {
+        "label": "Scham / Verlegenheit",
+        "description": "Das Gefühl, andere könnten meine Angst bemerken oder mich beurteilen"
+      },
+      "escape_urge": {
+        "label": "Starker Drang zu gehen",
+        "description": "Ich konnte dem Impuls nicht widerstehen, die Situation zu verlassen"
+      },
+      "safety_behavior": {
+        "label": "Sicherheitsverhalten genutzt",
+        "description": "Ich habe mich auf Handy, Wasser oder Körperchecks verlassen, statt zu bleiben"
+      },
+      "panic_peak": {
+        "label": "Panik erreichte einen zu hohen Höhepunkt",
+        "description": "Die Angst stieg bis zum Maximum und ich konnte nicht weitermachen"
+      },
+      "negative_thoughts": {
+        "label": "Katastrophisierende Gedanken",
+        "description": "Der Gedanke, dass gleich etwas Schlimmes passieren könnte"
+      },
+      "lack_confidence": {
+        "label": "Geringes Zutrauen",
+        "description": "Ich hatte in dem Moment nicht das Gefühl, es bewältigen zu können"
+      },
+      "tiredness": {
+        "label": "Müde oder nicht vorbereitet",
+        "description": "Ich fühlte mich erschöpft, nicht bereit oder abgelenkt"
+      }
+    },
+    "AFTER_ATTACK_ACTION": {
+      "called_ambulance": {
+        "label": "Arzt / Notdienst kontaktiert",
+        "description": "Ich habe Hilfe gesucht, weil es sich lebensbedrohlich anfühlte"
+      },
+      "went_home": {
+        "label": "Nach Hause gegangen",
+        "description": "Ich bin sofort nach Hause oder an einen sicheren Ort zurückgekehrt"
+      },
+      "left_event": {
+        "label": "Früher gegangen",
+        "description": "Ich habe ein Treffen oder eine Veranstaltung vorzeitig verlassen"
+      },
+      "canceled_plans": {
+        "label": "Zukünftige Pläne abgesagt",
+        "description": "Ich habe danach Aktivitäten vermieden aus Sorge, dass es wieder passiert"
+      },
+      "rested_bed": {
+        "label": "Hinlegen und ausruhen",
+        "description": "Ich bin ins Bett gegangen oder habe mich hingelegt, bis es besser wurde"
+      },
+      "googled_symptoms": {
+        "label": "Symptome online recherchiert",
+        "description": "Ich habe online geprüft, ob es etwas Körperliches sein könnte"
+      },
+      "called_friend": {
+        "label": "Vertrauensperson kontaktiert",
+        "description": "Ich habe Familie oder Freunde um Beruhigung und Unterstützung gebeten"
+      },
+      "took_meds": {
+        "label": "Medikamente eingenommen",
+        "description": "Ich habe verschriebene oder frei verkäufliche Medikamente genutzt"
+      },
+      "ate_drink": {
+        "label": "Etwas gegessen oder getrunken",
+        "description": "Ich habe Essen oder Trinken genutzt, um mich sicherer oder geerdeter zu fühlen"
+      },
+      "avoided_trigger_place": {
+        "label": "Ort danach gemieden",
+        "description": "Ich habe beschlossen, nicht dorthin zurückzukehren, wo es passiert ist"
+      }
+    },
+    "KEPT_GOING_REASON": {
+      "reminded_safe": {
+        "label": "Mich an Sicherheit erinnert",
+        "description": "Ich habe mir gesagt, dass die Paniksymptome nicht gefährlich sind"
+      },
+      "trusted_it_passes": {
+        "label": "Darauf vertraut, dass es vorbeigeht",
+        "description": "Ich wusste, dass die Welle ansteigt und wieder abklingt"
+      },
+      "wanted_progress": {
+        "label": "Motivation durch Fortschritt",
+        "description": "Ich wollte mir beweisen, dass ich es schaffen kann"
+      },
+      "used_coping": {
+        "label": "Bewältigungsstrategien genutzt",
+        "description": "Ich habe Grounding oder sanfte Atmung angewendet"
+      },
+      "support_reminder": {
+        "label": "Hilfreiche Hinweise erinnert",
+        "description": "Ich habe mich an Ratschläge von Therapeut*in oder Vertrauensperson erinnert"
+      },
+      "faith_trust": {
+        "label": "Glaube / spirituelles Vertrauen",
+        "description": "Ich habe mich auf Gebet, Dhikr oder Vertrauen in Allah gestützt"
+      },
+      "small_goal": {
+        "label": "Ein kleines Ziel gesetzt",
+        "description": "Ich habe entschieden, noch ein wenig länger zu bleiben"
+      },
+      "self_talk": {
+        "label": "Beruhigender innerer Dialog",
+        "description": "Ich habe mir ruhige, unterstützende Sätze wiederholt"
+      },
+      "noticed_drop": {
+        "label": "Abnahme der Angst bemerkt",
+        "description": "Ich habe gesehen, dass die Angst sinkt, wenn ich bleibe"
+      },
+      "future_benefit": {
+        "label": "Langfristigen Nutzen im Blick",
+        "description": "Ich habe mich daran erinnert, dass das langfristig beim Gesundwerden hilft"
+      }
+    },
+    "SKIPPED_CHALLENGE_REASON": {
+      "too_anxious": {
+        "label": "Vorher zu ängstlich",
+        "description": "Ich war zu nervös oder panisch, um zu beginnen"
+      },
+      "did_not_feel_like": {
+        "label": "Keine Motivation",
+        "description": "Ich war nicht in der Stimmung oder hatte wenig Antrieb"
+      },
+      "tired_fatigue": {
+        "label": "Müde oder erschöpft",
+        "description": "Ich hatte zu wenig Energie oder fühlte mich ausgelaugt"
+      },
+      "busy_schedule": {
+        "label": "Zu beschäftigt",
+        "description": "Ich hatte keine Zeit oder war mit anderen Aufgaben ausgelastet"
+      },
+      "avoided_trigger": {
+        "label": "Auslöser gemieden",
+        "description": "Ich habe die Situation vollständig vermieden"
+      },
+      "negative_thoughts": {
+        "label": "Negative Erwartungen",
+        "description": "Ich war überzeugt, dass etwas Schlimmes passieren würde"
+      },
+      "lack_support": {
+        "label": "Keine Unterstützung verfügbar",
+        "description": "Ich wollte nicht alleine sein, aber niemand hatte Zeit"
+      },
+      "not_prepared": {
+        "label": "Nicht vorbereitet",
+        "description": "Ich war mental nicht bereit oder hatte es nicht gut geplant"
+      },
+      "low_priority": {
+        "label": "Heute keine Priorität",
+        "description": "Ich habe anderes vorgezogen und es aufgeschoben"
+      },
+      "fear_failure": {
+        "label": "Angst zu scheitern",
+        "description": "Ich hatte Sorge, es nicht zu schaffen, und habe deshalb nicht begonnen"
+      }
+    },
+    "COMPANY": {
+      "alone": {
+        "label": "Allein",
+        "description": "Du stellst dich der Situation alleine"
+      },
+      "with_others": {
+        "label": "Mit anderen",
+        "description": "Freunde, Familie oder Kolleg*innen"
+      }
+    }
+  },
+  "exposure": {
+    "challengeForm": {
+      "steps": {
+        "location": {
+          "label": "Wo möchtest du dich heute herausfordern?"
+        },
+        "company": {
+          "label": "Wer ist bei dir?"
+        }
+      },
+      "errors": {
+        "createFailed": "Beim Erstellen der Herausforderung ist etwas schiefgelaufen."
+      }
+    },
+    "tabSwitcher": {
+      "newDailyChallenge": "Neue tägliche Übung",
+      "pastChallenges": "Vergangene Übungen"
+    },
+    "newChallenge": {
+      "pending": {
+        "aria": "Tägliche Übung: ausstehend",
+        "title": "Tägliche Übung: ausstehend",
+        "subtitle": "Hast du deine tägliche Übung abgeschlossen? Wenn ja, tippe hier, um kurz zu berichten, wie es gelaufen ist."
+      },
+      "start": {
+        "cta": "Starte eine neue tägliche Übung — du kannst jetzt beginnen oder später am Tag."
+      }
+    },
+    "pastChallenges": {
+      "empty": "Du hast bisher noch keine täglichen Übungen abgeschlossen.",
+      "difficulty": {
+        "EASY": "Leicht",
+        "MEDIUM": "Mittel",
+        "HARD": "Herausfordernd"
       }
     }
   }

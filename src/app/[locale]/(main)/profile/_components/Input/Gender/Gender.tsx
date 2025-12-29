@@ -13,7 +13,7 @@ import {
 import { SettingsRowInput } from "../../General/SettingsRowInput";
 
 import { useRouter } from "next/navigation";
-import { startTransition, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import {
   Select,
   SelectContent,
@@ -27,29 +27,30 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { updateUserProfile } from "@/lib/api";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
-const getGenderString = ({ gender }: { gender: Gender | string }) => {
+const genderKey = (gender: Gender | string) => {
   switch (gender) {
     case Gender.FEMALE:
-      return "Female";
+      return "options.female";
     case Gender.MALE:
-      return "Male";
+      return "options.male";
     case Gender.OTHER:
-      return "Other";
+      return "options.other";
     default:
-      return "Not set yet";
+      return "notSet";
   }
 };
 
 export const GenderPicker = ({ gender }: { gender: string }) => {
+  const t = useTranslations("gender");
   const router = useRouter();
+
   const [open, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const form = useForm({
-    defaultValues: {
-      gender,
-    },
+    defaultValues: { gender },
   });
 
   const handleSave = async (data: { gender: Gender | string }) => {
@@ -59,27 +60,30 @@ export const GenderPicker = ({ gender }: { gender: string }) => {
           gender: data.gender as Gender,
         },
       });
-      toast.success("User successfull updated");
+
+      toast.success(t("toast.success"));
       setIsOpen(false);
-      // Invalidate + re-fetch server components
+
       startTransition(() => {
         router.refresh();
       });
     } catch (error) {
-      toast.error("User could not be updated, something wen't wrong");
+      toast.error(t("toast.error"));
       console.error(error);
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={(open) => setIsOpen(open)}>
+    <Dialog open={open} onOpenChange={(o) => setIsOpen(o)}>
       <DialogTrigger>
-        <SettingsRowInput label="Gender" value={getGenderString({ gender })} />
+        <SettingsRowInput label={t("label")} value={t(genderKey(gender))} />
       </DialogTrigger>
+
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Select your gender</DialogTitle>
+          <DialogTitle>{t("dialogTitle")}</DialogTitle>
         </DialogHeader>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSave)} className="space-y-4">
             <FormField
@@ -93,13 +97,20 @@ export const GenderPicker = ({ gender }: { gender: string }) => {
                   >
                     <FormControl>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a gender" />
+                        <SelectValue placeholder={t("placeholder")} />
                       </SelectTrigger>
                     </FormControl>
+
                     <SelectContent>
-                      <SelectItem value={Gender.MALE}>Male</SelectItem>
-                      <SelectItem value={Gender.FEMALE}>Female</SelectItem>
-                      <SelectItem value={Gender.OTHER}>Other</SelectItem>
+                      <SelectItem value={Gender.MALE}>
+                        {t("options.male")}
+                      </SelectItem>
+                      <SelectItem value={Gender.FEMALE}>
+                        {t("options.female")}
+                      </SelectItem>
+                      <SelectItem value={Gender.OTHER}>
+                        {t("options.other")}
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </FormItem>
@@ -108,10 +119,11 @@ export const GenderPicker = ({ gender }: { gender: string }) => {
 
             <DialogFooter className="grid grid-cols-2">
               <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">{t("actions.cancel")}</Button>
               </DialogClose>
-              <Button type="submit">
-                {isPending ? "Saving..." : "Save changes"}
+
+              <Button type="submit" disabled={isPending}>
+                {isPending ? t("actions.saving") : t("actions.saveChanges")}
               </Button>
             </DialogFooter>
           </form>

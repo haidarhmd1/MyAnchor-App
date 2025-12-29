@@ -6,6 +6,7 @@ import { useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import z from "zod";
+import { useTranslations } from "next-intl";
 
 export const StoppedEarly = ({
   onNext,
@@ -13,6 +14,7 @@ export const StoppedEarly = ({
   onNext(): void;
   onPrev?: () => void;
 }) => {
+  const t = useTranslations("form");
   const { setValue } = useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
 
   return (
@@ -34,7 +36,7 @@ export const StoppedEarly = ({
             onNext();
           }}
         >
-          Yes
+          {t("yes")}
         </Button>
         <Button
           type="button"
@@ -44,7 +46,7 @@ export const StoppedEarly = ({
             onNext();
           }}
         >
-          No
+          {t("no")}
         </Button>
       </div>
     </div>

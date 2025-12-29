@@ -1,14 +1,17 @@
 import { BookOpenCheck, CheckCheck } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import prisma from "../../../../../lib/prisma";
 import { DateTime } from "luxon";
 import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
 import { TZ } from "@/lib/timezone";
 import ShortcutsCard from "./ShortcutsCard";
+import { getTranslations } from "next-intl/server";
 
 export async function JournalButton() {
   const session = await auth();
+  const t = await getTranslations("journalShortcut");
 
   if (!session?.user?.id) {
     redirect("/");
@@ -38,8 +41,8 @@ export async function JournalButton() {
   if (journalEntry) {
     return (
       <ShortcutsCard
-        title="Your daily journal"
-        subtitle="Entry for today done!"
+        title={t("title")}
+        subtitle={t("doneSubtitle")}
         icon={<CheckCheck className="h-5 w-5" aria-hidden="true" />}
         gradient={{
           from: "bg-green-300",
@@ -50,15 +53,10 @@ export async function JournalButton() {
   }
 
   return (
-    <Link
-      href="/journal"
-      style={{
-        display: "contents",
-      }}
-    >
+    <Link href="/journal" style={{ display: "contents" }}>
       <ShortcutsCard
-        title="Your daily journal"
-        subtitle="Journal"
+        title={t("title")}
+        subtitle={t("ctaSubtitle")}
         icon={<BookOpenCheck className="h-5 w-5" aria-hidden="true" />}
         gradient={{
           from: "bg-blue-300",

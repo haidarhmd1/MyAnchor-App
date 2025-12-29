@@ -1,86 +1,86 @@
 export const BASE_STEP = [
   {
     id: "hadCompletedChallenge",
-    title: "",
-    subtitle: "Did you do the challenge?",
+    titleKey: "challengeSteps.hadCompletedChallenge.title",
+    subtitleKey: "challengeSteps.hadCompletedChallenge.subtitle",
   },
 ] as const;
 
 export const ANXIETY_CHECK = [
   {
     id: "hadAnxietyAttack",
-    title: "Did you had an Anxiety attack",
-    subtitle: "Did you have had an anxiety attack during this challenge?",
+    titleKey: "challengeSteps.hadAnxietyAttack.title",
+    subtitleKey: "challengeSteps.hadAnxietyAttack.subtitle",
   },
 ] as const;
 
 export const REASONS_FOR_SKIPPING_CHALLENGE = [
   {
     id: "reasonsNotDone",
-    title: "Why did not you do the challenge?",
-    subtitle: "Reasons on why you did not it",
+    titleKey: "challengeSteps.reasonsNotDone.title",
+    subtitleKey: "challengeSteps.reasonsNotDone.subtitle",
   },
 ] as const;
 
 export const AVOIDANCE_STEPS = [
   {
     id: "stoppedEarly",
-    title: "Stopped the Challenge",
-    subtitle: "Did you stopped the challenge though?",
+    titleKey: "challengeSteps.stoppedEarly.title",
+    subtitleKey: "challengeSteps.stoppedEarly.subtitle",
   },
 ] as const;
 
 export const CONTINUED_CHALLENGE = [
   {
     id: "copingStrategies",
-    title: "You kept going though you had an attack!",
-    subtitle: "Tell me about your motivations on why?",
+    titleKey: "challengeSteps.copingStrategies.title",
+    subtitleKey: "challengeSteps.copingStrategies.subtitle",
   },
   {
     id: "typesOfBodySymptoms",
-    title: "Body Sensations while continuing the challenge",
-    subtitle: "What were the symptoms you had?",
+    titleKey: "challengeSteps.typesOfBodySymptomsWhileContinuing.title",
+    subtitleKey: "challengeSteps.typesOfBodySymptomsWhileContinuing.subtitle",
   },
   {
     id: "anxietyLevelRating",
-    title: "Rate Anxiety",
-    subtitle: "How intense was your anxiety?",
+    titleKey: "challengeSteps.anxietyLevelRating.title",
+    subtitleKey: "challengeSteps.anxietyLevelRating.subtitle",
   },
   {
     id: "challengeRating",
-    title: "How did you find this challenge?",
-    subtitle: "Rate how did you find this challenge",
+    titleKey: "challengeSteps.challengeRating.title",
+    subtitleKey: "challengeSteps.challengeRating.subtitle",
   },
 ] as const;
 
 export const STOPPED_CHALLENGE = [
   {
     id: "stopReasons",
-    title: "Reasons why you stopped the challenge",
-    subtitle: "Tell me why you stopped the challenge?",
+    titleKey: "challengeSteps.stopReasons.title",
+    subtitleKey: "challengeSteps.stopReasons.subtitle",
   },
   {
     id: "actionsTaken",
-    title: "",
-    subtitle: "What did you ?",
+    titleKey: "challengeSteps.actionsTaken.title",
+    subtitleKey: "challengeSteps.actionsTaken.subtitle",
   },
   {
     id: "typesOfBodySymptoms",
-    title: "Body Sensations",
-    subtitle: "What did you feel in your body?",
+    titleKey: "challengeSteps.typesOfBodySymptoms.title",
+    subtitleKey: "challengeSteps.typesOfBodySymptoms.subtitle",
   },
   {
     id: "anxietyLevelRating",
-    title: "Rate Anxiety",
-    subtitle: "How intense was your anxiety?",
+    titleKey: "challengeSteps.anxietyLevelRating.title",
+    subtitleKey: "challengeSteps.anxietyLevelRating.subtitle",
   },
 ] as const;
 
 export const NO_ANXIETY_STEPS = [
   {
     id: "challengeRating",
-    title: "How did you find this challenge?",
-    subtitle: "Rate how did you find this challenge",
+    titleKey: "challengeSteps.challengeRating.title",
+    subtitleKey: "challengeSteps.challengeRating.subtitle",
   },
 ] as const;
 

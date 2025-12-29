@@ -1,8 +1,11 @@
 import { CardContainer } from "@/components/Card/Card";
 import { education } from "@/common/const/links";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 export default async function EducationPage() {
+  const t = await getTranslations();
+
   return (
     <>
       <div
@@ -14,20 +17,17 @@ export default async function EducationPage() {
       />
       <div className="p-4">
         <div>
-          <h5 className="font-light">Psycho education</h5>
-          <h2>Understand what Panic and anxiety is.</h2>
-          <p className="sub mt-2">
-            Learn and understand what a panic and anxiety attack or disorder is
-            and try to understand the symptoms
-          </p>
+          <h5 className="font-light">{t("educationPage.hero.eyebrow")}</h5>
+          <h2>{t("educationPage.hero.title")}</h2>
+          <p className="mt-2">{t("educationPage.hero.subtitle")}</p>
         </div>
         <div className="mt-6">
           {education.map((e) => (
             <CardContainer
               key={e.id}
               className="mb-4"
-              title={e.title}
-              description={e.description}
+              title={t(e.titleKey)}
+              description={t(e.descriptionKey)}
               icon={
                 <div
                   className="mr-2 h-16 w-16 rounded-md"

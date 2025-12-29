@@ -1,4 +1,110 @@
 {
+  "common": {
+    "tip": "Tip",
+    "previous": "Previous",
+    "next": "Next",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "step": "Step",
+    "of": "of",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    }
+  },
+  "form": {
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "yes": "Yes",
+    "no": "No",
+    "submitting": "Submitting…"
+  },
+  "tracker": {
+    "duration": "Duration",
+    "seconds": "seconds",
+    "stop": "Stop",
+    "status": "Status",
+    "start": "Start",
+    "timer": {
+      "getReady": "Get ready…",
+      "counting": "Counting…",
+      "finished": "Finished",
+      "notStarted": "Not started"
+    }
+  },
+  "exercisesPage": {
+    "title": "Exercises",
+    "items": {
+      "deepBreathing": {
+        "title": "Deep Breathing",
+        "description": ""
+      },
+      "copingStrategies": {
+        "title": "Coping Strategies",
+        "description": ""
+      },
+      "relaxationTechniques": {
+        "title": "Relaxation Techniques",
+        "description": ""
+      },
+      "cognitiveTechniques": {
+        "title": "Cognitive Techniques",
+        "description": ""
+      },
+      "behavioralTechniques": {
+        "title": "Behavioral Techniques",
+        "description": ""
+      }
+    },
+    "reminder": "Always remind yourself before starting — “This is practice. My body is safe. These are just sensations.”"
+  },
+  "educationPage": {
+    "hero": {
+      "eyebrow": "Psycho education",
+      "title": "Understand what Panic and anxiety is.",
+      "subtitle": "Learn and understand what a panic and anxiety attack or disorder is and try to understand the symptoms"
+    }
+  },
+  "educationIndex": {
+    "items": {
+      "understandingAnxiety": {
+        "title": "Understanding Anxiety",
+        "description": "Learn about the nature of anxiety and its impact on your life."
+      },
+      "panicDisorderExplained": {
+        "title": "Panic Disorder Explained",
+        "description": "Explore the causes and symptoms of panic disorder."
+      },
+      "whatMaintainsAnxiety": {
+        "title": "What maintains anxiety",
+        "description": "The curve of panic"
+      },
+      "findYourWayOut": {
+        "title": "Find your way out",
+        "description": "Explore and learn what you can do."
+      },
+      "rewireEffect": {
+        "title": "Rewire Effect",
+        "description": "How to rewire your brain"
+      }
+    },
+    "categories": {
+      "education": {
+        "title": "Psycho-education",
+        "description": "Learn and understand your anxiety and panic disorders"
+      },
+      "exercises": {
+        "title": "Trigger Exercises",
+        "description": "Confront your triggers using interoceptive exposure exercises"
+      },
+      "exposure": {
+        "title": "Confrontation exposure therapy",
+        "description": "Confront your triggers and become urself again"
+      }
+    }
+  },
   "education": {
     "understandingAnxiety": {
       "title": "Understanding Anxiety",
@@ -147,6 +253,1084 @@
         "description": "This is to make you feel a quick warm flush as blood moves to your skin.",
         "content": "A warm flush is to make you feel suddenly hot or red in the face. You can trigger it by holding your breath for 10–15 seconds or sipping a hot drink. This simulates the rush of heat and redness during panic, reminding you it’s just blood moving toward your skin. It fades naturally in 30 to 60 seconds."
       }
+    }
+  },
+  "dailyChallenge": {
+    "startNew": {
+      "title": "Start a new Challenge",
+      "subtitle": "Still not set up a daily challenge?",
+      "aria": "Still not set up a daily challenge?"
+    },
+    "pending": {
+      "title": "Daily Challenge Completion Pending",
+      "subtitle": "Did you complete your daily challenge? If so, click here to tell us how it went!",
+      "aria": "Daily Challenge Completion Pending"
+    },
+    "done": {
+      "title": "Daily Challenge Done!",
+      "subtitle": "Amazing! Tap here to start a new one!",
+      "aria": "Daily Challenge Done"
+    }
+  },
+  "panicShortcut": {
+    "title": "Currently inside a Panic Attack?",
+    "subtitle": "Press the button and take a deep breath, you are safe"
+  },
+  "inspiration": {
+    "title": "Inspiration for today",
+    "refreshAria": "Show another inspirational quote",
+    "empty": "No quotes available right now."
+  },
+  "journalShortcut": {
+    "title": "Your daily journal",
+    "doneSubtitle": "Entry for today done!",
+    "ctaSubtitle": "Journal"
+  },
+  "analyticsShortcut": {
+    "title": "Anxiety quick overview",
+    "subtitle": "{count, plural, =0 {Anxiety attacks: 0} one {Anxiety attack: #} other {Anxiety attacks: #}}"
+  },
+  "tips": {
+    "items": {
+      "9WaysToCalm": {
+        "title": "9 Ways to Calm Yourself During a Panic Attack",
+        "description": "Each of these steps is small on its own, but together they retrain your brain’s alarm system. Over time, panic loses its grip, and you gain freedom.",
+        "content": {
+          "remind": {
+            "title": "Remind yourself what it is",
+            "text": "When panic hits, the first instinct is often fear of the unknown—“Am I dying? Is something wrong with me?” The most powerful step is to name it: “This is a panic attack.” Reminding yourself that panic is your body’s alarm system misfiring—not a heart attack, not suffocation, not losing control—instantly lowers the sense of mystery and danger. Naming it gives you a moment of perspective and tells your brain, “I know what this is, and I’ve been here before.”"
+          },
+          "stay": {
+            "title": "Stay where you are",
+            "text": "Your brain wants you to run, escape, or grab safety. But escaping teaches the brain that the situation was indeed dangerous. If you can safely stay where you are—even just for a minute longer—you send the opposite message: “This place is safe, even if my body feels scared.” Over time, choosing to stay helps retrain your brain so the next panic wave feels less threatening. The goal isn’t to trap yourself, but to gently practice presence until the fear curve eases."
+          },
+          "allow": {
+            "title": "Let the sensations happen",
+            "text": "The more you fight panic sensations, the stronger they feel. Instead of resisting, let your body do what it does. Notice your heart racing, your breath tightening, or your hands trembling—then say, “This is just adrenaline. It’s not harmful.” By allowing the feelings to exist without rushing to stop them, your brain learns they are uncomfortable but not dangerous. This shift from fighting to allowing is the foundation of long-term recovery."
+          },
+          "wave": {
+            "title": "Ride the wave",
+            "text": "Think of panic like an ocean wave: it rises, swells, and then always falls. If you surf it, you make it through; if you fight the wave, you struggle. Remind yourself, “This panic will peak and pass.” Staying present through the curve teaches your nervous system that panic is temporary, not endless. You don’t need to force calm—you just need to let the wave roll through and trust that your body knows how to settle itself."
+          },
+          "breathing": {
+            "title": "Soften your breathing",
+            "text": "During panic, many people breathe quickly and shallowly, which can worsen dizziness and chest tightness. Instead of forcing deep breaths, aim for soft, steady breathing: in through your nose, out through your mouth, slowly and gently. Think of sighing rather than controlling. Breathing this way signals your body’s calming system (the parasympathetic nervous system) and can take the edge off without turning into a “rescue technique.”"
+          },
+          "ground": {
+            "title": "Ground yourself in the present",
+            "text": "Panic makes your attention spiral inward—into your heartbeat, your lungs, your fears. To break this loop, gently shift your focus outward. Use grounding: notice 5 things you see, 4 things you feel, 3 things you hear. This isn’t about distracting yourself, but about reminding your brain: “The world around me is steady and safe.” Grounding pulls you out of the storm in your body and anchors you back into the present moment."
+          },
+          "dropSafety": {
+            "title": "Drop safety habits",
+            "text": "It’s tempting to check your pulse, sip water, scroll your phone, or plan your exit whenever panic rises. While these feel helpful in the moment, they teach your brain that you need rescuing, which keeps panic alive. Dropping safety behaviors is hard, but each time you do, you prove to yourself that you can handle panic without crutches. This doesn’t mean stripping away all comfort at once, but gently practicing being with panic as it is—without reaching for rescue."
+          },
+          "selfTalk": {
+            "title": "Use calming self-talk",
+            "text": "Your inner voice can either fuel panic or soothe it. Instead of saying, “I can’t handle this”, try phrases like, “I’ve been through this before. My body knows how to calm down. Panic always passes.” Reassurance doesn’t make panic vanish instantly, but it shifts the tone inside your mind. Self-talk acts like a steadying hand on your shoulder—reminding you that you’re not in danger and that you have the strength to ride this wave."
+          },
+          "wait": {
+            "title": "Wait for the curve",
+            "text": "Panic attacks are powerful but time-limited. Most peak within 5–10 minutes and then fade. The fear that it will “never stop” is part of the illusion. By waiting, without fighting, you prove to yourself that panic always ends. Think of it like a thunderstorm—it feels intense, but no storm lasts forever. Each time you let panic run its course, you build new evidence that the curve always comes down, and your brain gradually stops treating panic as a threat."
+          }
+        }
+      },
+      "typesOfAnxiety": {
+        "title": "Understanding the Different Types of Anxiety",
+        "description": "Anxiety disorders are among the most common mental health conditions. While occasional worry is normal, anxiety disorders cause intense, persistent fear or nervousness that interferes with daily life.",
+        "content": {
+          "panicDisorder": {
+            "title": "Panic Disorder",
+            "text": "Panic disorder is marked by recurrent panic attacks—sudden waves of intense fear with strong body sensations like racing heart, shortness of breath, dizziness, or chest pain. People often fear losing control, fainting, or dying. Because attacks can feel unpredictable, many start to avoid certain places or activities, which can make the condition more limiting over time."
+          },
+          "gad": {
+            "title": "Generalized Anxiety Disorder (GAD)",
+            "text": "GAD involves chronic, excessive worry about everyday things—work, health, finances, relationships—often even when there’s little reason for concern. People with GAD may feel restless, tense, tired, or struggle with concentration and sleep. Unlike panic disorder, GAD is more about constant background worry than sudden intense episodes."
+          },
+          "socialAnxiety": {
+            "title": "Social Anxiety Disorder",
+            "text": "Also called social phobia, this disorder is characterized by intense fear of being judged, embarrassed, or rejected in social situations. It goes beyond shyness—people may avoid parties, public speaking, or even everyday interactions like eating in front of others, which can strongly impact school, work, and relationships."
+          },
+          "phobias": {
+            "title": "Specific Phobias",
+            "text": "Phobias are intense, irrational fears of certain objects or situations—like flying, heights, spiders, or blood. The fear is out of proportion to the actual danger, but the body reacts with strong anxiety or panic when faced with the phobic trigger. Many people go out of their way to avoid their feared object or situation."
+          },
+          "agoraphobia": {
+            "title": "Agoraphobia",
+            "text": "Agoraphobia is the fear of being in places where escape might be difficult or help unavailable during a panic attack. Common fears include using public transport, being in open or crowded spaces, or leaving home alone. It often develops after repeated panic attacks and can sometimes keep people largely housebound."
+          },
+          "separationAnxiety": {
+            "title": "Separation Anxiety Disorder",
+            "text": "Most common in children, but it can also affect adults. It involves extreme distress when being apart from loved ones, often with worries that something bad will happen to them or to oneself. It goes beyond normal attachment and can interfere with daily functioning."
+          },
+          "ptsd": {
+            "title": "Post-Traumatic Stress Disorder (PTSD)",
+            "text": "Also distinct but related, PTSD involves anxiety symptoms after trauma, including flashbacks, avoidance, and hypervigilance."
+          },
+          "ocd": {
+            "title": "Obsessive-Compulsive Disorder (OCD)",
+            "text": "Once classified separately, OCD involves intrusive thoughts (obsessions) and repetitive behaviors (compulsions) to reduce anxiety."
+          }
+        }
+      },
+      "commonSymptoms": {
+        "title": "Common Symptoms of Anxiety and Panic",
+        "description": "Anxiety and panic affect both the mind and the body. While the intensity can differ from person to person, these are the most commonly experienced symptoms.",
+        "content": {
+          "mental": {
+            "title": "Mental & Emotional Symptoms",
+            "text": "Excessive worry: Constant “what if” thoughts about the future. Racing thoughts: Trouble slowing down your mind. Fear of losing control: Worry you might faint, “go crazy,” or embarrass yourself. Anticipatory anxiety: Fear of the next attack or stressful situation. Restlessness: Feeling on edge or unable to relax. Difficulty concentrating: Mind feels foggy or distracted. Irritability: Being more easily frustrated or tense."
+          },
+          "physical": {
+            "title": "Physical Symptoms",
+            "text": "Racing heartbeat (palpitations): Feels like your heart is pounding or skipping beats. Shortness of breath: A tight chest, difficulty getting a deep breath. Chest pain or pressure: Often mistaken for a heart attack. Dizziness or lightheadedness: Feeling faint or unsteady. Sweating or chills: Sudden flushes of heat or cold. Shaking or trembling: Hands, legs, or full-body tremors. Muscle tension: Stiffness, especially in shoulders, jaw, or neck. Nausea or stomach upset: “Butterflies,” cramps, or discomfort. Tingling or numbness: Often in hands, feet, or face. Difficulty sleeping: Trouble falling asleep or staying asleep due to worry."
+          },
+          "panicSpecific": {
+            "title": "Symptoms Specific to Panic Attacks",
+            "text": "Panic attacks often bring sudden, intense versions of the symptoms above. They typically peak within 10 minutes and may include: Overwhelming sense of doom: Feeling like something terrible is happening. Fear of dying: Believing you’re having a heart attack or can’t breathe. Out-of-body feeling: Derealization (world feels unreal) or depersonalization (feeling disconnected from yourself)."
+          },
+          "important": {
+            "title": "Important to know:",
+            "text": "These symptoms are real and can feel frightening, but they are the result of your body’s alarm system misfiring—not actual physical danger. Understanding them is the first step to breaking the fear cycle."
+          }
+        }
+      }
+    }
+  },
+  "analyticsPage": {
+    "metaTitle": "⚓ MyAnchor - User Analytics",
+    "empty": {
+      "title": "No entries",
+      "description": "Journal analytics provide insights into your anxiety patterns over time. By logging entries, you can track symptoms, situations, and trends to better understand your mental health journey.",
+      "cta": "Log Journal"
+    }
+  },
+  "exposurePage": {
+    "metaTitle": "⚓ MyAnchor - Exposure",
+    "hero": {
+      "eyebrow": "Confrontation exposure therapy",
+      "title": "Take your Life and Freedom back",
+      "description": "Each day is an opportunity to grow stronger against anxiety. Here you can set your personal daily challenge — a step in exposure confrontation therapy. Choose a situation that triggers discomfort and commit to facing it today. You can start right away, or take the morning to prepare yourself and complete the challenge later in the day. What matters most is making the choice and giving yourself the chance to prove that you are safe, capable, and stronger than your fears."
+    },
+    "alert": {
+      "title": "Why and for what is it good?",
+      "description": "Daily exposure challenges are a key part of confronting anxiety. By deliberately choosing a situation that triggers fear and committing to face it today, you teach your brain that these sensations and places are not dangerous. You may begin the challenge immediately or take time to prepare and carry it out later in the day. The important part is consistency: every exposure is a learning opportunity, and with each one, avoidance loses power and confidence grows."
+    }
+  },
+  "challengePlanner": {
+    "eyebrow": "Planner",
+    "title": "Plan your challenge",
+    "error": "Something went wrong"
+  },
+  "challengeResult": {
+    "eyebrow": "Tell us",
+    "title": "How was your experience with the challenge?"
+  },
+  "challengeSteps": {
+    "hadCompletedChallenge": {
+      "title": "Challenge",
+      "subtitle": "Did you do the challenge?"
+    },
+    "hadAnxietyAttack": {
+      "title": "Anxiety check",
+      "subtitle": "Did you have an anxiety attack during this challenge?"
+    },
+    "reasonsNotDone": {
+      "title": "Why didn’t you do the challenge?",
+      "subtitle": "Tell us why you didn’t do it."
+    },
+    "stoppedEarly": {
+      "title": "Stopped the challenge",
+      "subtitle": "Did you stop the challenge early?"
+    },
+    "copingStrategies": {
+      "title": "You kept going even though you had an attack!",
+      "subtitle": "Tell us what helped you keep going."
+    },
+    "typesOfBodySymptomsWhileContinuing": {
+      "title": "Body sensations while continuing",
+      "subtitle": "Which symptoms did you feel?"
+    },
+    "anxietyLevelRating": {
+      "title": "Rate anxiety",
+      "subtitle": "How intense was your anxiety?"
+    },
+    "challengeRating": {
+      "title": "Challenge rating",
+      "subtitle": "How did you experience this challenge?"
+    },
+    "stopReasons": {
+      "title": "Why did you stop the challenge?",
+      "subtitle": "Tell us what made you stop."
+    },
+    "actionsTaken": {
+      "title": "What did you do next?",
+      "subtitle": "What actions did you take?"
+    },
+    "typesOfBodySymptoms": {
+      "title": "Body sensations",
+      "subtitle": "What did you feel in your body?"
+    }
+  },
+  "panicEmergency": {
+    "boxBreathing": {
+      "card": {
+        "title": "Box Breathing",
+        "subtitle": "Regulate your breathing to calm your nervous system."
+      },
+      "phases": {
+        "inhale": "Inhale",
+        "hold": "Hold",
+        "exhale": "Exhale"
+      },
+      "hints": {
+        "inhale": "Breathe in slowly through your nose.",
+        "hold1": "Gently hold. Stay soft in the shoulders.",
+        "exhale": "Breathe out slowly through your mouth.",
+        "hold2": "Hold. Notice the calm between breaths."
+      },
+      "progress": {
+        "round": "Round {current}{total, select, none {} other { / {total}}}"
+      },
+      "actions": {
+        "done": "Done",
+        "restart": "Restart"
+      },
+      "completion": "Nice work. Notice how your body feels now."
+    },
+    "grounding": {
+      "card": {
+        "title": "5-4-3-2-1 Grounding",
+        "subtitle": "Engage your senses to ground yourself in the present moment."
+      },
+      "sheet": {
+        "intro": "Use your senses to return to the present."
+      },
+      "steps": {
+        "see": {
+          "title": "5 Things You Can See",
+          "subtitle": "Look around and name five things."
+        },
+        "touch": {
+          "title": "4 Things You Can Touch",
+          "subtitle": "Notice four different textures."
+        },
+        "hear": {
+          "title": "3 Things You Can Hear",
+          "subtitle": "Identify three distinct sounds."
+        },
+        "smell": {
+          "title": "2 Things You Can Smell",
+          "subtitle": "Recognize two different scents."
+        },
+        "taste": {
+          "title": "1 Thing You Can Taste",
+          "subtitle": "Acknowledge one thing you can taste."
+        }
+      }
+    },
+    "physicalAnchor": {
+      "card": {
+        "title": "Physical Anchor",
+        "subtitle": "Focus on a physical object to anchor yourself in reality."
+      },
+      "sections": {
+        "meaning": {
+          "title": "What does it mean?",
+          "p1": "A physical anchor is any tangible object you focus on with your senses to pull yourself back into the present moment. When anxiety or panic spirals, your mind can feel detached or overwhelmed. By concentrating on something real, solid, and right here, you remind your nervous system: I am safe, I am present."
+        },
+        "how": {
+          "title": "How to do it",
+          "steps": {
+            "1": "Pick an object near you (for example: a pen, a stone, your phone, keys, a cup, the edge of a chair).",
+            "2": "Look at it carefully. Notice its shape, size, colors, and tiny details.",
+            "3": "Touch it slowly. Feel the temperature, weight, texture, and edges. Run your fingers across it.",
+            "4": "Name what you notice out loud or in your mind. For example: “This pen is smooth. It feels cool. It has black ink. It’s solid in my hand.”",
+            "5": "Stay with it for 30–60 seconds. Breathe slowly while keeping your attention on the object."
+          }
+        },
+        "why": {
+          "title": "Why it works",
+          "points": {
+            "1": "Interrupts spiraling thoughts by redirecting attention outward.",
+            "2": "Reassures your body — the solidity of an object contrasts the “unreal” feeling of panic.",
+            "3": "Engages multiple senses (sight, touch, sometimes even smell), which strengthens grounding."
+          }
+        }
+      }
+    },
+    "positiveReminder": {
+      "card": {
+        "title": "Positive Reminders",
+        "subtitle": "Reinforce positive beliefs to counteract negative thinking."
+      },
+      "actions": {
+        "next": "Next"
+      }
+    }
+  },
+  "panicSupportPage": {
+    "title": "You're not alone",
+    "description": "Remember, this feeling is temporary. You're strong, and you'll get through this. Focus on your breath and take it one step at a time.",
+    "quickActions": "Quick Actions"
+  },
+  "account": {
+    "title": "Account",
+    "email": "Email",
+    "notSet": "Not set yet"
+  },
+  "settings": {
+    "title": "Appearance",
+    "theme": "Theme",
+    "language": "Language",
+    "system": "System",
+    "light": "Light",
+    "english": "English"
+  },
+  "dob": {
+    "label": "Date of birth",
+    "notSet": "Not set yet",
+    "dialogTitle": "Choose a date of birth",
+    "pickDate": "Pick a date",
+    "toast": {
+      "success": "Your date of birth was updated successfully.",
+      "error": "We couldn’t update your profile. Something went wrong."
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveChanges": "Save changes"
+    }
+  },
+  "gender": {
+    "label": "Gender",
+    "dialogTitle": "Select your gender",
+    "placeholder": "Select a gender",
+    "options": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other"
+    },
+    "notSet": "Not set yet",
+    "toast": {
+      "success": "Your profile was updated successfully.",
+      "error": "We couldn’t update your profile. Something went wrong."
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveChanges": "Save changes"
+    }
+  },
+  "name": {
+    "label": "Name",
+    "dialogTitle": "Enter your name",
+    "toast": {
+      "success": "Your profile was updated successfully.",
+      "error": "We couldn’t update your profile. Something went wrong."
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveChanges": "Save changes"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "practiceReminders": {
+      "title": "Practice reminders",
+      "description": "Daily reminders to practice"
+    },
+    "newContent": {
+      "title": "New content",
+      "description": "Receive notifications about new content"
+    }
+  },
+  "anxietyLevels": {
+    "0": {
+      "label": "0 – Calm",
+      "description": "Completely relaxed, no anxiety"
+    },
+    "2": {
+      "label": "2 – Mild",
+      "description": "Slight unease, manageable"
+    },
+    "4": {
+      "label": "4 – Noticeable",
+      "description": "Clear anxiety, but can still function"
+    },
+    "6": {
+      "label": "6 – Strong",
+      "description": "Very uncomfortable, intrusive symptoms"
+    },
+    "8": {
+      "label": "8 – Intense",
+      "description": "Difficult to stay present, fear is high"
+    },
+    "10": {
+      "label": "10 – Extreme",
+      "description": "Full panic, overwhelming, feels unbearable"
+    }
+  },
+  "exposureRating": {
+    "0": {
+      "label": "0 - Very easy",
+      "description": "Felt calm, no struggle at all"
+    },
+    "1": { "label": "1", "description": "Almost no difficulty" },
+    "2": {
+      "label": "2",
+      "description": "Very manageable, only slight discomfort"
+    },
+    "3": {
+      "label": "3",
+      "description": "Mild challenge but stayed comfortable"
+    },
+    "4": { "label": "4", "description": "Some effort needed but manageable" },
+    "5": {
+      "label": "5 - Moderate",
+      "description": "Challenging at times, but doable"
+    },
+    "6": { "label": "6", "description": "Noticeably difficult, but I stayed" },
+    "7": { "label": "7", "description": "Quite hard, struggled to continue" },
+    "8": { "label": "8", "description": "Very hard, almost stopped" },
+    "9": { "label": "9", "description": "Extremely difficult, barely managed" },
+    "10": {
+      "label": "10 - Overwhelming",
+      "description": "Could not continue / had to stop"
+    }
+  },
+  "inspirationQuotes": {
+    "mooji": {
+      "author": "Mooji",
+      "text": "Feelings are just visitors. Let them come and go."
+    },
+    "buddhist": {
+      "author": "Inspired by Buddhist teaching",
+      "text": "Nothing in the mind is permanent, not even the storm of panic."
+    },
+    "kabatZinn": {
+      "author": "Jon Kabat-Zinn",
+      "text": "You can’t stop the waves, but you can learn to surf."
+    },
+    "angelou": {
+      "author": "Maya Angelou",
+      "text": "This too shall pass. Every storm runs out of rain."
+    },
+    "emerson": {
+      "author": "Ralph Waldo Emerson",
+      "text": "Feelings are just visitors. Let them come and go."
+    },
+    "quran946": {
+      "author": "Qur’an 94:6",
+      "text": "Indeed, with hardship comes ease."
+    },
+    "cbt": {
+      "author": "CBT principle",
+      "text": "Your worst-case thoughts are not facts — they are just thoughts."
+    },
+    "unknown1": {
+      "author": "Unknown",
+      "text": "Breathe. You are stronger than you think, braver than you feel, and safer than you believe."
+    },
+    "aliFear": {
+      "author": "Ali ibn Abi Taleb",
+      "text": "When you are afraid of something, throw yourself into it, for the intensity of the fear is greater than that of the thing itself."
+    },
+    "exposure": {
+      "author": "Modern exposure therapy wisdom",
+      "text": "Every time you let panic rise and fall, you are teaching your brain freedom."
+    },
+    "aliRemedy": {
+      "author": "Ali ibn Abi Taleb",
+      "text": "Your remedy is within you, but you do not sense it. Your sickness is from you, but you do not perceive it."
+    }
+  },
+  "reassurances": {
+    "panic_not_emergency": "You are having a panic attack right now. I know it feels overwhelming, but this is not a medical emergency.",
+    "body_is_safe": "Your body is safe, even if the sensations feel scary. This is just your alarm system firing too strongly.",
+    "panic_is_wave": "Panic always comes in waves. It rises, it peaks, and it falls. All you need to do is ride the wave until it passes.",
+    "no_need_to_escape": "You don’t have to run away. You don’t have to escape. You can stay right here and be okay.",
+    "just_adrenaline": "What you are feeling right now is just adrenaline moving through your body. It is uncomfortable, but not dangerous.",
+    "you_survived_before": "You have been through this before, and every single time you made it through. This time is no different.",
+    "body_knows_how": "Even if your heart races or you feel dizzy, your body knows exactly how to calm itself down.",
+    "no_fighting": "You do not need to control or fight these sensations. Allow them to be here and let them fade naturally.",
+    "others_cant_see": "No one else can see what you are feeling inside. To the outside world, you look completely fine.",
+    "teaching_your_brain": "Right now, you are teaching your brain something powerful: these sensations are safe, and you do not need to fear them."
+  },
+  "bottomNav": {
+    "home": "Home",
+    "education": "Education",
+    "journal": "Journal",
+    "exercises": "Exercises",
+    "exposure": "Exposure"
+  },
+  "journal": {
+    "entry": {
+      "title": "Your journal entry",
+      "doneAt": "Entry done!"
+    },
+    "newEntry": {
+      "title": "Create a new journal entry",
+      "ariaOpen": "Create a new journal entry"
+    },
+    "pastEntries": "Past entries:",
+    "noEntries": "No past entries.",
+    "journalQuestionnaire": {
+      "errors": {
+        "saveFailed": "Journal entry not saved. Please try again."
+      },
+      "whenDidItHappen": {
+        "morning": "In the morning",
+        "noon": "At noon",
+        "afternoon": "In the afternoon",
+        "evening": "In the evening",
+        "night": "At night"
+      },
+      "steps": {
+        "hasAnxietyAttack": {
+          "title": "Anxiety attack",
+          "subtitle": "Did you have an anxiety attack?"
+        },
+        "hasAvoidedSituations": {
+          "title": "Avoidance",
+          "subtitle": "Did you avoid any situations?"
+        },
+        "typesOfSituationYouAvoided": {
+          "title": "Situations avoided",
+          "subtitle": "Which ones did you avoid?"
+        },
+        "whyYouWereAvoidingIt": {
+          "title": "Reasons",
+          "subtitle": "Why were you trying to avoid it?"
+        },
+        "whenDidItHappen": {
+          "title": "When did it happen?",
+          "subtitle": "Tell us when this happened."
+        },
+        "typesOfSituationYouWereIn": {
+          "title": "Situation faced",
+          "subtitle": "Where were you?"
+        },
+        "typesOfBodySymptoms": {
+          "title": "Body sensations",
+          "subtitle": "What did you feel in your body?"
+        },
+        "anxietyLevelRating": {
+          "title": "Rate anxiety",
+          "subtitleAttack": "How intense was your anxiety?",
+          "subtitleAvoidance": "How afraid were you that something would happen?"
+        }
+      }
+    }
+  },
+  "taxonomy": {
+    "LOCATION": {
+      "home": { "label": "Home", "description": "At home / familiar place" },
+      "outside": {
+        "label": "Outside",
+        "description": "Street, park, small errands"
+      },
+      "work": {
+        "label": "Work/School",
+        "description": "Tasks, meetings, classes"
+      },
+      "transport": {
+        "label": "Transport",
+        "description": "Bus, train, car rides"
+      },
+      "crowd": {
+        "label": "Crowd/Queue",
+        "description": "Busy shops, waiting in line"
+      },
+      "event_birthday": {
+        "label": "Birthday",
+        "description": "Attend a birthday gathering"
+      },
+      "event_company": {
+        "label": "Company event",
+        "description": "Work social, offsite, party"
+      },
+      "event_gathering": {
+        "label": "Friends gathering",
+        "description": "Small/medium social meetup"
+      },
+      "event_festival": {
+        "label": "Festival/Concert",
+        "description": "Large crowd, loud music"
+      },
+      "travel_airport": {
+        "label": "Airport",
+        "description": "Check-in, security, gate"
+      },
+      "travel_flight": {
+        "label": "Flight",
+        "description": "Short- or long-haul flight"
+      },
+      "transport_rideshare": {
+        "label": "Ride share/Taxi",
+        "description": "Uber/Taxi alone"
+      },
+      "shopping_supermarket": {
+        "label": "Supermarket",
+        "description": "Aisles, checkout line"
+      },
+      "mall": {
+        "label": "Shopping mall",
+        "description": "Enclosed, busy space"
+      },
+      "dining_restaurant": {
+        "label": "Restaurant/Café",
+        "description": "Stay through full meal"
+      },
+      "cinema": {
+        "label": "Cinema/Theater",
+        "description": "Sit through screening/show"
+      },
+      "gym": {
+        "label": "Gym/Class",
+        "description": "Tolerate heartbeat sensations"
+      },
+      "religious_service": {
+        "label": "Religious service",
+        "description": "Stay for full service"
+      },
+      "presentation": {
+        "label": "Presentation/Meeting",
+        "description": "Speak or stay present"
+      },
+      "interview": {
+        "label": "Interview",
+        "description": "Job/School interview"
+      },
+      "phone_call": {
+        "label": "Phone call",
+        "description": "Make/receive & stay on call"
+      },
+      "video_call": {
+        "label": "Video call",
+        "description": "Camera on, stay engaged"
+      },
+      "elevator": {
+        "label": "Elevator",
+        "description": "Ride and remain inside"
+      },
+      "bridge_tunnel": {
+        "label": "Bridge/Tunnel",
+        "description": "Cross or drive through"
+      },
+      "highway_driving": {
+        "label": "Highway driving",
+        "description": "Sustained speed traffic"
+      },
+      "medical_dentist": {
+        "label": "Dentist",
+        "description": "Sit through appointment"
+      },
+      "medical_hospital": {
+        "label": "Hospital/Clinic",
+        "description": "Waiting room, procedures"
+      },
+      "night_walk": {
+        "label": "Night walk",
+        "description": "Short evening neighborhood walk"
+      }
+    },
+    "AVOIDANCEREASION": {
+      "crowds_overwhelming": {
+        "label": "Large gatherings",
+        "description": "Too overwhelming, fear of losing control"
+      },
+      "loud_noises": {
+        "label": "Loud noises",
+        "description": "Irritating or overwhelming sound triggers"
+      },
+      "fear_judgment": {
+        "label": "Fear of judgment",
+        "description": "Worried about embarrassment or people noticing"
+      },
+      "fear_panic": {
+        "label": "Fear of panic attack",
+        "description": "Avoiding in case strong symptoms come up"
+      },
+      "trapped_feeling": {
+        "label": "Feeling trapped",
+        "description": "No easy way to leave or escape"
+      },
+      "social_pressure": {
+        "label": "Social pressure",
+        "description": "Expectation to talk, perform, or engage"
+      },
+      "physical_exertion": {
+        "label": "Physical exertion",
+        "description": "Raised heartbeat or breathlessness feels unsafe"
+      },
+      "medical_fear": {
+        "label": "Medical fears",
+        "description": "Hospitals, dentists, or procedures feel dangerous"
+      },
+      "confined_spaces": {
+        "label": "Confined spaces",
+        "description": "Elevators, tunnels, or traffic feel suffocating"
+      },
+      "uncertainty": {
+        "label": "Unpredictable situations",
+        "description": "Fear of unknown triggers or surprises"
+      },
+      "safety_behaviors": {
+        "label": "Without safety behaviors",
+        "description": "Avoid when I can’t bring someone or check my body"
+      },
+      "exhaustion": {
+        "label": "Feeling tired",
+        "description": "Avoiding because I might not cope with stress"
+      },
+      "night_time": {
+        "label": "Night time",
+        "description": "Being outside in the dark feels unsafe"
+      }
+    },
+    "SYMPTOM": {
+      "racing_heart": {
+        "label": "Racing heartbeat",
+        "description": "Fast or pounding heart feels dangerous"
+      },
+      "shortness_breath": {
+        "label": "Shortness of breath",
+        "description": "Feeling like I can’t get enough air"
+      },
+      "dizziness": {
+        "label": "Dizziness / lightheadedness",
+        "description": "Fear of fainting or losing balance"
+      },
+      "chest_tightness": {
+        "label": "Chest tightness",
+        "description": "Pressure or heaviness in the chest"
+      },
+      "nausea": {
+        "label": "Nausea",
+        "description": "Fear of vomiting or stomach upset"
+      },
+      "tingling": {
+        "label": "Tingling",
+        "description": "Pins and needles in face or hands"
+      },
+      "sweating": {
+        "label": "Sweating",
+        "description": "Fear of others noticing sweat"
+      },
+      "hot_flush": {
+        "label": "Hot flush",
+        "description": "Sudden warmth or blushing"
+      },
+      "shaking": {
+        "label": "Shaking",
+        "description": "Trembling or trembling hands"
+      },
+      "blurred_vision": {
+        "label": "Blurred vision",
+        "description": "Difficulty focusing, fear of collapse"
+      },
+      "feeling_unreal": {
+        "label": "Derealization / depersonalization",
+        "description": "Feeling detached or unreal"
+      },
+      "cold_chills": {
+        "label": "Cold chills",
+        "description": "Sudden cold or shivering sensations"
+      }
+    },
+    "CHALLENGE": {
+      "short_walk": {
+        "label": "Short walk",
+        "description": "5–10 min walk in the neighborhood"
+      },
+      "corner_shop": {
+        "label": "Small shop",
+        "description": "Enter a local store, buy 1 item"
+      },
+      "coffee_takeaway": {
+        "label": "Coffee to-go",
+        "description": "Order a takeaway drink and wait"
+      },
+      "friend_chat": {
+        "label": "Brief conversation",
+        "description": "Small talk with a friend or neighbor"
+      },
+      "supermarket_quick": {
+        "label": "Quick supermarket visit",
+        "description": "Stay in store for 5–10 min, use checkout"
+      },
+      "bus_one_stop": {
+        "label": "Bus ride (1 stop)",
+        "description": "Ride one stop and remain seated"
+      },
+      "restaurant_meal": {
+        "label": "Eat out",
+        "description": "Sit down and finish a meal at a café"
+      },
+      "exercise_session": {
+        "label": "Light exercise",
+        "description": "Do 20 min workout, tolerate heart rate"
+      },
+      "social_small": {
+        "label": "Small gathering",
+        "description": "Spend 30–60 min with 2–3 people"
+      },
+      "crowded_train": {
+        "label": "Crowded train/bus",
+        "description": "Stay for several stops during rush hour"
+      },
+      "public_speaking": {
+        "label": "Speak in public",
+        "description": "Presentation, class, or group talk"
+      },
+      "mall_weekend": {
+        "label": "Busy mall",
+        "description": "Walk through mall at peak time"
+      },
+      "theater_movie": {
+        "label": "Cinema/Theater",
+        "description": "Sit through full screening or event"
+      },
+      "airport_checkin": {
+        "label": "Airport",
+        "description": "Go through security, wait at gate"
+      },
+      "flight_short": {
+        "label": "Short flight",
+        "description": "Domestic/short-haul flight"
+      },
+      "social_large": {
+        "label": "Large gathering",
+        "description": "Spend 30–60 min in a crowded place"
+      },
+      "doctor_waiting": {
+        "label": "Doctor appointment",
+        "description": "Wait calmly in clinic room"
+      },
+      "dentist_chair": {
+        "label": "Dentist",
+        "description": "Sit through routine checkup"
+      },
+      "video_meeting": {
+        "label": "Video call",
+        "description": "Stay engaged with camera on"
+      },
+      "phone_call_stranger": {
+        "label": "Phone call",
+        "description": "Call a stranger (e.g., book appointment)"
+      }
+    },
+    "STOP_REASON": {
+      "fear_symptoms": {
+        "label": "Physical symptoms felt too intense",
+        "description": "Racing heart, dizziness, or chest tightness felt overwhelming"
+      },
+      "fear_losing_control": {
+        "label": "Fear of losing control",
+        "description": "Worried I might faint, lose control, or embarrass myself"
+      },
+      "embarrassment": {
+        "label": "Embarrassment",
+        "description": "Felt that others could notice my anxiety or judge me"
+      },
+      "escape_urge": {
+        "label": "Strong urge to leave",
+        "description": "Could not resist the urge to exit the situation"
+      },
+      "safety_behavior": {
+        "label": "Used a safety behavior",
+        "description": "Relied on my phone, water, or checking my body instead of staying"
+      },
+      "panic_peak": {
+        "label": "Panic peaked too high",
+        "description": "Fear reached a maximum and I could not continue"
+      },
+      "negative_thoughts": {
+        "label": "Catastrophic thoughts",
+        "description": "Thought that something bad was about to happen"
+      },
+      "lack_confidence": {
+        "label": "Low confidence",
+        "description": "Did not feel able to handle it at that moment"
+      },
+      "tiredness": {
+        "label": "Tired or unprepared",
+        "description": "Felt drained, not ready, or distracted"
+      }
+    },
+    "AFTER_ATTACK_ACTION": {
+      "called_ambulance": {
+        "label": "Called a doctor or emergency services",
+        "description": "Sought urgent medical help because it felt life-threatening"
+      },
+      "went_home": {
+        "label": "Went back home",
+        "description": "Returned home or to a safe place right away"
+      },
+      "left_event": {
+        "label": "Left early",
+        "description": "Left a meeting, gathering, or event before it ended"
+      },
+      "canceled_plans": {
+        "label": "Canceled upcoming plans",
+        "description": "Avoided activities afterward out of fear it could happen again"
+      },
+      "rested_bed": {
+        "label": "Lay down to rest",
+        "description": "Went to bed or lay down until I felt calmer"
+      },
+      "googled_symptoms": {
+        "label": "Searched symptoms online",
+        "description": "Looked online to check whether it might be medical"
+      },
+      "called_friend": {
+        "label": "Contacted a trusted person",
+        "description": "Reached out to a friend or family member for reassurance"
+      },
+      "took_meds": {
+        "label": "Took medication",
+        "description": "Used prescribed or over-the-counter medication"
+      },
+      "ate_drink": {
+        "label": "Ate or drank something",
+        "description": "Used food or drink to feel more grounded or safe"
+      },
+      "avoided_trigger_place": {
+        "label": "Avoided the place afterward",
+        "description": "Decided not to return to where it happened"
+      }
+    },
+    "KEPT_GOING_REASON": {
+      "reminded_safe": {
+        "label": "Reminded myself I was safe",
+        "description": "Told myself panic sensations are not dangerous"
+      },
+      "trusted_it_passes": {
+        "label": "Trusted it would pass",
+        "description": "Knew the wave would rise and fall"
+      },
+      "wanted_progress": {
+        "label": "Motivated by progress",
+        "description": "Wanted to prove to myself that I can do it"
+      },
+      "used_coping": {
+        "label": "Used coping skills",
+        "description": "Practiced grounding or gentle breathing"
+      },
+      "support_reminder": {
+        "label": "Remembered supportive guidance",
+        "description": "Recalled what my therapist or a trusted person advised"
+      },
+      "faith_trust": {
+        "label": "Faith or spiritual trust",
+        "description": "Leant on prayer, dhikr, or trust in Allah"
+      },
+      "small_goal": {
+        "label": "Set a small goal",
+        "description": "Decided to stay just a little longer"
+      },
+      "self_talk": {
+        "label": "Calming self-talk",
+        "description": "Repeated reassuring words to myself"
+      },
+      "noticed_drop": {
+        "label": "Noticed anxiety decrease",
+        "description": "Saw that fear went down when I stayed"
+      },
+      "future_benefit": {
+        "label": "Focused on long-term benefit",
+        "description": "Reminded myself this helps my recovery over time"
+      }
+    },
+    "SKIPPED_CHALLENGE_REASON": {
+      "too_anxious": {
+        "label": "Too anxious beforehand",
+        "description": "Felt too nervous or panicky to start"
+      },
+      "did_not_feel_like": {
+        "label": "Not in the mood",
+        "description": "Had low motivation or did not feel up to it"
+      },
+      "tired_fatigue": {
+        "label": "Tired or exhausted",
+        "description": "Did not have enough energy or felt drained"
+      },
+      "busy_schedule": {
+        "label": "Too busy",
+        "description": "Did not have time or was occupied with other tasks"
+      },
+      "avoided_trigger": {
+        "label": "Avoided the trigger",
+        "description": "Chose to stay away from the situation entirely"
+      },
+      "negative_thoughts": {
+        "label": "Negative expectations",
+        "description": "Convinced myself something bad would happen"
+      },
+      "lack_support": {
+        "label": "No support available",
+        "description": "Wanted someone with me, but no one was available"
+      },
+      "not_prepared": {
+        "label": "Did not feel prepared",
+        "description": "Was not ready mentally or did not plan it well"
+      },
+      "low_priority": {
+        "label": "Not a priority today",
+        "description": "Focused on other things and postponed it"
+      },
+      "fear_failure": {
+        "label": "Fear of failing",
+        "description": "Worried I would not manage it and avoided trying"
+      }
+    },
+    "COMPANY": {
+      "ALONE": {
+        "label": "Alone",
+        "description": "Face it by yourself"
+      },
+      "WITH_OTHERS": {
+        "label": "With others",
+        "description": "Friends, family, or colleagues"
+      }
+    }
+  },
+  "exposure": {
+    "tabSwitcher": {
+      "newDailyChallenge": "New Daily Challenge",
+      "pastChallenges": "Past Challenges"
+    },
+    "challengeForm": {
+      "steps": {
+        "location": {
+          "label": "Where will you challenge yourself today?"
+        },
+        "company": {
+          "label": "Who will be with you?"
+        }
+      },
+      "errors": {
+        "createFailed": "Something went wrong while creating the challenge."
+      }
+    }
+  },
+  "newChallenge": {
+    "pending": {
+      "aria": "Daily challenge pending",
+      "title": "Daily challenge pending",
+      "subtitle": "Did you complete your daily challenge? If so, tap here to share how it went."
+    },
+    "start": {
+      "cta": "Start a new daily challenge — you can begin now or later today."
+    }
+  },
+  "pastChallenges": {
+    "empty": "You haven’t completed any daily challenges yet.",
+    "difficulty": {
+      "EASY": "Easy",
+      "MEDIUM": "Moderate",
+      "HARD": "Challenging"
     }
   }
 }

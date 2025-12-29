@@ -5,8 +5,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { inspirationQuotes } from "@/common/const/inspirationalQuotes";
 import { RefreshCcw } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export const InspirationForToday = () => {
+  const t = useTranslations("inspiration");
+
   const hasData = inspirationQuotes.length > 0;
   const [index, setIndex] = useState(0); // SSR-stable
   const [ready, setReady] = useState(false); // show after effect
@@ -47,14 +50,14 @@ export const InspirationForToday = () => {
 
   return (
     <div className="w-full max-w-md space-y-4">
-      <h2>Inspiration for today</h2>
+      <h2>{t("inspiration.title")}</h2>
 
       <Card className="rounded-[22px] border-none bg-gradient-to-br from-green-300 to-green-500 p-0 shadow-[0_6px_18px_rgba(0,0,0,0.15)]">
         <CardContent className="relative p-6">
           <div
             className={`absolute top-4 right-4 z-50 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/35 shadow-inner backdrop-blur-[2px]`}
-            aria-hidden
             onClick={nextRandom}
+            aria-label={t("inspiration.refreshAria")}
           >
             <div className="text-white drop-shadow">
               <RefreshCcw
@@ -90,10 +93,12 @@ export const InspirationForToday = () => {
                 >
                   {/* <p className="text-xs tracking-wider text-[#4F6B75]"> */}
                   <p className="text-xs tracking-wider text-white">
-                    {quote.author}
+                    {t(quote.authorKey)}
                   </p>
                   {/* <p className="leading-relaxed text-[#2E3D49]">{quote.text}</p> */}
-                  <p className="leading-relaxed text-white">{quote.text}</p>
+                  <p className="leading-relaxed text-white">
+                    {t(quote.textKey)}
+                  </p>
                 </motion.div>
               ) : (
                 <motion.div

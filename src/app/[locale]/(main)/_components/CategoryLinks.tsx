@@ -2,10 +2,13 @@ import { categories } from "@/common/const/links";
 import { Card, CardContent } from "@/components/ui/card";
 import clsx from "clsx";
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
+
 import { twMerge } from "tailwind-merge";
 
-export const CategoryLinks = () => {
+export const CategoryLinks = async () => {
+  const t = await getTranslations();
   return (
     <div className="grid grid-cols-1 gap-6">
       {categories.map((c) => (
@@ -45,10 +48,10 @@ export const CategoryLinks = () => {
                 <h3
                   className={`truncate text-lg leading-snug font-semibold text-white drop-shadow`}
                 >
-                  {c.title}
+                  {t(c.titleKey)}
                 </h3>
                 <p className="mt-0.5 text-sm text-white/80 drop-shadow">
-                  {c.description}
+                  {t(c.descriptionKey)}
                 </p>
               </div>
               <div

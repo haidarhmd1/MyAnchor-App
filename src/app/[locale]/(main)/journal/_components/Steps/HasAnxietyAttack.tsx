@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { FormJournalType } from "../helper";
+import { useTranslations } from "next-intl";
 
 export function HasAnxietyAttackStep({
   onNext,
@@ -11,6 +12,7 @@ export function HasAnxietyAttackStep({
   onNext(): void;
   onPrev?: () => void;
 }) {
+  const t = useTranslations("form");
   const { setValue } = useFormContext<FormJournalType>();
 
   return (
@@ -31,7 +33,7 @@ export function HasAnxietyAttackStep({
             onNext();
           }}
         >
-          Yes
+          {t("yes")}
         </Button>
         <Button
           type="button"
@@ -41,7 +43,7 @@ export function HasAnxietyAttackStep({
             onNext();
           }}
         >
-          No
+          {t("no")}
         </Button>
       </div>
     </div>

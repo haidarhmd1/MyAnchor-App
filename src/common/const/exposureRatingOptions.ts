@@ -1,39 +1,75 @@
-export type ExposureRatingOptionsType = {
+export type ExposureRatingOption = {
   id: string;
+  value: number;
   label: string;
   description: string;
 };
 
-export const exposureRatingOptions: ExposureRatingOptionsType[] = [
+export const exposureRatingOptions: ExposureRatingOption[] = [
   {
     id: "0",
-    label: "0 - Very easy",
-    description: "Felt calm, no struggle at all",
+    value: 0,
+    label: "exposureRating.0.label",
+    description: "exposureRating.0.description",
   },
-  { id: "1", label: "1", description: "Almost no difficulty" },
+  {
+    id: "1",
+    value: 1,
+    label: "exposureRating.1.label",
+    description: "exposureRating.1.description",
+  },
   {
     id: "2",
-    label: "2",
-    description: "Very manageable, only slight discomfort",
+    value: 2,
+    label: "exposureRating.2.label",
+    description: "exposureRating.2.description",
   },
   {
     id: "3",
-    label: "3",
-    description: "Mild challenge but stayed comfortable",
+    value: 3,
+    label: "exposureRating.3.label",
+    description: "exposureRating.3.description",
   },
-  { id: "4", label: "4", description: "Some effort needed but manageable" },
+  {
+    id: "4",
+    value: 4,
+    label: "exposureRating.4.label",
+    description: "exposureRating.4.description",
+  },
   {
     id: "5",
-    label: "5 - Moderate",
-    description: "Challenging at times, but doable",
+    value: 5,
+    label: "exposureRating.5.label",
+    description: "exposureRating.5.description",
   },
-  { id: "6", label: "6", description: "Noticeably difficult, but I stayed" },
-  { id: "7", label: "7", description: "Quite hard, struggled to continue" },
-  { id: "8", label: "8", description: "Very hard, almost stopped" },
-  { id: "9", label: "9", description: "Extremely difficult, barely managed" },
+  {
+    id: "6",
+    value: 6,
+    label: "exposureRating.6.label",
+    description: "exposureRating.6.description",
+  },
+  {
+    id: "7",
+    value: 7,
+    label: "exposureRating.7.label",
+    description: "exposureRating.7.description",
+  },
+  {
+    id: "8",
+    value: 8,
+    label: "exposureRating.8.label",
+    description: "exposureRating.8.description",
+  },
+  {
+    id: "9",
+    value: 9,
+    label: "exposureRating.9.label",
+    description: "exposureRating.9.description",
+  },
   {
     id: "10",
-    label: "10 - Overwhelming",
-    description: "Could not continue / had to stop",
+    value: 10,
+    label: "exposureRating.10.label",
+    description: "exposureRating.10.description",
   },
 ];

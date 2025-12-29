@@ -1,6 +1,6 @@
 import { CircleUserRound } from "lucide-react";
 import { BackArrow } from "./_components/BackArrow";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export function Header({
   title = "MyAnchor App",

@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 import { Card, CardContent } from "../ui/card";

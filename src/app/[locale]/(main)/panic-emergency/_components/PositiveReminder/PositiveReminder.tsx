@@ -1,18 +1,22 @@
 "use client";
-import { reassurences } from "@/common/const/reassurings";
+
 import { Heart } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useMemo, useState } from "react";
 import { Sheet } from "react-modal-sheet";
+import { useTranslations } from "next-intl";
+import { reassurances } from "@/common/const/reassurings";
 
 export const PositiveReminder = () => {
+  const t = useTranslations();
+
   const [isOpen, setIsOpen] = useState(false);
   const [counter, setCounter] = useState(0);
   const reduce = useReducedMotion();
 
-  const messages = useMemo(() => reassurences ?? [], []);
+  const messages = useMemo(() => reassurances, []);
   const index = messages.length ? counter % messages.length : 0;
-  const current = messages.length ? messages[index] : "";
+  const current = messages.length ? t(messages[index].textKey) : "";
 
   const onClickHandler = () => {
     if (!messages.length) return;
@@ -36,13 +40,14 @@ export const PositiveReminder = () => {
             <Heart className="self-center" />
           </div>
           <div className="flex flex-col text-left">
-            <h4>Positive Reminders</h4>
+            <h4>{t("positiveReminder.card.title")}</h4>
             <p className="text-sm font-extralight">
-              Reinforce positive beliefs to counteract negative thinking.
+              {t("positiveReminder.card.subtitle")}
             </p>
           </div>
         </div>
       </div>
+
       <Sheet isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <Sheet.Container>
           <Sheet.Header />
@@ -58,7 +63,9 @@ export const PositiveReminder = () => {
                 className="m-auto flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-sky-300 to-sky-500"
                 onClick={onClickHandler}
               >
-                <h3 className="font-medium text-white">Next</h3>
+                <h3 className="font-medium text-white">
+                  {t("positiveReminder.actions.next")}
+                </h3>
               </motion.div>
 
               <div className="mt-24 min-h-[2.5rem] text-center">

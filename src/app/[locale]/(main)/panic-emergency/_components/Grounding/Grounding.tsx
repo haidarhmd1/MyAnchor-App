@@ -3,9 +3,12 @@
 import { Ear, Eye, Hand, HandFist, IceCream, Smile } from "lucide-react";
 import { useState } from "react";
 import { Sheet } from "react-modal-sheet";
+import { useTranslations } from "next-intl";
 
 export const Grounding = () => {
+  const t = useTranslations("panicEmergency.grounding");
   const [isOpen, setOpen] = useState(false);
+
   return (
     <div>
       <div
@@ -16,10 +19,8 @@ export const Grounding = () => {
           <HandFist className="self-center" />
         </div>
         <div className="flex flex-col text-left">
-          <h4>5-4-3-2-1 Grounding</h4>
-          <p className="text-sm font-extralight">
-            Engage your senses to ground yourself in the present moment.
-          </p>
+          <h4>{t("card.title")}</h4>
+          <p className="text-sm font-extralight">{t("card.subtitle")}</p>
         </div>
       </div>
 
@@ -28,18 +29,16 @@ export const Grounding = () => {
           <Sheet.Header />
           <Sheet.Content className="p-4">
             <div className="space-y-8">
-              <div className="mb-8">
-                Use your senses to return to the present
-              </div>
+              <div className="mb-8">{t("sheet.intro")}</div>
 
               <div className="flex space-x-4">
                 <div className="flex h-14 w-14 shrink-0 justify-center rounded-2xl bg-gray-200">
                   <Eye className="self-center" />
                 </div>
                 <div className="flex flex-col text-left">
-                  <h4>5 Things You Can See</h4>
+                  <h4>{t("steps.see.title")}</h4>
                   <p className="text-sm font-extralight">
-                    Look around and name five things.
+                    {t("steps.see.subtitle")}
                   </p>
                 </div>
               </div>
@@ -49,9 +48,9 @@ export const Grounding = () => {
                   <Hand className="self-center" />
                 </div>
                 <div className="flex flex-col text-left">
-                  <h4>4 Things You Can Touch</h4>
+                  <h4>{t("steps.touch.title")}</h4>
                   <p className="text-sm font-extralight">
-                    Notice four different textures.
+                    {t("steps.touch.subtitle")}
                   </p>
                 </div>
               </div>
@@ -61,9 +60,9 @@ export const Grounding = () => {
                   <Ear className="self-center" />
                 </div>
                 <div className="flex flex-col text-left">
-                  <h4>3 Things You Can Hear</h4>
+                  <h4>{t("steps.hear.title")}</h4>
                   <p className="text-sm font-extralight">
-                    Identify three distinct sounds.
+                    {t("steps.hear.subtitle")}
                   </p>
                 </div>
               </div>
@@ -73,9 +72,9 @@ export const Grounding = () => {
                   <Smile className="self-center" />
                 </div>
                 <div className="flex flex-col text-left">
-                  <h4>2 Things You Can Smell</h4>
+                  <h4>{t("steps.smell.title")}</h4>
                   <p className="text-sm font-extralight">
-                    Recognize two different scents.
+                    {t("steps.smell.subtitle")}
                   </p>
                 </div>
               </div>
@@ -85,9 +84,9 @@ export const Grounding = () => {
                   <IceCream className="self-center" />
                 </div>
                 <div className="flex flex-col text-left">
-                  <h4>1 Thing You Can Taste</h4>
+                  <h4>{t("steps.taste.title")}</h4>
                   <p className="text-sm font-extralight">
-                    Acknowledge one thing you can taste.
+                    {t("steps.taste.subtitle")}
                   </p>
                 </div>
               </div>

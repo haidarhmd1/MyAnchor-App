@@ -2,29 +2,15 @@
 
 import { Wind } from "lucide-react";
 import { easeInOut } from "motion";
-
 import { AnimatePresence, motion } from "motion/react";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Sheet } from "react-modal-sheet";
+import { useTranslations } from "next-intl";
 
 type Phase = "inhale" | "hold1" | "exhale" | "hold2";
 
 const PHASES: Phase[] = ["inhale", "hold1", "exhale", "hold2"];
-
-const phaseLabel = {
-  inhale: "Inhale",
-  hold1: "Hold",
-  exhale: "Exhale",
-  hold2: "Hold",
-};
-
-const phaseHint = {
-  inhale: "Breathe in slowly through your nose.",
-  hold1: "Gently hold. Stay soft in the shoulders.",
-  exhale: "Breathe out slowly through your mouth.",
-  hold2: "Hold. Notice the calm between breaths.",
-};
 
 export const BoxBreathing = ({
   secondsPerSide = 4,
@@ -33,6 +19,8 @@ export const BoxBreathing = ({
   secondsPerSide?: number;
   rounds?: number | "infinite";
 }) => {
+  const t = useTranslations("panicEmergency.boxBreathing");
+
   const [open, setOpen] = useState(false);
 
   const [phaseIndex, setPhaseIndex] = useState(0);
@@ -40,6 +28,23 @@ export const BoxBreathing = ({
   const [countdown, setCountdown] = useState(secondsPerSide);
 
   const phase = PHASES[phaseIndex];
+
+  // Labels
+  const phaseLabel =
+    phase === "inhale"
+      ? t("phases.inhale")
+      : phase === "exhale"
+        ? t("phases.exhale")
+        : t("phases.hold");
+
+  const phaseHint =
+    phase === "inhale"
+      ? t("hints.inhale")
+      : phase === "hold1"
+        ? t("hints.hold1")
+        : phase === "exhale"
+          ? t("hints.exhale")
+          : t("hints.hold2");
 
   useEffect(() => {
     if (!open) return;
@@ -50,7 +55,7 @@ export const BoxBreathing = ({
 
   useEffect(() => {
     if (!open) return;
-    let raf: number; // requestAnimationFrame
+    let raf: number;
     let start: number | null = null;
     const durationMs = secondsPerSide * 1000;
 
@@ -66,11 +71,10 @@ export const BoxBreathing = ({
 
         setPhaseIndex(nextPhaseIndex);
 
-        if (completedCycle) {
-          setRoundIndex((r) => r + 1);
-        }
+        if (completedCycle) setRoundIndex((r) => r + 1);
         start = null;
       }
+
       raf = requestAnimationFrame(step);
     };
 
@@ -96,6 +100,15 @@ export const BoxBreathing = ({
 
   const scaleTransition = { duration: secondsPerSide, ease: easeInOut };
 
+  const totalForText =
+    isFinite && typeof rounds === "number" ? String(rounds) : "none";
+  const currentForText = String(
+    Math.min(
+      roundIndex + 1,
+      rounds === "infinite" ? roundIndex + 1 : (rounds as number),
+    ),
+  );
+
   return (
     <div>
       <div
@@ -107,10 +120,8 @@ export const BoxBreathing = ({
             <Wind className="self-center" />
           </div>
           <div className="text-left">
-            <h4 className="font-medium">Box Breathing</h4>
-            <p className="text-sm font-extralight">
-              Regulate your breathing to calm your nervous system.
-            </p>
+            <h4 className="font-medium">{t("card.title")}</h4>
+            <p className="text-sm font-extralight">{t("card.subtitle")}</p>
           </div>
         </div>
       </div>
@@ -122,7 +133,7 @@ export const BoxBreathing = ({
             <div className="mx-auto mt-4 flex max-w-sm flex-col items-center gap-6">
               <motion.div
                 key={`${phase}-${roundIndex}`}
-                className={`my-12 min-h-64 min-w-64 rounded-[22px] bg-gradient-to-br from-sky-300 to-sky-500`}
+                className="my-12 min-h-64 min-w-64 rounded-[22px] bg-gradient-to-br from-sky-300 to-sky-500"
                 animate={scaleAnim}
                 transition={scaleTransition}
                 style={{
@@ -137,53 +148,46 @@ export const BoxBreathing = ({
                     key={phase}
                     className="text-2xl font-medium tracking-wide"
                   >
-                    {phaseLabel[phase]}
+                    {phaseLabel}
                   </motion.div>
                 </AnimatePresence>
 
                 <div className="text-muted-foreground mt-2 text-sm">
-                  {phaseHint[phase]}
+                  {phaseHint}
                 </div>
 
-                {/* countdown */}
                 <div className="mt-4 text-4xl tabular-nums">
                   {Math.max(0, countdown)}
                 </div>
 
-                {/* round progress */}
                 <div className="text-muted-foreground mt-2 text-xs">
-                  Round{" "}
-                  {Math.min(
-                    roundIndex + 1,
-                    rounds === "infinite" ? Infinity : (rounds as number),
-                  )}
-                  {isFinite && typeof rounds === "number" ? ` / ${rounds}` : ""}
+                  {t("progress.round", {
+                    current: currentForText,
+                    total: totalForText,
+                  })}
                 </div>
               </div>
 
-              {/* controls */}
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setOpen(false)}
                   className="rounded-xl bg-black px-4 py-2 text-sm text-white"
                 >
-                  Done
+                  {t("actions.done")}
                 </button>
 
                 <button
                   onClick={() => {
-                    // restart
                     setPhaseIndex(0);
                     setRoundIndex(0);
                     setCountdown(secondsPerSide);
                   }}
                   className="rounded-xl border px-4 py-2 text-sm"
                 >
-                  Restart
+                  {t("actions.restart")}
                 </button>
               </div>
 
-              {/* completion banner */}
               <AnimatePresence>
                 {done && (
                   <motion.div
@@ -194,7 +198,7 @@ export const BoxBreathing = ({
                     role="status"
                     aria-live="polite"
                   >
-                    Nice work. Notice how your body feels now.
+                    {t("completion")}
                   </motion.div>
                 )}
               </AnimatePresence>

@@ -22,11 +22,11 @@ export const PastChallenges = async () => {
   });
 
   if (pastChallenges.length > 0) {
-    return pastChallenges.map((pC) => {
-      const challenge = pC.challengeOption;
+    return pastChallenges.map((pastChallenge) => {
+      const challenge = pastChallenge.challengeOption;
       return (
         <Card
-          key={pC.id}
+          key={pastChallenge.id}
           className={cn(
             "group mt-4 border-2 border-dashed border-green-300 bg-gradient-to-br from-green-100 to-green-200 shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-colors focus-within:ring-2 hover:border-green-400",
           )}

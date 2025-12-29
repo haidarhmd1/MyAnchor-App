@@ -1,1 +1,152 @@
-{}
+{
+  "education": {
+    "understandingAnxiety": {
+      "title": "Understanding Anxiety",
+      "subtitle": "Learn about the nature of anxiety and its impact on your life",
+      "p1": "Anxiety is, at its core, your body’s built-in alarm system. It is designed to protect you from danger by preparing you to react quickly—whether that means fighting, running away, or freezing until the threat passes. In small amounts, this reaction is actually helpful. It’s what keeps you sharp before an important exam, makes you double-check your work before sending it, or gives you the energy to handle a stressful situation.",
+      "p2": "But when this alarm goes off too strongly or too often, especially when there is no real danger around, anxiety stops being useful. Instead of helping you, it begins to interfere with your life. What once was a natural response to keep you safe can start to feel overwhelming and constant, leaving you exhausted and unsure of yourself.",
+      "p3": "Anxiety doesn’t just live in your thoughts—it shows up in your body too. Maybe your mind races with “what if” scenarios that never seem to end, or you find it hard to concentrate because your thoughts jump from one worry to another. At the same time, your body might react with a pounding heartbeat, sweaty palms, tense muscles, or a sense of restlessness that doesn’t seem to fade. Even sleep, which should give you rest, can be disrupted, leaving you feeling tired but unable to switch off.",
+      "p4": "Over time, this constant state of alertness can shape your daily life. Simple routines start to feel like uphill battles, social situations might feel unsafe, and you may catch yourself avoiding places or events that once felt normal. Your physical health can also take a hit—stress has a way of wearing down the body. And slowly, your confidence begins to shrink, as if anxiety has convinced you that you’re not as capable of coping as you truly are.",
+      "p5": "The important thing to remember is that anxiety is not permanent and it is treatable. You are not broken, and you are not alone. By learning how anxiety works—how it affects your thoughts, your body, and your behaviors—you can begin to take back control. With the right tools, whether that’s therapy, breathing techniques, or small lifestyle changes, it is absolutely possible to quiet the alarm, calm your system, and live a life where anxiety no longer runs the show."
+    },
+
+    "panicDisorderExplained": {
+      "title": "Panic Disorder Explained",
+      "subtitle": "Explore the causes and symptoms of panic disorder.",
+      "p1": "Panic disorder often feels as if it comes out of nowhere—you might be sitting in a café, walking in the park, or even relaxing at home when suddenly your body and mind go into full alarm. Your heart races, your chest tightens, your vision may blur, and your mind screams, “Something is terribly wrong. I can’t breathe. I might collapse.” The fear feels so real that many people believe they’re having a medical emergency the first time it happens.",
+      "p2": "What’s actually happening is that your body’s fight-or-flight system has been activated in the absence of real danger. This system is designed to protect you in life-threatening situations—like running from a predator or reacting to an accident—but in panic disorder, it fires at the wrong time. A small physical sensation, like a skipped heartbeat or a dizzy moment, gets misinterpreted as a threat, and your body responds with a full-blown alarm.",
+      "p3": "Once you’ve experienced a panic attack, your brain remembers it. You may start to live in anticipation of the next one, scanning your body constantly for signs of trouble. This “fear of fear” becomes its own trigger: the worry about having another attack can actually set one off. That’s why panic disorder feels so relentless—not only do the attacks themselves feel overwhelming, but the waiting, the hyper-awareness, and the dread in between can be just as exhausting.",
+      "p4": "Over time, many people start to avoid situations where attacks have happened before—crowded places, public transport, meetings, or even leaving the house. Avoidance brings short-term relief, but it also strengthens the belief that those situations are dangerous, which makes the cycle even harder to break.",
+      "p5": "It’s important to know that panic disorder is not a sign of weakness, and it does not mean something is “broken” in you. It is a learned pattern between your body and your mind—a system that has become oversensitive to normal sensations. And because it’s learned, it can also be unlearned. Therapy, gradual exposure, and calming techniques can retrain your brain to see these sensations for what they are: uncomfortable, but not dangerous."
+    },
+
+    "findYourWayOut": {
+      "title": "Find your way out",
+      "subtitle": "Explore and learn what you can do.",
+      "p1": "The first step is understanding what panic really is. A panic attack is not a heart attack, not a sign you’re going crazy, and not something that will make you lose control forever. It is your body’s alarm system firing at the wrong time. Once you start to see the sensations—racing heart, tight chest, dizziness—not as danger but as your body’s survival response, they begin to lose some of their power.",
+      "p2": "The next step is learning to stay with the discomfort instead of running from it. This may sound frightening at first, but it’s the key to breaking the cycle. Every time you avoid a place or situation, your brain learns, “Yes, that was dangerous, and escaping saved me.” But every time you stay, even just for a little while, your brain learns, “That wasn’t as dangerous as it felt. I can handle this.” Over time, this retrains your nervous system and reduces the frequency and intensity of attacks.",
+      "p3": "The short version from modern CBT research and clinical guidelines is: the most effective way through a panic surge is to stop fighting it, stay where you are (if it’s safe), and let the sensations rise and fall while you do as little as possible to “fix” them. This isn’t resignation; it’s exposure-with-acceptance, which teaches your brain there’s no danger here. Over repeated experiences, the fear-learning weakens and new “I’m safe” learning takes over. Leading guidelines for panic disorder place cognitive-behavioral therapy with exposure at the top for effectiveness, and newer “inhibitory learning” models explain why allowing feelings (rather than escaping or calming them away) rewires fear more deeply.",
+      "p4": "When a panic wave hits, think of it as your body’s alarm going off at the wrong time. If you can, pause where you are and notice the sensations with gentle curiosity: “Here’s the racing heart; here comes the heat in my face; my breath feels tight.” Don’t chase perfect breaths, don’t check your pulse, don’t scan for exits, and don’t open your phone to “make it stop.” These are safety behaviors, and although they bring short relief, they convince the brain the situation was dangerous and keep the cycle alive. Staying put and feeling the sensations (even if they spike) is the core of interoceptive exposure—the deliberate practice of letting body feelings be there until your nervous system learns they’re uncomfortable, not catastrophic. Over time, this “do less, allow more” stance builds inhibitory learning: new, stronger memories that compete with the fear memory so the alarm quiets faster on its own.",
+      "p5": "You don’t have to look calm or breathe “perfectly” for this to work. In fact, exposure aims not for instant comfort but for new learning: “I can have dizziness and not faint; my heart can pound and I’m still safe; I can stay here until it passes.” Therapists often vary the context (different places, times, and body sensations) precisely to deepen this learning, because research shows that mixing it up prevents the brain from needing a special condition to feel safe. This is why many clinicians now coach patients to let anxiety rise, sometimes even provoking the sensations on purpose (spinning for dizziness, brisk stair climbs for heartbeat, holding the breath briefly for air hunger) and then doing nothing to neutralize them."
+    },
+
+    "theCurveOfPanic": {
+      "title": "The Curve of Panic",
+      "subtitle": "What maintains anxiety",
+      "p1": "Think of panic like a wave. It rises, peaks, and then naturally falls.",
+      "p2": "If you escape at the peak → your brain never learns it would have fallen on its own.",
+      "p3": "If you stay and do nothing → you experience the full wave and prove to your brain: “the wave always passes.”",
+      "p4": "The more waves you ride out, the less scary they become. This is how exposure therapy works—and it’s why most psychologists today agree that the best response is not to fight panic, but to let it happen."
+    },
+
+    "rewireEffect": {
+      "title": "The Rewire Effect",
+      "subtitle": "How to rewire your brain",
+      "p1": "Every time you let panic come and go without interference:",
+      "p2": "Your amygdala learns that these sensations are not dangerous.",
+      "p3": "Your prefrontal cortex (the rational part of the brain) gets stronger at stepping in and saying, “This is safe, I’ve been here before.”",
+      "p4": "Your overall nervous system becomes less sensitive to small triggers.",
+      "p5": "This is why, with practice, panic disorder gets weaker. You’re literally retraining your brain’s alarm system to stay calm.",
+      "p6": "So the method isn’t about being passive or helpless—it’s active learning. By “doing nothing,” you’re actually doing the most powerful thing you can: teaching your brain that panic is safe to feel and doesn’t require rescue."
+    },
+
+    "whyAllowingPanicHelps": {
+      "title": "Why Allowing Panic Works",
+      "subtitle": "(Brain-Level Explanation)",
+      "p1": "When you have a panic attack, your amygdala (the brain’s fear center) sounds the alarm. It releases adrenaline, speeds up your heart, and tightens your chest—all to prepare you to fight or run. The problem is: in panic disorder, this alarm goes off even though there’s no real danger.",
+      "p2": "Now, here’s the key: every time you avoid or use safety behaviors (like leaving a situation, checking your pulse, or trying to calm yourself too hard), your brain learns:\n👉 “I survived because I escaped or because I controlled it.”\nThat reinforces the belief that panic is dangerous. The amygdala stays sensitive, and the cycle continues.",
+      "p3": "But when you do nothing and simply feel the sensations, your brain gets a new lesson:\n👉 “I stayed. My heart raced, I felt dizzy, but nothing bad happened.”\nThis is called inhibitory learning. It doesn’t erase the old fear memory, but it builds a new, stronger memory on top of it: “these sensations are safe.” Over time, this new learning wins, and your alarm stops going off as often or as intensely."
+    },
+
+    "whyThisFeelsHardAtFirst": {
+      "title": "Why This Feels Hard at First",
+      "subtitle": "",
+      "p1": "Doing nothing can feel like the opposite of what your body is screaming at you to do. That’s normal—your alarm is convincing. But science shows that trying to calm down too much, controlling breathing, or escaping may actually slow recovery because it keeps the fear alive. Allowing discomfort teaches your brain faster that it’s not a threat."
+    },
+
+    "exercisesInteroceptiveContent": {
+      "title": "Trigger Exercises",
+      "subtitle": "Confront your triggers using interoceptive exposure exercises and become urself again",
+      "p1": "Interoceptive exposure is a way to gently practice feeling the body sensations that usually scare you during a panic attack—like a fast heartbeat, dizziness, or shortness of breath. Instead of avoiding them, you bring them on in a safe way and let yourself notice that nothing bad happens. The importance of this is that your brain starts to understand: “These feelings are uncomfortable, but they are not dangerous.” Little by little, the fear loses its power, and panic attacks become less overwhelming. It’s like training your body and mind to stop seeing panic as a threat."
+    },
+
+    "interoceptiveExposureGuide": {
+      "step1": {
+        "title": "Understand the Goal",
+        "description": "",
+        "p1": "You’re not trying to get rid of panic.",
+        "p2": "You’re training your brain to tolerate and accept the sensations without fear.",
+        "p3": "Think of it like going to the gym for your nervous system."
+      },
+      "step2": {
+        "title": "Choose a Sensation to Practice",
+        "description": "Pick one body feeling that usually triggers panic:",
+        "p1": "Racing heart → run in place for 60 seconds",
+        "p2": "Dizziness/lightheadedness → spin in a chair for 30 seconds",
+        "p3": "Shortness of breath → breathe quickly through a straw for 30 seconds",
+        "p4": "Chest tightness → tense chest muscles and hold for 30 seconds",
+        "p5": "Warm flush → wear a jacket indoors for a few minutes"
+      },
+      "step3": {
+        "title": "Set the Stage",
+        "description": "",
+        "p1": "Do this in a safe place where you won’t be interrupted.",
+        "p2": "Remind yourself: “This is practice, not danger.”"
+      },
+      "step4": {
+        "title": "Induce the Sensation",
+        "description": "",
+        "p1": "Perform the exercise (e.g., spin, run, breathe fast).",
+        "p2": "Notice the body reaction coming up."
+      },
+      "step5": {
+        "title": "Allow and Observe",
+        "description": "",
+        "p1": "Don’t fight it—just watch the sensations rise.",
+        "p2": "Tell yourself: “This is just adrenaline. I’m safe.”",
+        "p3": "Stay with it until the sensation peaks and naturally eases."
+      },
+      "step6": {
+        "title": "Repeat Consistently",
+        "description": "",
+        "p1": "Do 1–2 exercises daily, a few minutes each.",
+        "p2": "Over time, your brain stops treating these sensations as threats.",
+        "p3": "You’ll notice less fear, more control, and panic loses power."
+      },
+      "step7": {
+        "title": "Gradual Progression",
+        "description": "",
+        "p1": "Start with the easiest sensations and work up to the hardest.",
+        "p2": "Eventually combine exposures with real-life (in vivo) exposures like standing in line, sitting in traffic, or staying in crowded places."
+      }
+    },
+
+    "exerciseList": {
+      "lightDizziness": {
+        "title": "Light Dizziness",
+        "description": "This is to make you feel a bit off balance while your brain catches up.",
+        "content": "Light dizziness is to make you feel a little wobbly, like your balance is off. You can trigger it by spinning gently in a chair or standing up quickly after sitting. This simulates the brief lightheadedness that can appear in a panic attack, reminding you it’s just your balance system adjusting. It usually fades within 5 to 30 seconds."
+      },
+      "shortnessOfBreath": {
+        "title": "Shortness of Breath",
+        "description": "This is to make you feel your chest tighten while your body reacts.",
+        "content": "Shortness of breath is to make you feel like you can’t quite catch a full breath. You can trigger it by taking a few very fast, shallow breaths through your chest instead of your belly. This simulates the tight-chest breathing during panic, showing that even when it feels scary, you’re still getting enough oxygen. The sensation often lasts 30 to 90 seconds and eases as you slow your breathing."
+      },
+      "racingHeart": {
+        "title": "Racing Heart",
+        "description": "This is to make you feel your heart race as adrenaline kicks in.",
+        "content": "A racing heart is to make you feel like it’s pounding out of your chest. You can trigger it by jogging in place, doing a set of jumping jacks, or running up stairs for 20–30 seconds. This simulates the adrenaline surge in a panic attack, showing that a fast heart is normal and safe when your body is activated. The pounding usually lasts 30 to 120 seconds before slowing."
+      },
+      "heavyBreathing": {
+        "title": "Heavy Breathing",
+        "description": "This is to make you feel tingly or lightheaded from fast breaths.",
+        "content": "Heavy breathing is to make you feel breathless or tingly. You can trigger it by deliberately hyperventilating—breathing quickly and shallowly for about 20 seconds. This simulates the breathlessness and tingling sensations during panic, teaching you that it’s caused by low CO₂ and calms as soon as you breathe normally. It tends to last 20 to 60 seconds."
+      },
+      "warmFlush": {
+        "title": "Warm Flush",
+        "description": "This is to make you feel a quick warm flush as blood moves to your skin.",
+        "content": "A warm flush is to make you feel suddenly hot or red in the face. You can trigger it by holding your breath for 10–15 seconds or sipping a hot drink. This simulates the rush of heat and redness during panic, reminding you it’s just blood moving toward your skin. It fades naturally in 30 to 60 seconds."
+      }
+    }
+  }
+}

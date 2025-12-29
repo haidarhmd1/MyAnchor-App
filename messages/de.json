@@ -1,1 +1,143 @@
-{}
+{
+  "education": {
+    "understandingAnxiety": {
+      "title": "Angst verstehen",
+      "subtitle": "Lerne, was Angst ist und wie sie dein Leben beeinflusst",
+      "p1": "Angst ist im Kern das eingebaute Alarmsystem deines Körpers. Es soll dich vor Gefahr schützen, indem es dich darauf vorbereitet, schnell zu reagieren – entweder zu kämpfen, zu fliehen oder zu erstarren, bis die Bedrohung vorüber ist. In kleinen Mengen ist diese Reaktion sogar hilfreich. Sie hält dich wach vor einer wichtigen Prüfung, lässt dich deine Arbeit noch einmal überprüfen, bevor du sie abschickst, oder gibt dir Energie, um eine stressige Situation zu bewältigen.",
+      "p2": "Wenn dieser Alarm jedoch zu stark oder zu häufig ausgelöst wird – besonders dann, wenn gar keine echte Gefahr vorhanden ist – hört Angst auf, nützlich zu sein. Statt dir zu helfen, beginnt sie, dein Leben zu beeinträchtigen. Was einmal eine natürliche Schutzreaktion war, kann sich überwältigend und dauerhaft anfühlen und dich erschöpft und unsicher zurücklassen.",
+      "p3": "Angst lebt nicht nur in deinen Gedanken – sie zeigt sich auch im Körper. Vielleicht rast dein Kopf mit endlosen „Was-wäre-wenn“-Szenarien, oder es fällt dir schwer, dich zu konzentrieren, weil deine Gedanken von Sorge zu Sorge springen. Gleichzeitig reagiert dein Körper vielleicht mit Herzklopfen, schwitzigen Händen, angespannten Muskeln oder einer Unruhe, die nicht nachlassen will. Sogar Schlaf, der dir eigentlich Erholung geben sollte, kann gestört sein, sodass du müde bist, aber nicht abschalten kannst.",
+      "p4": "Mit der Zeit kann dieser dauerhafte Alarmzustand deinen Alltag prägen. Einfache Routinen fühlen sich plötzlich wie ein Kampf an, soziale Situationen wirken unsicher, und du bemerkst, dass du Orte oder Ereignisse meidest, die früher normal waren. Auch die körperliche Gesundheit kann leiden – Stress zermürbt den Körper. Und langsam schrumpft dein Selbstvertrauen, als hätte Angst dich überzeugt, dass du weniger gut zurechtkommst, als du es tatsächlich kannst.",
+      "p5": "Wichtig ist: Angst ist nicht dauerhaft – und sie ist behandelbar. Du bist nicht kaputt, und du bist nicht allein. Wenn du lernst, wie Angst funktioniert – wie sie deine Gedanken, deinen Körper und dein Verhalten beeinflusst – kannst du beginnen, die Kontrolle zurückzugewinnen. Mit den richtigen Werkzeugen, ob Therapie, Atemtechniken oder kleine Veränderungen im Lebensstil, ist es absolut möglich, den Alarm zu beruhigen, dein System zu stabilisieren und ein Leben zu führen, in dem Angst nicht mehr das Sagen hat."
+    },
+    "panicDisorderExplained": {
+      "title": "Panikstörung erklärt",
+      "subtitle": "Erkunde Ursachen und Symptome der Panikstörung.",
+      "p1": "Eine Panikstörung fühlt sich oft an, als käme sie aus dem Nichts – du sitzt vielleicht in einem Café, gehst im Park spazieren oder entspannst zu Hause, und plötzlich gehen Körper und Geist in den Vollalarm. Dein Herz rast, die Brust wird eng, die Sicht kann verschwimmen, und dein Kopf schreit: „Irgendetwas stimmt ganz und gar nicht. Ich kann nicht atmen. Ich könnte zusammenbrechen.“ Die Angst ist so real, dass viele Menschen beim ersten Mal glauben, sie hätten einen medizinischen Notfall.",
+      "p2": "Tatsächlich ist dabei dein Kampf-oder-Flucht-System aktiv, obwohl keine echte Gefahr besteht. Dieses System soll dich in lebensbedrohlichen Situationen schützen – etwa wenn du vor einem Raubtier wegrennst oder auf einen Unfall reagierst. Bei einer Panikstörung wird es jedoch zur falschen Zeit ausgelöst. Ein kleines Körpergefühl – wie ein ausgelassener Herzschlag oder ein Moment von Schwindel – wird als Bedrohung missinterpretiert, und der Körper reagiert mit einem vollständigen Alarm.",
+      "p3": "Wenn du einmal eine Panikattacke erlebt hast, merkt sich dein Gehirn das. Du beginnst möglicherweise, in Erwartung der nächsten Attacke zu leben und deinen Körper ständig nach Anzeichen von Gefahr abzusuchen. Diese „Angst vor der Angst“ wird selbst zum Auslöser: Die Sorge, eine weitere Attacke zu bekommen, kann tatsächlich eine auslösen. Deshalb wirkt eine Panikstörung so unerbittlich – nicht nur die Attacken selbst sind überwältigend, auch das Warten, die Überwachung des Körpers und die Anspannung dazwischen können genauso erschöpfend sein.",
+      "p4": "Mit der Zeit vermeiden viele Menschen Situationen, in denen schon einmal Attacken passiert sind – volle Orte, öffentliche Verkehrsmittel, Meetings oder sogar das Verlassen des Hauses. Vermeidung bringt kurzfristige Erleichterung, aber sie stärkt auch den Glauben, dass diese Situationen gefährlich sind – und macht den Kreislauf noch schwerer zu durchbrechen.",
+      "p5": "Wichtig ist zu wissen: Eine Panikstörung ist kein Zeichen von Schwäche, und sie bedeutet nicht, dass etwas „kaputt“ an dir ist. Es ist ein erlerntes Muster zwischen Körper und Geist – ein System, das überempfindlich auf normale Empfindungen reagiert. Und weil es erlernt ist, kann es auch wieder verlernt werden. Therapie, schrittweise Exposition und Beruhigungsstrategien können dein Gehirn darin trainieren, diese Empfindungen als das zu sehen, was sie sind: unangenehm, aber nicht gefährlich."
+    },
+    "findYourWayOut": {
+      "title": "Finde deinen Weg hinaus",
+      "subtitle": "Entdecke und lerne, was du tun kannst.",
+      "p1": "Der erste Schritt ist zu verstehen, was Panik wirklich ist. Eine Panikattacke ist kein Herzinfarkt, kein Zeichen, dass du „verrückt wirst“, und nichts, das dich für immer die Kontrolle verlieren lässt. Es ist dein körpereigenes Alarmsystem, das zur falschen Zeit anspringt. Wenn du beginnst, die Empfindungen – Herzrasen, Enge in der Brust, Schwindel – nicht als Gefahr zu sehen, sondern als Überlebensreaktion deines Körpers, verlieren sie einen Teil ihrer Macht.",
+      "p2": "Der nächste Schritt ist, bei dem Unbehagen zu bleiben, statt davor wegzulaufen. Das klingt am Anfang oft beängstigend, ist aber der Schlüssel, um den Kreislauf zu durchbrechen. Jedes Mal, wenn du einen Ort oder eine Situation meidest, lernt dein Gehirn: „Ja, das war gefährlich, und Weggehen hat mich gerettet.“ Jedes Mal jedoch, wenn du bleibst – auch nur kurz –, lernt dein Gehirn: „So gefährlich war es nicht. Ich kann das aushalten.“ Mit der Zeit trainiert das dein Nervensystem um und reduziert Häufigkeit und Intensität der Attacken.",
+      "p3": "Die Kurzfassung aus moderner CBT-Forschung und klinischen Leitlinien lautet: Der wirksamste Weg durch eine Panikwelle ist, nicht dagegen anzukämpfen, dort zu bleiben (wenn es sicher ist) und die Empfindungen steigen und fallen zu lassen, während du so wenig wie möglich versuchst, sie „zu reparieren“. Das ist keine Resignation, sondern Exposition mit Akzeptanz – sie lehrt dein Gehirn, dass hier keine Gefahr ist. Durch wiederholte Erfahrungen schwächt sich das Angstlernen ab und neues „Ich bin sicher“-Lernen setzt sich durch. Leitlinien stufen kognitive Verhaltenstherapie mit Exposition als besonders wirksam ein, und neuere Modelle des „inhibitorischen Lernens“ erklären, warum das Zulassen von Gefühlen (statt zu fliehen oder sie wegzuberuhigen) Angst tiefer und nachhaltiger umlernen kann.",
+      "p4": "Wenn eine Panikwelle kommt, betrachte sie als Alarm, der zur falschen Zeit losgeht. Wenn du kannst, halte kurz an und nimm die Empfindungen mit sanfter Neugier wahr: „Da ist das Herzrasen; da kommt die Hitze im Gesicht; der Atem fühlt sich eng an.“ Jage nicht nach perfekten Atemzügen, prüfe nicht deinen Puls, scanne nicht nach Ausgängen und nimm nicht das Handy, um es „wegzumachen“. Das sind Sicherheitsverhaltensweisen: Sie bringen kurzfristig Erleichterung, überzeugen das Gehirn aber, dass es gefährlich war – und halten den Kreislauf am Leben. Zu bleiben und die Empfindungen zu fühlen (auch wenn sie ansteigen) ist der Kern der interozeptiven Exposition: das bewusste Üben, Körperempfindungen da sein zu lassen, bis dein Nervensystem lernt, dass sie unangenehm, aber nicht katastrophal sind. Mit der Zeit entsteht durch diese Haltung („weniger tun, mehr zulassen“) inhibitorisches Lernen: neue, stärkere Erinnerungen, die mit der Angst-Erinnerung konkurrieren, sodass der Alarm schneller von selbst leiser wird.",
+      "p5": "Du musst dabei weder ruhig aussehen noch „perfekt“ atmen, damit es funktioniert. Exposition zielt nicht auf sofortiges Wohlgefühl, sondern auf neues Lernen: „Ich kann Schwindel haben und nicht ohnmächtig werden; mein Herz kann hämmern und ich bin trotzdem sicher; ich kann hier bleiben, bis es vorbeigeht.“ Therapeut:innen variieren den Kontext (verschiedene Orte, Zeiten und Körperempfindungen) oft bewusst, um dieses Lernen zu vertiefen, denn Forschung zeigt: Abwechslung verhindert, dass das Gehirn nur unter speziellen Bedingungen „sicher“ sein muss. Deshalb coachen viele Kliniker:innen, Angst ansteigen zu lassen – manchmal sogar, die Empfindungen gezielt hervorzurufen (drehen für Schwindel, Treppensteigen für Herzklopfen, kurz den Atem anhalten für Luftnot) – und dann nichts zu tun, um sie zu neutralisieren."
+    },
+    "theCurveOfPanic": {
+      "title": "Die Panikkurve",
+      "subtitle": "Was Angst aufrechterhält",
+      "p1": "Stell dir Panik wie eine Welle vor. Sie steigt an, erreicht ihren Höhepunkt und fällt dann von selbst wieder ab.",
+      "p2": "Wenn du am Höhepunkt flüchtest → lernt dein Gehirn nie, dass die Welle auch ohne Flucht abgeflaut wäre.",
+      "p3": "Wenn du bleibst und nichts tust → erlebst du die ganze Welle und beweist deinem Gehirn: „Die Welle geht immer vorbei.“",
+      "p4": "Je öfter du Wellen aushältst, desto weniger beängstigend werden sie. So funktioniert Expositionstherapie – und deshalb sind sich die meisten Psycholog:innen heute einig, dass die beste Reaktion nicht ist, Panik zu bekämpfen, sondern sie geschehen zu lassen."
+    },
+    "rewireEffect": {
+      "title": "Der Rewire-Effekt",
+      "subtitle": "Wie du dein Gehirn umtrainierst",
+      "p1": "Jedes Mal, wenn du Panik kommen und gehen lässt, ohne einzugreifen:",
+      "p2": "Lernt deine Amygdala, dass diese Empfindungen nicht gefährlich sind.",
+      "p3": "Wird dein präfrontaler Kortex (der rationale Teil des Gehirns) stärker darin, einzugreifen und zu sagen: „Das ist sicher, ich kenne das.“",
+      "p4": "Wird dein gesamtes Nervensystem weniger empfindlich gegenüber kleinen Auslösern.",
+      "p5": "Deshalb wird eine Panikstörung mit Übung schwächer. Du trainierst dein Alarmsystem buchstäblich um, damit es ruhiger bleibt.",
+      "p6": "Die Methode bedeutet also nicht, passiv oder hilflos zu sein – sie ist aktives Lernen. Indem du „nichts tust“, tust du das Wirksamste überhaupt: Du bringst deinem Gehirn bei, dass Panik sicher zu fühlen ist und keine Rettung braucht."
+    },
+    "whyAllowingPanicHelps": {
+      "title": "Warum Panik zulassen wirkt",
+      "subtitle": "(Erklärung auf Gehirn-Ebene)",
+      "p1": "Wenn du eine Panikattacke hast, schlägt deine Amygdala (das Angstzentrum im Gehirn) Alarm. Sie setzt Adrenalin frei, beschleunigt deinen Herzschlag und verengt deine Brust – alles, um dich auf Kampf oder Flucht vorzubereiten. Das Problem: Bei einer Panikstörung geht dieser Alarm los, obwohl keine echte Gefahr besteht.",
+      "p2": "Und hier liegt der Schlüssel: Jedes Mal, wenn du vermeidest oder Sicherheitsverhalten nutzt (zum Beispiel die Situation verlassen, den Puls prüfen oder dich zu stark zu beruhigen), lernt dein Gehirn:\n👉 „Ich habe überlebt, weil ich geflohen bin oder weil ich es kontrolliert habe.“\nDas verstärkt den Glauben, dass Panik gefährlich ist. Die Amygdala bleibt empfindlich, und der Kreislauf geht weiter.",
+      "p3": "Wenn du jedoch nichts tust und die Empfindungen einfach fühlst, bekommt dein Gehirn eine neue Lektion:\n👉 „Ich bin geblieben. Mein Herz raste, mir war schwindelig, aber nichts Schlimmes ist passiert.“\nDas nennt man inhibitorisches Lernen. Es löscht die alte Angst-Erinnerung nicht, aber es baut eine neue, stärkere Erinnerung darüber: „Diese Empfindungen sind sicher.“ Mit der Zeit gewinnt dieses neue Lernen, und dein Alarm geht seltener oder weniger intensiv los."
+    },
+    "whyThisFeelsHardAtFirst": {
+      "title": "Warum sich das anfangs schwer anfühlt",
+      "subtitle": "",
+      "p1": "Nichts zu tun kann sich wie das Gegenteil dessen anfühlen, was dein Körper dir gerade anschreit. Das ist normal – dein Alarm ist überzeugend. Aber die Wissenschaft zeigt: Zu starkes Beruhigen, Atemkontrolle oder Flucht können die Erholung sogar verlangsamen, weil sie die Angst am Leben halten. Unbehagen zuzulassen bringt deinem Gehirn schneller bei, dass es keine Bedrohung ist."
+    },
+    "exercisesInteroceptiveContent": {
+      "title": "Trigger-Übungen",
+      "subtitle": "Konfrontiere deine Trigger mit interozeptiven Expositionsübungen und werde wieder du selbst",
+      "p1": "Interozeptive Exposition ist eine Methode, bei der du sanft übst, die Körperempfindungen zu spüren, die dich bei einer Panikattacke normalerweise erschrecken – wie schnellen Herzschlag, Schwindel oder Kurzatmigkeit. Statt sie zu vermeiden, löst du sie auf sichere Weise aus und bemerkst, dass nichts Schlimmes passiert. Das Wichtigste daran ist: Dein Gehirn beginnt zu verstehen: „Diese Gefühle sind unangenehm, aber nicht gefährlich.“ Nach und nach verliert die Angst ihre Macht, und Panikattacken werden weniger überwältigend. Es ist wie Training fürs Nervensystem."
+    },
+    "interoceptiveExposureGuide": {
+      "step1": {
+        "title": "Verstehe das Ziel",
+        "description": "",
+        "p1": "Du versuchst nicht, Panik loszuwerden.",
+        "p2": "Du trainierst dein Gehirn, die Empfindungen ohne Angst auszuhalten und zu akzeptieren.",
+        "p3": "Denk daran wie an ein Fitnessstudio für dein Nervensystem."
+      },
+      "step2": {
+        "title": "Wähle eine Empfindung zum Üben",
+        "description": "Wähle ein Körpergefühl, das normalerweise Panik auslöst:",
+        "p1": "Herzrasen → 60 Sekunden auf der Stelle laufen",
+        "p2": "Schwindel/Benommenheit → 30 Sekunden auf einem Stuhl drehen",
+        "p3": "Kurzatmigkeit → 30 Sekunden schnell durch einen Strohhalm atmen",
+        "p4": "Enge in der Brust → Brustmuskeln anspannen und 30 Sekunden halten",
+        "p5": "Wärme-/Hitzewelle → drinnen ein paar Minuten eine Jacke tragen"
+      },
+      "step3": {
+        "title": "Bereite den Rahmen vor",
+        "description": "",
+        "p1": "Mach das an einem sicheren Ort, an dem du nicht unterbrochen wirst.",
+        "p2": "Erinnere dich: „Das ist Übung, keine Gefahr.“"
+      },
+      "step4": {
+        "title": "Löse die Empfindung aus",
+        "description": "",
+        "p1": "Führe die Übung aus (z. B. drehen, laufen, schnell atmen).",
+        "p2": "Beobachte, wie der Körper reagiert."
+      },
+      "step5": {
+        "title": "Zulassen und beobachten",
+        "description": "",
+        "p1": "Kämpfe nicht dagegen – beobachte nur, wie die Empfindungen ansteigen.",
+        "p2": "Sag dir: „Das ist nur Adrenalin. Ich bin sicher.“",
+        "p3": "Bleib dabei, bis der Höhepunkt erreicht ist und es von selbst nachlässt."
+      },
+      "step6": {
+        "title": "Regelmäßig wiederholen",
+        "description": "",
+        "p1": "Mach 1–2 Übungen täglich, jeweils nur ein paar Minuten.",
+        "p2": "Mit der Zeit behandelt dein Gehirn diese Empfindungen nicht mehr als Bedrohung.",
+        "p3": "Du wirst weniger Angst, mehr Kontrolle spüren – und Panik verliert an Kraft."
+      },
+      "step7": {
+        "title": "Schrittweise steigern",
+        "description": "",
+        "p1": "Beginne mit den leichtesten Empfindungen und arbeite dich zu den schwierigsten vor.",
+        "p2": "Kombiniere später Körper-Expositionen mit realen Situationen (in vivo), z. B. in der Schlange stehen, im Stau sitzen oder in belebten Orten bleiben."
+      }
+    },
+    "exerciseList": {
+      "lightDizziness": {
+        "title": "Leichter Schwindel",
+        "description": "Damit du dich kurz etwas wackelig fühlst, während dein Gehirn nachzieht.",
+        "content": "Leichter Schwindel bedeutet, dass du dich kurz etwas unsicher fühlst, als wäre dein Gleichgewicht nicht ganz stabil. Du kannst ihn auslösen, indem du dich sanft auf einem Stuhl drehst oder schnell aufstehst, nachdem du gesessen hast. Das simuliert die kurze Benommenheit, die bei Panik auftauchen kann, und zeigt: Es ist nur dein Gleichgewichtssystem, das sich anpasst. Meist klingt es innerhalb von 5 bis 30 Sekunden ab."
+      },
+      "shortnessOfBreath": {
+        "title": "Kurzatmigkeit",
+        "description": "Damit du spürst, wie sich die Brust eng anfühlen kann, während der Körper реагiert.",
+        "content": "Kurzatmigkeit bedeutet, dass du das Gefühl hast, nicht ganz tief einatmen zu können. Du kannst sie auslösen, indem du ein paar sehr schnelle, flache Atemzüge eher in der Brust als im Bauch machst. Das simuliert die enge Atmung während Panik und zeigt, dass du auch dann genug Sauerstoff bekommst, wenn es sich beängstigend anfühlt. Oft hält es 30 bis 90 Sekunden an und lässt nach, sobald du langsamer atmest."
+      },
+      "racingHeart": {
+        "title": "Herzrasen",
+        "description": "Damit du spürst, wie dein Herz schneller schlägt, wenn Adrenalin kommt.",
+        "content": "Herzrasen bedeutet, dass dein Herz stark und schnell schlägt. Du kannst es auslösen, indem du auf der Stelle joggst, ein paar Hampelmänner machst oder 20–30 Sekunden Treppen hochläufst. Das simuliert den Adrenalinschub in einer Panikattacke und zeigt: Ein schneller Puls ist normal und sicher, wenn dein Körper aktiviert ist. Das starke Klopfen dauert meist 30 bis 120 Sekunden, bevor es wieder langsamer wird."
+      },
+      "heavyBreathing": {
+        "title": "Starkes Atmen",
+        "description": "Damit du Kribbeln oder Benommenheit durch schnelle Atmung spürst.",
+        "content": "Starkes Atmen bedeutet, dass du dich kurz außer Atem oder kribbelig fühlst. Du kannst es auslösen, indem du absichtlich hyperventilierst – etwa 20 Sekunden schnell und flach atmest. Das simuliert Atemlosigkeit und Kribbeln bei Panik und lehrt dich: Es kommt durch niedriges CO₂ und beruhigt sich, sobald du wieder normal atmest. Meist dauert es 20 bis 60 Sekunden."
+      },
+      "warmFlush": {
+        "title": "Wärme-/Hitzewelle",
+        "description": "Damit du eine kurze Hitzewelle spürst, wenn mehr Blut zur Haut geht.",
+        "content": "Eine Wärme-/Hitzewelle bedeutet, dass du plötzlich warm wirst oder im Gesicht errötest. Du kannst sie auslösen, indem du 10–15 Sekunden den Atem anhältst oder ein heißes Getränk schluckweise trinkst. Das simuliert die Hitze und Röte bei Panik und erinnert dich: Es ist nur Blut, das stärker zur Haut fließt. Meist klingt es in 30 bis 60 Sekunden von selbst ab."
+      }
+    }
+  }
+}

@@ -22,7 +22,7 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
 
-  const isRtl = locale === "ar";
+  // const isRtl = locale === "ar";
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();

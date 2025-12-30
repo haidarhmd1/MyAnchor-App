@@ -19,7 +19,47 @@
     "submit": "Absenden",
     "yes": "Ja",
     "no": "Nein",
-    "submitting": "Wird gesendet…"
+    "submitting": "Wird gesendet…",
+    "notEmpty": "Feld darf nicht leer sein",
+
+    "actions": {
+      "cancel": "Abbrechen",
+      "saving": "Wird gespeichert…",
+      "saveChanges": "Änderungen speichern"
+    },
+    "dob": {
+      "label": "Geburtsdatum",
+      "notSet": "Noch nicht festgelegt",
+      "dialogTitle": "Wähle dein Geburtsdatum",
+      "pickDate": "Datum auswählen",
+      "toast": {
+        "success": "Dein Geburtsdatum wurde erfolgreich aktualisiert.",
+        "error": "Dein Profil konnte nicht aktualisiert werden. Etwas ist schiefgelaufen."
+      }
+    },
+    "gender": {
+      "label": "Geschlecht",
+      "dialogTitle": "Wähle dein Geschlecht",
+      "placeholder": "Geschlecht auswählen",
+      "options": {
+        "male": "Männlich",
+        "female": "Weiblich",
+        "other": "Divers"
+      },
+      "notSet": "Noch nicht festgelegt",
+      "toast": {
+        "success": "Dein Profil wurde erfolgreich aktualisiert.",
+        "error": "Dein Profil konnte nicht aktualisiert werden. Etwas ist schiefgelaufen."
+      }
+    },
+    "name": {
+      "label": "Name",
+      "dialogTitle": "Gib deinen Namen ein",
+      "toast": {
+        "success": "Dein Profil wurde erfolgreich aktualisiert.",
+        "error": "Dein Profil konnte nicht aktualisiert werden. Etwas ist schiefgelaufen."
+      }
+    }
   },
   "tracker": {
     "duration": "Dauer",
@@ -578,54 +618,6 @@
     "system": "System",
     "light": "Hell",
     "english": "Englisch"
-  },
-  "dob": {
-    "label": "Geburtsdatum",
-    "notSet": "Noch nicht festgelegt",
-    "dialogTitle": "Wähle dein Geburtsdatum",
-    "pickDate": "Datum auswählen",
-    "toast": {
-      "success": "Dein Geburtsdatum wurde erfolgreich aktualisiert.",
-      "error": "Dein Profil konnte nicht aktualisiert werden. Etwas ist schiefgelaufen."
-    },
-    "actions": {
-      "cancel": "Abbrechen",
-      "saving": "Wird gespeichert…",
-      "saveChanges": "Änderungen speichern"
-    }
-  },
-  "gender": {
-    "label": "Geschlecht",
-    "dialogTitle": "Wähle dein Geschlecht",
-    "placeholder": "Geschlecht auswählen",
-    "options": {
-      "male": "Männlich",
-      "female": "Weiblich",
-      "other": "Divers"
-    },
-    "notSet": "Noch nicht festgelegt",
-    "toast": {
-      "success": "Dein Profil wurde erfolgreich aktualisiert.",
-      "error": "Dein Profil konnte nicht aktualisiert werden. Etwas ist schiefgelaufen."
-    },
-    "actions": {
-      "cancel": "Abbrechen",
-      "saving": "Wird gespeichert…",
-      "saveChanges": "Änderungen speichern"
-    }
-  },
-  "name": {
-    "label": "Name",
-    "dialogTitle": "Gib deinen Namen ein",
-    "toast": {
-      "success": "Dein Profil wurde erfolgreich aktualisiert.",
-      "error": "Dein Profil konnte nicht aktualisiert werden. Etwas ist schiefgelaufen."
-    },
-    "actions": {
-      "cancel": "Abbrechen",
-      "saving": "Wird gespeichert…",
-      "saveChanges": "Änderungen speichern"
-    }
   },
   "notifications": {
     "title": "Benachrichtigungen",

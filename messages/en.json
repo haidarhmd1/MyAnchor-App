@@ -19,7 +19,47 @@
     "submit": "Submit",
     "yes": "Yes",
     "no": "No",
-    "submitting": "Submitting…"
+    "submitting": "Submitting…",
+    "notEmpty": "Field cannot be empty",
+
+    "actions": {
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveChanges": "Save changes"
+    },
+    "dob": {
+      "label": "Date of birth",
+      "notSet": "Not set yet",
+      "dialogTitle": "Choose a date of birth",
+      "pickDate": "Pick a date",
+      "toast": {
+        "success": "Your date of birth was updated successfully.",
+        "error": "We couldn’t update your profile. Something went wrong."
+      }
+    },
+    "gender": {
+      "label": "Gender",
+      "dialogTitle": "Select your gender",
+      "placeholder": "Select a gender",
+      "options": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "notSet": "Not set yet",
+      "toast": {
+        "success": "Your profile was updated successfully.",
+        "error": "We couldn’t update your profile. Something went wrong."
+      }
+    },
+    "name": {
+      "label": "Name",
+      "dialogTitle": "Enter your name",
+      "toast": {
+        "success": "Your profile was updated successfully.",
+        "error": "We couldn’t update your profile. Something went wrong."
+      }
+    }
   },
   "tracker": {
     "duration": "Duration",
@@ -585,54 +625,6 @@
     "system": "System",
     "light": "Light",
     "english": "English"
-  },
-  "dob": {
-    "label": "Date of birth",
-    "notSet": "Not set yet",
-    "dialogTitle": "Choose a date of birth",
-    "pickDate": "Pick a date",
-    "toast": {
-      "success": "Your date of birth was updated successfully.",
-      "error": "We couldn’t update your profile. Something went wrong."
-    },
-    "actions": {
-      "cancel": "Cancel",
-      "saving": "Saving…",
-      "saveChanges": "Save changes"
-    }
-  },
-  "gender": {
-    "label": "Gender",
-    "dialogTitle": "Select your gender",
-    "placeholder": "Select a gender",
-    "options": {
-      "male": "Male",
-      "female": "Female",
-      "other": "Other"
-    },
-    "notSet": "Not set yet",
-    "toast": {
-      "success": "Your profile was updated successfully.",
-      "error": "We couldn’t update your profile. Something went wrong."
-    },
-    "actions": {
-      "cancel": "Cancel",
-      "saving": "Saving…",
-      "saveChanges": "Save changes"
-    }
-  },
-  "name": {
-    "label": "Name",
-    "dialogTitle": "Enter your name",
-    "toast": {
-      "success": "Your profile was updated successfully.",
-      "error": "We couldn’t update your profile. Something went wrong."
-    },
-    "actions": {
-      "cancel": "Cancel",
-      "saving": "Saving…",
-      "saveChanges": "Save changes"
-    }
   },
   "notifications": {
     "title": "Notifications",

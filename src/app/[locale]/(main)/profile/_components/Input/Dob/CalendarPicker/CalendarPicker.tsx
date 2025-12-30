@@ -21,7 +21,7 @@ export function CalendarPicker({
   date: Date | undefined;
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
 }) {
-  const t = useTranslations("dob");
+  const t = useTranslations("form.dob");
   const [open, setOpen] = React.useState(false);
 
   return (

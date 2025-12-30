@@ -31,7 +31,7 @@ export default async function Page() {
       <div className="flex flex-col p-4">
         <h4>{t("title")}</h4>
 
-        <Name name={user.name || t("notSet")} />
+        <Name label={user.name || t("notSet")} name={user.name ?? ""} />
 
         <SettingsRowInput
           label={t("email")}
@@ -40,7 +40,10 @@ export default async function Page() {
 
         <Dob dob={user.dob} />
 
-        <GenderPicker gender={user.gender || t("notSet")} />
+        <GenderPicker
+          label={user.gender || t("notSet")}
+          gender={user.gender ?? ""}
+        />
       </div>
     </div>
   );

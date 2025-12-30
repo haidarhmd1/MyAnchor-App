@@ -88,7 +88,7 @@ export async function updateUserProfile({
     name?: string;
   };
 }): Promise<User> {
-  const res = await fetch("api/profile", {
+  const res = await fetch("/api/profile", {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -103,7 +103,7 @@ export async function updateUserProfile({
 }
 
 export async function getJournals(): Promise<Journal> {
-  const res = await fetch("api/journal", {
+  const res = await fetch("/api/journal", {
     next: { tags: ["journals"] },
     method: "GET",
     headers: { "Content-Type": "application/json" },
@@ -120,7 +120,7 @@ export async function getJournals(): Promise<Journal> {
 export async function getAnxietyAnalytics(
   startDate: string,
 ): Promise<AnalyticsRow[]> {
-  const res = await fetch(`api/analytics?startDate=${startDate}`, {
+  const res = await fetch(`/api/analytics?startDate=${startDate}`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });

@@ -45,8 +45,8 @@ export const ChallengeOutcomeSchema = z.object({
 });
 
 export const UserSchema = z.object({
-  name: z.string().nullable(),
-  gender: z.enum(Gender).nullable(),
-  dob: z.date().nullable(),
-  image: z.string().nullable(),
+  name: z.string().trim().min(1).optional(),
+  gender: z.enum(Gender).optional(),
+  dob: z.coerce.date().optional(),
+  image: z.string().min(1).optional(),
 });

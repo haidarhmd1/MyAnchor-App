@@ -13,7 +13,7 @@ import {
 import { SettingsRowInput } from "../../General/SettingsRowInput";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import {
   Select,
   SelectContent,
@@ -32,103 +32,149 @@ import { useTranslations } from "next-intl";
 const genderKey = (gender: Gender | string) => {
   switch (gender) {
     case Gender.FEMALE:
-      return "options.female";
+      return "gender.options.female";
     case Gender.MALE:
-      return "options.male";
+      return "gender.options.male";
     case Gender.OTHER:
-      return "options.other";
+      return "gender.options.other";
     default:
-      return "notSet";
+      return "gender.notSet";
   }
 };
 
-export const GenderPicker = ({ gender }: { gender: string }) => {
-  const t = useTranslations("gender");
+type FormValues = { gender: Gender | string };
+
+export const GenderPicker = ({
+  label,
+  gender,
+}: {
+  label?: string;
+  gender: string;
+}) => {
+  const t = useTranslations("form");
   const router = useRouter();
 
   const [open, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm({
-    defaultValues: { gender },
+  // Remount form when dialog opens OR when server value changes -> defaultValues re-applied
+  const formKey = useMemo(() => {
+    return `${open ? "open" : "closed"}-${gender ?? ""}`;
+  }, [open, gender]);
+
+  return (
+    <Dialog open={open} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <button type="button" className="w-full text-left">
+          <SettingsRowInput
+            label={t("gender.label")}
+            value={t(genderKey(gender))}
+          />
+        </button>
+      </DialogTrigger>
+
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t("gender.dialogTitle")}</DialogTitle>
+        </DialogHeader>
+
+        <GenderFormInner
+          key={formKey}
+          initialGender={gender}
+          t={t}
+          isPending={isPending}
+          onSaved={() => {
+            setIsOpen(false);
+            startTransition(() => router.refresh());
+          }}
+        />
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+function GenderFormInner({
+  initialGender,
+  t,
+  isPending,
+  onSaved,
+}: {
+  initialGender: string;
+  t: ReturnType<typeof useTranslations>;
+  isPending: boolean;
+  onSaved: () => void;
+}) {
+  const form = useForm<FormValues>({
+    defaultValues: { gender: initialGender },
   });
 
-  const handleSave = async (data: { gender: Gender | string }) => {
+  const handleSave = async (data: FormValues) => {
     try {
+      // Optional guard: if you allow "not set", adjust this logic as needed
+      if (!data.gender) return;
+
       await updateUserProfile({
         data: {
           gender: data.gender as Gender,
         },
       });
 
-      toast.success(t("toast.success"));
-      setIsOpen(false);
-
-      startTransition(() => {
-        router.refresh();
-      });
+      toast.success(t("gender.toast.success"));
+      onSaved();
     } catch (error) {
-      toast.error(t("toast.error"));
+      toast.error(t("gender.toast.error"));
       console.error(error);
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={(o) => setIsOpen(o)}>
-      <DialogTrigger>
-        <SettingsRowInput label={t("label")} value={t(genderKey(gender))} />
-      </DialogTrigger>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSave)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="gender"
+          render={({ field }) => (
+            <FormItem>
+              <Select value={field.value} onValueChange={field.onChange}>
+                <FormControl>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder={t("gender.placeholder")} />
+                  </SelectTrigger>
+                </FormControl>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{t("dialogTitle")}</DialogTitle>
-        </DialogHeader>
+                <SelectContent>
+                  <SelectItem value={Gender.MALE}>
+                    {t("gender.options.male")}
+                  </SelectItem>
+                  <SelectItem value={Gender.FEMALE}>
+                    {t("gender.options.female")}
+                  </SelectItem>
+                  <SelectItem value={Gender.OTHER}>
+                    {t("gender.options.other")}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </FormItem>
+          )}
+        />
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSave)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="gender"
-              render={({ field }) => (
-                <FormItem>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder={t("placeholder")} />
-                      </SelectTrigger>
-                    </FormControl>
+        <DialogFooter className="grid grid-cols-2">
+          <DialogClose asChild>
+            <Button variant="outline" type="button">
+              {t("actions.cancel")}
+            </Button>
+          </DialogClose>
 
-                    <SelectContent>
-                      <SelectItem value={Gender.MALE}>
-                        {t("options.male")}
-                      </SelectItem>
-                      <SelectItem value={Gender.FEMALE}>
-                        {t("options.female")}
-                      </SelectItem>
-                      <SelectItem value={Gender.OTHER}>
-                        {t("options.other")}
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
-            />
-
-            <DialogFooter className="grid grid-cols-2">
-              <DialogClose asChild>
-                <Button variant="outline">{t("actions.cancel")}</Button>
-              </DialogClose>
-
-              <Button type="submit" disabled={isPending}>
-                {isPending ? t("actions.saving") : t("actions.saveChanges")}
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting || isPending}
+          >
+            {form.formState.isSubmitting || isPending
+              ? t("actions.saving")
+              : t("actions.saveChanges")}
+          </Button>
+        </DialogFooter>
+      </form>
+    </Form>
   );
-};
+}

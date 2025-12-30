@@ -37,7 +37,7 @@ export default async function Page({ params }: Props) {
             </p>
           ))}
         </div>
-        {matchSlugEducation.content.sources.length > 0 && (
+        {/* {matchSlugEducation.content.sources.length > 0 && (
           <div className="mt-8">
             <h5>Sources:</h5>
             {matchSlugEducation.content.sources.map((sources) => (
@@ -50,7 +50,7 @@ export default async function Page({ params }: Props) {
               </Link>
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </>
   );

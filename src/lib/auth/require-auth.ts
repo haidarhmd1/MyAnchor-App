@@ -4,6 +4,7 @@ import prisma from "../../../lib/prisma";
 
 export async function requireAuth(callbackUrl?: string) {
   const session = await auth();
+
   if (!session?.user?.id) {
     redirect(
       callbackUrl

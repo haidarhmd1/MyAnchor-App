@@ -6,12 +6,12 @@ import { QuickTips } from "@/app/[locale]/(main)/_components/QuickTips";
 import { Metadata } from "next";
 
 import { CategoryLinks } from "../_components/CategoryLinks";
-import { QuickAnalytics } from "../_components/QuickAnalytics";
+import { InspirationForToday } from "../_components/InspirationForToday";
 
 export default async function Home() {
   return (
     <div className="px-4">
-      <QuickAnalytics />
+      {/* <QuickAnalytics /> */}
       <div className="space-y-6">
         <div className="pt-4">
           <EmergencyButton />
@@ -28,9 +28,9 @@ export default async function Home() {
         <div className="my-12">
           <CategoryLinks />
         </div>
-        {/* <div>
-        <InspirationForToday />
-      </div> */}
+        <div>
+          <InspirationForToday />
+        </div>
         <div className="pb-11">
           <QuickTips />
         </div>

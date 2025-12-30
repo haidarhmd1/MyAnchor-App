@@ -29,7 +29,8 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale} dir={isRtl ? "rtl" : "ltr"}>
+    // <html lang={locale} dir={isRtl ? "rtl" : "ltr"}>
+    <html lang={locale}>
       <body
         className={`${lexend.variable} typography background-color: var(--color-background) antialiased`}
       >

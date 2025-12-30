@@ -1,5 +1,6 @@
 import { BottomNav } from "@/components/BottomNav/BottomNav";
 import { Header } from "@/components/Header/Header";
+import { PwaControls } from "./PwaControls";
 
 export default async function MainLayout({
   children,
@@ -8,6 +9,7 @@ export default async function MainLayout({
 }) {
   return (
     <div className="m-auto max-w-[4600px]">
+      {/* <PwaControls /> */}
       <Header />
       <div className="min-h-screen">{children}</div>
       <BottomNav />

@@ -32,7 +32,12 @@ export const NewChallenge = async () => {
         aria-label={t("pending.aria")}
       >
         <Card
-          className="group mt-4 border-2 border-dashed border-amber-300 bg-gradient-to-br from-amber-100 to-amber-200 shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-colors focus-within:ring-2 hover:border-amber-400"
+          className={cn(
+            "group mt-4 border-2 border-dashed border-amber-300 bg-gradient-to-br from-amber-100 to-amber-200",
+            "shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-all",
+            "focus-within:ring-2 hover:-translate-y-[1px] hover:border-amber-400",
+            "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
+          )}
           aria-label={t("pending.aria")}
         >
           <CardContent className="flex items-start gap-4 p-4 sm:p-5">
@@ -55,7 +60,13 @@ export const NewChallenge = async () => {
 
   return (
     <Link href="/exposure/challenge" style={{ display: "contents" }}>
-      <Card className={cn("mt-4 border-2 border-dashed")}>
+      <Card
+        className={cn(
+          "mt-4 border-2 border-dashed",
+          "focus-within:ring-2 hover:-translate-y-[1px] hover:border-gray-200",
+          "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
+        )}
+      >
         <CardContent className="flex flex-row gap-2">
           <div className="shrink-0">
             <BadgePlus />

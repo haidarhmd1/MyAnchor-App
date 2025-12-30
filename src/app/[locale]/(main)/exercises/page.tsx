@@ -27,7 +27,7 @@ export default async function Page() {
 
         <Alert
           variant="default"
-          className="border-muted my-4 rounded-4xl bg-amber-50 shadow-none"
+          className="border-muted my-4 animate-[fadeUp_.35s_ease-out_both] rounded-4xl bg-amber-50 shadow-none will-change-transform motion-reduce:animate-none"
         >
           <MessageCircleWarningIcon />
           <AlertTitle>{t("common.tip")}</AlertTitle>
@@ -35,7 +35,10 @@ export default async function Page() {
         </Alert>
         <div className="mb-4">
           {exercisesInteroceptiveContent.content.map((content) => (
-            <p key={content.id} className="mt-4">
+            <p
+              key={content.id}
+              className="mt-4 animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none"
+            >
               {t(content.textKey)}
             </p>
           ))}

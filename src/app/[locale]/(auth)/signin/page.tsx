@@ -6,10 +6,12 @@ import axios from "axios";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { Spinner } from "@/components/Spinner/Spinner";
+import { useTranslations } from "next-intl";
 
 type Step = "email" | "code";
 
 export default function SignInPage() {
+  const t = useTranslations("auth.signIn");
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
   const { register, handleSubmit, formState } = useForm<{
@@ -22,10 +24,10 @@ export default function SignInPage() {
       await axios.post("/api/auth/otp/request", { email });
       setEmail(email);
       setStep("code");
-      toast.success("Code sent to your email.");
+      toast.success(t("codeSent"));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      toast.error(e?.response?.data?.error ?? "Failed to send code");
+      toast.error(e?.response?.data?.error ?? t("sendCodeError"));
     }
   };
 
@@ -52,14 +54,11 @@ export default function SignInPage() {
         {step === "email" ? (
           <form onSubmit={handleSubmit(requestCode)}>
             <h2 className="font-semibold">Sign in</h2>
-            <h5 className="font-light">
-              Stay on track with guided challenges, personal insights, and tools
-              to calm your mind. Sign up today, or log in to continue.”
-            </h5>
+            <h5 className="font-light">{t("subtitle")}</h5>
             <div className="space-y-4 pt-8">
               <input
                 type="email"
-                placeholder="you@example.com"
+                placeholder={t("emailPlaceholder")}
                 className="w-full rounded-xl border p-3"
                 {...register("email", { required: true })}
               />
@@ -67,20 +66,20 @@ export default function SignInPage() {
                 className="bottom-0 w-full rounded-xl border p-3"
                 disabled={formState.isSubmitting}
               >
-                {formState.isSubmitting ? <Spinner /> : "Send code"}
+                {formState.isSubmitting ? <Spinner /> : t("sendCode")}
               </button>
             </div>
           </form>
         ) : (
           <form onSubmit={handleSubmit(verifyCode)} className="space-y-4">
-            <h1 className="text-xl font-semibold">Enter code</h1>
+            <h1 className="text-xl font-semibold">{t("enterCodeTitle")}</h1>
             <p className="text-sm opacity-70">
-              We emailed a 6-digit code to {email}
+              {t("enterCodeHint", { email })}
             </p>
             <input
               inputMode="numeric"
               pattern="[0-9]*"
-              placeholder="123456"
+              placeholder={t("codePlaceholder")}
               className="w-full rounded-xl border p-3 text-center text-xl tracking-widest"
               {...register("code", {
                 required: true,
@@ -92,7 +91,7 @@ export default function SignInPage() {
               className="w-full rounded-xl border p-3"
               disabled={formState.isSubmitting}
             >
-              {formState.isSubmitting ? <Spinner /> : "Verify & sign in"}
+              {formState.isSubmitting ? <Spinner /> : t("verify")}
             </button>
           </form>
         )}

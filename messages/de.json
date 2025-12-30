@@ -11,6 +11,33 @@
       "easy": "Leicht",
       "medium": "Mittel",
       "hard": "Schwer"
+    },
+    "groups": {
+      "today": "Heute",
+      "thisWeek": "Diese Woche",
+      "lastWeek": "Letzte Woche",
+      "thisMonth": "Diesen Monat",
+      "lastMonth": "Letzten Monat",
+      "older": "Älter"
+    },
+    "timeAgo": "vor {value} {unit}",
+    "timeIn": "in {value} {unit}",
+    "timeJustNow": "gerade eben",
+    "timeUnit": {
+      "second": "Sekunde",
+      "seconds": "Sekunden",
+      "minute": "Minute",
+      "minutes": "Minuten",
+      "hour": "Stunde",
+      "hours": "Stunden",
+      "day": "Tag",
+      "days": "Tagen",
+      "week": "Woche",
+      "weeks": "Wochen",
+      "month": "Monat",
+      "months": "Monaten",
+      "year": "Jahr",
+      "years": "Jahren"
     }
   },
   "form": {
@@ -308,9 +335,57 @@
     "subtitle": "Drücke den Button und atme tief durch – du bist in Sicherheit"
   },
   "inspiration": {
-    "title": "Inspiration für heute",
-    "refreshAria": "Noch ein inspirierendes Zitat anzeigen",
-    "empty": "Gerade sind keine Zitate verfügbar."
+    "inspiration": {
+      "title": "Inspiration für heute",
+      "refreshAria": "Noch ein inspirierendes Zitat anzeigen",
+      "empty": "Gerade sind keine Zitate verfügbar."
+    },
+    "inspirationQuotes": {
+      "mooji": {
+        "author": "Mooji",
+        "text": "Gefühle sind nur Besucher. Lass sie kommen und gehen."
+      },
+      "buddhist": {
+        "author": "Inspiriert von buddhistischer Lehre",
+        "text": "Nichts im Geist ist dauerhaft, nicht einmal der Sturm der Panik."
+      },
+      "kabatZinn": {
+        "author": "Jon Kabat-Zinn",
+        "text": "Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen."
+      },
+      "angelou": {
+        "author": "Maya Angelou",
+        "text": "Auch das geht vorbei. Jeder Sturm verliert irgendwann seinen Regen."
+      },
+      "emerson": {
+        "author": "Ralph Waldo Emerson",
+        "text": "Gefühle sind nur Besucher. Lass sie kommen und gehen."
+      },
+      "quran946": {
+        "author": "Koran 94:6",
+        "text": "Mit der Erschwernis kommt Erleichterung."
+      },
+      "cbt": {
+        "author": "KVT-Prinzip",
+        "text": "Deine schlimmsten Gedanken sind keine Fakten — es sind nur Gedanken."
+      },
+      "unknown1": {
+        "author": "Unbekannt",
+        "text": "Atme. Du bist stärker als du denkst, mutiger als du dich fühlst und sicherer als du glaubst."
+      },
+      "aliFear": {
+        "author": "Ali ibn Abi Talib",
+        "text": "Wenn du dich vor etwas fürchtest, stürz dich hinein — die Intensität der Angst ist größer als die des Dinges selbst."
+      },
+      "exposure": {
+        "author": "Moderne Expositionstherapie",
+        "text": "Jedes Mal, wenn du Panik steigen und wieder abklingen lässt, lehrst du deinem Gehirn Freiheit."
+      },
+      "aliRemedy": {
+        "author": "Ali ibn Abi Talib",
+        "text": "Dein Heilmittel ist in dir, doch du spürst es nicht. Deine Krankheit ist von dir, doch du erkennst sie nicht."
+      }
+    }
   },
   "journalShortcut": {
     "title": "Dein tägliches Journal",
@@ -590,15 +665,15 @@
           }
         }
       }
+    }
+  },
+  "positiveReminder": {
+    "card": {
+      "title": "Positive Erinnerungen",
+      "subtitle": "Stärke positive Überzeugungen, um negative Gedanken auszugleichen."
     },
-    "positiveReminder": {
-      "card": {
-        "title": "Positive Erinnerungen",
-        "subtitle": "Stärke positive Überzeugungen, um negative Gedanken auszugleichen."
-      },
-      "actions": {
-        "next": "Weiter"
-      }
+    "actions": {
+      "next": "Weiter"
     }
   },
   "panicSupportPage": {
@@ -682,52 +757,6 @@
     "10": {
       "label": "10 - Überwältigend",
       "description": "Konnte nicht weitermachen / musste abbrechen"
-    }
-  },
-  "inspirationQuotes": {
-    "mooji": {
-      "author": "Mooji",
-      "text": "Gefühle sind nur Besucher. Lass sie kommen und gehen."
-    },
-    "buddhist": {
-      "author": "Inspiriert von buddhistischer Lehre",
-      "text": "Nichts im Geist ist dauerhaft, nicht einmal der Sturm der Panik."
-    },
-    "kabatZinn": {
-      "author": "Jon Kabat-Zinn",
-      "text": "Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen."
-    },
-    "angelou": {
-      "author": "Maya Angelou",
-      "text": "Auch das geht vorbei. Jeder Sturm verliert irgendwann seinen Regen."
-    },
-    "emerson": {
-      "author": "Ralph Waldo Emerson",
-      "text": "Gefühle sind nur Besucher. Lass sie kommen und gehen."
-    },
-    "quran946": {
-      "author": "Koran 94:6",
-      "text": "Mit der Erschwernis kommt Erleichterung."
-    },
-    "cbt": {
-      "author": "KVT-Prinzip",
-      "text": "Deine schlimmsten Gedanken sind keine Fakten — es sind nur Gedanken."
-    },
-    "unknown1": {
-      "author": "Unbekannt",
-      "text": "Atme. Du bist stärker als du denkst, mutiger als du dich fühlst und sicherer als du glaubst."
-    },
-    "aliFear": {
-      "author": "Ali ibn Abi Talib",
-      "text": "Wenn du dich vor etwas fürchtest, stürz dich hinein — die Intensität der Angst ist größer als die des Dinges selbst."
-    },
-    "exposure": {
-      "author": "Moderne Expositionstherapie",
-      "text": "Jedes Mal, wenn du Panik steigen und wieder abklingen lässt, lehrst du deinem Gehirn Freiheit."
-    },
-    "aliRemedy": {
-      "author": "Ali ibn Abi Talib",
-      "text": "Dein Heilmittel ist in dir, doch du spürst es nicht. Deine Krankheit ist von dir, doch du erkennst sie nicht."
     }
   },
   "reassurances": {
@@ -1325,5 +1354,38 @@
     "EASY": "Leicht",
     "MEDIUM": "Mittel",
     "HARD": "Herausfordernd"
+  },
+  "pwa": {
+    "notSupported": "Dein Browser unterstützt keine App-Installation oder Push-Benachrichtigungen.",
+    "install": {
+      "title": "App installieren",
+      "description": "Schneller Zugriff und offline-freundlich – direkt auf deinem Gerät.",
+      "cta": "Zum Startbildschirm hinzufügen",
+      "hint": "Die Installationsabfrage ist evtl. nicht verfügbar (Safari/iOS: Teilen → Zum Home-Bildschirm)."
+    },
+    "push": {
+      "title": "Benachrichtigungen",
+      "description": "Sanfte Erinnerungen und wichtige Updates – nur wenn du möchtest.",
+      "subscribed": "Du hast Benachrichtigungen aktiviert.",
+      "notSubscribed": "Benachrichtigungen sind noch nicht aktiviert.",
+      "subscribe": "Aktivieren",
+      "unsubscribe": "Deaktivieren",
+      "placeholder": "Testnachricht eingeben…",
+      "send": "Senden"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Anmelden",
+      "subtitle": "Bleib am Ball mit geführten Übungen, persönlichen Einblicken und Tools zur Beruhigung deines Geistes. Registriere dich oder melde dich an, um fortzufahren.",
+      "emailPlaceholder": "du@beispiel.de",
+      "sendCode": "Code senden",
+      "codeSent": "Der Code wurde an deine E-Mail gesendet.",
+      "sendCodeError": "Code konnte nicht gesendet werden",
+      "enterCodeTitle": "Code eingeben",
+      "enterCodeHint": "Wir haben dir einen 6-stelligen Code an {email} gesendet",
+      "codePlaceholder": "123456",
+      "verify": "Bestätigen & anmelden"
+    }
   }
 }

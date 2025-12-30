@@ -7,24 +7,51 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
+// Keep in sync with your next-intl locales:
+const LOCALES = ["en", "de", "ar", "ar-LB"] as const;
+type AppLocale = (typeof LOCALES)[number];
+
+function getLocaleFromPath(pathname: string): AppLocale | null {
+  const first = pathname.split("/")[1];
+  return (LOCALES as readonly string[]).includes(first)
+    ? (first as AppLocale)
+    : null;
+}
+
+function stripLocale(pathname: string) {
+  const locale = getLocaleFromPath(pathname);
+  if (!locale) return { locale: null as AppLocale | null, path: pathname };
+  const path =
+    pathname === `/${locale}` ? "/" : pathname.replace(`/${locale}`, "");
+  return { locale, path };
+}
+
 const PUBLIC_ROUTES = new Set<string>([
   "/signin",
   "/error",
   "/robots.txt",
   "/sitemap.xml",
   "/favicon.ico",
+  "/manifest.webmanifest",
+  "/sw.js",
 ]);
 
-// Public prefixes for assets/framework internals
-const PUBLIC_PREFIXES = ["/_next", "/assets", "/images", "/api/auth"];
+const PUBLIC_PREFIXES = [
+  "/_next",
+  "/assets",
+  "/images",
+  "/icons",
+  "/api/auth",
+  "/api", // optional: if you have public APIs
+];
 
-/** Return true if this pathname is public (no auth required) */
 function isPublicPath(pathname: string) {
-  if (PUBLIC_ROUTES.has(pathname)) return true;
-  return PUBLIC_PREFIXES.some((p) => pathname.startsWith(p));
+  const { path } = stripLocale(pathname);
+
+  if (PUBLIC_ROUTES.has(path)) return true;
+  return PUBLIC_PREFIXES.some((p) => path === p || path.startsWith(p + "/"));
 }
 
-/** Return true if this pathname must be protected */
 function isProtectedPath(pathname: string) {
   return !isPublicPath(pathname);
 }
@@ -34,9 +61,10 @@ export const authConfig = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
-    maxAge: 60 * 60 * 24 * 30, // 30 days
+    maxAge: 60 * 60 * 24 * 30,
   },
   pages: {
+    // keep these “base” (without locale) — we’ll localize in authorized()
     signIn: "/signin",
     error: "/error",
   },
@@ -197,20 +225,26 @@ export const authConfig = {
     authorized({ auth, request }) {
       const { nextUrl } = request;
       const pathname = nextUrl.pathname;
-      const isLoggedIn = !!auth?.user;
 
-      // Public paths always allowed
+      // ✅ Public paths always allowed (locale-aware)
       if (!isProtectedPath(pathname)) return true;
 
-      // Protected:
+      const isLoggedIn = !!auth?.user;
+
       if (!isLoggedIn) {
-        const url = new URL("/signin", nextUrl);
+        // ✅ Redirect to localized signin (if locale exists in current URL)
+        const locale = getLocaleFromPath(pathname);
+        const signinPath = locale ? `/${locale}/signin` : "/signin";
+
+        // Avoid redirect loops: if we are already on signin, allow
+        const { path } = stripLocale(pathname);
+        if (path === "/signin") return true;
+
+        const url = new URL(signinPath, nextUrl);
         url.searchParams.set("callbackUrl", nextUrl.pathname + nextUrl.search);
         return NextResponse.redirect(url);
       }
 
-      // If logged in but session was nulled by callbacks (e.g., soft-deleted),
-      // auth?.user will be undefined on subsequent requests and hit the branch above.
       return true;
     },
   },

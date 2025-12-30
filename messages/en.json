@@ -11,6 +11,33 @@
       "easy": "Easy",
       "medium": "Medium",
       "hard": "Hard"
+    },
+    "groups": {
+      "today": "Today",
+      "thisWeek": "This week",
+      "lastWeek": "Last week",
+      "thisMonth": "This month",
+      "lastMonth": "Last month",
+      "older": "Older"
+    },
+    "timeAgo": "{value} {unit} ago",
+    "timeIn": "in {value} {unit}",
+    "timeJustNow": "just now",
+    "timeUnit": {
+      "second": "second",
+      "seconds": "seconds",
+      "minute": "minute",
+      "minutes": "minutes",
+      "hour": "hour",
+      "hours": "hours",
+      "day": "day",
+      "days": "days",
+      "week": "week",
+      "weeks": "weeks",
+      "month": "month",
+      "months": "months",
+      "year": "year",
+      "years": "years"
     }
   },
   "form": {
@@ -317,9 +344,57 @@
     "subtitle": "Press the button and take a deep breath, you are safe"
   },
   "inspiration": {
-    "title": "Inspiration for today",
-    "refreshAria": "Show another inspirational quote",
-    "empty": "No quotes available right now."
+    "inspiration": {
+      "title": "Inspiration for today",
+      "refreshAria": "Show another inspirational quote",
+      "empty": "No quotes available right now."
+    },
+    "inspirationQuotes": {
+      "mooji": {
+        "author": "Mooji",
+        "text": "Feelings are just visitors. Let them come and go."
+      },
+      "buddhist": {
+        "author": "Inspired by Buddhist teaching",
+        "text": "Nothing in the mind is permanent, not even the storm of panic."
+      },
+      "kabatZinn": {
+        "author": "Jon Kabat-Zinn",
+        "text": "You can’t stop the waves, but you can learn to surf."
+      },
+      "angelou": {
+        "author": "Maya Angelou",
+        "text": "This too shall pass. Every storm runs out of rain."
+      },
+      "emerson": {
+        "author": "Ralph Waldo Emerson",
+        "text": "Feelings are just visitors. Let them come and go."
+      },
+      "quran946": {
+        "author": "Qur’an 94:6",
+        "text": "Indeed, with hardship comes ease."
+      },
+      "cbt": {
+        "author": "CBT principle",
+        "text": "Your worst-case thoughts are not facts — they are just thoughts."
+      },
+      "unknown1": {
+        "author": "Unknown",
+        "text": "Breathe. You are stronger than you think, braver than you feel, and safer than you believe."
+      },
+      "aliFear": {
+        "author": "Ali ibn Abi Taleb",
+        "text": "When you are afraid of something, throw yourself into it, for the intensity of the fear is greater than that of the thing itself."
+      },
+      "exposure": {
+        "author": "Modern exposure therapy wisdom",
+        "text": "Every time you let panic rise and fall, you are teaching your brain freedom."
+      },
+      "aliRemedy": {
+        "author": "Ali ibn Abi Taleb",
+        "text": "Your remedy is within you, but you do not sense it. Your sickness is from you, but you do not perceive it."
+      }
+    }
   },
   "journalShortcut": {
     "title": "Your daily journal",
@@ -597,15 +672,15 @@
           }
         }
       }
+    }
+  },
+  "positiveReminder": {
+    "card": {
+      "title": "Positive Reminders",
+      "subtitle": "Reinforce positive beliefs to counteract negative thinking."
     },
-    "positiveReminder": {
-      "card": {
-        "title": "Positive Reminders",
-        "subtitle": "Reinforce positive beliefs to counteract negative thinking."
-      },
-      "actions": {
-        "next": "Next"
-      }
+    "actions": {
+      "next": "Next"
     }
   },
   "panicSupportPage": {
@@ -689,52 +764,6 @@
     "10": {
       "label": "10 - Overwhelming",
       "description": "Could not continue / had to stop"
-    }
-  },
-  "inspirationQuotes": {
-    "mooji": {
-      "author": "Mooji",
-      "text": "Feelings are just visitors. Let them come and go."
-    },
-    "buddhist": {
-      "author": "Inspired by Buddhist teaching",
-      "text": "Nothing in the mind is permanent, not even the storm of panic."
-    },
-    "kabatZinn": {
-      "author": "Jon Kabat-Zinn",
-      "text": "You can’t stop the waves, but you can learn to surf."
-    },
-    "angelou": {
-      "author": "Maya Angelou",
-      "text": "This too shall pass. Every storm runs out of rain."
-    },
-    "emerson": {
-      "author": "Ralph Waldo Emerson",
-      "text": "Feelings are just visitors. Let them come and go."
-    },
-    "quran946": {
-      "author": "Qur’an 94:6",
-      "text": "Indeed, with hardship comes ease."
-    },
-    "cbt": {
-      "author": "CBT principle",
-      "text": "Your worst-case thoughts are not facts — they are just thoughts."
-    },
-    "unknown1": {
-      "author": "Unknown",
-      "text": "Breathe. You are stronger than you think, braver than you feel, and safer than you believe."
-    },
-    "aliFear": {
-      "author": "Ali ibn Abi Taleb",
-      "text": "When you are afraid of something, throw yourself into it, for the intensity of the fear is greater than that of the thing itself."
-    },
-    "exposure": {
-      "author": "Modern exposure therapy wisdom",
-      "text": "Every time you let panic rise and fall, you are teaching your brain freedom."
-    },
-    "aliRemedy": {
-      "author": "Ali ibn Abi Taleb",
-      "text": "Your remedy is within you, but you do not sense it. Your sickness is from you, but you do not perceive it."
     }
   },
   "reassurances": {
@@ -1278,11 +1307,11 @@
       }
     },
     "COMPANY": {
-      "ALONE": {
+      "alone": {
         "label": "Alone",
         "description": "Face it by yourself"
       },
-      "WITH_OTHERS": {
+      "with_others": {
         "label": "With others",
         "description": "Friends, family, or colleagues"
       }
@@ -1305,29 +1334,62 @@
       "errors": {
         "createFailed": "Something went wrong while creating the challenge."
       }
-    }
-  },
-  "newChallenge": {
-    "pending": {
-      "aria": "Daily challenge pending",
-      "title": "Daily challenge pending",
-      "subtitle": "Did you complete your daily challenge? If so, tap here to share how it went."
     },
-    "start": {
-      "cta": "Start a new daily challenge — you can begin now or later today."
-    }
-  },
-  "pastChallenges": {
-    "empty": "You haven’t completed any daily challenges yet.",
-    "difficulty": {
-      "EASY": "Easy",
-      "MEDIUM": "Moderate",
-      "HARD": "Challenging"
+    "newChallenge": {
+      "pending": {
+        "aria": "Daily challenge pending",
+        "title": "Daily challenge pending",
+        "subtitle": "Did you complete your daily challenge? If so, tap here to share how it went."
+      },
+      "start": {
+        "cta": "Start a new daily challenge — you can begin now or later today."
+      }
+    },
+    "pastChallenges": {
+      "empty": "You haven’t completed any daily challenges yet.",
+      "difficulty": {
+        "EASY": "Easy",
+        "MEDIUM": "Moderate",
+        "HARD": "Challenging"
+      }
     }
   },
   "difficulty": {
     "EASY": "Easy",
     "MEDIUM": "Moderate",
     "HARD": "Challenging"
+  },
+  "pwa": {
+    "notSupported": "Your browser doesn’t support app installation or notifications.",
+    "install": {
+      "title": "Install the app",
+      "description": "Get a faster, offline-friendly experience directly on your device.",
+      "cta": "Add to Home Screen",
+      "hint": "Install prompt may not be available (Safari/iOS shows it via Share → Add to Home Screen)."
+    },
+    "push": {
+      "title": "Notifications",
+      "description": "Gentle reminders and important updates — only when you want them.",
+      "subscribed": "You're subscribed to notifications.",
+      "notSubscribed": "You're not subscribed yet.",
+      "subscribe": "Enable",
+      "unsubscribe": "Disable",
+      "placeholder": "Write a test message…",
+      "send": "Send"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Sign in",
+      "subtitle": "Stay on track with guided challenges, personal insights, and tools to calm your mind. Sign up today, or log in to continue.",
+      "emailPlaceholder": "you@example.com",
+      "sendCode": "Send code",
+      "codeSent": "Code sent to your email.",
+      "sendCodeError": "Failed to send code",
+      "enterCodeTitle": "Enter code",
+      "enterCodeHint": "We emailed a 6-digit code to {email}",
+      "codePlaceholder": "123456",
+      "verify": "Verify & sign in"
+    }
   }
 }

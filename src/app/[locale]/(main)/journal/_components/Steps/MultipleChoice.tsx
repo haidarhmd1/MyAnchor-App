@@ -46,6 +46,7 @@ export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
               aria-checked={checked}
               onClick={() => toggleOption(option.id)}
               className={cn(
+                "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
                 "cursor-pointer p-2 transition-all duration-200 hover:shadow-md",
                 checked
                   ? "border-blue-500 bg-blue-50 shadow-sm"

@@ -5,11 +5,11 @@ import { getTranslations } from "next-intl/server";
 export const Exercises = async () => {
   const t = await getTranslations();
   return (
-    <div className="mx-4">
+    <div className="my-4">
       {exerciseList.map((exercise) => (
         <CardContainer
           link={`/exercises/${exercise.id}`}
-          className="mb-4"
+          className="mb-4 animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none"
           key={exercise.id}
           title={t(exercise.titleKey)}
           icon={

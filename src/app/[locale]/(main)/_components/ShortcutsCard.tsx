@@ -98,7 +98,6 @@ export default function ShortcutsCard({
         "group relative w-full overflow-hidden select-none",
         "rounded-[22px] shadow-[0_6px_18px_rgba(0,0,0,0.15)]",
         "bg-gradient-to-br",
-        "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
         gradient.from,
         gradient.to,
         // Sizing

@@ -39,7 +39,7 @@ export const PastChallenges = async () => {
   }
 
   return pastChallenges.map(({ id, challengeOption }) => {
-    const { label, description } = mapTaxonomyToFormField(challengeOption, t);
+    const { label, description } = mapTaxonomyToFormField(challengeOption);
 
     return (
       <Card
@@ -49,9 +49,11 @@ export const PastChallenges = async () => {
         )}
       >
         <CardContent className="flex flex-col gap-2 p-4">
-          <p className="text-xs">{label}</p>
-          {description ? <p className="text-md">{description}</p> : null}
-          <p className="text-xs">{challengeOption.difficulty}</p>
+          <p className="text-xs">{t(label)}</p>
+          {description ? <p className="text-md">{t(description)}</p> : null}
+          <p className="text-xs">
+            {t(`difficulty.${challengeOption.difficulty}`)}
+          </p>
         </CardContent>
       </Card>
     );

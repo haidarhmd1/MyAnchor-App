@@ -931,7 +931,7 @@
         "description": "Kurzer Spaziergang am Abend"
       }
     },
-    "AVOIDANCEREASION": {
+    "AVOIDANCE_REASON": {
       "crowds_overwhelming": {
         "label": "Große Menschenansammlungen",
         "description": "Zu überwältigend; Sorge, die Kontrolle zu verlieren"
@@ -1328,5 +1328,10 @@
         "HARD": "Herausfordernd"
       }
     }
+  },
+  "difficulty": {
+    "EASY": "Leicht",
+    "MEDIUM": "Mittel",
+    "HARD": "Herausfordernd"
   }
 }

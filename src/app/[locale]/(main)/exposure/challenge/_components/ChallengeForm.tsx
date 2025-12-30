@@ -70,21 +70,21 @@ export default function ChallengeForm({
 
   const localizedChallenges = useMemo(() => {
     // returns items that include `difficulty` because input contains it
-    return mapTaxonomiesToFormFields(challenges, t) as Array<{
+    return mapTaxonomiesToFormFields(challenges) as Array<{
       id: string;
       label: string;
       description: string | null;
       difficulty: Difficulty | null;
     }>;
-  }, [t, challenges]);
+  }, [challenges]);
 
   const localizedCompanyOptions = useMemo(() => {
     // company is not a DB taxonomy, so translate directly
     return companyOptions.map((o) => ({
       id: o.id,
-      label: t(`taxonomy.COMPANY.${o.slug}.label`),
+      label: `taxonomy.COMPANY.${o.slug}.label`,
       description: o.description
-        ? t(`taxonomy.COMPANY.${o.slug}.description`)
+        ? `taxonomy.COMPANY.${o.slug}.description`
         : null,
       difficulty: null as Difficulty | null,
     }));
@@ -272,7 +272,7 @@ export default function ChallengeForm({
                               isSelected ? "text-blue-700" : "text-foreground",
                             )}
                           >
-                            {option.label}
+                            {t(option.label)}
                           </h3>
 
                           {option.description ? (
@@ -284,7 +284,7 @@ export default function ChallengeForm({
                                   : "text-muted-foreground",
                               )}
                             >
-                              {option.description}
+                              {t(option.description)}
                             </p>
                           ) : null}
                         </div>

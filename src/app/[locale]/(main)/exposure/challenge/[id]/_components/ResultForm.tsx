@@ -173,14 +173,11 @@ export function ResultForm({
 
   const optionByStep: Partial<Record<StepId, FormFieldType[]>> = useMemo(
     () => ({
-      reasonsNotDone: mapTaxonomiesToFormFields(
-        skippedChallengeReasonsOptions,
-        t,
-      ),
-      stopReasons: mapTaxonomiesToFormFields(stopReasonsOptions, t),
-      actionsTaken: mapTaxonomiesToFormFields(afterAttackActionsOptions, t),
-      typesOfBodySymptoms: mapTaxonomiesToFormFields(symptomOptions, t),
-      copingStrategies: mapTaxonomiesToFormFields(keptGoingReasonsOptions, t),
+      reasonsNotDone: mapTaxonomiesToFormFields(skippedChallengeReasonsOptions),
+      stopReasons: mapTaxonomiesToFormFields(stopReasonsOptions),
+      actionsTaken: mapTaxonomiesToFormFields(afterAttackActionsOptions),
+      typesOfBodySymptoms: mapTaxonomiesToFormFields(symptomOptions),
+      copingStrategies: mapTaxonomiesToFormFields(keptGoingReasonsOptions),
       anxietyLevelRating: anxietyLevelOptions,
       challengeRating: exposureRatingOptions,
     }),
@@ -190,7 +187,6 @@ export function ResultForm({
       afterAttackActionsOptions,
       symptomOptions,
       keptGoingReasonsOptions,
-      t,
     ],
   );
 

@@ -28,7 +28,6 @@ export function mapTaxonomiesToFormFields<
   },
 >(
   taxonomies: T[],
-  t: TFn,
 ): Array<
   FormFieldType & {
     difficulty: T["difficulty"] extends undefined ? never : Difficulty | null;
@@ -36,10 +35,8 @@ export function mapTaxonomiesToFormFields<
 > {
   return taxonomies.map((x) => ({
     id: x.id,
-    label: t(keyFor(x.type, x.slug, "label")),
-    description: x.description
-      ? t(keyFor(x.type, x.slug, "description"))
-      : null,
+    label: keyFor(x.type, x.slug, "label"),
+    description: x.description ? keyFor(x.type, x.slug, "description") : null,
     ...(Object.prototype.hasOwnProperty.call(x, "difficulty")
       ? { difficulty: (x.difficulty ?? null) as Difficulty | null }
       : {}),
@@ -53,12 +50,12 @@ export function mapTaxonomyToFormField<
   T extends Pick<Taxonomy, "id" | "type" | "slug" | "description"> & {
     difficulty?: Difficulty | null;
   },
->(taxonomy: T, t: TFn): FormFieldType & { difficulty?: Difficulty | null } {
+>(taxonomy: T): FormFieldType & { difficulty?: Difficulty | null } {
   return {
     id: taxonomy.id,
-    label: t(keyFor(taxonomy.type, taxonomy.slug, "label")),
+    label: keyFor(taxonomy.type, taxonomy.slug, "label"),
     description: taxonomy.description
-      ? t(keyFor(taxonomy.type, taxonomy.slug, "description"))
+      ? keyFor(taxonomy.type, taxonomy.slug, "description")
       : null,
     ...(Object.prototype.hasOwnProperty.call(taxonomy, "difficulty")
       ? { difficulty: taxonomy.difficulty ?? null }

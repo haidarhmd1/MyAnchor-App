@@ -20,7 +20,7 @@ export function SingleChoice({
   fieldName: keyof z.infer<typeof ChallengeOutcomeSchema>;
   options: FormFieldType[];
 }) {
-  const t = useTranslations("form");
+  const t = useTranslations();
   const { control, formState } =
     useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
 
@@ -78,16 +78,20 @@ export function SingleChoice({
                         isSelected ? "text-blue-700" : "text-foreground",
                       )}
                     >
-                      {option.label}
+                      {t(option.label)}
                     </h3>
-                    <p
-                      className={cn(
-                        "mt-1 text-sm",
-                        isSelected ? "text-blue-600" : "text-muted-foreground",
-                      )}
-                    >
-                      {option.description}
-                    </p>
+                    {option.description && (
+                      <p
+                        className={cn(
+                          "mt-1 text-sm",
+                          isSelected
+                            ? "text-blue-600"
+                            : "text-muted-foreground",
+                        )}
+                      >
+                        {t(option.description)}
+                      </p>
+                    )}
                   </div>
                 </div>
               </CardContent>
@@ -101,7 +105,7 @@ export function SingleChoice({
         {formState.isSubmitting ? (
           <Button disabled className="bg-blue-500 hover:bg-blue-600">
             <Spinner />
-            <span>{t("submitting")}</span>
+            <span>{t("form.submitting")}</span>
           </Button>
         ) : (
           <Button
@@ -110,7 +114,7 @@ export function SingleChoice({
             disabled={!hasSelection}
             className="bg-blue-500 hover:bg-blue-600"
           >
-            {t("next")}
+            {t("form.next")}
           </Button>
         )}
       </div>

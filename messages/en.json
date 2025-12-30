@@ -935,7 +935,7 @@
         "description": "Short evening neighborhood walk"
       }
     },
-    "AVOIDANCEREASION": {
+    "AVOIDANCE_REASON": {
       "crowds_overwhelming": {
         "label": "Large gatherings",
         "description": "Too overwhelming, fear of losing control"
@@ -1332,5 +1332,10 @@
       "MEDIUM": "Moderate",
       "HARD": "Challenging"
     }
+  },
+  "difficulty": {
+    "EASY": "Easy",
+    "MEDIUM": "Moderate",
+    "HARD": "Challenging"
   }
 }

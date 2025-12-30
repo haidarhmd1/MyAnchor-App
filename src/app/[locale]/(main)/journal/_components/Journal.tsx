@@ -122,13 +122,13 @@ export default function Journal({
 
   const optionByStep: Partial<Record<StepId, FormFieldType[]>> = useMemo(
     () => ({
-      typesOfSituationYouWereIn: mapTaxonomiesToFormFields(locationOptions, t),
-      typesOfSituationYouAvoided: mapTaxonomiesToFormFields(locationOptions, t),
-      whyYouWereAvoidingIt: mapTaxonomiesToFormFields(avoidanceReasons, t),
-      typesOfBodySymptoms: mapTaxonomiesToFormFields(symptomOptions, t),
+      typesOfSituationYouWereIn: mapTaxonomiesToFormFields(locationOptions),
+      typesOfSituationYouAvoided: mapTaxonomiesToFormFields(locationOptions),
+      whyYouWereAvoidingIt: mapTaxonomiesToFormFields(avoidanceReasons),
+      typesOfBodySymptoms: mapTaxonomiesToFormFields(symptomOptions),
       whenDidItHappen: whenDidItHappenConst, // this one is already local consts
     }),
-    [locationOptions, avoidanceReasons, symptomOptions, t],
+    [locationOptions, avoidanceReasons, symptomOptions],
   );
 
   const handleNext = () => {

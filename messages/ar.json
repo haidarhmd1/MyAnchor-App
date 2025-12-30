@@ -907,7 +907,7 @@
         "description": "مشي قصير مساءً في الحي"
       }
     },
-    "AVOIDANCEREASION": {
+    "AVOIDANCE_REASON": {
       "crowds_overwhelming": {
         "label": "تجمعات كبيرة",
         "description": "شعور بالضغط والخوف من فقدان السيطرة"
@@ -1304,5 +1304,10 @@
       "MEDIUM": "متوسط",
       "HARD": "صعب"
     }
+  },
+  "difficulty": {
+    "EASY": "سهل",
+    "MEDIUM": "متوسط",
+    "HARD": "صعب"
   }
 }

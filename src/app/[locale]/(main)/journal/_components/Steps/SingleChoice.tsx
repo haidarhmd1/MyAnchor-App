@@ -55,7 +55,7 @@ export const SingleChoice = ({
                   {/* Radio visual */}
                   <div
                     className={cn(
-                      "mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+                      "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                       isSelected
                         ? "border-blue-500"
                         : "border-muted-foreground/30",

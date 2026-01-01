@@ -33,9 +33,9 @@ export const NewChallenge = async () => {
       >
         <Card
           className={cn(
-            "group mt-4 border-2 border-dashed border-amber-300 bg-gradient-to-br from-amber-100 to-amber-200",
+            "group mt-4 border-2 border-dashed border-amber-300 bg-linear-to-br from-amber-100 to-amber-200",
             "shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-all",
-            "focus-within:ring-2 hover:-translate-y-[1px] hover:border-amber-400",
+            "focus-within:ring-2 hover:-translate-y-px hover:border-amber-400",
             "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
           )}
           aria-label={t("pending.aria")}
@@ -63,7 +63,7 @@ export const NewChallenge = async () => {
       <Card
         className={cn(
           "mt-4 border-2 border-dashed",
-          "focus-within:ring-2 hover:-translate-y-[1px] hover:border-gray-200",
+          "focus-within:ring-2 hover:-translate-y-px hover:border-gray-200",
           "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
         )}
       >

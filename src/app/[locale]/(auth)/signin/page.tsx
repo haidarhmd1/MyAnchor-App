@@ -53,7 +53,7 @@ export default function SignInPage() {
       <div className="grow rounded-t-4xl bg-white p-6">
         {step === "email" ? (
           <form onSubmit={handleSubmit(requestCode)}>
-            <h2 className="font-semibold">Sign in</h2>
+            <h2 className="font-semibold">{t("title")}</h2>
             <h5 className="font-light">{t("subtitle")}</h5>
             <div className="space-y-4 pt-8">
               <input

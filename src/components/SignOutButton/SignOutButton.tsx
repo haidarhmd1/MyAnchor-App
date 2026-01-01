@@ -4,6 +4,7 @@ import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useTransition } from "react";
 import { Spinner } from "../Spinner/Spinner";
+import { Button } from "../ui/button";
 
 type Props = {
   callbackUrl?: string;
@@ -17,13 +18,13 @@ export function SignOutButton({
   const [pending, startTransition] = useTransition();
 
   return (
-    <button
+    <Button
       type="button"
       className={className}
       disabled={pending}
       onClick={() => startTransition(() => signOut({ callbackUrl }))}
     >
       {pending ? <Spinner /> : <LogOut />}
-    </button>
+    </Button>
   );
 }

@@ -5,6 +5,8 @@ import { GenderPicker } from "./_components/Input/Gender/Gender";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { getTranslations } from "next-intl/server";
 import { LanguageSwitcher } from "./_components/LanguageSwitcher/LanguageSwitcher";
+import { SignOutButton } from "@/components/SignOutButton/SignOutButton";
+import { DeleteAccountButton } from "@/components/DeleteAccountButton/DeleteAccountButton";
 
 export default async function Page() {
   const { user } = await requireAuth();
@@ -45,8 +47,14 @@ export default async function Page() {
           label={user.gender || t("notSet")}
           gender={user.gender ?? ""}
         />
-        <div className="my-4 h-[1px] w-full bg-gray-300" />
-        <LanguageSwitcher />
+        <div className="my-4 h-px w-full bg-gray-300" />
+        <div className="flex justify-between">
+          <LanguageSwitcher />
+          <SignOutButton />
+        </div>
+        <div className="mt-4 flex w-full">
+          <DeleteAccountButton />
+        </div>
       </div>
     </div>
   );

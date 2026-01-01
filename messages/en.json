@@ -40,6 +40,15 @@
       "years": "years"
     }
   },
+  "deleteAccount": {
+    "button": "Delete Account",
+    "title": "Delete your account?",
+    "description": "This action is permanent. Your account will be deleted and you will be signed out immediately.",
+    "cancel": "Cancel",
+    "confirm": "Delete account",
+    "loading": "Deleting…",
+    "error": "Something went wrong. Please try again."
+  },
   "form": {
     "next": "Next",
     "previous": "Previous",

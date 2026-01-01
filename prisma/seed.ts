@@ -1,7 +1,8 @@
 // prisma/seed.ts
-import { PrismaClient, TaxonomyType, Difficulty } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import "dotenv/config";
+import { TaxonomyType, Difficulty } from "@prisma/client";
+import prisma from "../lib/prisma";
 
 type SeedItem = {
   id: string;

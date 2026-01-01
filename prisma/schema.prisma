@@ -11,7 +11,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum TaxonomyType {
@@ -266,7 +265,7 @@ model Challenge {
 model ChallengeOutcome {
   id          String    @id @default(cuid())
   challengeId String    @unique
-  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
 
   didComplete      Boolean
   reasonsNotDone   String[]

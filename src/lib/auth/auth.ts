@@ -1,11 +1,9 @@
 import NextAuth, { type NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { PrismaClient } from "@prisma/client";
 import { compareSync } from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
+import prisma from "../../../lib/prisma";
 
 // Keep in sync with your next-intl locales:
 const LOCALES = ["en", "de", "ar", "ar-LB"] as const;
@@ -152,7 +150,7 @@ export const authConfig = {
                 email,
                 method: "email-otp",
                 outcome: "failure",
-                ip: req?.headers?.get("x-forwarded-for") ?? undefined,
+                ip: req?.headers?.get("x-forwarded-for")?.split(",")[0]?.trim(),
                 userAgent: req?.headers?.get("user-agent") ?? undefined,
               },
             })
@@ -196,7 +194,7 @@ export const authConfig = {
               email,
               method: "email-otp",
               outcome: "success",
-              ip: req?.headers?.get("x-forwarded-for") ?? undefined,
+              ip: req?.headers?.get("x-forwarded-for")?.split(",")[0]?.trim(),
               userAgent: req?.headers?.get("user-agent") ?? undefined,
             },
           })

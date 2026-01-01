@@ -1,6 +1,6 @@
 // prisma/seed-taxonomy-groups.ts
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import "dotenv/config";
+import prisma from "../lib/prisma";
 
 const locationGroups = [
   { slug: "social_events", label: "Social & events", sortOrder: 10 },

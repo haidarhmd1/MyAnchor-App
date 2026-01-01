@@ -40,6 +40,15 @@
       "years": "Jahren"
     }
   },
+  "deleteAccount": {
+    "button": "Konto löschen",
+    "title": "Möchten Sie Ihr Konto löschen?",
+    "description": "Diese Aktion ist endgültig. Ihr Konto wird gelöscht und Sie werden sofort abgemeldet.",
+    "cancel": "Abbrechen",
+    "confirm": "Konto löschen",
+    "loading": "Wird gelöscht…",
+    "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+  },
   "form": {
     "next": "Weiter",
     "previous": "Zurück",

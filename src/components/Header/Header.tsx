@@ -10,7 +10,7 @@ export function Header({
   right?: React.ReactNode;
 }) {
   return (
-    <header className="sticky top-0 z-10 flex min-h-16 items-center justify-between border-b bg-white/95 px-4 py-4 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header className="sticky top-0 z-10 flex min-h-16 items-center justify-between border-b bg-white/95 px-4 py-4 backdrop-blur supports-backdrop-filter:bg-white/80">
       <div className="flex items-center">
         <BackArrow />
       </div>

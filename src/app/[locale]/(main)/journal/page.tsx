@@ -72,7 +72,7 @@ export default async function Page() {
         <div className="mb-3 flex flex-col justify-center">
           <Card className={cn("mt-4 border-2 bg-white")}>
             <CardContent className="flex flex-row gap-2">
-              <p>{t("noEntries")}</p>
+              <p>{t("journal.noEntries")}</p>
             </CardContent>
           </Card>
 

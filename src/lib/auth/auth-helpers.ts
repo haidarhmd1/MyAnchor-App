@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PrismaClient, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { auth } from "./auth";
-
-const prisma = new PrismaClient();
+import prisma from "../../../lib/prisma";
 
 export async function requireUser() {
   const session = await auth();

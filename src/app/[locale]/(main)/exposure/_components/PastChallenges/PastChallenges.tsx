@@ -125,7 +125,7 @@ export const PastChallenges = async () => {
               className={cn(
                 "sticky top-0 z-20 -mx-2 w-full px-2 py-2",
                 "rounded-4xl border",
-                "supports-[backdrop-filter]:bg-white/50",
+                "supports-backdrop-filter:bg-white/50",
               )}
             >
               <div className="flex w-full items-center justify-between">
@@ -157,9 +157,9 @@ export const PastChallenges = async () => {
                   <Card
                     key={id}
                     className={cn(
-                      "group border-2 border-dashed border-green-300 bg-gradient-to-br from-green-100 to-green-200 p-0",
+                      "group border-2 border-dashed border-green-300 bg-linear-to-br from-green-100 to-green-200 p-0",
                       "shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-all",
-                      "focus-within:ring-2 hover:-translate-y-[1px] hover:border-green-400",
+                      "focus-within:ring-2 hover:-translate-y-px hover:border-green-400",
                       "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
                     )}
                   >

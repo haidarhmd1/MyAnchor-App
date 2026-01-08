@@ -1,4 +1,23 @@
 {
+  "home": {
+    "todaysRead": {
+      "title": "قراءة اليوم"
+    },
+    "journey": {
+      "title": "مراحل الرحلة",
+      "description": "نرافقك خلال رحلتك."
+    },
+    "todaysChallenge": {
+      "title": "تحدي اليوم",
+      "description": "بناء الثقة بخطوات صغيرة"
+    },
+    "quicktools": {
+      "main": {
+        "title": "أدوات سريعة",
+        "subtitle": "للقلق المتزايد (1–2 دقيقة)"
+      }
+    }
+  },
   "common": {
     "tip": "نصيحة",
     "previous": "السابق",
@@ -608,6 +627,7 @@
         "round": "الجولة {current}{total, select, none {} other { / {total}}}"
       },
       "actions": {
+        "start": "ابدأ",
         "done": "تم",
         "restart": "إعادة"
       },

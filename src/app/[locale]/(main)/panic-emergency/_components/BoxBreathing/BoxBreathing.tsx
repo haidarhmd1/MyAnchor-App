@@ -1,9 +1,7 @@
 "use client";
 
-import { Wind } from "lucide-react";
 import { easeInOut } from "motion";
 import { AnimatePresence, motion } from "motion/react";
-import * as React from "react";
 import { useEffect, useState } from "react";
 import { Sheet } from "react-modal-sheet";
 import { useTranslations } from "next-intl";
@@ -17,11 +15,12 @@ export const BoxBreathing = ({
   rounds = 4,
 }: {
   secondsPerSide?: number;
-  rounds?: number | "infinite";
+  rounds?: number;
 }) => {
   const t = useTranslations("panicEmergency.boxBreathing");
 
   const [open, setOpen] = useState(false);
+  const [started, setStarted] = useState(false);
 
   const [phaseIndex, setPhaseIndex] = useState(0);
   const [roundIndex, setRoundIndex] = useState(0);
@@ -46,21 +45,30 @@ export const BoxBreathing = ({
           ? t("hints.exhale")
           : t("hints.hold2");
 
+  // Reset when opening / closing
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      setStarted(false);
+      return;
+    }
+
     setPhaseIndex(0);
     setRoundIndex(0);
     setCountdown(secondsPerSide);
+    setStarted(false);
   }, [open, secondsPerSide]);
 
+  // Breathing loop (starts only after pressing Start)
   useEffect(() => {
-    if (!open) return;
+    if (!open || !started || roundIndex >= rounds) return;
+
     let raf: number;
     let start: number | null = null;
     const durationMs = secondsPerSide * 1000;
 
     const step = (timestamp: number) => {
       if (start === null) start = timestamp;
+
       const elapsed = timestamp - start;
       const remaining = Math.max(0, durationMs - elapsed);
       setCountdown(Math.ceil(remaining / 1000));
@@ -70,8 +78,8 @@ export const BoxBreathing = ({
         const completedCycle = nextPhaseIndex === 0;
 
         setPhaseIndex(nextPhaseIndex);
-
         if (completedCycle) setRoundIndex((r) => r + 1);
+
         start = null;
       }
 
@@ -80,10 +88,9 @@ export const BoxBreathing = ({
 
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [open, phaseIndex, secondsPerSide]);
+  }, [open, started, phaseIndex, secondsPerSide]);
 
-  const isFinite = rounds !== "infinite";
-  const done = isFinite && roundIndex >= (rounds as number);
+  const done = roundIndex >= rounds;
 
   const scaleAnim = {
     scale:
@@ -100,49 +107,42 @@ export const BoxBreathing = ({
 
   const scaleTransition = { duration: secondsPerSide, ease: easeInOut };
 
-  const totalForText =
-    isFinite && typeof rounds === "number" ? String(rounds) : "none";
-  const currentForText = String(
-    Math.min(
-      roundIndex + 1,
-      rounds === "infinite" ? roundIndex + 1 : (rounds as number),
-    ),
-  );
+  const totalForText = typeof rounds === "number" ? String(rounds) : "∞";
+  const currentForText = String(Math.min(roundIndex + 1, rounds));
 
   return (
     <div>
+      {/* Card */}
       <div
         onClick={() => setOpen(true)}
-        className="flex transform space-x-4 rounded-[22px] p-4 shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition will-change-transform focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40 active:scale-[0.99]"
+        className="min-h-24 transform rounded-2xl bg-white p-3 shadow-md transition will-change-transform active:scale-[0.98]"
       >
-        <div className="flex space-x-4">
-          <div className="flex h-14 w-14 shrink-0 justify-center rounded-2xl bg-gray-200 align-middle">
-            <Wind className="self-center" />
-          </div>
-          <div className="text-left">
-            <h4 className="font-medium">{t("card.title")}</h4>
-            <p className="text-sm font-extralight">{t("card.subtitle")}</p>
-          </div>
+        <div className="text-left">
+          <h4 className="text-sm font-medium">{t("card.title")}</h4>
+          <p className="text-xs font-extralight">{t("card.subtitle")}</p>
         </div>
       </div>
 
+      {/* Sheet */}
       <Sheet isOpen={open} onClose={() => setOpen(false)}>
         <Sheet.Container>
           <Sheet.Header />
           <Sheet.Content>
             <div className="mx-auto mt-4 flex max-w-sm flex-col items-center gap-6">
+              {/* Animated box */}
               <motion.div
                 key={`${phase}-${roundIndex}`}
-                className="my-12 min-h-64 min-w-64 rounded-[22px] bg-gradient-to-br from-sky-300 to-sky-500"
-                animate={scaleAnim}
-                transition={scaleTransition}
+                className="my-12 min-h-64 min-w-64 rounded-[22px] bg-linear-to-br from-sky-300 to-sky-500"
+                animate={started ? scaleAnim : { scale: 0.7 }}
+                transition={started ? scaleTransition : { duration: 0 }}
                 style={{
                   boxShadow:
                     "0 8px 30px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
                 }}
               />
 
-              <div className="inset-0 flex flex-col items-center justify-center">
+              {/* Text */}
+              <div className="flex flex-col items-center">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={phase}
@@ -157,7 +157,7 @@ export const BoxBreathing = ({
                 </div>
 
                 <div className="mt-4 text-4xl tabular-nums">
-                  {Math.max(0, countdown)}
+                  {started ? Math.max(0, countdown) : secondsPerSide}
                 </div>
 
                 <div className="text-muted-foreground mt-2 text-xs">
@@ -167,7 +167,14 @@ export const BoxBreathing = ({
                   })}
                 </div>
               </div>
-
+              <button
+                onClick={() => setStarted(true)}
+                disabled={started}
+                className="rounded-xl bg-blue-600 px-4 py-2 text-sm text-white disabled:opacity-50"
+              >
+                {t("actions.start")}
+              </button>
+              {/* Actions */}
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setOpen(false)}
@@ -181,6 +188,7 @@ export const BoxBreathing = ({
                     setPhaseIndex(0);
                     setRoundIndex(0);
                     setCountdown(secondsPerSide);
+                    setStarted(true);
                   }}
                   className="rounded-xl border px-4 py-2 text-sm"
                 >
@@ -188,6 +196,7 @@ export const BoxBreathing = ({
                 </button>
               </div>
 
+              {/* Completion */}
               <AnimatePresence>
                 {done && (
                   <motion.div

@@ -21,12 +21,12 @@ export const TodaysFocus = () => {
         display: "contents",
       }}
     >
-      <div className="space-y-4">
+      <div className="space-y-3">
         <div className="flex flex-col items-start self-stretch">
-          <h2>Today&apos;s Focus</h2>
+          <h4 className="text-md font-bold">{t("home.todaysRead.title")}</h4>
         </div>
 
-        <div className="flex flex-row items-center justify-between gap-4 self-stretch rounded-4xl bg-white p-4">
+        <div className="flex flex-row items-center justify-between rounded-3xl bg-white p-4 shadow-md">
           <div>
             <h3>{t(item.titleKey)}</h3>
             <p className="sub">{t(item.descriptionKey)}</p>

@@ -7,7 +7,7 @@ export default async function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="m-auto max-w-[4600px]">
+    <div className="m-auto max-w-1150">
       <Header />
       <div className="min-h-screen">{children}</div>
       <BottomNav />

@@ -1,6 +1,25 @@
 {
+  "home": {
+    "todaysRead": {
+      "title": "Heutige Lektüre"
+    },
+    "todaysChallenge": {
+      "title": "Heutige Herausforderung",
+      "description": "Vertrauen in kleinen Schritten aufbauen"
+    },
+    "journey": {
+      "title": "Schritte deiner Reise",
+      "description": "Wir begleiten dich auf deiner Reise."
+    },
+    "quicktools": {
+      "main": {
+        "title": "Schnelle Hilfen",
+        "subtitle": "Bei zunehmender Angst (1–2 Minuten)"
+      }
+    }
+  },
   "common": {
-    "tip": "Tipp",
+    "tip": "Tipps",
     "previous": "Zurück",
     "next": "Weiter",
     "submit": "Speichern",
@@ -609,6 +628,7 @@
         "round": "Runde {current}{total, select, none {} other { / {total}}}"
       },
       "actions": {
+        "start": "Start",
         "done": "Fertig",
         "restart": "Neu starten"
       },

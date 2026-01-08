@@ -32,12 +32,22 @@ export type ShortcutsCardProps = {
   gradient?: { from: string; to: string };
   icon?: React.ReactNode;
   children?: React.ReactNode;
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   onOpen?: () => void;
   className?: string;
 };
 
 const sizeStyles = {
+  xs: {
+    container: "h-18",
+    title: "text-base",
+    subtitle: "text-xs",
+    toolbarGap: "gap-1.5",
+    iconWrap: "h-8 w-8",
+    iconSize: 16,
+    btn: "h-4 w-4",
+    rounded: "rounded-3xl",
+  },
   sm: {
     container: "h-28",
     title: "text-base",
@@ -46,6 +56,7 @@ const sizeStyles = {
     iconWrap: "h-8 w-8",
     iconSize: 16,
     btn: "h-8 w-8",
+    rounded: "rounded-3xl",
   },
   md: {
     container: "h-36",
@@ -55,6 +66,7 @@ const sizeStyles = {
     iconWrap: "h-9 w-9",
     iconSize: 18,
     btn: "h-9 w-9",
+    rounded: "rounded-3xl",
   },
   lg: {
     container: "h-44",
@@ -64,6 +76,7 @@ const sizeStyles = {
     iconWrap: "h-10 w-10",
     iconSize: 20,
     btn: "h-10 w-10",
+    rounded: "rounded-3xl",
   },
 } as const;
 
@@ -96,23 +109,20 @@ export default function ShortcutsCard({
       className={[
         // Shape & surface
         "group relative w-full overflow-hidden select-none",
-        "rounded-[22px] shadow-[0_6px_18px_rgba(0,0,0,0.15)]",
-        "bg-gradient-to-br",
+        "shadow-md",
+        "bg-linear-to-br",
+        S.rounded,
         gradient.from,
         gradient.to,
         // Sizing
         S.container,
         // Interactions
         "transform transition will-change-transform",
-        "active:scale-[0.99]",
+        "active:scale-[0.98]",
         "focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40",
         className,
       ].join(" ")}
     >
-      {/* Subtle noise & glossy overlay */}
-      <div className="pointer-events-none absolute inset-0 [background-size:8px_8px] opacity-[0.15] mix-blend-overlay" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent" />
-
       {/* Content */}
       <div className="relative h-full p-3.5 sm:p-4">
         {/* Top Row: Title + Glyph */}
@@ -141,9 +151,6 @@ export default function ShortcutsCard({
         </div>
         {children && children}
       </div>
-
-      {/* Pressed sheen */}
-      <div className="pointer-events-none absolute inset-0 rounded-[22px] opacity-0 transition-opacity duration-200 group-active:opacity-10" />
     </div>
   );
 }

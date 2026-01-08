@@ -13,8 +13,9 @@ export const QuickTips = async () => {
   const t2 = await getTranslations();
   return (
     <div className="space-y-4">
-      <div className="flex flex-col items-start self-stretch">
-        <h2>{t("tip")}</h2>
+      <div className="">
+        <h4 className="text-md font-bold">{t("tip")}</h4>
+        <p className="text-xs font-thin"></p>
       </div>
       <Carousel>
         <CarouselContent>

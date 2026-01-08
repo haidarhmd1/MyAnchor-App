@@ -1,6 +1,25 @@
 {
+  "home": {
+    "todaysRead": {
+      "title": "Today’s read"
+    },
+    "todaysChallenge": {
+      "title": "Today’s challenge",
+      "description": "Build confidence in small steps"
+    },
+    "journey": {
+      "title": "Journey Steps",
+      "description": "Guiding you through your journey."
+    },
+    "quicktools": {
+      "main": {
+        "title": "Quick tools",
+        "subtitle": "For rising anxiety (1–2 minutes)"
+      }
+    }
+  },
   "common": {
-    "tip": "Tip",
+    "tip": "Tips",
     "previous": "Previous",
     "next": "Next",
     "submit": "Submit",
@@ -616,6 +635,7 @@
         "round": "Round {current}{total, select, none {} other { / {total}}}"
       },
       "actions": {
+        "start": "Start",
         "done": "Done",
         "restart": "Restart"
       },

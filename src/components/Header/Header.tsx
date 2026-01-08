@@ -20,11 +20,9 @@ export function Header({
       </h6>
 
       <div className="flex items-center">
-        {/* {right ?? <div className="w-6" />} */}
         <Link href="/profile">
-          <CircleUserRound />
+          <CircleUserRound strokeWidth={1} />
         </Link>
-        {/* <SignOutButton /> */}
       </div>
     </header>
   );

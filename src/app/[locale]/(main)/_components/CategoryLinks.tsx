@@ -10,7 +10,11 @@ import { twMerge } from "tailwind-merge";
 export const CategoryLinks = async () => {
   const t = await getTranslations();
   return (
-    <div className="grid grid-cols-1 gap-6">
+    <div className="grid grid-cols-1 gap-3">
+      <div className="">
+        <h4 className="text-md font-bold">{t("home.journey.title")}</h4>
+        <p className="text-xs font-thin">{t("home.journey.description")}</p>
+      </div>
       {categories.map((c) => (
         <Link
           key={c.id}
@@ -25,14 +29,12 @@ export const CategoryLinks = async () => {
                 "flex",
                 [
                   "relative",
-                  "w-full",
-                  "min-h-[225px]",
-                  "rounded-[22px] border-none",
-                  "bg-gradient-to-br",
+                  "rounded-3xl border-none",
+                  "bg-linear-to-br",
                   "pt-4",
-                  "shadow-[0_6px_18px_rgba(0,0,0,0.15)]",
+                  "shadow-md",
                   "transform transition will-change-transform",
-                  "active:scale-[0.99]",
+                  "active:scale-[0.98]",
                   "focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40",
                   c.gradient.from,
                   c.gradient.to,
@@ -41,27 +43,22 @@ export const CategoryLinks = async () => {
             )}
           >
             <CardContent className="flex px-4">
-              {/* Subtle noise & glossy overlay */}
-              <div className="pointer-events-none absolute inset-0 [background-size:8px_8px] opacity-[0.15] mix-blend-overlay" />
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent" />
               <div>
-                <h3
-                  className={`truncate text-lg leading-snug font-semibold text-white drop-shadow`}
-                >
+                <h3 className={`text-md truncate font-medium`}>
                   {t(c.titleKey)}
                 </h3>
-                <p className="mt-0.5 text-sm text-white/80 drop-shadow">
+                <p className="mt-0.5 text-xs font-thin">
                   {t(c.descriptionKey)}
                 </p>
               </div>
-              <div
-                className={`ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/35 shadow-inner backdrop-blur-[2px]`}
+              {/* <div
+                className={`ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-black/5 shadow-inner backdrop-blur-[2px]`}
                 aria-hidden
               >
                 <div className="text-white drop-shadow">
-                  <ArrowRight size={18} strokeWidth={2.25} />
+                  <ArrowRight size={18} strokeWidth={1.25} />
                 </div>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
         </Link>

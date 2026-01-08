@@ -33,15 +33,17 @@ export const PositiveReminder = () => {
     <div>
       <div
         onClick={() => setIsOpen(true)}
-        className="flex transform space-x-4 rounded-[22px] p-4 shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition will-change-transform focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40 active:scale-[0.99]"
+        className="min-h-24 transform rounded-2xl bg-white p-3 shadow-md transition will-change-transform active:scale-[0.98]"
       >
-        <div className="flex space-x-4">
-          <div className="flex h-14 w-14 shrink-0 justify-center rounded-2xl bg-gray-200">
+        <div className="space-x-4">
+          {/* <div className="flex h-8 w-8 shrink-0 justify-center rounded-md bg-gray-200">
             <Heart className="self-center" />
-          </div>
+          </div> */}
           <div className="flex flex-col text-left">
-            <h4>{t("positiveReminder.card.title")}</h4>
-            <p className="text-sm font-extralight">
+            <h4 className="text-sm font-medium">
+              {t("positiveReminder.card.title")}
+            </h4>
+            <p className="text-xs font-extralight">
               {t("positiveReminder.card.subtitle")}
             </p>
           </div>
@@ -68,7 +70,7 @@ export const PositiveReminder = () => {
                 </h3>
               </motion.div>
 
-              <div className="mt-24 min-h-[2.5rem] text-center">
+              <div className="mt-24 min-h-10 text-center">
                 <AnimatePresence mode="wait">
                   <motion.h4
                     key={index}

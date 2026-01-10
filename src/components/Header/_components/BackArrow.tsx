@@ -14,8 +14,8 @@ export const BackArrow = () => {
   // Avoid SSR/CSR mismatch by not rendering until mounted
   if (!mounted) return null;
 
-  // Hide on root route (no parent segment)
-  if (segments.length === 0) return <div />;
+  // // Hide on root route (no parent segment)
+  // if (segments.length === 0) return <div />;
 
   return (
     <button

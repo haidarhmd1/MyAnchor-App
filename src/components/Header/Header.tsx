@@ -1,4 +1,4 @@
-import { CircleUser, CircleUserRound } from "lucide-react";
+import { CircleUser } from "lucide-react";
 import { BackArrow } from "./_components/BackArrow";
 import { Link } from "@/i18n/navigation";
 import { isUserAuthenticated } from "@/lib/auth/auth-helpers";
@@ -19,9 +19,7 @@ export async function Header({
         <BackArrow />
       </div>
 
-      <h6 className="absolute left-1/2 -translate-x-1/2 text-center font-medium">
-        {title}
-      </h6>
+      <h6 className="text-center font-bold">MyAnchor</h6>
 
       <div className="flex items-center">
         <LanguageSwitcher variant="xs" />

@@ -41,7 +41,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex h-screen flex-col">
       <div
         className="h-60 w-full"
         style={{
@@ -63,7 +63,7 @@ export default function SignInPage() {
                 {...register("email", { required: true })}
               />
               <button
-                className="bottom-0 w-full rounded-xl border p-3"
+                className="w-full rounded-xl border p-3"
                 disabled={formState.isSubmitting}
               >
                 {formState.isSubmitting ? <Spinner /> : t("sendCode")}

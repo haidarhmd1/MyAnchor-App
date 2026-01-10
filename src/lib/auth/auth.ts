@@ -32,6 +32,12 @@ const PUBLIC_ROUTES = new Set<string>([
   "/favicon.ico",
   "/manifest.webmanifest",
   "/sw.js",
+  "/home",
+  "/education",
+  "/exercises",
+  "/exposure",
+  "/journal",
+  "/tip",
 ]);
 
 const PUBLIC_PREFIXES = [
@@ -40,7 +46,10 @@ const PUBLIC_PREFIXES = [
   "/images",
   "/icons",
   "/api/auth",
-  "/api", // optional: if you have public APIs
+  "/home",
+  "/education",
+  "/exercises",
+  "/tip",
 ];
 
 function isPublicPath(pathname: string) {

@@ -8,6 +8,8 @@ import { redirect } from "next/navigation";
 import { TZ } from "@/lib/timezone";
 import ShortcutsCard from "./ShortcutsCard";
 import { getTranslations } from "next-intl/server";
+import { Button } from "@/components/ui/button";
+import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 
 export async function JournalButton() {
   const session = await auth();
@@ -66,5 +68,24 @@ export async function JournalButton() {
         }}
       />
     </Link>
+  );
+}
+
+export async function UnAuthenticatedJournalButton() {
+  const t = await getTranslations("journalShortcut");
+
+  return (
+    <SignInOverlayButton>
+      <ShortcutsCard
+        size="sm"
+        title={t("title")}
+        subtitle={t("ctaSubtitle")}
+        icon={<BookOpenCheck className="h-5 w-5" aria-hidden="true" />}
+        gradient={{
+          from: "bg-blue-600",
+          to: "bg-blue-100",
+        }}
+      />
+    </SignInOverlayButton>
   );
 }

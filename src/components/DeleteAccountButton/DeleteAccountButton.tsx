@@ -31,7 +31,7 @@ export const DeleteAccountButton = () => {
         throw new Error("delete_failed");
       }
 
-      await signOut({ callbackUrl: "/" });
+      await signOut({ callbackUrl: "/home" });
     } catch (err) {
       console.error(err);
       alert(t("error"));

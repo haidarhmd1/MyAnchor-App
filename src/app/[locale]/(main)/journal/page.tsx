@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { DateTime } from "luxon";
-import { CheckCheck, Frown, SmileIcon } from "lucide-react";
+import { CheckCheck, Frown, Plus, SmileIcon } from "lucide-react";
 import { TZ } from "@/lib/timezone";
 import ShortcutsCard from "../_components/ShortcutsCard";
 import { NewJournalEntryButton } from "./_components/NewJournalEntryButton";
@@ -10,6 +10,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { getLocale, getTranslations } from "next-intl/server";
 import { formatRelative } from "@/i18n/relative-time";
+import { isUserAuthenticated } from "@/lib/auth/auth-helpers";
+import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 
 type GroupKey =
   | "today"
@@ -56,6 +58,57 @@ function groupTone(groupKey: GroupKey) {
 }
 
 export default async function Page() {
+  const isUserAuth = await isUserAuthenticated();
+  return isUserAuth ? <Journal /> : <UnauthenticatedJournal />;
+}
+
+const UnauthenticatedJournal = async () => {
+  const t = await getTranslations();
+  return (
+    <div className="p-4">
+      <div className="mb-3 flex flex-col justify-center">
+        <Card className={cn("mt-4 border-2 bg-white")}>
+          <CardContent className="flex flex-row gap-2">
+            <p>{t("journal.noEntries")}</p>
+          </CardContent>
+        </Card>
+
+        <SignInOverlayButton>
+          <div className="h-96 w-full">
+            <Card
+              role="button"
+              tabIndex={0}
+              className={cn(
+                "mt-8 border-2 border-dashed p-0 shadow-[0_6px_18px_rgba(0,0,0,0.15)]",
+              )}
+            >
+              <CardContent className="flex flex-row px-0">
+                <div className="relative h-full w-full p-3.5 sm:p-4">
+                  <div className="flex items-center">
+                    <h3 className="truncate align-middle leading-snug font-medium text-black drop-shadow">
+                      {t("journal.entry.title")}
+                    </h3>
+
+                    <div
+                      className="ml-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/35 shadow-inner backdrop-blur-[2px]"
+                      aria-hidden
+                    >
+                      <div className="text-black drop-shadow">
+                        <Plus size={16} strokeWidth={2.25} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </SignInOverlayButton>
+      </div>
+    </div>
+  );
+};
+
+const Journal = async () => {
   const t = await getTranslations();
   const locale = await getLocale();
 
@@ -228,7 +281,7 @@ export default async function Page() {
       </div>
     </div>
   );
-}
+};
 
 export const metadata: Metadata = {
   title: "⚓ MyAnchor - Journal",

@@ -12,7 +12,7 @@ type Props = {
 };
 
 export function SignOutButton({
-  callbackUrl = "/",
+  callbackUrl = "/home",
   className = "rounded-xl border px-3 py-2",
 }: Props) {
   const [pending, startTransition] = useTransition();

@@ -20,6 +20,21 @@ export async function requireUser() {
   return { userId: user.id, user };
 }
 
+export async function isUserAuthenticated() {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    return false;
+  }
+
+  const user = await prisma.user.findUnique({ where: { id: session.user.id } });
+
+  if (!user || user.deletedAt) {
+    return false;
+  }
+  return true;
+}
+
 export function withAuth<
   T extends (
     req: Request,

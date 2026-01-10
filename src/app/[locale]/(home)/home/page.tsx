@@ -1,4 +1,3 @@
-import { TodaysFocus } from "@/app/[locale]/(main)/_components/TodaysFocus";
 import { QuickTips } from "@/app/[locale]/(main)/_components/QuickTips";
 
 import { Metadata } from "next";
@@ -33,15 +32,9 @@ export default async function Home() {
           <PositiveReminder />
         </div>
       </div>
-      {/* <div>
-        <TodaysFocus />
-      </div> */}
       <div>
         <CategoryLinks />
       </div>
-      {/* <div>
-        <InspirationForToday />
-      </div> */}
       <div className="pb-11">
         <QuickTips />
       </div>

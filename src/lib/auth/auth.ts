@@ -224,13 +224,13 @@ export const authConfig = {
       const { nextUrl } = request;
       const pathname = nextUrl.pathname;
 
-      // ✅ Public paths always allowed (locale-aware)
+      // Public paths always allowed (locale-aware)
       if (!isProtectedPath(pathname)) return true;
 
       const isLoggedIn = !!auth?.user;
 
       if (!isLoggedIn) {
-        // ✅ Redirect to localized signin (if locale exists in current URL)
+        // Redirect to localized signin (if locale exists in current URL)
         const locale = getLocaleFromPath(pathname);
         const signinPath = locale ? `/${locale}/signin` : "/signin";
 

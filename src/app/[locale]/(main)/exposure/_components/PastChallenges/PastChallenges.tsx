@@ -191,3 +191,16 @@ export const PastChallenges = async () => {
     </div>
   );
 };
+
+export const UnauthenticatedPastChallenges = async () => {
+  const t = await getTranslations();
+  const locale = await getLocale();
+
+  return (
+    <Card className={cn("mt-4 border-2 bg-white")}>
+      <CardContent className="flex flex-row gap-2">
+        <p>{t("exposure.pastChallenges.empty")}</p>
+      </CardContent>
+    </Card>
+  );
+};

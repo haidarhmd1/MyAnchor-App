@@ -77,3 +77,23 @@ export const NewChallenge = async () => {
     </Link>
   );
 };
+
+export const UnauthenticatedNewChallenge = async () => {
+  const t = await getTranslations("exposure.newChallenge");
+  return (
+    <Card
+      className={cn(
+        "mt-4 border-2 border-dashed",
+        "focus-within:ring-2 hover:-translate-y-px hover:border-gray-200",
+        "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
+      )}
+    >
+      <CardContent className="flex flex-row gap-2">
+        <div className="shrink-0">
+          <BadgePlus />
+        </div>
+        <p>{t("start.cta")}</p>
+      </CardContent>
+    </Card>
+  );
+};

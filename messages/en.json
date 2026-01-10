@@ -1408,6 +1408,10 @@
     }
   },
   "auth": {
+    "required": {
+      "title": "To use this feature, you need to be signed in.",
+      "action": "Sign in"
+    },
     "signIn": {
       "title": "Sign in",
       "subtitle": "Stay on track with guided challenges, personal insights, and tools to calm your mind. Sign up today, or log in to continue.",

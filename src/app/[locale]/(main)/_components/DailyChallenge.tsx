@@ -6,6 +6,7 @@ import { ChallengeStatus } from "@prisma/client";
 import ShortcutsCard from "./ShortcutsCard";
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
+import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 
 export const DailyChallenge = async () => {
   const t = await getTranslations();
@@ -131,4 +132,35 @@ export const DailyChallenge = async () => {
         </div>
       );
   }
+};
+
+export const UnAuthenticatedDailyChallenge = async () => {
+  const t = await getTranslations();
+
+  return (
+    <div className="space-y-6 rounded-3xl bg-blue-100 p-4 shadow-md">
+      <div>
+        <h4 className="text-md font-bold">{t("home.todaysChallenge.title")}</h4>
+        <p className="text-xs font-thin">
+          {t("home.todaysChallenge.description")}
+        </p>
+      </div>
+
+      <SignInOverlayButton>
+        <div className="rounded-xl bg-white p-2 shadow-2xl">
+          <p className="text-sm font-light">
+            {t("dailyChallenge.startNew.subtitle")}
+          </p>
+        </div>
+        <div className="mt-6">
+          <Button
+            type="button"
+            className="w-full rounded-2xl bg-blue-400 transition will-change-transform active:scale-[0.98]"
+          >
+            <Link href="/exposure/challenge">{t("tracker.start")}</Link>
+          </Button>
+        </div>
+      </SignInOverlayButton>
+    </div>
+  );
 };

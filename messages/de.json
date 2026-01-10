@@ -1404,6 +1404,10 @@
     }
   },
   "auth": {
+    "required": {
+      "title": "Um diese Funktion zu nutzen, musst du angemeldet sein.",
+      "action": "Anmelden"
+    },
     "signIn": {
       "title": "Anmelden",
       "subtitle": "Bleib am Ball mit geführten Übungen, persönlichen Einblicken und Tools zur Beruhigung deines Geistes. Registriere dich oder melde dich an, um fortzufahren.",

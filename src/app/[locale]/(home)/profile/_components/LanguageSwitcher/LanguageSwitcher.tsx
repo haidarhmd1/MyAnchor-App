@@ -10,6 +10,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Languages } from "lucide-react";
 
 const LOCALES = [
   { value: "en", label: "English" },
@@ -18,7 +19,11 @@ const LOCALES = [
   { value: "ar-LB", label: "لبناني (عربي)" },
 ];
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({
+  variant = "normal",
+}: {
+  variant?: "xs" | "normal";
+}) {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -34,8 +39,9 @@ export function LanguageSwitcher() {
 
   return (
     <Select value={locale} onValueChange={onChange}>
-      <SelectTrigger className="w-[160px]">
-        <SelectValue />
+      <SelectTrigger className={variant === "normal" ? "w-40" : "mr-2"}>
+        <Languages />
+        {variant === "normal" && <SelectValue />}
       </SelectTrigger>
       <SelectContent>
         {LOCALES.map((l) => (

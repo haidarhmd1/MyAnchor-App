@@ -241,14 +241,14 @@ export const authConfig = {
       if (!isLoggedIn) {
         // Redirect to localized signin (if locale exists in current URL)
         const locale = getLocaleFromPath(pathname);
-        const signinPath = locale ? `/${locale}/signin` : "/signin";
+        const signinPath = locale ? `/${locale}/home` : "/home";
 
         // Avoid redirect loops: if we are already on signin, allow
         const { path } = stripLocale(pathname);
         if (path === "/signin") return true;
 
         const url = new URL(signinPath, nextUrl);
-        url.searchParams.set("callbackUrl", nextUrl.pathname + nextUrl.search);
+        // url.searchParams.set("callbackUrl", nextUrl.pathname + nextUrl.search);
         return NextResponse.redirect(url);
       }
 

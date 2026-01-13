@@ -44,7 +44,9 @@ export default async function Home() {
       )}
       <div>
         <div className="">
-          <h4 className="text-md font-bold">{t("quicktools.main.title")}</h4>
+          <h4 className="text-md font-semibold">
+            {t("quicktools.main.title")}
+          </h4>
           <p className="text-xs font-thin">{t("quicktools.main.subtitle")}</p>
         </div>
 

@@ -12,7 +12,7 @@ export const CategoryLinks = async () => {
   return (
     <div className="grid grid-cols-1 gap-3">
       <div className="">
-        <h4 className="text-md font-bold">{t("home.journey.title")}</h4>
+        <h4 className="text-md font-semibold">{t("home.journey.title")}</h4>
         <p className="text-xs font-thin">{t("home.journey.description")}</p>
       </div>
       {categories.map((c) => (

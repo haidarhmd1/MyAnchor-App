@@ -1,5 +1,5 @@
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { Lexend } from "next/font/google";
+import { Advent_Pro } from "next/font/google";
 import "../globals.css";
 import { Toaster } from "sonner";
 
@@ -8,8 +8,8 @@ import { routing } from "@/i18n/routing";
 import { Providers } from "../Provider";
 import { Metadata, Viewport } from "next";
 
-const lexend = Lexend({
-  variable: "--font-lexend",
+const adventPro = Advent_Pro({
+  variable: "--font-advent_pro",
   subsets: ["latin"],
 });
 
@@ -76,7 +76,7 @@ export default async function RootLayout({
       className="m-auto max-w-115 overscroll-contain scroll-smooth bg-white"
     >
       <body
-        className={`${lexend.variable} bg-background font-inter text-foreground typography background-color: var(--color-background) min-h-dvh antialiased`}
+        className={`${adventPro.variable} bg-background font-inter text-foreground typography background-color: var(--color-background) min-h-dvh antialiased`}
       >
         <NextIntlClientProvider>
           <Providers>{children}</Providers>

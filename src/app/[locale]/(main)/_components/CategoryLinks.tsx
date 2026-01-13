@@ -28,6 +28,7 @@ export const CategoryLinks = async () => {
               clsx(
                 "flex",
                 [
+                  "h-28",
                   "relative",
                   "rounded-3xl border-none",
                   "bg-linear-to-br",

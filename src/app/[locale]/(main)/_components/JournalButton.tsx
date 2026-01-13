@@ -75,17 +75,15 @@ export async function UnAuthenticatedJournalButton() {
   const t = await getTranslations("journalShortcut");
 
   return (
-    <SignInOverlayButton>
-      <ShortcutsCard
-        size="sm"
-        title={t("title")}
-        subtitle={t("ctaSubtitle")}
-        icon={<BookOpenCheck className="h-5 w-5" aria-hidden="true" />}
-        gradient={{
-          from: "bg-blue-600",
-          to: "bg-blue-100",
-        }}
-      />
-    </SignInOverlayButton>
+    <ShortcutsCard
+      size="sm"
+      title={t("title")}
+      subtitle={t("ctaSubtitle")}
+      icon={<BookOpenCheck className="h-5 w-5" aria-hidden="true" />}
+      gradient={{
+        from: "bg-blue-600",
+        to: "bg-blue-100",
+      }}
+    />
   );
 }

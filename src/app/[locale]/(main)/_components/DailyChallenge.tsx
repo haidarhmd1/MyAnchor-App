@@ -146,21 +146,19 @@ export const UnAuthenticatedDailyChallenge = async () => {
         </p>
       </div>
 
-      <SignInOverlayButton>
-        <div className="rounded-xl bg-white p-2 shadow-2xl">
-          <p className="text-sm font-light">
-            {t("dailyChallenge.startNew.subtitle")}
-          </p>
-        </div>
-        <div className="mt-6">
-          <Button
-            type="button"
-            className="w-full rounded-2xl bg-blue-400 transition will-change-transform active:scale-[0.98]"
-          >
-            <Link href="/exposure/challenge">{t("tracker.start")}</Link>
-          </Button>
-        </div>
-      </SignInOverlayButton>
+      <div className="rounded-xl bg-white p-2 shadow-2xl">
+        <p className="text-sm font-light">
+          {t("dailyChallenge.startNew.subtitle")}
+        </p>
+      </div>
+      <div className="mt-6">
+        <Button
+          type="button"
+          className="w-full rounded-2xl bg-blue-400 transition will-change-transform active:scale-[0.98]"
+        >
+          <Link href="/exposure/challenge">{t("tracker.start")}</Link>
+        </Button>
+      </div>
     </div>
   );
 };

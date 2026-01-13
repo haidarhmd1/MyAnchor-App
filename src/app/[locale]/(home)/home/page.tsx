@@ -16,6 +16,7 @@ import {
   UnAuthenticatedJournalButton,
 } from "../../(main)/_components/JournalButton";
 import { isUserAuthenticated } from "@/lib/auth/auth-helpers";
+import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 
 export default async function Home() {
   const isUserAuth = await isUserAuthenticated();
@@ -32,14 +33,14 @@ export default async function Home() {
           </div>
         </>
       ) : (
-        <>
+        <SignInOverlayButton>
           <div className="pt-4">
             <UnAuthenticatedJournalButton />
           </div>
           <div>
             <UnAuthenticatedDailyChallenge />
           </div>
-        </>
+        </SignInOverlayButton>
       )}
       <div>
         <div className="">

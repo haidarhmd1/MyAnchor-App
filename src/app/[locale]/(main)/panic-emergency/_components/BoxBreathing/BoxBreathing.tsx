@@ -115,7 +115,7 @@ export const BoxBreathing = ({
       {/* Card */}
       <div
         onClick={() => setOpen(true)}
-        className="min-h-24 transform rounded-2xl bg-white p-3 shadow-md transition will-change-transform active:scale-[0.98]"
+        className="h-28 min-h-24 transform rounded-2xl bg-white p-3 shadow-md transition will-change-transform active:scale-[0.98]"
       >
         <div className="text-left">
           <h4 className="text-sm font-medium">{t("card.title")}</h4>

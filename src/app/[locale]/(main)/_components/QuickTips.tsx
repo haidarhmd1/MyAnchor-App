@@ -13,7 +13,7 @@ export const QuickTips = async () => {
   const t2 = await getTranslations();
   return (
     <div className="space-y-4">
-      <div className="">
+      <div>
         <h4 className="text-md font-bold">{t("tip")}</h4>
         <p className="text-xs font-thin"></p>
       </div>
@@ -21,7 +21,10 @@ export const QuickTips = async () => {
         <CarouselContent>
           {tips.map((c) => {
             return (
-              <CarouselItem key={c.id} className="basis-1/2">
+              <CarouselItem
+                key={c.id}
+                className="m-2 flex basis-1/2 flex-col rounded-3xl bg-white p-4 shadow-md"
+              >
                 <Link
                   href={`tip/${c.slug}`}
                   style={{
@@ -29,7 +32,7 @@ export const QuickTips = async () => {
                   }}
                 >
                   <div
-                    className="h-[136px] w-full rounded-md"
+                    className="h-34 w-full rounded-md"
                     style={{
                       backgroundImage: `url("${c.imgSrc}")`,
                       backgroundSize: "cover",

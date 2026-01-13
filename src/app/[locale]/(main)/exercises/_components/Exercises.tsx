@@ -9,7 +9,7 @@ export const Exercises = async () => {
       {exerciseList.map((exercise) => (
         <CardContainer
           link={`/exercises/${exercise.id}`}
-          className="mb-4 animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none"
+          className="mb-4 animate-[fadeUp_.35s_ease-out_both] shadow-md will-change-transform motion-reduce:animate-none"
           key={exercise.id}
           title={t(exercise.titleKey)}
           icon={

@@ -5,28 +5,52 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Sheet } from "react-modal-sheet";
 import { useTranslations } from "next-intl";
+import { Info } from "lucide-react";
 
 type Phase = "inhale" | "hold1" | "exhale" | "hold2";
+type BreathingType = "boxBreathing" | "relaxingBreath";
 
 const PHASES: Phase[] = ["inhale", "hold1", "exhale", "hold2"];
+const BREATHING_CONFIG: Record<
+  BreathingType,
+  Partial<Record<Phase, number>>
+> = {
+  boxBreathing: {
+    inhale: 4,
+    hold1: 4,
+    exhale: 4,
+    hold2: 4,
+  },
+  relaxingBreath: {
+    inhale: 4,
+    hold1: 7,
+    exhale: 8,
+  },
+};
 
-export const BoxBreathing = ({
-  secondsPerSide = 4,
-  rounds = 4,
-}: {
-  secondsPerSide?: number;
-  rounds?: number;
-}) => {
+const secondsPerSide = 4;
+
+export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
   const t = useTranslations("panicEmergency.boxBreathing");
 
   const [open, setOpen] = useState(false);
   const [started, setStarted] = useState(false);
+  const [breathingType, setBreathingType] =
+    useState<BreathingType>("boxBreathing");
 
-  const [phaseIndex, setPhaseIndex] = useState(0);
-  const [roundIndex, setRoundIndex] = useState(0);
-  const [countdown, setCountdown] = useState(secondsPerSide);
+  const [phaseIndex, setPhaseIndex] = useState(0); // which phase you are in
+  const [roundIndex, setRoundIndex] = useState(0); // which round you are in
+  const [countdown, setCountdown] = useState(secondsPerSide); // countdown in seconds
 
-  const phase = PHASES[phaseIndex];
+  const config = BREATHING_CONFIG[breathingType]; // choosing the breathing type
+
+  // != null to filter out relaxing not having hold2
+  const phases = (Object.keys(config) as Phase[]).filter(
+    (p) => config[p] != null,
+  );
+
+  const phase = phases[phaseIndex];
+  const secondsForPhase = config[phase] ?? 4;
 
   // Labels
   const phaseLabel =
@@ -54,9 +78,10 @@ export const BoxBreathing = ({
 
     setPhaseIndex(0);
     setRoundIndex(0);
-    setCountdown(secondsPerSide);
+    setCountdown(secondsForPhase);
     setStarted(false);
-  }, [open, secondsPerSide]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, breathingType]);
 
   // Breathing loop (starts only after pressing Start)
   useEffect(() => {
@@ -64,7 +89,7 @@ export const BoxBreathing = ({
 
     let raf: number;
     let start: number | null = null;
-    const durationMs = secondsPerSide * 1000;
+    const durationMs = secondsForPhase * 1000;
 
     const step = (timestamp: number) => {
       if (start === null) start = timestamp;
@@ -88,7 +113,15 @@ export const BoxBreathing = ({
 
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [open, started, phaseIndex, secondsPerSide]);
+  }, [
+    open,
+    started,
+    roundIndex,
+    rounds,
+    phaseIndex,
+    phases.length,
+    secondsForPhase,
+  ]);
 
   const done = roundIndex >= rounds;
 
@@ -105,7 +138,7 @@ export const BoxBreathing = ({
               : [1.08],
   };
 
-  const scaleTransition = { duration: secondsPerSide, ease: easeInOut };
+  const scaleTransition = { duration: secondsForPhase, ease: easeInOut };
 
   const totalForText = typeof rounds === "number" ? String(rounds) : "∞";
   const currentForText = String(Math.min(roundIndex + 1, rounds));
@@ -128,7 +161,43 @@ export const BoxBreathing = ({
         <Sheet.Container>
           <Sheet.Header />
           <Sheet.Content>
+            <div className="grid grid-cols-2 gap-4 px-4">
+              <div
+                onClick={() => {
+                  setBreathingType("boxBreathing");
+                }}
+                className={[
+                  "flex min-h-12 justify-between rounded-xl border p-4 shadow-md transition-all",
+                  breathingType === "boxBreathing"
+                    ? "bg-blue-300/60"
+                    : "bg-white",
+                ].join(" ")}
+              >
+                <p>4-4-4-4</p>
+                <Info />
+              </div>
+
+              <div
+                onClick={() => {
+                  setBreathingType("relaxingBreath");
+                }}
+                className={[
+                  "flex min-h-12 justify-between rounded-xl border p-4 shadow-md transition-all",
+                  breathingType !== "boxBreathing"
+                    ? "bg-blue-300/60"
+                    : "bg-white",
+                ].join(" ")}
+              >
+                <p>4-7-8</p>
+                <Info />
+              </div>
+            </div>
             <div className="mx-auto mt-4 flex max-w-sm flex-col items-center gap-6">
+              <h4 className="mt-4 text-2xl font-medium">
+                {breathingType === "boxBreathing"
+                  ? "Box breathing 4-4-4-4"
+                  : "Relaxed breathing 4-7-8"}
+              </h4>
               {/* Animated box */}
               <motion.div
                 key={`${phase}-${roundIndex}`}
@@ -157,7 +226,7 @@ export const BoxBreathing = ({
                 </div>
 
                 <div className="mt-4 text-4xl tabular-nums">
-                  {started ? Math.max(0, countdown) : secondsPerSide}
+                  {started ? Math.max(0, countdown) : secondsForPhase}
                 </div>
 
                 <div className="text-muted-foreground mt-2 text-xs">

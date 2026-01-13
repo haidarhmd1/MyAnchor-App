@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Sheet } from "react-modal-sheet";
 import { useTranslations } from "next-intl";
-import { Info } from "lucide-react";
 
 type Phase = "inhale" | "hold1" | "exhale" | "hold2";
 type BreathingType = "boxBreathing" | "relaxingBreath";
@@ -174,7 +173,6 @@ export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
                 ].join(" ")}
               >
                 <p>4-4-4-4</p>
-                <Info />
               </div>
 
               <div
@@ -189,97 +187,103 @@ export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
                 ].join(" ")}
               >
                 <p>4-7-8</p>
-                <Info />
               </div>
             </div>
-            <div className="mx-auto mt-4 flex max-w-sm flex-col items-center gap-6">
+            <div className="mx-auto mt-4 flex max-w-sm flex-col items-center">
               <h4 className="mt-4 text-2xl font-medium">
                 {breathingType === "boxBreathing"
-                  ? "Box breathing 4-4-4-4"
-                  : "Relaxed breathing 4-7-8"}
+                  ? t("breathing.box.title")
+                  : t("breathing.relaxed.title")}
               </h4>
-              {/* Animated box */}
-              <motion.div
-                key={`${phase}-${roundIndex}`}
-                className="my-12 min-h-64 min-w-64 rounded-[22px] bg-linear-to-br from-sky-300 to-sky-500"
-                animate={started ? scaleAnim : { scale: 0.7 }}
-                transition={started ? scaleTransition : { duration: 0 }}
-                style={{
-                  boxShadow:
-                    "0 8px 30px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
-                }}
-              />
-
-              {/* Text */}
-              <div className="flex flex-col items-center">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={phase}
-                    className="text-2xl font-medium tracking-wide"
-                  >
-                    {phaseLabel}
-                  </motion.div>
-                </AnimatePresence>
-
-                <div className="text-muted-foreground mt-2 text-sm">
-                  {phaseHint}
-                </div>
-
-                <div className="mt-4 text-4xl tabular-nums">
-                  {started ? Math.max(0, countdown) : secondsForPhase}
-                </div>
-
-                <div className="text-muted-foreground mt-2 text-xs">
-                  {t("progress.round", {
-                    current: currentForText,
-                    total: totalForText,
-                  })}
-                </div>
-              </div>
-              <button
-                onClick={() => setStarted(true)}
-                disabled={started}
-                className="rounded-xl bg-blue-600 px-4 py-2 text-sm text-white disabled:opacity-50"
-              >
-                {t("actions.start")}
-              </button>
-              {/* Actions */}
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setOpen(false)}
-                  className="rounded-xl bg-black px-4 py-2 text-sm text-white"
-                >
-                  {t("actions.done")}
-                </button>
-
-                <button
-                  onClick={() => {
-                    setPhaseIndex(0);
-                    setRoundIndex(0);
-                    setCountdown(secondsPerSide);
-                    setStarted(true);
+              <p className="text-accent-foreground text-center font-light">
+                {breathingType === "boxBreathing"
+                  ? t("breathing.box.description")
+                  : t("breathing.relaxed.description")}
+              </p>
+              <div className="mx-auto mt-4 flex max-w-sm flex-col items-center gap-2">
+                {/* Animated box */}
+                <motion.div
+                  key={`${phase}-${roundIndex}`}
+                  className="my-12 min-h-64 min-w-64 rounded-[22px] bg-linear-to-br from-sky-300 to-sky-500"
+                  animate={started ? scaleAnim : { scale: 0.7 }}
+                  transition={started ? scaleTransition : { duration: 0 }}
+                  style={{
+                    boxShadow:
+                      "0 8px 30px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
                   }}
-                  className="rounded-xl border px-4 py-2 text-sm"
-                >
-                  {t("actions.restart")}
-                </button>
-              </div>
+                />
 
-              {/* Completion */}
-              <AnimatePresence>
-                {done && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    className="w-full rounded-xl bg-emerald-50 p-3 text-center text-emerald-700"
-                    role="status"
-                    aria-live="polite"
+                {/* Text */}
+                <div className="flex flex-col items-center">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={phase}
+                      className="text-2xl font-medium tracking-wide"
+                    >
+                      {phaseLabel}
+                    </motion.div>
+                  </AnimatePresence>
+
+                  <div className="text-muted-foreground mt-2 text-sm">
+                    {phaseHint}
+                  </div>
+
+                  <div className="mt-4 text-4xl tabular-nums">
+                    {started ? Math.max(0, countdown) : secondsForPhase}
+                  </div>
+
+                  <div className="text-muted-foreground mt-2 text-xs">
+                    {t("progress.round", {
+                      current: currentForText,
+                      total: totalForText,
+                    })}
+                  </div>
+                </div>
+                <button
+                  onClick={() => setStarted(true)}
+                  disabled={started}
+                  className="rounded-xl bg-blue-600 px-4 py-2 text-sm text-white disabled:opacity-50"
+                >
+                  {t("actions.start")}
+                </button>
+                {/* Actions */}
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setOpen(false)}
+                    className="rounded-xl bg-black px-4 py-2 text-sm text-white"
                   >
-                    {t("completion")}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    {t("actions.done")}
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setPhaseIndex(0);
+                      setRoundIndex(0);
+                      setCountdown(secondsPerSide);
+                      setStarted(true);
+                    }}
+                    className="rounded-xl border px-4 py-2 text-sm"
+                  >
+                    {t("actions.restart")}
+                  </button>
+                </div>
+
+                {/* Completion */}
+                <AnimatePresence>
+                  {done && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      className="w-full rounded-xl bg-emerald-50 p-3 text-center text-emerald-700"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      {t("completion")}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </Sheet.Content>
         </Sheet.Container>

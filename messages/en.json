@@ -616,6 +616,16 @@
   },
   "panicEmergency": {
     "boxBreathing": {
+      "breathing": {
+        "box": {
+          "title": "Box breathing 4-4-4-4",
+          "description": "Slow, even breathing tells your body it’s safe. The 4-4-4-4 rhythm helps calm your nervous system and bring you back to the present."
+        },
+        "relaxed": {
+          "title": "Relaxed breathing 4-7-8",
+          "description": "The longer exhale helps your body release tension and slow your heart rate. The 4-7-8 rhythm encourages deep relaxation and helps ease anxiety."
+        }
+      },
       "card": {
         "title": "Box Breathing",
         "subtitle": "Regulate your breathing to calm your nervous system."

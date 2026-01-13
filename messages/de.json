@@ -609,6 +609,16 @@
   },
   "panicEmergency": {
     "boxBreathing": {
+      "breathing": {
+        "box": {
+          "title": "Box-Atmung 4-4-4-4",
+          "description": "Ruhiges, gleichmäßiges Atmen signalisiert deinem Körper Sicherheit. Der 4-4-4-4-Rhythmus hilft, dein Nervensystem zu beruhigen und dich wieder ins Jetzt zu bringen."
+        },
+        "relaxed": {
+          "title": "Entspannte Atmung 4-7-8",
+          "description": "Das längere Ausatmen hilft deinem Körper, Spannung loszulassen und den Herzschlag zu verlangsamen. Der 4-7-8-Rhythmus fördert tiefe Entspannung und kann Angst lindern."
+        }
+      },
       "card": {
         "title": "Box-Atmung",
         "subtitle": "Reguliere deine Atmung, um dein Nervensystem zu beruhigen."

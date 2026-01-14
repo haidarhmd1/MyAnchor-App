@@ -8,7 +8,9 @@ export const SignInHeader = ({ title = "MyAnchor App" }) => {
         <BackArrow />
       </div>
 
-      <h6 className="text-center font-light">MyAnchor</h6>
+      <h6 className="text-center font-light">
+        MyAnchor<sub>beta</sub>
+      </h6>
 
       <div className="flex items-center">
         <LanguageSwitcher variant="xs" />

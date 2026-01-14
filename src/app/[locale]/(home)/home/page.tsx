@@ -17,15 +17,45 @@ import {
 } from "../../(main)/_components/JournalButton";
 import { isUserAuthenticated } from "@/lib/auth/auth-helpers";
 import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircleIcon, CheckCircle2Icon, PopcornIcon } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default async function Home() {
   const isUserAuth = await isUserAuthenticated();
   const t = await getTranslations("home");
   return (
     <div className="space-y-6 px-3">
+      <div className="grid w-full max-w-xl items-start gap-4">
+        <Accordion
+          type="single"
+          collapsible
+          className="w-full rounded-3xl border-red-400 bg-red-200 px-4 shadow-md"
+        >
+          <AccordionItem value="disclaimer-1">
+            <AccordionTrigger>
+              {t("disclaimer.accordionTitle")}
+            </AccordionTrigger>
+            <AccordionContent className="flex flex-col gap-4 text-balance">
+              <Alert variant="destructive">
+                <AlertCircleIcon />
+                <AlertTitle>{t("disclaimer.alertTitle")}</AlertTitle>
+                <AlertDescription>
+                  <p className="text-sm font-light">{t("disclaimer.text")}</p>
+                </AlertDescription>
+              </Alert>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
       {isUserAuth ? (
         <>
-          <div className="pt-4">
+          <div className="">
             <JournalButton />
           </div>
           <div>
@@ -34,7 +64,7 @@ export default async function Home() {
         </>
       ) : (
         <SignInOverlayButton>
-          <div className="pt-4">
+          <div className="">
             <UnAuthenticatedJournalButton />
           </div>
           <div>

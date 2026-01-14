@@ -20,14 +20,19 @@ export default function SignInPage() {
   }>();
 
   const requestCode = async ({ email }: { email: string }) => {
-    try {
-      await axios.post("/api/auth/otp/request", { email });
+    if (process.env.NODE_ENV === "production") {
+      try {
+        await axios.post("/api/auth/otp/request", { email });
+        setEmail(email);
+        setStep("code");
+        toast.success(t("codeSent"));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (e: any) {
+        toast.error(e?.response?.data?.error ?? t("sendCodeError"));
+      }
+    } else {
       setEmail(email);
       setStep("code");
-      toast.success(t("codeSent"));
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      toast.error(e?.response?.data?.error ?? t("sendCodeError"));
     }
   };
 

@@ -1,5 +1,10 @@
 {
   "home": {
+    "disclaimer": {
+      "accordionTitle": "Haftungsausschluss der App",
+      "alertTitle": "Wichtige Hinweise:",
+      "text": "Diese Anwendung dient ausschließlich zu Informations- und Unterstützungszwecken. Sie stellt keine medizinische oder psychologische Beratung dar und ersetzt weder eine professionelle Diagnose noch eine Behandlung oder Betreuung. Die Nutzung dieser Anwendung ist als ergänzende Maßnahme gedacht und sollte nicht den Besuch bei qualifizierten Fachkräften ersetzen."
+    },
     "todaysRead": {
       "title": "Heutige Lektüre"
     },

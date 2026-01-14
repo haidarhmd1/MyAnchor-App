@@ -1,5 +1,10 @@
 {
   "home": {
+    "disclaimer": {
+      "accordionTitle": "App Disclaimer",
+      "alertTitle": "Important information:",
+      "text": "This application is intended for informational and supportive purposes only. It does not constitute medical or psychological advice and is not a substitute for professional diagnosis, treatment, or care. Use of this application is complementary and should not replace consultation with qualified healthcare professionals."
+    },
     "todaysRead": {
       "title": "Today’s read"
     },

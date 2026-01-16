@@ -1,10 +1,11 @@
 import prisma from "../../../../lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { ChallengeSchema } from "@/lib/zod.types";
-import { withAuth } from "@/lib/auth/auth-helpers";
+import { getUserOrThrow } from "@/lib/auth/auth-helpers";
 import z from "zod";
 
-export const GET = withAuth(async (_request, _ctx, { userId }) => {
+export const GET = async () => {
+  const { userId } = await getUserOrThrow();
   const challenge = await prisma.challenge.findMany({
     where: {
       userId,
@@ -13,9 +14,10 @@ export const GET = withAuth(async (_request, _ctx, { userId }) => {
   });
 
   return NextResponse.json({ challenge }, { status: 200 });
-});
+};
 
-export const POST = withAuth(async (request, _ctx, { userId }) => {
+export const POST = async (request: NextRequest) => {
+  const { userId } = await getUserOrThrow();
   const body = await request.json();
   const parsed = ChallengeSchema.safeParse(body);
   if (!parsed.success) {
@@ -38,4 +40,4 @@ export const POST = withAuth(async (request, _ctx, { userId }) => {
     status: 201,
     headers: { "Content-Type": "application/json" },
   });
-});
+};

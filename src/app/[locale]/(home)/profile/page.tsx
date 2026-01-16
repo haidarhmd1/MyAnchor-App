@@ -9,7 +9,7 @@ import { SignOutButton } from "@/components/SignOutButton/SignOutButton";
 import { DeleteAccountButton } from "@/components/DeleteAccountButton/DeleteAccountButton";
 
 export default async function Page() {
-  const { user } = await requireAuth();
+  const user = await requireAuth();
   const t = await getTranslations("account");
 
   return (

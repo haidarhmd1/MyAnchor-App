@@ -1,7 +1,7 @@
 import { CircleUser } from "lucide-react";
 import { BackArrow } from "./_components/BackArrow";
 import { Link } from "@/i18n/navigation";
-import { isUserAuthenticated } from "@/lib/auth/auth-helpers";
+import { getUser } from "@/lib/auth/auth-helpers";
 import { SignInButton } from "../SignInButton/SignInButton";
 import { LanguageSwitcher } from "@/app/[locale]/(home)/profile/_components/LanguageSwitcher/LanguageSwitcher";
 
@@ -12,7 +12,7 @@ export async function Header({
   title?: string;
   right?: React.ReactNode;
 }) {
-  const isUserAuth = await isUserAuthenticated();
+  const isUserAuth = await getUser();
   return (
     <header className="sticky top-0 z-10 flex min-h-16 items-center justify-between border-b bg-white/95 px-4 py-4 backdrop-blur supports-backdrop-filter:bg-white/80">
       <div className="flex items-center">

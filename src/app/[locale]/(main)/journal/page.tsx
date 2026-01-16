@@ -10,8 +10,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { getLocale, getTranslations } from "next-intl/server";
 import { formatRelative } from "@/i18n/relative-time";
-import { isUserAuthenticated } from "@/lib/auth/auth-helpers";
 import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
+import { getUser, getUserOrThrow } from "@/lib/auth/auth-helpers";
 
 type GroupKey =
   | "today"
@@ -58,7 +58,7 @@ function groupTone(groupKey: GroupKey) {
 }
 
 export default async function Page() {
-  const isUserAuth = await isUserAuthenticated();
+  const isUserAuth = await getUser();
   return isUserAuth ? <Journal /> : <UnauthenticatedJournal />;
 }
 
@@ -112,7 +112,7 @@ const Journal = async () => {
   const t = await getTranslations();
   const locale = await getLocale();
 
-  const { user } = await requireAuth();
+  const user = await requireAuth();
 
   // (No Promise.all — keeps it simple & predictable)
   const taxonomies = await getTaxonomies();

@@ -15,7 +15,6 @@ import {
   JournalButton,
   UnAuthenticatedJournalButton,
 } from "../../(main)/_components/JournalButton";
-import { isUserAuthenticated } from "@/lib/auth/auth-helpers";
 import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircleIcon, CheckCircle2Icon, PopcornIcon } from "lucide-react";
@@ -25,9 +24,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { JournalAnalytics } from "../../(main)/_components/JournalAnalytics";
+import { getUser } from "@/lib/auth/auth-helpers";
 
 export default async function Home() {
-  const isUserAuth = await isUserAuthenticated();
+  const auth = await getUser();
   const t = await getTranslations("home");
   return (
     <div className="space-y-6 px-3">
@@ -53,9 +54,10 @@ export default async function Home() {
           </AccordionItem>
         </Accordion>
       </div>
-      {isUserAuth ? (
+      {auth ? (
         <>
           <div className="">
+            <JournalAnalytics />
             <JournalButton />
           </div>
           <div>

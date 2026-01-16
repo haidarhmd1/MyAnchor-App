@@ -3,55 +3,27 @@ import { User } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { auth } from "./auth";
 import prisma from "../../../lib/prisma";
+import { redirect } from "@/i18n/navigation";
+import { Locale } from "next-intl";
 
-export async function requireUser() {
+export async function getUser() {
   const session = await auth();
 
-  if (!session?.user?.id) {
-    throw NextResponse.json({ error: "Unautharized" }, { status: 401 });
-  }
+  if (!session?.user?.id) return null;
 
   const user = await prisma.user.findUnique({ where: { id: session.user.id } });
 
-  if (!user || user.deletedAt) {
-    throw NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
+  if (!user || user.deletedAt) return null;
 
   return { userId: user.id, user };
 }
 
-export async function isUserAuthenticated() {
-  const session = await auth();
+export async function getUserOrThrow() {
+  const auth = await getUser();
 
-  if (!session?.user?.id) {
-    return false;
+  if (!auth) {
+    throw NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const user = await prisma.user.findUnique({ where: { id: session.user.id } });
-
-  if (!user || user.deletedAt) {
-    return false;
-  }
-  return true;
-}
-
-export function withAuth<
-  T extends (
-    req: Request,
-    ctx: any,
-    auth: { userId: string; user: User },
-  ) => Promise<Response>,
->(handler: T) {
-  return async (req: Request, ctx: any) => {
-    try {
-      const { userId, user } = await requireUser();
-      return await handler(req, ctx, { userId, user });
-    } catch (resp) {
-      if (resp instanceof Response) return resp;
-      return NextResponse.json(
-        { error: "Internal Server Error" },
-        { status: 500 },
-      );
-    }
-  };
+  return { userId: auth.user.id, user: auth.user };
 }

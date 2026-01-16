@@ -8,11 +8,11 @@ import {
   UnauthenticatedPastChallenges,
 } from "./PastChallenges/PastChallenges";
 import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
-import { isUserAuthenticated } from "@/lib/auth/auth-helpers";
 import { getTranslations } from "next-intl/server";
+import { getUser } from "@/lib/auth/auth-helpers";
 
 export const TabSwitcher = async () => {
-  const isUserAuth = await isUserAuthenticated();
+  const auth = await getUser();
   const t = await getTranslations("exposure.tabSwitcher");
 
   return (
@@ -27,7 +27,7 @@ export const TabSwitcher = async () => {
       </TabsList>
 
       <TabsContent value="new-challenge">
-        {!isUserAuth ? (
+        {!auth ? (
           <SignInOverlayButton>
             <UnauthenticatedNewChallenge />
           </SignInOverlayButton>
@@ -36,7 +36,7 @@ export const TabSwitcher = async () => {
         )}
       </TabsContent>
       <TabsContent value="past-challenge">
-        {!isUserAuth ? (
+        {!auth ? (
           <SignInOverlayButton>
             <UnauthenticatedPastChallenges />
           </SignInOverlayButton>

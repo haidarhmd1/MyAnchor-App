@@ -2,13 +2,14 @@ import { NextResponse } from "next/server";
 import { ChallengeStatus } from "@prisma/client";
 import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import prisma from "../../../../../lib/prisma";
-import { withAuth } from "@/lib/auth/auth-helpers";
 import { z } from "zod";
+import { getUserOrThrow } from "@/lib/auth/auth-helpers";
 
 type Ctx = { params: Promise<{ id: string }> };
 
-export const POST = withAuth(async (request: Request, ctx: Ctx, { userId }) => {
+export const POST = async (request: Request, ctx: Ctx) => {
   try {
+    const { userId } = await getUserOrThrow();
     const { id } = await ctx.params;
 
     if (!id) {
@@ -89,4 +90,4 @@ export const POST = withAuth(async (request: Request, ctx: Ctx, { userId }) => {
       err instanceof Error ? err.message : "Unexpected server error";
     return NextResponse.json({ error: message }, { status: 500 });
   }
-});
+};

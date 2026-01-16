@@ -1,6 +1,6 @@
 import { BottomNav } from "@/components/BottomNav/BottomNav";
 import { SignInButton } from "@/components/SignInButton/SignInButton";
-import { isUserAuthenticated } from "@/lib/auth/auth-helpers";
+import { getUser } from "@/lib/auth/auth-helpers";
 import { CircleUser } from "lucide-react";
 import Link from "next/link";
 import { LanguageSwitcher } from "./profile/_components/LanguageSwitcher/LanguageSwitcher";
@@ -10,7 +10,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const isUserAuth = await isUserAuthenticated();
+  const auth = await getUser();
   return (
     <div className="m-auto max-w-1150">
       <header className="flex min-h-16 items-center justify-between px-4 py-4">
@@ -20,7 +20,7 @@ export default async function Layout({
 
         <div className="flex items-center">
           <LanguageSwitcher variant="xs" />
-          {!isUserAuth ? (
+          {!auth ? (
             <SignInButton />
           ) : (
             <Link href="/profile">

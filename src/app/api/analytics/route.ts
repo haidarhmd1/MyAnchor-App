@@ -1,9 +1,10 @@
-import { withAuth } from "@/lib/auth/auth-helpers";
+import { getUserOrThrow } from "@/lib/auth/auth-helpers";
 import prisma from "../../../../lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { DateTime } from "luxon";
 
-export const GET = withAuth(async (request, _ctx, { userId }) => {
+export const GET = async (request: NextRequest) => {
+  const { userId } = await getUserOrThrow();
   const { searchParams } = new URL(request.url);
   const startParam = searchParams.get("startDate");
 
@@ -64,4 +65,4 @@ export const GET = withAuth(async (request, _ctx, { userId }) => {
   }));
 
   return NextResponse.json(journalWithLabels, { status: 200 });
-});
+};

@@ -1,11 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import prisma from "../../../../lib/prisma";
 import { UserSchema } from "@/lib/zod.types";
-import { withAuth } from "@/lib/auth/auth-helpers";
+import { getUserOrThrow } from "@/lib/auth/auth-helpers";
 import z from "zod";
 
-export const PATCH = withAuth(async (request, _ctx, { userId }) => {
+export const PATCH = async (request: NextRequest) => {
+  const { userId } = await getUserOrThrow();
   const body = await request.json();
 
   const parsed = UserSchema.safeParse(body);
@@ -30,4 +31,4 @@ export const PATCH = withAuth(async (request, _ctx, { userId }) => {
   });
 
   return NextResponse.json({ user }, { status: 200 });
-});
+};

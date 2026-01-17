@@ -57,7 +57,7 @@ export default async function Home() {
       {auth ? (
         <>
           <div className="">
-            <JournalAnalytics />
+            {/* <JournalAnalytics /> */}
             <JournalButton />
           </div>
           <div>

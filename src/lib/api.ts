@@ -1,15 +1,14 @@
-import { FormJournalType } from "@/app/[locale]/(main)/journal/_components/helper";
 import {
   Challenge,
   ChallengeOutcome,
-  Company,
+  ChallengeStatus,
   Gender,
-  Journal,
+  MomentLog,
+  SocialContext,
   User,
 } from "@prisma/client";
 import { ChallengeOutcomeSchema, ChallengeSchema } from "./zod.types";
 import { z } from "zod";
-import { AnalyticsRow } from "@/app/[locale]/(main)/anxiety-analytics/_components/Analytics";
 
 type CreateChallengeInputType = z.infer<typeof ChallengeSchema>;
 export async function createChallenge({
@@ -21,11 +20,13 @@ export async function createChallenge({
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      company: data.company === "ALONE" ? Company.ALONE : Company.WITH_OTHERS,
+      socialContext:
+        data.socialContext === "ALONE"
+          ? SocialContext.ALONE
+          : SocialContext.WITH_OTHERS,
       challengeOptionId: data.challengeOptionId,
-      status: data.status ?? "NOT_STARTED",
+      status: ChallengeStatus.NOT_STARTED,
     }),
-    // optional in Next.js to avoid caching for mutations:
     cache: "no-store",
   });
 
@@ -61,12 +62,16 @@ export async function createChallengeOutcome({
   return (await res.json()) as ChallengeOutcome;
 }
 
-export async function createJournalEntry({
+export async function createMomentLogEntry({
   data,
 }: {
-  data: FormJournalType;
-}): Promise<Journal> {
-  const res = await fetch("/api/journal", {
+  data: {
+    location: string;
+    urge: string;
+    actionTaken?: string;
+  };
+}): Promise<MomentLog> {
+  const res = await fetch("/api/momentLog", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -74,9 +79,9 @@ export async function createJournalEntry({
 
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`Create journal entry failed: ${res.status} ${text}`);
+    throw new Error(`Create moment log entry failed: ${res.status} ${text}`);
   }
-  return (await res.json()) as Journal;
+  return (await res.json()) as MomentLog;
 }
 
 export async function updateUserProfile({
@@ -102,24 +107,22 @@ export async function updateUserProfile({
   return await res.json();
 }
 
-export async function getJournals(): Promise<Journal> {
-  const res = await fetch("/api/journal", {
-    next: { tags: ["journals"] },
+export async function getMomentLog(): Promise<MomentLog> {
+  const res = await fetch("/api/momentLog", {
+    next: { tags: ["momentLog"] },
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
 
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`Error fetching journals: ${res.status} ${text}`);
+    throw new Error(`Error fetching momentLogs: ${res.status} ${text}`);
   }
 
   return await res.json();
 }
 
-export async function getAnxietyAnalytics(
-  startDate: string,
-): Promise<AnalyticsRow[]> {
+export async function getAnxietyAnalytics(startDate: string) {
   const res = await fetch(`/api/analytics?startDate=${startDate}`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },

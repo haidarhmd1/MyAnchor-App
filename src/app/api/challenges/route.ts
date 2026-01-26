@@ -20,17 +20,19 @@ export const POST = async (request: NextRequest) => {
   const { userId } = await getUserOrThrow();
   const body = await request.json();
   const parsed = ChallengeSchema.safeParse(body);
+
   if (!parsed.success) {
     return NextResponse.json(
       { errors: z.treeifyError(parsed.error) },
       { status: 400 },
     );
   }
-  const { company, challengeOptionId, status } = parsed.data;
+
+  const { socialContext, challengeOptionId, status } = parsed.data;
   const newChallengeEntry = await prisma.challenge.create({
     data: {
       userId,
-      company,
+      socialContext,
       challengeOptionId,
       status,
     },

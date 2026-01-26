@@ -42,7 +42,7 @@ export async function DELETE(req: Request) {
       })
       .catch(() => {});
 
-    // Hard delete the user (cascades to SignInAudit, Consent, Journal, Challenge, etc.)
+    // Hard delete the user (cascades to SignInAudit, Consent, momentLog, Challenge, etc.)
     await tx.user.delete({ where: { id: user.id } });
   });
 

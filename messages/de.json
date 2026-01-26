@@ -1,4 +1,89 @@
 {
+  "safetyBehavior": {
+    "label": "Sicherheitsverhalten",
+    "nextTime": "Nächstes Mal: lass es weg und {answer}",
+    "options": {
+      "left-early": {
+        "title": "Früh gegangen",
+        "description": "Du hast die Situation früher als geplant beendet, um Erleichterung zu bekommen oder dich sicherer zu fühlen, statt bis zum natürlichen Ende zu bleiben.",
+        "answer": "Bleib 2 Minuten länger, bevor du gehst."
+      },
+      "pause-to-reset": {
+        "title": "Pausiert",
+        "description": "Du hast angehalten, dich kurz zurückgezogen oder eine Pause gemacht, um dich zu beruhigen oder wieder Kontrolle zu bekommen, bevor du weitergemacht hast.",
+        "answer": "Mach weiter, ohne eine Pause zum „Reset“ zu machen."
+      },
+      "avoided-speaking-engaging": {
+        "title": "Nicht beteiligt",
+        "description": "Du warst zwar körperlich anwesend, hast dich aber zurückgehalten und nicht interagiert, gesprochen oder mitgemacht, obwohl die Situation es verlangt hat.",
+        "answer": "Sag einmal etwas – auch nur kurz."
+      },
+      "checked-symptoms": {
+        "title": "Symptome überprüft",
+        "description": "Du hast körperliche Empfindungen wie Atmung, Herzschlag, Schwindel oder Anspannung überprüft, um zu sehen, wie es dir geht.",
+        "answer": "Nimm den Impuls wahr und mach weiter, ohne zu überprüfen."
+      },
+      "sought-reassurance": {
+        "title": "Rückversicherung gesucht",
+        "description": "Du hast Bestätigung bei anderen, bei dir selbst oder durch externe Quellen gesucht, dass du okay oder sicher bist.",
+        "answer": "Such danach keine Rückversicherung."
+      },
+      "delayed-until-felt-ready": {
+        "title": "Handlung aufgeschoben",
+        "description": "Du hast gewartet, bis Angst oder Unwohlsein nachlässt, bevor du gehandelt hast – statt zu handeln, während es da ist.",
+        "answer": "Handle, bevor du dich bereit fühlst."
+      },
+      "changed-plans-because-of-anxiety": {
+        "title": "Pläne geändert",
+        "description": "Du hast Pläne angepasst, abgesagt oder vermieden, um zu verhindern, dass Angst oder Unwohlsein auftreten.",
+        "answer": "Lass deine Pläne nächstes Mal unverändert."
+      }
+    },
+    "STAY": {
+      "title": "Ich bleibe in der Situation, ohne zu flüchten oder zu „resetten“",
+      "principle": "Prinzip: Bleiben geht um Ort und Dauer – nicht um Komfort.",
+      "options": {
+        "full-duration": "Für die geplante Zeit geblieben",
+        "no-early-exit": "Nicht früh gegangen",
+        "no-reset": "Nicht kurz rausgegangen „zum Reset“",
+        "no-exits": "Nicht näher zu Ausgängen gegangen",
+        "no-seat-change": "Den Platz nicht gewechselt, um mich sicherer zu fühlen",
+        "no-self-check": "Die Situation nicht pausiert, um mich zu prüfen",
+        "despite-symptoms": "Geblieben, auch wenn Symptome stärker wurden",
+        "natural-end": "Geblieben, bis die Aktivität natürlich endete"
+      }
+    },
+    "PARTICIPATE": {
+      "title": "Ich habe trotz Unwohlsein am Leben teilgenommen",
+      "principle": "Prinzip: Teilnehmen braucht keine Präsenz, Klarheit oder Selbstvertrauen.",
+      "options": {
+        "responded": "Geantwortet, wenn ich angesprochen wurde",
+        "initiated": "Mindestens eine Interaktion gestartet",
+        "brain-fog": "Geantwortet, auch wenn das Denken wie vernebelt war",
+        "kept-talking": "Das Gespräch trotz Unwohlsein fortgeführt",
+        "raised-voice": "Meine Stimme erhoben, wenn nötig (Lärm, Menge)",
+        "eye-contact": "Kurz Blickkontakt gehalten",
+        "ordered-paid": "Bestellt / bezahlt / eine Frage gestellt",
+        "kept-task": "Die Aufgabe fortgesetzt, ohne mich zurückzuziehen",
+        "no-ready": "Geantwortet, ohne zu warten, bis ich mich bereit fühle"
+      }
+    },
+    "STRETCH": {
+      "title": "Ich habe ein Sicherheitsverhalten weggelassen oder bin leicht über Vermeidung hinausgegangen",
+      "principle": "Prinzip: Stretch ≠ Leiden. Stretch = eine Kontrollgewohnheit weglassen.",
+      "options": {
+        "responded": "Gesprochen, wenn ich angesprochen wurde",
+        "initiated": "Mindestens eine Interaktion gestartet",
+        "brain-fog": "Geantwortet, auch wenn das Denken wie vernebelt war",
+        "kept-talking": "Das Gespräch trotz Unwohlsein fortgeführt",
+        "raised-voice": "Meine Stimme erhoben, wenn nötig (Lärm, Menge)",
+        "eye-contact": "Kurz Blickkontakt gehalten",
+        "ordered-paid": "Bestellt / bezahlt / eine Frage gestellt",
+        "kept-task": "Die Aufgabe fortgesetzt, ohne mich zurückzuziehen",
+        "no-ready": "Geantwortet, ohne zu warten, bis ich mich bereit fühle"
+      }
+    }
+  },
   "home": {
     "disclaimer": {
       "accordionTitle": "Haftungsausschluss der App",
@@ -24,6 +109,23 @@
     }
   },
   "common": {
+    "engagement": {
+      "STAY": {
+        "label": "Bleiben",
+        "title": "Für die geplante Zeit oder Aktivität bleiben",
+        "description": "Du bleibst in der Situation, ohne zu flüchten oder zu versuchen, Angst zu reduzieren. Du lässt Unbehagen von selbst an- und abklingen."
+      },
+      "PARTICIPATE": {
+        "label": "Teilnehmen",
+        "title": "Mindestens einmal interagieren",
+        "description": "Du beteiligst dich an der Situation, während Angst vorhanden ist. Du hörst auf zu vermeiden und tust, was die Situation erfordert."
+      },
+      "STRETCH": {
+        "label": "Herausfordern",
+        "title": "Länger bleiben oder ein Sicherheitsverhalten weglassen",
+        "description": "Du lässt bewusst ein Sicherheitsverhalten weg oder bleibst etwas länger als üblich. Dadurch erhöhst du die Schwierigkeit auf kontrollierte Weise."
+      }
+    },
     "tip": "Tipps",
     "previous": "Zurück",
     "next": "Weiter",
@@ -77,6 +179,7 @@
     "next": "Weiter",
     "previous": "Zurück",
     "submit": "Absenden",
+    "log": "Eintrag bestätigen",
     "yes": "Ja",
     "no": "Nein",
     "submitting": "Wird gesendet…",
@@ -363,10 +466,6 @@
       "aria": "Tägliche Challenge abgeschlossen"
     }
   },
-  "panicShortcut": {
-    "title": "Steckst du gerade in einer Panikattacke?",
-    "subtitle": "Drücke den Button und atme tief durch – du bist in Sicherheit"
-  },
   "inspiration": {
     "inspiration": {
       "title": "Inspiration für heute",
@@ -420,10 +519,10 @@
       }
     }
   },
-  "journalShortcut": {
-    "title": "Dein tägliches Journal",
-    "doneSubtitle": "Eintrag für heute erledigt!",
-    "ctaSubtitle": "Journal"
+  "momentLogShortcut": {
+    "title": "Dein Moment-Log",
+    "doneSubtitle": "Du hast gerade einen neuen Eintrag erstellt!",
+    "ctaSubtitle": "Moment-Log"
   },
   "analyticsShortcut": {
     "title": "Schneller Überblick: Angst",
@@ -537,14 +636,6 @@
       }
     }
   },
-  "analyticsPage": {
-    "metaTitle": "⚓ MyAnchor - Nutzer-Analysen",
-    "empty": {
-      "title": "Keine Einträge",
-      "description": "Journal-Analysen geben dir Einblicke in deine Angst-Muster über die Zeit. Durch das Protokollieren von Einträgen kannst du Symptome, Situationen und Trends verfolgen, um deinen mentalen Weg besser zu verstehen.",
-      "cta": "Journal-Eintrag erstellen"
-    }
-  },
   "exposurePage": {
     "metaTitle": "⚓ MyAnchor - Exposition",
     "hero": {
@@ -567,13 +658,21 @@
     "title": "Wie war deine Erfahrung mit der Challenge?"
   },
   "challengeSteps": {
+    "partialNoScreen": {
+      "title": "Nächstes Mal",
+      "subtitle": "Lass ein Sicherheitsverhalten weg"
+    },
+    "yesFinishScreen": {
+      "title": "Fertig",
+      "subtitle": "Mach mit deinem Tag weiter."
+    },
     "hadCompletedChallenge": {
       "title": "Challenge",
       "subtitle": "Hast du die Challenge gemacht?"
     },
     "hadAnxietyAttack": {
       "title": "Angst-Check",
-      "subtitle": "Hattest du während dieser Challenge eine Angst-/Panikattacke?"
+      "subtitle": "Hattest du während dieser Challenge eine Angstattacke?"
     },
     "reasonsNotDone": {
       "title": "Warum hast du die Challenge nicht gemacht?",
@@ -581,14 +680,14 @@
     },
     "stoppedEarly": {
       "title": "Challenge abgebrochen",
-      "subtitle": "Hast du die Challenge vorzeitig abgebrochen?"
+      "subtitle": "Hast du die Challenge vorzeitig beendet?"
     },
     "copingStrategies": {
-      "title": "Du hast weitergemacht, obwohl du eine Attacke hattest!",
-      "subtitle": "Was hat dir geholfen, weiterzumachen?"
+      "title": "Du hast trotz der Attacke weitergemacht!",
+      "subtitle": "Was hat dir geholfen weiterzumachen?"
     },
     "typesOfBodySymptomsWhileContinuing": {
-      "title": "Körperempfindungen während du weitergemacht hast",
+      "title": "Körperempfindungen währenddessen",
       "subtitle": "Welche Symptome hast du gespürt?"
     },
     "anxietyLevelRating": {
@@ -596,12 +695,12 @@
       "subtitle": "Wie intensiv war deine Angst?"
     },
     "challengeRating": {
-      "title": "Challenge bewerten",
+      "title": "Challenge-Bewertung",
       "subtitle": "Wie hast du diese Challenge erlebt?"
     },
-    "stopReasons": {
-      "title": "Warum hast du die Challenge gestoppt?",
-      "subtitle": "Sag uns, was dich zum Stoppen gebracht hat."
+    "safetyBehavior": {
+      "title": "Was hat gestört?",
+      "subtitle": "Wähle eine Option. Das ist kein Scheitern."
     },
     "actionsTaken": {
       "title": "Was hast du danach gemacht?",
@@ -749,60 +848,6 @@
       "description": "Benachrichtigungen über neue Inhalte erhalten"
     }
   },
-  "anxietyLevels": {
-    "0": {
-      "label": "0 – Ruhig",
-      "description": "Völlig entspannt, keine Angst"
-    },
-    "2": {
-      "label": "2 – Leicht",
-      "description": "Leichte Unruhe, gut kontrollierbar"
-    },
-    "4": {
-      "label": "4 – Spürbar",
-      "description": "Deutliche Angst, aber funktionsfähig"
-    },
-    "6": {
-      "label": "6 – Stark",
-      "description": "Sehr unangenehm, aufdringliche Symptome"
-    },
-    "8": {
-      "label": "8 – Intensiv",
-      "description": "Schwer präsent zu bleiben, hohe Angst"
-    },
-    "10": {
-      "label": "10 – Extrem",
-      "description": "Vollständige Panik, überwältigend"
-    }
-  },
-  "exposureRating": {
-    "0": {
-      "label": "0 - Sehr leicht",
-      "description": "Ruhig gefühlt, keine Anstrengung"
-    },
-    "1": { "label": "1", "description": "Fast keine Schwierigkeit" },
-    "2": { "label": "2", "description": "Gut machbar, nur leichtes Unbehagen" },
-    "3": {
-      "label": "3",
-      "description": "Leichte Herausforderung, blieb aber okay"
-    },
-    "4": { "label": "4", "description": "Etwas Anstrengung, aber machbar" },
-    "5": {
-      "label": "5 - Mittel",
-      "description": "Zeitweise herausfordernd, aber möglich"
-    },
-    "6": { "label": "6", "description": "Deutlich schwierig, aber ich blieb" },
-    "7": {
-      "label": "7",
-      "description": "Ziemlich schwer, Weitergehen war schwierig"
-    },
-    "8": { "label": "8", "description": "Sehr schwer, fast abgebrochen" },
-    "9": { "label": "9", "description": "Extrem schwer, gerade so geschafft" },
-    "10": {
-      "label": "10 - Überwältigend",
-      "description": "Konnte nicht weitermachen / musste abbrechen"
-    }
-  },
   "reassurances": {
     "panic_not_emergency": "Du hast gerade eine Panikattacke. Ich weiß, es fühlt sich überwältigend an, aber es ist kein medizinischer Notfall.",
     "body_is_safe": "Dein Körper ist sicher, auch wenn sich die Empfindungen beängstigend anfühlen. Es ist nur dein Alarmsystem, das zu stark reagiert.",
@@ -818,66 +863,104 @@
   "bottomNav": {
     "home": "Start",
     "education": "Wissen",
-    "journal": "Tagebuch",
+    "momentLog": "Log",
     "exercises": "Übungen",
     "exposure": "Exposition"
   },
-  "journal": {
+  "momentLog": {
+    "disclaimer": {
+      "title": "Protokolliere Momente, in denen Angst außerhalb einer geplanten Challenge auftrat.",
+      "description": "Menschen erholen sich nicht von Panik/GAS, weil sie sie endlich verstanden haben. Sie erholen sich, weil sie aufgehört haben, inneres Rauschen als Information zu behandeln."
+    },
     "entry": {
-      "title": "Dein Tagebucheintrag",
+      "title": "Dein Moment-Log-Eintrag",
       "doneAt": "Eintrag abgeschlossen!"
     },
     "newEntry": {
-      "title": "Neuen Tagebucheintrag erstellen",
-      "ariaOpen": "Neuen Tagebucheintrag erstellen"
+      "title": "Ungeplanten Moment protokollieren",
+      "ariaOpen": "Ungeplanten Moment protokollieren"
     },
     "pastEntries": "Vergangene Einträge:",
     "noEntries": "Keine bisherigen Einträge.",
-    "journalQuestionnaire": {
-      "errors": {
-        "saveFailed": "Der Journaleintrag wurde nicht gespeichert. Bitte versuche es erneut."
-      },
-      "whenDidItHappen": {
-        "morning": "Morgens",
-        "noon": "Mittags",
-        "afternoon": "Nachmittags",
-        "evening": "Abends",
-        "night": "Nachts"
-      },
-      "steps": {
-        "hasAnxietyAttack": {
-          "title": "Angstreaktion",
-          "subtitle": "Hattest du eine Angstreaktion?"
-        },
-        "hasAvoidedSituations": {
-          "title": "Vermeidungsverhalten",
-          "subtitle": "Hast du bestimmte Situationen vermieden?"
-        },
-        "typesOfSituationYouAvoided": {
-          "title": "Vermiedene Situationen",
-          "subtitle": "Welche Situationen hast du vermieden?"
-        },
-        "whyYouWereAvoidingIt": {
-          "title": "Gründe für die Vermeidung",
-          "subtitle": "Was waren deine Gründe, diese Situationen zu vermeiden?"
-        },
-        "whenDidItHappen": {
-          "title": "Zeitpunkt",
-          "subtitle": "Zu welchem Zeitpunkt ist dies aufgetreten?"
-        },
-        "typesOfSituationYouWereIn": {
-          "title": "Aktuelle Situation",
-          "subtitle": "In welcher Situation hast du dich befunden?"
-        },
-        "typesOfBodySymptoms": {
-          "title": "Körperliche Reaktionen",
-          "subtitle": "Welche körperlichen Reaktionen hast du wahrgenommen?"
-        },
-        "anxietyLevelRating": {
-          "title": "Angstintensität",
-          "subtitleAttack": "Wie intensiv hast du die Angst erlebt?",
-          "subtitleAvoidance": "Wie stark war die Befürchtung, dass etwas Negatives passieren könnte?"
+    "steps": {
+      "location": {
+        "title": "Ort",
+        "question": "Wo warst du?",
+        "options": {
+          "gym": { "title": "Fitnessstudio" },
+          "work": { "title": "Arbeit" },
+          "cafe": { "title": "Café" },
+          "transport": { "title": "Transport" },
+          "home": { "title": "Zuhause" },
+          "social-gathering": { "title": "Soziales Treffen" },
+          "other": { "title": "Sonstiges" }
         }
+      },
+      "urge": {
+        "title": "Impuls",
+        "question": "Was wollte die Angst, dass du tust?",
+        "options": {
+          "leave": { "title": "Gehen" },
+          "avoid-engaging": { "title": "Nicht einlassen" },
+          "pause-to-reset": { "title": "Pause zum Reset" },
+          "seek-reassurance": { "title": "Rückversicherung suchen" },
+          "change-plans": { "title": "Pläne ändern" },
+          "nothing-noticeable": { "title": "Nichts Auffälliges" },
+          "other": { "title": "Sonstiges" }
+        }
+      },
+      "actionTaken": {
+        "title": "Aktion",
+        "question": "Was hast du getan?",
+        "options": {
+          "left-early": {
+            "title": "Früh gegangen",
+            "description": "Du hast die Situation früher beendet, um Erleichterung zu bekommen oder dich sicherer zu fühlen, statt bis zum natürlichen Ende zu bleiben.",
+            "answer": "Bleib 2 Minuten länger, bevor du gehst."
+          },
+          "pause-to-reset": {
+            "title": "Pausiert",
+            "description": "Du hast angehalten oder eine Pause gemacht, um dich zu beruhigen oder Kontrolle zurückzugewinnen.",
+            "answer": "Mach weiter, ohne zu pausieren."
+          },
+          "avoided-speaking-engaging": {
+            "title": "Nicht beteiligt",
+            "description": "Du warst anwesend, hast dich aber vom Sprechen oder Mitmachen zurückgehalten.",
+            "answer": "Sag einmal etwas – auch kurz."
+          },
+          "checked-symptoms": {
+            "title": "Symptome überprüft",
+            "description": "Du hast Atmung, Herzschlag, Schwindel oder Anspannung überprüft.",
+            "answer": "Nimm den Impuls wahr und mach weiter, ohne zu überprüfen."
+          },
+          "sought-reassurance": {
+            "title": "Rückversicherung gesucht",
+            "description": "Du hast Bestätigung gesucht, dass du okay oder sicher bist.",
+            "answer": "Such danach keine Rückversicherung."
+          },
+          "delayed-until-felt-ready": {
+            "title": "Handlung verzögert",
+            "description": "Du hast gewartet, bis Angst oder Unwohlsein nachließen.",
+            "answer": "Handle, bevor du dich bereit fühlst."
+          },
+          "changed-plans-because-of-anxiety": {
+            "title": "Pläne geändert",
+            "description": "Du hast Pläne angepasst oder vermieden, um Angst zu verhindern.",
+            "answer": "Lass deine Pläne nächstes Mal unverändert."
+          },
+          "stayed": {
+            "title": "Geblieben",
+            "description": "Du bist bis zum geplanten oder natürlichen Ende geblieben, trotz Angst."
+          },
+          "stayed-and-participated": {
+            "title": "Geblieben und beteiligt",
+            "description": "Du bist geblieben und hast dich beteiligt, trotz Angst."
+          }
+        }
+      },
+      "outcome-stayed": {
+        "title": "Notiert.",
+        "subtitle": "Angst hat dein Verhalten nicht verändert."
       }
     }
   },
@@ -1376,6 +1459,11 @@
       "pastChallenges": "Vergangene Übungen"
     },
     "newChallenge": {
+      "notStarted": {
+        "aria": "Jetzt starten.",
+        "title": "Exposition starten",
+        "subtitle": "Angst ist erlaubt."
+      },
       "pending": {
         "aria": "Tägliche Übung: ausstehend",
         "title": "Tägliche Übung: ausstehend",

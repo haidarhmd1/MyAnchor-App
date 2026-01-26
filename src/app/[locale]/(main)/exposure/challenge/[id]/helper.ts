@@ -2,12 +2,12 @@ import { TaxonomyType } from "@prisma/client";
 import prisma from "../../../../../../../lib/prisma";
 
 export const getTaxonomies = async () => {
-  const taxonomies = await prisma.taxonomy.findMany();
+  const taxonomies = await prisma.taxonomyItem.findMany();
 
   const skippedChallengeReasonsOptions = taxonomies.filter(
     (c) => c.type === TaxonomyType.SKIPPED_CHALLENGE_REASON,
   );
-  const stopReasonsOptions = taxonomies.filter(
+  const stopReasonOptions = taxonomies.filter(
     (c) => c.type === TaxonomyType.STOP_REASON,
   );
   const afterAttackActionsOptions = taxonomies.filter(
@@ -22,7 +22,7 @@ export const getTaxonomies = async () => {
 
   return {
     skippedChallengeReasonsOptions,
-    stopReasonsOptions,
+    stopReasonOptions,
     afterAttackActionsOptions,
     symptomOptions,
     keptGoingReasonsOptions,

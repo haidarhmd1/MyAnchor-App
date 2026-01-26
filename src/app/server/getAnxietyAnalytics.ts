@@ -11,11 +11,10 @@ export async function getAnxietyAnalytics(startDateISO?: string | null) {
 
   const end = start.endOf("month");
 
-  const anxietyAttackJournal = await prisma.journal.findMany({
+  const anxietyAttackmomentLog = await prisma.momentLog.findMany({
     where: {
       userId,
       deletedAt: null,
-      hasAnxietyAttack: true,
       createdAt: {
         gte: start.toJSDate(),
         lte: end.toJSDate(),
@@ -24,32 +23,24 @@ export async function getAnxietyAnalytics(startDateISO?: string | null) {
     select: {
       id: true,
       createdAt: true,
-      typesOfSituationYouWereIn: true,
-      typesOfBodySymptoms: true,
     },
   });
 
-  if (anxietyAttackJournal.length === 0) {
+  if (anxietyAttackmomentLog.length === 0) {
     return [];
   }
 
-  const taxonomy = await prisma.taxonomy.findMany({
+  const taxonomy = await prisma.taxonomyItem.findMany({
     select: { id: true, type: true, label: true },
   });
 
   // Faster lookups than repeated .find()
   const taxonomyById = new Map(taxonomy.map((t) => [t.id, t]));
 
-  const journalWithLabels = anxietyAttackJournal.map((a) => ({
+  const momentLogWithLabels = anxietyAttackmomentLog.map((a) => ({
     id: a.id,
     date: a.createdAt.toISOString(),
-    typesOfBodySymptoms: a.typesOfBodySymptoms
-      .map((symptomId: string) => taxonomyById.get(symptomId) ?? null)
-      .filter(Boolean),
-    typesOfSituationYouWereIn: a.typesOfSituationYouWereIn
-      ? (taxonomyById.get(a.typesOfSituationYouWereIn) ?? null)
-      : null,
   }));
 
-  return journalWithLabels;
+  return momentLogWithLabels;
 }

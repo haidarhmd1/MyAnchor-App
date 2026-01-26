@@ -18,23 +18,19 @@ export const QuickAnalytics = async () => {
   const user = await prisma.user.findUnique({ where: { id: session.user.id } });
   if (!user || user.deletedAt) redirect("/");
 
-  const anxietyAttackJournal = await prisma.journal.findMany({
+  const anxietyAttackmomentLog = await prisma.momentLog.findMany({
     where: {
       userId: user.id,
       deletedAt: null,
-      hasAnxietyAttack: true,
       createdAt: {
         gte: DateTime.now().setZone(TZ).startOf("month").toJSDate(),
         lte: DateTime.now().setZone(TZ).endOf("month").toJSDate(),
       },
     },
-    select: {
-      typesOfSituationYouWereIn: true,
-      typesOfBodySymptoms: true,
-    },
+    select: {},
   });
 
-  if (anxietyAttackJournal.length === 0) return null;
+  if (anxietyAttackmomentLog.length === 0) return null;
 
   return (
     <div className="pt-4">
@@ -43,7 +39,7 @@ export const QuickAnalytics = async () => {
           size="sm"
           icon={<AlertCircleIcon />}
           title={t("title")}
-          subtitle={t("subtitle", { count: anxietyAttackJournal.length })}
+          subtitle={t("subtitle", { count: anxietyAttackmomentLog.length })}
           gradient={{
             from: "from-sky-400",
             to: "to-yellow-200",

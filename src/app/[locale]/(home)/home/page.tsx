@@ -5,27 +5,26 @@ import { Metadata } from "next";
 import { CategoryLinks } from "../../(main)/_components/CategoryLinks";
 import {
   DailyChallenge,
-  UnAuthenticatedDailyChallenge,
+  UnauthenticatedDailyChallenge,
 } from "../../(main)/_components/DailyChallenge";
 import { Grounding } from "../../(main)/panic-emergency/_components/Grounding/Grounding";
 import { BoxBreathing } from "../../(main)/panic-emergency/_components/BoxBreathing/BoxBreathing";
 import { PositiveReminder } from "../../(main)/panic-emergency/_components/PositiveReminder/PositiveReminder";
 import { getTranslations } from "next-intl/server";
-import {
-  JournalButton,
-  UnAuthenticatedJournalButton,
-} from "../../(main)/_components/JournalButton";
 import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircleIcon, CheckCircle2Icon, PopcornIcon } from "lucide-react";
+import { AlertCircleIcon } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { JournalAnalytics } from "../../(main)/_components/JournalAnalytics";
 import { getUser } from "@/lib/auth/auth-helpers";
+import {
+  MomentLogButton,
+  UnauthenticatedMomentLogButton,
+} from "../../(main)/_components/MomentLogButton";
 
 export default async function Home() {
   const auth = await getUser();
@@ -57,8 +56,7 @@ export default async function Home() {
       {auth ? (
         <>
           <div className="">
-            {/* <JournalAnalytics /> */}
-            <JournalButton />
+            <MomentLogButton />
           </div>
           <div>
             <DailyChallenge />
@@ -67,10 +65,10 @@ export default async function Home() {
       ) : (
         <SignInOverlayButton>
           <div className="">
-            <UnAuthenticatedJournalButton />
+            <UnauthenticatedMomentLogButton />
           </div>
           <div>
-            <UnAuthenticatedDailyChallenge />
+            <UnauthenticatedDailyChallenge />
           </div>
         </SignInOverlayButton>
       )}

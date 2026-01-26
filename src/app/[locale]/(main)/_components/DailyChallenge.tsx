@@ -134,7 +134,7 @@ export const DailyChallenge = async () => {
   }
 };
 
-export const UnAuthenticatedDailyChallenge = async () => {
+export const UnauthenticatedDailyChallenge = async () => {
   const t = await getTranslations();
 
   return (

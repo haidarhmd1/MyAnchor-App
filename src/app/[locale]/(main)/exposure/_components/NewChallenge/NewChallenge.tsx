@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import prisma from "../../../../../../../lib/prisma";
 import { ChallengeStatus } from "@prisma/client";
 import { getTranslations } from "next-intl/server";
+import { StartChallengeBtn } from "./StartChallengeBtn";
 
 export const NewChallenge = async () => {
   const t = await getTranslations("exposure.newChallenge");
@@ -12,7 +13,7 @@ export const NewChallenge = async () => {
   const latestChallenge = await prisma.challenge.findFirst({
     where: {
       deletedAt: null,
-      status: ChallengeStatus.NOT_STARTED,
+      status: { not: ChallengeStatus.FINISHED },
     },
     select: {
       id: true,
@@ -22,8 +23,39 @@ export const NewChallenge = async () => {
       createdAt: "asc",
     },
   });
+  console.log(latestChallenge);
 
-  if (latestChallenge) {
+  if (!latestChallenge) {
+    return (
+      <Link href="/exposure/challenge" style={{ display: "contents" }}>
+        <Card
+          className={cn(
+            "mt-4 border-2 border-dashed",
+            "focus-within:ring-2 hover:-translate-y-px hover:border-gray-200",
+            "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
+          )}
+        >
+          <CardContent className="flex flex-row gap-2">
+            <div className="shrink-0">
+              <BadgePlus />
+            </div>
+            <p>{t("start.cta")}</p>
+          </CardContent>
+        </Card>
+      </Link>
+    );
+  }
+
+  if (latestChallenge.status === "NOT_STARTED") {
+    return (
+      <StartChallengeBtn
+        challengeId={latestChallenge.id}
+        pathToRevalidate="/exposure"
+      />
+    );
+  }
+
+  if (latestChallenge.status === "STARTED") {
     return (
       <Link
         href={`/exposure/challenge/${latestChallenge.id}`}
@@ -57,25 +89,6 @@ export const NewChallenge = async () => {
       </Link>
     );
   }
-
-  return (
-    <Link href="/exposure/challenge" style={{ display: "contents" }}>
-      <Card
-        className={cn(
-          "mt-4 border-2 border-dashed",
-          "focus-within:ring-2 hover:-translate-y-px hover:border-gray-200",
-          "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
-        )}
-      >
-        <CardContent className="flex flex-row gap-2">
-          <div className="shrink-0">
-            <BadgePlus />
-          </div>
-          <p>{t("start.cta")}</p>
-        </CardContent>
-      </Card>
-    </Link>
-  );
 };
 
 export const UnauthenticatedNewChallenge = async () => {

@@ -6,6 +6,10 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { mapTaxonomyToFormField } from "@/i18n/taxonomy-mapper";
 import { DateTime } from "luxon";
 import { formatRelative } from "@/i18n/relative-time";
+import {
+  mapChallengeOptionsToFormFields,
+  mapSingleChallengeOptionItemToTranslater,
+} from "@/i18n/challengeoptions-mapper";
 
 type GroupKey =
   | "today"
@@ -62,14 +66,14 @@ export const PastChallenges = async () => {
     },
     select: {
       id: true,
+      socialContext: true,
       challengeOption: {
         select: {
           id: true,
-          type: true,
+          engagement: true,
           slug: true,
           description: true,
           createdAt: true,
-          difficulty: true,
         },
       },
     },
@@ -140,9 +144,8 @@ export const PastChallenges = async () => {
 
             <div className="space-y-3">
               {items.map(({ id, challengeOption }) => {
-                const { label, description } =
-                  mapTaxonomyToFormField(challengeOption);
-
+                const mappedChallengeOptions =
+                  mapSingleChallengeOptionItemToTranslater(challengeOption);
                 const dateText = DateTime.fromJSDate(challengeOption.createdAt)
                   .setLocale(locale)
                   .toLocaleString(DateTime.DATE_MED);
@@ -156,30 +159,36 @@ export const PastChallenges = async () => {
                 return (
                   <Card
                     key={id}
-                    className={cn(
-                      "group border-2 border-dashed border-green-300 bg-linear-to-br from-green-100 to-green-200 p-0",
-                      "shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-all",
-                      "focus-within:ring-2 hover:-translate-y-px hover:border-green-400",
-                      "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
-                    )}
+                    className="group border-0 border-green-300 bg-linear-to-br from-green-200 to-green-400 p-0 shadow-md transition-all"
                   >
-                    <CardContent className="flex flex-col gap-2 p-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="text-xs">{t(label)}</p>
-                          <p className="text-xs opacity-80">
-                            {dateText} • {relative}
-                          </p>
-                        </div>
-
-                        <p className="text-xs font-bold">
-                          {t(`difficulty.${challengeOption.difficulty}`)}
+                    <CardContent className="flex flex-col gap-4 p-4">
+                      <div>
+                        <p className="text-xs font-light">
+                          {dateText} • {relative}
                         </p>
                       </div>
 
-                      {description ? (
-                        <p className="text-md">{t(description)}</p>
-                      ) : null}
+                      <div className="space-y-1">
+                        <p className="text-xs font-bold">
+                          {t(mappedChallengeOptions.label)}
+                        </p>
+                        {mappedChallengeOptions.description ? (
+                          <p className="text-xs">
+                            {t(mappedChallengeOptions.description)}
+                          </p>
+                        ) : null}
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-xs font-bold">
+                          {t(mappedChallengeOptions.engagement.label)}
+                        </p>
+                        <p className="text-xs font-medium">
+                          {t(mappedChallengeOptions.engagement.title)}
+                        </p>
+                        <p className="text-xs font-extralight">
+                          {t(mappedChallengeOptions.engagement.description)}
+                        </p>
+                      </div>
                     </CardContent>
                   </Card>
                 );

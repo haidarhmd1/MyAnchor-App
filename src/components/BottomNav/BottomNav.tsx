@@ -14,10 +14,10 @@ import {
 import { useTranslations } from "next-intl";
 import { routing } from "@/i18n/routing";
 
-type NavKey = "home" | "education" | "journal" | "exercises" | "exposure";
+type NavKey = "home" | "education" | "momentLog" | "exercises" | "exposure";
 
 type NavLinkProps = {
-  href: "/home" | "/education" | "/exercises" | "/exposure" | "/journal";
+  href: "/home" | "/education" | "/exercises" | "/exposure" | "/momentLog";
   labelKey: NavKey;
   icon: LucideIcon;
   /** If true, consider any deeper path under href as active (e.g. /education/*) */
@@ -97,7 +97,7 @@ export const BottomNav = () => {
     >
       <NavLink href="/home" labelKey="home" icon={House} partial={false} />
       <NavLink href="/education" labelKey="education" icon={Book} />
-      <NavLink href="/journal" labelKey="journal" icon={BookA} />
+      <NavLink href="/momentLog" labelKey="momentLog" icon={BookA} />
       <NavLink href="/exercises" labelKey="exercises" icon={SquareActivity} />
       <NavLink href="/exposure" labelKey="exposure" icon={AudioWaveform} />
     </nav>

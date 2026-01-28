@@ -1,4 +1,90 @@
 {
+  "safetyBehavior": {
+    "label": "سلوك الأمان",
+    "nextTimeTitle": "المرة الجاية:",
+    "nextTime": "المرة الجاية، شيله و{answer}",
+    "options": {
+      "left-early": {
+        "title": "فلّيت بكّير",
+        "description": "خلّصت الموقف أبكر من المخطّط كرمال ترتاح أو تحسّ بأمان أكتر، بدل ما تضل لحدّ النهاية الطبيعية.",
+        "answer": "ضلّ دقيقتين زيادة قبل ما تفلّ."
+      },
+      "pause-to-reset": {
+        "title": "وقفت",
+        "description": "وقفت أو بعدت شوي أو أخدت بريك كرمال تهدّي حالك أو ترجّع السيطرة قبل ما تكمّل.",
+        "answer": "كمّل من دون ما توقف كرمال تعمل «ريست»."
+      },
+      "avoided-speaking-engaging": {
+        "title": "تجنّبت تتفاعل",
+        "description": "كنت موجود جسديًا بس كابّح حالك عن التفاعل/الحكي/المشاركة لما الموقف كان بدّه هيك.",
+        "answer": "احكي مرة وحدة، ولو كلمة."
+      },
+      "checked-symptoms": {
+        "title": "تفقدت الأعراض",
+        "description": "فتّشت على إحساسات بالجسم متل النفس، دقّات القلب، الدوخة، أو الشدّ لتشوف كيفك.",
+        "answer": "لاحظ الدافع وكفّي من دون تفقد."
+      },
+      "sought-reassurance": {
+        "title": "دَوّرت على طمأنة",
+        "description": "دَوّرت على تأكيد من غيرك، من حالك، أو من شي خارجي إنك بخير أو بأمان.",
+        "answer": "ما تدور على طمأنة بعدين."
+      },
+      "delayed-until-felt-ready": {
+        "title": "أجّلت الفعل",
+        "description": "نطرت القلق أو الانزعاج يخفّ قبل ما تعمل شي، بدل ما تعمل الشي وهو موجود.",
+        "answer": "اعملها قبل ما تحسّ حالك جاهز."
+      },
+      "changed-plans-because-of-anxiety": {
+        "title": "غيّرت الخطط",
+        "description": "عدّلت أو لغيت أو تجنّبت خطط كرمال تمنع القلق أو الانزعاج يصير.",
+        "answer": "خلّي خططك متل ما هي المرة الجاية."
+      }
+    },
+    "STAY": {
+      "title": "بضلّ بالموقف من دون هروب ولا «ريست»",
+      "principle": "المبدأ: البقاء يعني مكان ووقت، مش راحة.",
+      "options": {
+        "full-duration": "ضلّيت للوقت المخطّط",
+        "no-early-exit": "ما فلّيت بكّير",
+        "no-reset": "ما طلعت لبرا «كرمال ريست»",
+        "no-exits": "ما قرّبت عالمخارج",
+        "no-seat-change": "ما غيّرت محلي كرمال حسّ حالي أأمن",
+        "no-self-check": "ما وقّفت الموقف كرمال قيّم حالي",
+        "despite-symptoms": "ضلّيت حتى لو زادت الأعراض",
+        "natural-end": "ضلّيت لحد ما خلص النشاط طبيعيًا"
+      }
+    },
+    "PARTICIPATE": {
+      "title": "تفاعلت مع الحياة رغم الانزعاج",
+      "principle": "المبدأ: المشاركة مش لازم حضور كامل ولا وضوح ولا ثقة.",
+      "options": {
+        "responded": "حكيت لما حدا حكى معي",
+        "initiated": "بلّشت تفاعل واحد عالأقل",
+        "brain-fog": "جاوبت حتى لو التفكير كان معوّم",
+        "kept-talking": "كمّلت الحكي رغم الانزعاج",
+        "raised-voice": "علّيت صوتي وقت يلزم (ضجة، زحمة)",
+        "eye-contact": "عملت تواصل نظر شوي",
+        "ordered-paid": "طلبت / دفعت / سألت سؤال",
+        "kept-task": "كمّلت المهمة من دون ما انسحب",
+        "no-ready": "ردّيت من دون ما نطر حسّ حالي جاهز"
+      }
+    },
+    "STRETCH": {
+      "title": "شلت سلوك أمان واحد أو رحت شوي أبعد من التجنّب",
+      "principle": "المبدأ: التحدّي ≠ معاناة. التحدّي = تترك عادة سيطرة وحدة.",
+      "options": {
+        "responded": "حكيت لما حدا حكى معي",
+        "initiated": "بلّشت تفاعل واحد عالأقل",
+        "brain-fog": "جاوبت حتى لو التفكير كان معوّم",
+        "kept-talking": "كمّلت الحكي رغم الانزعاج",
+        "raised-voice": "علّيت صوتي وقت يلزم (ضجة، زحمة)",
+        "eye-contact": "عملت تواصل نظر شوي",
+        "ordered-paid": "طلبت / دفعت / سألت سؤال",
+        "kept-task": "كمّلت المهمة من دون ما انسحب",
+        "no-ready": "ردّيت من دون ما نطر حسّ حالي جاهز"
+      }
+    }
+  },
   "home": {
     "disclaimer": {
       "accordionTitle": "تنبيه مهم عن التطبيق",
@@ -14,16 +100,34 @@
     },
     "todaysChallenge": {
       "title": "تحدي اليوم",
-      "description": "نبني الثقة خطوة خطوة"
+      "description": "اختار تعرّض واحد لليوم"
     },
     "quicktools": {
       "main": {
-        "title": "أدوات سريعة",
-        "subtitle": "لما يزيد القلق (دقيقة–دقيقتين)"
+        "title": "تقنيات تثبيت",
+        "subtitle": "تقنيات اختيارية. مش ضرورية للتقدّم",
+        "disclaimer": "استعملها بس إذا بدك. مش جزء من تمرين التعرّض."
       }
     }
   },
   "common": {
+    "engagement": {
+      "STAY": {
+        "label": "بقاء",
+        "title": "تضلّ للوقت أو النشاط المخطّط",
+        "description": "بتضلّ بالموقف من دون هروب ولا محاولة تخفّف القلق. بتخلّي الانزعاج يطلع وينزل لحاله."
+      },
+      "PARTICIPATE": {
+        "label": "مشاركة",
+        "title": "تتفاعل مرة وحدة عالأقل",
+        "description": "بتتفاعل مع الموقف والقلق موجود. بتوقف التجنّب وبتعمل اللي الموقف بدّه."
+      },
+      "STRETCH": {
+        "label": "تحدّي",
+        "title": "تضلّ أكتر شوي أو تشيل سلوك أمان واحد",
+        "description": "عن قصد، بتشيل سلوك أمان واحد أو بتضلّ أكتر من العادة شوي. هيك بتزيد الصعوبة بطريقة مضبوطة."
+      }
+    },
     "tip": "نصيحة",
     "previous": "السابق",
     "next": "التالي",
@@ -77,6 +181,8 @@
     "next": "التالي",
     "previous": "السابق",
     "submit": "إرسال",
+    "done": "تمّ الإكمال",
+    "log": "سجّل",
     "yes": "إيه",
     "no": "لأ",
     "submitting": "عم نبعت…",
@@ -362,10 +468,6 @@
       "aria": "تحدّي اليوم خلص"
     }
   },
-  "panicShortcut": {
-    "title": "هلّق إنت بنوبة هلع؟",
-    "subtitle": "كبس الزر وخد نفس عميق — إنت بأمان"
-  },
   "inspiration": {
     "inspiration": {
       "title": "إلهام اليوم",
@@ -419,10 +521,11 @@
       }
     }
   },
-  "journalShortcut": {
-    "title": "دفتر يوميّاتك",
-    "doneSubtitle": "كتابة اليوم خلصت!",
-    "ctaSubtitle": "اليوميات"
+  "momentLogShortcut": {
+    "title": "سجلّ لحظاتك",
+    "doneSubtitle": "تمّت الإضافة. فيك تضيف لحظة تانية بأي وقت.",
+    "ctaSubtitle": "سجلّ اللحظات",
+    "addMomentSubtitle": "ما في لحظات مسجّلة اليوم. فيك تضيف وحدة إذا القلق ظهر."
   },
   "analyticsShortcut": {
     "title": "لمحة سريعة عن القلق",
@@ -534,14 +637,6 @@
       }
     }
   },
-  "analyticsPage": {
-    "metaTitle": "⚓ MyAnchor - تحليلات المستخدم",
-    "empty": {
-      "title": "ما في إدخالات",
-      "description": "تحليلات اليوميات بتعطيك نظرة على أنماط القلق عندك مع الوقت. لما تسجّل إدخالات، فيك تتبع الأعراض والمواقف والاتجاهات لتفهم رحلتك النفسية بشكل أوضح.",
-      "cta": "سجّل باليوميات"
-    }
-  },
   "exposurePage": {
     "metaTitle": "⚓ MyAnchor - التعرّض",
     "hero": {
@@ -564,48 +659,60 @@
     "title": "كيف كانت تجربتك مع التحدّي؟"
   },
   "challengeSteps": {
+    "partialNoScreen": {
+      "title": "المرة الجاية",
+      "subtitle": "شيل سلوك أمان واحد"
+    },
+    "yesFinishScreen": {
+      "title": "خلصت",
+      "subtitle": "كمّل نهارك."
+    },
     "hadCompletedChallenge": {
       "title": "التحدّي",
-      "subtitle": "عملت التحدّي؟"
+      "subtitle": "كيف خلصت؟",
+      "answer": {
+        "stayed": "ضلّيت",
+        "leftEarly": "فلّيت بكّير"
+      }
     },
     "hadAnxietyAttack": {
-      "title": "فحص القلق",
+      "title": "تشييك القلق",
       "subtitle": "صار معك نوبة قلق خلال هالتحدّي؟"
     },
     "reasonsNotDone": {
       "title": "ليش ما عملت التحدّي؟",
-      "subtitle": "خبرنا ليش ما قدرت تعمله."
+      "subtitle": "خبرنا ليش ما عملته."
     },
     "stoppedEarly": {
-      "title": "وقّفت التحدّي",
-      "subtitle": "وقّفت التحدّي قبل ما يخلص؟"
+      "title": "وقفت التحدّي",
+      "subtitle": "وقفت التحدّي بكّير؟"
     },
     "copingStrategies": {
-      "title": "كمّلت رغم إنو صار معك نوبة!",
+      "title": "كمّلت رغم النوبة!",
       "subtitle": "شو اللي ساعدك تكمّل؟"
     },
     "typesOfBodySymptomsWhileContinuing": {
-      "title": "إحساسات الجسم وانت عم تكمّل",
-      "subtitle": "أي أعراض حسّيت فيها؟"
+      "title": "إحساسات بالجسم وأنت مكمّل",
+      "subtitle": "شو الأعراض اللي حسّيت فيها؟"
     },
     "anxietyLevelRating": {
-      "title": "قيّم القلق",
+      "title": "قياس القلق",
       "subtitle": "قدّيش كان القلق قوي؟"
     },
     "challengeRating": {
       "title": "تقييم التحدّي",
       "subtitle": "كيف كانت تجربتك مع هالتحدّي؟"
     },
-    "stopReasons": {
-      "title": "ليش وقّفت؟",
-      "subtitle": "شو اللي خلاك توقف؟"
+    "safetyBehavior": {
+      "title": "شو اللي عطّلك؟",
+      "subtitle": "اختار واحد. هيدا مش فشل."
     },
     "actionsTaken": {
       "title": "شو عملت بعدين؟",
-      "subtitle": "شو الإجراءات اللي أخدتها؟"
+      "subtitle": "شو الخطوات اللي أخدتها؟"
     },
     "typesOfBodySymptoms": {
-      "title": "إحساسات الجسم",
+      "title": "إحساسات بالجسم",
       "subtitle": "شو حسّيت بجسمك؟"
     }
   },
@@ -746,51 +853,6 @@
       "description": "وصلك إشعار لما ينزل محتوى جديد"
     }
   },
-  "anxietyLevels": {
-    "0": {
-      "label": "0 – هادي",
-      "description": "مرتاح تمامًا، بلا قلق"
-    },
-    "2": {
-      "label": "2 – خفيف",
-      "description": "توتر بسيط وبتقدر تتحكّم فيه"
-    },
-    "4": {
-      "label": "4 – ملحوظ",
-      "description": "قلق واضح، بس بعدك قادر تكمّل"
-    },
-    "6": {
-      "label": "6 – قوي",
-      "description": "مزعج كتير وأعراضه داخلة بحياتك"
-    },
-    "8": {
-      "label": "8 – شديد",
-      "description": "صعب تضل حاضر، والخوف عالي"
-    },
-    "10": {
-      "label": "10 – حاد",
-      "description": "هلع كامل ومشاعر طاغية"
-    }
-  },
-  "exposureRating": {
-    "0": {
-      "label": "0 - سهل كتير",
-      "description": "كنت هادي، وما في أي صعوبة"
-    },
-    "1": { "label": "1", "description": "تقريبًا بلا صعوبة" },
-    "2": { "label": "2", "description": "سهل جدًا، بس انزعاج خفيف" },
-    "3": { "label": "3", "description": "تحدّي خفيف وقدرت ضل مرتاح" },
-    "4": { "label": "4", "description": "بدّه شوية جهد بس ممكن" },
-    "5": { "label": "5 - متوسط", "description": "صعب أوقات بس قابل للتنفيذ" },
-    "6": { "label": "6", "description": "صعب بشكل واضح بس كفيت" },
-    "7": { "label": "7", "description": "صعب كتير وتعبت لتكمّل" },
-    "8": { "label": "8", "description": "صعب جدًا، كدت توقف" },
-    "9": { "label": "9", "description": "صعب بشكل كبير، بالكاد قدرت" },
-    "10": {
-      "label": "10 - طاغي",
-      "description": "ما قدرت كمّل / اضطرّيت وقف"
-    }
-  },
   "reassurances": {
     "panic_not_emergency": "إنت هلّق بنوبة هلع. بعرف قدّيش مخيفة، بس هيدي مش حالة طبية طارئة.",
     "body_is_safe": "جسمك بأمان حتى لو الإحساسات مخيفة. هيدا بس نظام الإنذار عم يشتغل بقوّة زيادة.",
@@ -805,67 +867,105 @@
   },
   "bottomNav": {
     "home": "الرئيسية",
-    "education": "التثقيف",
-    "journal": "اليوميات",
+    "education": "تثقيف",
+    "momentLog": "السجل",
     "exercises": "تمارين",
-    "exposure": "التعرّض"
+    "exposure": "تعرّض"
   },
-  "journal": {
+  "momentLog": {
+    "disclaimer": {
+      "title": "سجّل اللحظات اللي طلع فيها القلق برا تحدّي مخطّط.",
+      "description": "الناس ما بتتعافى من الهلع أو القلق لأنهم فهموه، بل لأنهم وقفوا يتعاملوا مع الضجة الداخلية كأنها معلومات."
+    },
     "entry": {
-      "title": "إدخال اليوميات",
-      "doneAt": "خلص الإدخال!"
+      "title": "إدخال سجل اللحظات",
+      "doneAt": "خلص التسجيل!"
     },
     "newEntry": {
-      "title": "اعمِل إدخال يوميات جديد",
-      "ariaOpen": "اعمِل إدخال يوميات جديد"
+      "title": "سجّل لحظة مش مخطّطة",
+      "ariaOpen": "سجّل لحظة مش مخطّطة"
     },
-    "pastEntries": "الإدخالات السابقة:",
+    "pastEntries": "إدخالات سابقة:",
     "noEntries": "ما في إدخالات سابقة.",
-    "journalQuestionnaire": {
-      "errors": {
-        "saveFailed": "ما انحفظ إدخال اليوميات. جرّب مرة تانية."
-      },
-      "whenDidItHappen": {
-        "morning": "الصبح",
-        "noon": "الضهر",
-        "afternoon": "بعد الضهر",
-        "evening": "المسا",
-        "night": "بالليل"
-      },
-      "steps": {
-        "hasAnxietyAttack": {
-          "title": "نوبة قلق",
-          "subtitle": "صار معك نوبة قلق؟"
-        },
-        "hasAvoidedSituations": {
-          "title": "تجنّب",
-          "subtitle": "تجنّبت مواقف معيّنة؟"
-        },
-        "typesOfSituationYouAvoided": {
-          "title": "المواقف اللي تجنّبتها",
-          "subtitle": "أي مواقف تجنّبت؟"
-        },
-        "whyYouWereAvoidingIt": {
-          "title": "الأسباب",
-          "subtitle": "ليش عم تحاول تتجنّبه؟"
-        },
-        "whenDidItHappen": {
-          "title": "متى صار؟",
-          "subtitle": "خبرنا متى صار هالشي."
-        },
-        "typesOfSituationYouWereIn": {
-          "title": "الموقف",
-          "subtitle": "وين كنت؟"
-        },
-        "typesOfBodySymptoms": {
-          "title": "إحساسات الجسم",
-          "subtitle": "شو حسّيت بجسمك؟"
-        },
-        "anxietyLevelRating": {
-          "title": "قيّم القلق",
-          "subtitleAttack": "قدّيش كان القلق قوي؟",
-          "subtitleAvoidance": "قدّيش كنت خايف يصير شي؟"
+    "steps": {
+      "location": {
+        "title": "المكان",
+        "question": "وين كنت؟",
+        "options": {
+          "gym": { "title": "النادي" },
+          "work": { "title": "الشغل" },
+          "cafe": { "title": "قهوة" },
+          "transport": { "title": "مواصلات" },
+          "home": { "title": "البيت" },
+          "social-gathering": { "title": "تجمّع اجتماعي" },
+          "other": { "title": "غيره" }
         }
+      },
+      "urge": {
+        "title": "الدافع",
+        "question": "شو حاول القلق يخليك تعمل؟",
+        "options": {
+          "leave": { "title": "تفِلّ" },
+          "avoid-engaging": { "title": "تتجنّب التفاعل" },
+          "pause-to-reset": { "title": "توقف تعمل ريست" },
+          "seek-reassurance": { "title": "تدوّر على طمأنة" },
+          "change-plans": { "title": "تغيّر خطط" },
+          "nothing-noticeable": { "title": "ولا شي ملحوظ" },
+          "other": { "title": "غيره" }
+        }
+      },
+      "actionTaken": {
+        "title": "شو عملت",
+        "question": "شو عملت؟",
+        "options": {
+          "left-early": {
+            "title": "فلّيت بكّير",
+            "description": "خلّصت الموقف أبكر كرمال ترتاح.",
+            "answer": "ضلّ دقيقتين زيادة قبل ما تفلّ."
+          },
+          "pause-to-reset": {
+            "title": "وقفت",
+            "description": "وقفت أو أخدت بريك كرمال تهدّى.",
+            "answer": "كمّل بلا ما توقف."
+          },
+          "avoided-speaking-engaging": {
+            "title": "تجنّبت التفاعل",
+            "description": "كنت موجود بس ما شاركت.",
+            "answer": "احكي مرة وحدة ولو كلمة."
+          },
+          "checked-symptoms": {
+            "title": "تفقدت الأعراض",
+            "description": "راقبت النفس أو دقّات القلب.",
+            "answer": "لاحظ الدافع وكفّي بلا تفقد."
+          },
+          "sought-reassurance": {
+            "title": "دورت على طمأنة",
+            "description": "فتّشت على تأكيد إنك بخير.",
+            "answer": "ما تدوّر على طمأنة بعدين."
+          },
+          "delayed-until-felt-ready": {
+            "title": "أجّلت",
+            "description": "نطرت القلق يخف.",
+            "answer": "اعملها قبل ما تحس حالك جاهز."
+          },
+          "changed-plans-because-of-anxiety": {
+            "title": "غيّرت الخطط",
+            "description": "عدّلت أو لغيت خطط كرمال القلق.",
+            "answer": "خلّي الخطط متل ما هي المرة الجاية."
+          },
+          "stayed": {
+            "title": "ضلّيت",
+            "description": "ضلّيت لآخرها رغم القلق."
+          },
+          "stayed-and-participated": {
+            "title": "ضلّيت وشاركت",
+            "description": "ضلّيت وتفاعلت رغم القلق."
+          }
+        }
+      },
+      "outcome-stayed": {
+        "title": "ملاحظة.",
+        "subtitle": "القلق ما غيّر تصرّفك."
       }
     }
   },
@@ -1318,6 +1418,11 @@
       }
     },
     "newChallenge": {
+      "notStarted": {
+        "aria": "بلّش هلّق.",
+        "title": "بلّش التعرّض",
+        "subtitle": "القلق مسموح."
+      },
       "pending": {
         "aria": "تحدّي اليوم ناطر",
         "title": "تحدّي اليوم ناطر",

@@ -13,7 +13,7 @@ function getLocalizedWeekdays(locale: Intl.LocalesArgument) {
   );
 }
 
-export async function JournalAnalytics() {
+export async function momentLogAnalytics() {
   const locale = await getLocale();
   const dayNow = new Intl.DateTimeFormat(locale, { weekday: "short" }).format(
     new Date().getUTCDay(),

@@ -8,12 +8,7 @@ import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createChallenge } from "@/lib/api";
-import {
-  ChallengeStatus,
-  Company,
-  Difficulty,
-  TaxonomyType,
-} from "@prisma/client";
+import { ChallengeOption, Engagement, SocialContext } from "@prisma/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/Spinner/Spinner";
@@ -21,118 +16,102 @@ import { useForm } from "react-hook-form";
 import { ChallengeSchema } from "@/lib/zod.types";
 import { z } from "zod";
 import { useTranslations } from "next-intl";
-import { mapTaxonomiesToFormFields } from "@/i18n/taxonomy-mapper";
+import { mapChallengeOptionsToFormFields } from "@/i18n/challengeoptions-mapper";
 
 enum STEP_ID {
-  LOCATION = "LOCATION",
-  COMPANY = "COMPANY",
+  CHALLENGE_OPTION = "CHALLENGE_OPTION",
+  SOCIAL_CONTEXT = "SOCIAL_CONTEXT",
 }
 
-type ChallengeOptions = {
-  id: string;
-  type: TaxonomyType;
-  slug: string;
-  description: string | null;
-  difficulty: Difficulty | null;
-};
-
-type CompanyOption = {
-  id: Company;
+type SocialContextOption = {
+  id: SocialContext;
   slug: "alone" | "with_others";
-  description: string | null;
+  description: string;
 };
 
 type FormValues = z.infer<typeof ChallengeSchema>;
 
+const socialContextOptions: SocialContextOption[] = [
+  {
+    id: SocialContext.ALONE,
+    slug: "alone",
+    description: "Face it by yourself",
+  },
+  {
+    id: SocialContext.WITH_OTHERS,
+    slug: "with_others",
+    description: "Friends, family, or colleagues",
+  },
+];
+
 export default function ChallengeForm({
-  challenges,
+  challengesOptions,
 }: {
-  challenges: ChallengeOptions[];
+  challengesOptions: Pick<
+    ChallengeOption,
+    "id" | "slug" | "label" | "description" | "engagement"
+  >[];
 }) {
   const router = useRouter();
   const t = useTranslations();
 
-  const companyOptions: CompanyOption[] = useMemo(
-    () => [
-      {
-        id: Company.ALONE,
-        slug: "alone",
-        description: "Face it by yourself",
-      },
-      {
-        id: Company.WITH_OTHERS,
-        slug: "with_others",
-        description: "Friends, family, or colleagues",
-      },
-    ],
-    [],
-  );
-
   const localizedChallenges = useMemo(() => {
-    // returns items that include `difficulty` because input contains it
-    return mapTaxonomiesToFormFields(challenges) as Array<{
-      id: string;
-      label: string;
-      description: string | null;
-      difficulty: Difficulty | null;
-    }>;
-  }, [challenges]);
+    return mapChallengeOptionsToFormFields(challengesOptions);
+  }, [challengesOptions]);
 
-  const localizedCompanyOptions = useMemo(() => {
-    // company is not a DB taxonomy, so translate directly
-    return companyOptions.map((o) => ({
-      id: o.id,
-      label: `taxonomy.COMPANY.${o.slug}.label`,
-      description: o.description
-        ? `taxonomy.COMPANY.${o.slug}.description`
-        : null,
-      difficulty: null as Difficulty | null,
+  const localizedSocialContextOptions = useMemo(() => {
+    return socialContextOptions.map((socialContextOption) => ({
+      id: socialContextOption.id,
+      label: `taxonomy.COMPANY.${socialContextOption.slug}.label`,
+      description: `taxonomy.COMPANY.${socialContextOption.slug}.description`,
     }));
-  }, [t, companyOptions]);
+  }, [t, socialContextOptions]);
 
   const formStep = useMemo(() => {
     return [
       {
-        id: STEP_ID.LOCATION,
+        id: STEP_ID.CHALLENGE_OPTION,
         fieldName: "challengeOptionId" as const,
         labelKey: "exposure.challengeForm.steps.location.label",
         options: localizedChallenges,
       },
       {
-        id: STEP_ID.COMPANY,
-        fieldName: "company" as const,
+        id: STEP_ID.SOCIAL_CONTEXT,
+        fieldName: "socialContext" as const,
         labelKey: "exposure.challengeForm.steps.company.label",
-        options: localizedCompanyOptions,
+        options: localizedSocialContextOptions,
       },
     ];
-  }, [localizedChallenges, localizedCompanyOptions]);
+  }, [localizedChallenges, localizedSocialContextOptions]);
 
   const form = useForm<FormValues>({
     defaultValues: {
       challengeOptionId: undefined,
-      company: undefined,
-      status: ChallengeStatus.NOT_STARTED,
+      socialContext: undefined,
     },
     mode: "onChange",
   });
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [difficultyTab, setDifficultyTab] = useState<Difficulty>(
-    Difficulty.EASY,
+  const [engagementTab, setEngagementTab] = useState<Engagement>(
+    Engagement.STAY,
   );
 
   const currentStep = formStep[currentStepIndex];
-  const isLocationStep = currentStep.id === STEP_ID.LOCATION;
+  const isChallengeOptionStep = currentStep.id === STEP_ID.CHALLENGE_OPTION;
+
   const selectedValue = form.watch(currentStep.fieldName);
   const canGoNext = Boolean(selectedValue);
 
   const visibleOptions = useMemo(() => {
-    if (!isLocationStep) return currentStep.options;
-    return currentStep.options.filter((o) => o.difficulty === difficultyTab);
-  }, [currentStep.options, isLocationStep, difficultyTab]);
+    if (!isChallengeOptionStep) return currentStep.options;
+    return (currentStep.options as unknown as ChallengeOption[]).filter(
+      (o) => o.engagement === engagementTab,
+    );
+  }, [currentStep.options, isChallengeOptionStep, engagementTab]);
 
   const handleSelect = (optionId: string) => {
-    form.setValue(currentStep.fieldName, optionId as any, {
+    form.setValue(currentStep.fieldName, optionId, {
       shouldDirty: true,
       shouldTouch: true,
       shouldValidate: true,
@@ -147,8 +126,9 @@ export default function ChallengeForm({
   const handlePrevious = () => {
     if (currentStepIndex <= 0) return;
 
+    // if previous clear the current selection in the form
     const currentField = formStep[currentStepIndex].fieldName;
-    form.setValue(currentField, undefined as any, {
+    form.setValue(currentField, "", {
       shouldDirty: true,
       shouldTouch: true,
       shouldValidate: true,
@@ -160,9 +140,8 @@ export default function ChallengeForm({
     try {
       await createChallenge({
         data: {
-          company: data.company as Company,
+          socialContext: data.socialContext,
           challengeOptionId: data.challengeOptionId,
-          status: ChallengeStatus.NOT_STARTED,
         },
       });
       router.refresh();
@@ -202,28 +181,38 @@ export default function ChallengeForm({
           </div>
 
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            {isLocationStep && (
-              <div className="mb-4">
-                <Tabs
-                  value={difficultyTab}
-                  onValueChange={(value) =>
-                    setDifficultyTab(value as Difficulty)
-                  }
-                  className="w-full"
-                >
-                  <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value={Difficulty.EASY}>
-                      {t("common.difficulty.easy")}
-                    </TabsTrigger>
-                    <TabsTrigger value={Difficulty.MEDIUM}>
-                      {t("common.difficulty.medium")}
-                    </TabsTrigger>
-                    <TabsTrigger value={Difficulty.HARD}>
-                      {t("common.difficulty.hard")}
-                    </TabsTrigger>
-                  </TabsList>
-                </Tabs>
-              </div>
+            {isChallengeOptionStep && (
+              <>
+                <div className="mb-4">
+                  <Tabs
+                    value={engagementTab}
+                    onValueChange={(value) =>
+                      setEngagementTab(value as Engagement)
+                    }
+                    className="w-full"
+                  >
+                    <TabsList className="grid w-full grid-cols-3">
+                      <TabsTrigger value={Engagement.STAY}>
+                        {t(`common.engagement.${Engagement.STAY}.label`)}
+                      </TabsTrigger>
+                      <TabsTrigger value={Engagement.PARTICIPATE}>
+                        {t(`common.engagement.${Engagement.PARTICIPATE}.label`)}
+                      </TabsTrigger>
+                      <TabsTrigger value={Engagement.STRETCH}>
+                        {t(`common.engagement.${Engagement.STRETCH}.label`)}
+                      </TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                  <div className="mt-2 rounded-xl border-0 bg-white p-4 shadow-md">
+                    <p className="text-md font-medium">
+                      {t(`common.engagement.${engagementTab}.title`)}
+                    </p>
+                    <p className="text-sm font-light">
+                      {t(`common.engagement.${engagementTab}.description`)}
+                    </p>
+                  </div>
+                </div>
+              </>
             )}
 
             <div
@@ -252,7 +241,7 @@ export default function ChallengeForm({
                       <div className="flex items-start space-x-3">
                         <div
                           className={cn(
-                            "mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+                            "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                             isSelected
                               ? "border-blue-500"
                               : "border-muted-foreground/30",
@@ -299,6 +288,7 @@ export default function ChallengeForm({
             <div className="flex justify-between pt-6">
               <Button
                 type="button"
+                size="lg"
                 variant="secondary"
                 onClick={handlePrevious}
                 disabled={currentStepIndex === 0 || form.formState.isSubmitting}
@@ -312,6 +302,7 @@ export default function ChallengeForm({
                 form.formState.isSubmitting ? (
                   <Button
                     disabled
+                    size="lg"
                     className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
                   >
                     <Spinner />
@@ -320,6 +311,7 @@ export default function ChallengeForm({
                 ) : (
                   <Button
                     type="submit"
+                    size="lg"
                     disabled={!canGoNext}
                     className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
                   >
@@ -330,6 +322,7 @@ export default function ChallengeForm({
               ) : (
                 <Button
                   type="button"
+                  size="lg"
                   onClick={handleNext}
                   disabled={!canGoNext || form.formState.isSubmitting}
                   className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"

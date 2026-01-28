@@ -10,8 +10,8 @@
     "typecheck": "tsc --noEmit",
     "prisma:validate": "prisma validate",
     "postinstall": "prisma generate",
-    "seed": "tsx prisma/seed.ts && tsx prisma/seed-taxonomy-groups.ts",
-    "db:push": "npx prisma db push ",
+    "seed": "tsx prisma/seed.ts",
+    "db:push": "npx prisma db push",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "prisma generate && yarn seed",
     "db:reset": "prisma migrate reset --force --skip-generate --skip-seed && yarn db:seed"

@@ -13,18 +13,18 @@ export function HadCompletedChallenge({
   onNext(): void;
   onPrev?: () => void;
 }) {
-  const t = useTranslations("form");
+  const t = useTranslations();
   const { setValue } = useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
 
   return (
     <div className="space-y-6 text-center">
-      <Image
+      {/* <Image
         className="m-auto"
         alt="panic_attack_illustration"
         src="/illustration/compressed_journal_pa.webp"
         width={200}
         height={200}
-      />
+      /> */}
       <div className="flex w-full flex-row justify-between p-8">
         <Button
           type="button"
@@ -34,7 +34,7 @@ export function HadCompletedChallenge({
             onNext();
           }}
         >
-          {t("yes")}
+          {t("challengeSteps.hadCompletedChallenge.answer.stayed")}
         </Button>
         <Button
           type="button"
@@ -44,7 +44,7 @@ export function HadCompletedChallenge({
             onNext();
           }}
         >
-          {t("no")}
+          {t("challengeSteps.hadCompletedChallenge.answer.leftEarly")}
         </Button>
       </div>
     </div>

@@ -36,7 +36,7 @@ const PUBLIC_ROUTES = new Set<string>([
   "/education",
   "/exercises",
   "/exposure",
-  "/journal",
+  "/momentLog",
   "/tip",
 ]);
 

@@ -5,74 +5,80 @@ import { Button } from "@/components/ui/button";
 import { FormProvider, useForm } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { z } from "zod";
 
 import { useRouter } from "next/navigation";
 import {
+  actionTakenOptions,
   BASE_STEP,
-  PARTIAL_NO_FINISH_SCREEN,
+  locationOptions,
+  OptionItem,
+  PARTIALY_NO,
+  STAYED_BEHAVIOR,
   Step,
-  STOP_REASONS,
-  YES_FINISH_SCREEN,
+  urgeOptions,
 } from "./helper";
-import { HadCompletedChallenge } from "./Steps/HadCompletedChallenge";
-import { createChallengeOutcome } from "@/lib/api";
-import { ChallengeOutcomeSchema } from "@/lib/zod.types";
 import { toast } from "sonner";
+import { z } from "zod";
 import { useTranslations } from "next-intl";
+import { momentLogFormSchema } from "@/lib/zod.types";
 import { SingleChoice } from "./Steps/SingleChoice";
 import { PartialNoFinishScreen } from "./Steps/PartialNoFinishScreen";
-import {
-  SafetyBehaviorOptionItem,
-  PARTIAL_NO_REASONS,
-} from "@/common/const/SafetyBehavior";
 import { StayedFinishScreen } from "./Steps/StayedFinishScreen";
+import { createMomentLogEntry } from "@/lib/api";
 
 export type StepId = Step["id"];
 
-type StepComponentProps = {
-  onNext(): void;
-  onPrev(): void;
-  option: SafetyBehaviorOptionItem[];
-};
+const BASE_FORM_STEP_ARR = [...BASE_STEP];
 
 const STEPS_COMPONENTS: Record<
   StepId,
-  React.ComponentType<StepComponentProps>
+  React.ComponentType<{
+    onNext(): void;
+    onPrev(): void;
+    option: OptionItem[];
+  }>
 > = {
-  hadCompletedChallenge: (props) => <HadCompletedChallenge {...props} />,
-  safetyBehavior: (props) => (
-    <SingleChoice
-      fieldName="safetyBehavior"
-      options={props.option}
-      {...props}
-    />
+  location: (props) => (
+    <SingleChoice fieldName="location" options={props.option} {...props} />
   ),
-  partialNoFinishScreen: (props) => <PartialNoFinishScreen {...props} />,
-  yesFinishScreen: (props) => <StayedFinishScreen {...props} />,
+  urge: (props) => (
+    <SingleChoice fieldName="urge" options={props.option} {...props} />
+  ),
+  actionTaken: (props) => (
+    <SingleChoice fieldName="actionTaken" options={props.option} {...props} />
+  ),
+  outcomePartialNo: (props) => <PartialNoFinishScreen {...props} />,
+  outcomeStayed: (props) => <StayedFinishScreen {...props} />,
 };
 
-export function ResultForm({ challengeId }: { challengeId: string }) {
+export default function MomentLogForm({
+  callback,
+}: {
+  callback?: VoidFunction;
+}) {
   const t = useTranslations();
-  const form = useForm<z.infer<typeof ChallengeOutcomeSchema>>({
+  const reduce = useReducedMotion();
+  const router = useRouter();
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
+  const form = useForm<z.infer<typeof momentLogFormSchema>>({
     defaultValues: {
-      hadCompletedChallenge: undefined,
-      safetyBehavior: "",
+      location: "",
+      urge: "",
+      actionTaken: "",
     },
     mode: "onChange",
   });
 
-  const router = useRouter();
-  const reduce = useReducedMotion();
-
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-
-  const formStep = !form.watch("hadCompletedChallenge")
-    ? [...BASE_STEP, ...STOP_REASONS, ...PARTIAL_NO_FINISH_SCREEN]
-    : [...BASE_STEP, ...YES_FINISH_SCREEN];
-
-  const optionByStep: Partial<Record<StepId, SafetyBehaviorOptionItem[]>> = {
-    safetyBehavior: PARTIAL_NO_REASONS,
+  const onSubmit = async (data: z.infer<typeof momentLogFormSchema>) => {
+    try {
+      await createMomentLogEntry({ data });
+      router.refresh();
+      callback?.();
+    } catch (e) {
+      console.error(e);
+      toast.error(t("momentLog.momentLogQuestionnaire.errors.saveFailed"));
+    }
   };
 
   const handleNext = () => {
@@ -80,20 +86,21 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
       form.handleSubmit(onSubmit)();
       return;
     }
-    setCurrentStepIndex(currentStepIndex + 1);
+    setCurrentStepIndex((prev) => prev + 1);
   };
 
   const handlePrevious = () => {
     if (currentStepIndex > 0) {
       const currentField = formStep[currentStepIndex].id;
       if (
-        currentField === "partialNoFinishScreen" ||
-        currentField === "yesFinishScreen"
+        currentField === "outcomePartialNo" ||
+        currentField === "outcomeStayed"
       ) {
         setCurrentStepIndex(currentStepIndex - 1);
         return;
       }
-      form.setValue(currentField, false || "", {
+
+      form.setValue(currentField, "", {
         shouldDirty: true,
         shouldTouch: true,
         shouldValidate: true,
@@ -102,25 +109,6 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
       setCurrentStepIndex(currentStepIndex - 1);
     }
   };
-
-  const onSubmit = async (data: z.infer<typeof ChallengeOutcomeSchema>) => {
-    try {
-      await createChallengeOutcome({
-        id: challengeId,
-        data,
-      });
-      router.refresh();
-      router.replace("/exposure");
-    } catch (e) {
-      console.error(e);
-      toast.error("something went wrong");
-    }
-  };
-
-  const stepId = formStep[currentStepIndex].id as StepId;
-  const ActiveStepComponent = formStep[currentStepIndex]
-    ? STEPS_COMPONENTS[stepId]
-    : () => <div />;
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
@@ -132,8 +120,25 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
     exit: { opacity: 0, y: -8, filter: "blur(4px)" },
   };
 
-  const active = formStep[currentStepIndex];
-  const option = optionByStep[active.id as StepId] ?? [];
+  const formStep =
+    form.watch("actionTaken") === "stayed" ||
+    form.watch("actionTaken") === "stayed-and-participated"
+      ? [...BASE_FORM_STEP_ARR, ...STAYED_BEHAVIOR]
+      : [...BASE_FORM_STEP_ARR, ...PARTIALY_NO];
+
+  const stepId = formStep[currentStepIndex].id as StepId;
+  const activeStep = formStep[currentStepIndex];
+  const ActiveStepComponent = formStep[currentStepIndex]
+    ? STEPS_COMPONENTS[stepId]
+    : () => <div />;
+
+  const optionsInStep: Partial<Record<StepId, OptionItem[]>> = {
+    location: locationOptions,
+    urge: urgeOptions,
+    actionTaken: actionTakenOptions,
+  };
+
+  const option = optionsInStep[activeStep.id as StepId] ?? [];
 
   return (
     <>
@@ -144,25 +149,27 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
           onClick={handlePrevious}
         >
           <ChevronLeft className="h-4 w-4" />
-          <span>{t("form.previous")}</span>
+          <span>{t("common.previous")}</span>
         </Button>
       </div>
+
       <div className="flex items-center justify-center py-0">
         <div className="mx-auto w-full max-w-2xl">
           <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="mb-6 text-center">
                 <h5 className="text-2xl font-light">
-                  {t(formStep[currentStepIndex].titleKey)}
+                  {t(activeStep.titleKey)}
                 </h5>
                 <h2 className="text-xs font-light">
-                  {t(formStep[currentStepIndex].subtitleKey)}
+                  {t(activeStep.subtitleKey)}
                 </h2>
               </div>
+
               <div className="min-h-65">
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key={formStep[currentStepIndex].id}
+                    key={activeStep.id}
                     variants={variants}
                     initial="initial"
                     animate="animate"

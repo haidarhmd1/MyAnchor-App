@@ -29,25 +29,14 @@ export const POST = async (request: Request, ctx: Ctx) => {
       );
     }
 
-    const {
-      hadCompletedChallenge,
-      hadAnxietyAttack,
-      reasonsNotDone,
-      stoppedEarly,
-      stopReasons,
-      actionsTaken,
-      typesOfBodySymptoms,
-      anxietyLevelRating,
-      challengeRating,
-      copingStrategies,
-    } = parsed.data;
+    const { hadCompletedChallenge, safetyBehavior } = parsed.data;
 
     const challenge = await prisma.challenge.findFirst({
       where: {
         id,
         userId,
         deletedAt: null,
-        status: ChallengeStatus.NOT_STARTED,
+        status: ChallengeStatus.STARTED,
       },
       select: { id: true },
     });
@@ -65,16 +54,8 @@ export const POST = async (request: Request, ctx: Ctx) => {
         status: ChallengeStatus.FINISHED,
         outcome: {
           create: {
-            didComplete: hadCompletedChallenge ?? null,
-            hadAnxietyAttack: hadAnxietyAttack,
-            reasonsNotDone: reasonsNotDone ?? [],
-            stoppedEarly: stoppedEarly ?? null,
-            stopReasons: stopReasons ?? [],
-            actionsTaken: actionsTaken ?? [],
-            bodySymptoms: typesOfBodySymptoms ?? [],
-            anxietyLevel: anxietyLevelRating ?? null,
-            challengeRating: challengeRating ?? null,
-            copingStrategies: copingStrategies ?? [],
+            didComplete: hadCompletedChallenge ?? false,
+            safetyBehavior: safetyBehavior ?? "",
           },
         },
       },

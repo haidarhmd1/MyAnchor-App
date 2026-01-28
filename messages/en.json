@@ -1,4 +1,90 @@
 {
+  "safetyBehavior": {
+    "label": "Safety behavior",
+    "nextTimeTitle": "Next time:",
+    "nextTime": "Next time, drop it and {answer}",
+    "options": {
+      "left-early": {
+        "title": "Left early",
+        "description": "You ended the situation sooner than planned in order to get relief or feel safer, instead of staying until the natural end.",
+        "answer": "Stay 2 minutes longer before leaving."
+      },
+      "pause-to-reset": {
+        "title": "Paused",
+        "description": "You stopped, stepped away, or took a break to calm yourself or regain control before continuing.",
+        "answer": "Continue without pausing to reset."
+      },
+      "avoided-speaking-engaging": {
+        "title": "Avoided engaging",
+        "description": "You stayed physically present but held back from interacting, talking, or participating when the situation required it.",
+        "answer": "Speak once, even briefly."
+      },
+      "checked-symptoms": {
+        "title": "Checked symptoms",
+        "description": "You checked physical sensations such as breathing, heart rate, dizziness, or tension to see how you were doing.",
+        "answer": "Notice the urge and continue without checking."
+      },
+      "sought-reassurance": {
+        "title": "Sought reassurance",
+        "description": "You looked for confirmation from others, yourself, or external sources that you were okay or safe.",
+        "answer": "Do not seek reassurance afterward."
+      },
+      "delayed-until-felt-ready": {
+        "title": "Delayed action",
+        "description": "You waited for anxiety or discomfort to decrease before acting, instead of acting while it was present.",
+        "answer": "Act before feeling ready."
+      },
+      "changed-plans-because-of-anxiety": {
+        "title": "Changed plans",
+        "description": "You adjusted, canceled, or avoided plans in order to prevent anxiety or discomfort from occurring.",
+        "answer": "Keep plans unchanged next time."
+      }
+    },
+    "STAY": {
+      "title": "I remain in the situation without escaping or resetting",
+      "principle": "Principle: Staying is about location and duration, not comfort.",
+      "options": {
+        "full-duration": "Stayed for the planned time",
+        "no-early-exit": "Did not leave early",
+        "no-reset": "Did not step outside “to reset”",
+        "no-exits": "Did not move closer to exits",
+        "no-seat-change": "Did not change seats to feel safer",
+        "no-self-check": "Did not pause the situation to assess myself",
+        "despite-symptoms": "Stayed even when symptoms increased",
+        "natural-end": "Stayed until the activity ended naturally"
+      }
+    },
+    "PARTICIPATE": {
+      "title": "I engaged with life despite discomfort",
+      "principle": "Principle: Participation does not require presence, clarity, or confidence.",
+      "options": {
+        "responded": "Spoke when spoken to",
+        "initiated": "Initiated at least one interaction",
+        "brain-fog": "Answered even when thinking felt foggy",
+        "kept-talking": "Continued the conversation despite discomfort",
+        "raised-voice": "Raised my voice when needed (noise, crowd)",
+        "eye-contact": "Maintained eye contact briefly",
+        "ordered-paid": "Ordered / paid / asked a question",
+        "kept-task": "Continued the task without withdrawing",
+        "no-ready": "Responded without waiting to feel ready"
+      }
+    },
+    "STRETCH": {
+      "title": "I dropped one safety behavior or went slightly beyond avoidance",
+      "principle": "Principle: Stretch ≠ suffering. Stretch = dropping one control habit.",
+      "options": {
+        "responded": "Spoke when spoken to",
+        "initiated": "Initiated at least one interaction",
+        "brain-fog": "Answered even when thinking felt foggy",
+        "kept-talking": "Continued the conversation despite discomfort",
+        "raised-voice": "Raised my voice when needed (noise, crowd)",
+        "eye-contact": "Maintained eye contact briefly",
+        "ordered-paid": "Ordered / paid / asked a question",
+        "kept-task": "Continued the task without withdrawing",
+        "no-ready": "Responded without waiting to feel ready"
+      }
+    }
+  },
   "home": {
     "disclaimer": {
       "accordionTitle": "App Disclaimer",
@@ -10,7 +96,7 @@
     },
     "todaysChallenge": {
       "title": "Today’s challenge",
-      "description": "Build confidence in small steps"
+      "description": "Choose one exposure for today"
     },
     "journey": {
       "title": "Journey Steps",
@@ -18,12 +104,30 @@
     },
     "quicktools": {
       "main": {
-        "title": "Quick tools",
-        "subtitle": "For rising anxiety (1–2 minutes)"
+        "title": "Grounding Tools",
+        "subtitle": "Optional techniques. Not required for progress",
+        "disclaimer": "Use only if you choose. Not part of exposure practice."
       }
     }
   },
   "common": {
+    "engagement": {
+      "STAY": {
+        "label": "Stay",
+        "title": "Remain for the planned time or activity",
+        "description": "You remain in the situation without escaping or trying to reduce anxiety. You allow discomfort to rise and fall on its own."
+      },
+      "PARTICIPATE": {
+        "label": "Participate",
+        "title": "Interact at least once",
+        "description": "You engage in the situation while anxiety is present. You stop avoiding and do what the situation requires."
+      },
+      "STRETCH": {
+        "label": "Stretch",
+        "title": "Stay longer or drop one safety behavior",
+        "description": "You intentionally remove one safety behavior or stay slightly longer than usual. This increases difficulty in a controlled way."
+      }
+    },
     "tip": "Tips",
     "previous": "Previous",
     "next": "Next",
@@ -77,11 +181,12 @@
     "next": "Next",
     "previous": "Previous",
     "submit": "Submit",
+    "done": "Done",
+    "log": "Log entry",
     "yes": "Yes",
     "no": "No",
     "submitting": "Submitting…",
     "notEmpty": "Field cannot be empty",
-
     "actions": {
       "cancel": "Cancel",
       "saving": "Saving…",
@@ -372,10 +477,6 @@
       "aria": "Daily Challenge Done"
     }
   },
-  "panicShortcut": {
-    "title": "Currently inside a Panic Attack?",
-    "subtitle": "Press the button and take a deep breath, you are safe"
-  },
   "inspiration": {
     "inspiration": {
       "title": "Inspiration for today",
@@ -429,14 +530,11 @@
       }
     }
   },
-  "journalShortcut": {
-    "title": "Your daily journal",
-    "doneSubtitle": "Entry for today done!",
-    "ctaSubtitle": "Journal"
-  },
-  "analyticsShortcut": {
-    "title": "Anxiety quick overview",
-    "subtitle": "{count, plural, =0 {Anxiety attacks: 0} one {Anxiety attack: #} other {Anxiety attacks: #}}"
+  "momentLogShortcut": {
+    "title": "Your Moment Log",
+    "doneSubtitle": "Entry added. You can add another moment anytime.",
+    "ctaSubtitle": "Moment Log",
+    "addMomentSubtitle": "No moments logged today. You can add one if anxiety shows up."
   },
   "tips": {
     "items": {
@@ -544,14 +642,6 @@
       }
     }
   },
-  "analyticsPage": {
-    "metaTitle": "⚓ MyAnchor - User Analytics",
-    "empty": {
-      "title": "No entries",
-      "description": "Journal analytics provide insights into your anxiety patterns over time. By logging entries, you can track symptoms, situations, and trends to better understand your mental health journey.",
-      "cta": "Log Journal"
-    }
-  },
   "exposurePage": {
     "metaTitle": "⚓ MyAnchor - Exposure",
     "hero": {
@@ -574,9 +664,21 @@
     "title": "How was your experience with the challenge?"
   },
   "challengeSteps": {
+    "partialNoScreen": {
+      "title": "Next time",
+      "subtitle": "Drop one safety behavior"
+    },
+    "yesFinishScreen": {
+      "title": "Done",
+      "subtitle": "Continue your day."
+    },
     "hadCompletedChallenge": {
       "title": "Challenge",
-      "subtitle": "Did you do the challenge?"
+      "subtitle": "How did it end?",
+      "answer": {
+        "stayed": "I stayed",
+        "leftEarly": "I left early"
+      }
     },
     "hadAnxietyAttack": {
       "title": "Anxiety check",
@@ -606,9 +708,9 @@
       "title": "Challenge rating",
       "subtitle": "How did you experience this challenge?"
     },
-    "stopReasons": {
-      "title": "Why did you stop the challenge?",
-      "subtitle": "Tell us what made you stop."
+    "safetyBehavior": {
+      "title": "What interfered?",
+      "subtitle": "Choose one. This is not a failure."
     },
     "actionsTaken": {
       "title": "What did you do next?",
@@ -756,60 +858,6 @@
       "description": "Receive notifications about new content"
     }
   },
-  "anxietyLevels": {
-    "0": {
-      "label": "0 – Calm",
-      "description": "Completely relaxed, no anxiety"
-    },
-    "2": {
-      "label": "2 – Mild",
-      "description": "Slight unease, manageable"
-    },
-    "4": {
-      "label": "4 – Noticeable",
-      "description": "Clear anxiety, but can still function"
-    },
-    "6": {
-      "label": "6 – Strong",
-      "description": "Very uncomfortable, intrusive symptoms"
-    },
-    "8": {
-      "label": "8 – Intense",
-      "description": "Difficult to stay present, fear is high"
-    },
-    "10": {
-      "label": "10 – Extreme",
-      "description": "Full panic, overwhelming, feels unbearable"
-    }
-  },
-  "exposureRating": {
-    "0": {
-      "label": "0 - Very easy",
-      "description": "Felt calm, no struggle at all"
-    },
-    "1": { "label": "1", "description": "Almost no difficulty" },
-    "2": {
-      "label": "2",
-      "description": "Very manageable, only slight discomfort"
-    },
-    "3": {
-      "label": "3",
-      "description": "Mild challenge but stayed comfortable"
-    },
-    "4": { "label": "4", "description": "Some effort needed but manageable" },
-    "5": {
-      "label": "5 - Moderate",
-      "description": "Challenging at times, but doable"
-    },
-    "6": { "label": "6", "description": "Noticeably difficult, but I stayed" },
-    "7": { "label": "7", "description": "Quite hard, struggled to continue" },
-    "8": { "label": "8", "description": "Very hard, almost stopped" },
-    "9": { "label": "9", "description": "Extremely difficult, barely managed" },
-    "10": {
-      "label": "10 - Overwhelming",
-      "description": "Could not continue / had to stop"
-    }
-  },
   "reassurances": {
     "panic_not_emergency": "You are having a panic attack right now. I know it feels overwhelming, but this is not a medical emergency.",
     "body_is_safe": "Your body is safe, even if the sensations feel scary. This is just your alarm system firing too strongly.",
@@ -825,66 +873,104 @@
   "bottomNav": {
     "home": "Home",
     "education": "Education",
-    "journal": "Journal",
+    "momentLog": "Log",
     "exercises": "Exercises",
     "exposure": "Exposure"
   },
-  "journal": {
+  "momentLog": {
+    "disclaimer": {
+      "title": "Log moments where anxiety showed up outside a planned challenge.",
+      "description": "People don’t recover from panic/GAD because they finally understood it. They recover because they stopped treating internal noise as information."
+    },
     "entry": {
-      "title": "Your journal entry",
+      "title": "Your Moment Log entry",
       "doneAt": "Entry done!"
     },
     "newEntry": {
-      "title": "Create a new journal entry",
-      "ariaOpen": "Create a new journal entry"
+      "title": "Log an unplanned moment",
+      "ariaOpen": "Log an unplanned moment"
     },
     "pastEntries": "Past entries:",
     "noEntries": "No past entries.",
-    "journalQuestionnaire": {
-      "errors": {
-        "saveFailed": "Journal entry not saved. Please try again."
-      },
-      "whenDidItHappen": {
-        "morning": "In the morning",
-        "noon": "At noon",
-        "afternoon": "In the afternoon",
-        "evening": "In the evening",
-        "night": "At night"
-      },
-      "steps": {
-        "hasAnxietyAttack": {
-          "title": "Anxiety attack",
-          "subtitle": "Did you have an anxiety attack?"
-        },
-        "hasAvoidedSituations": {
-          "title": "Avoidance",
-          "subtitle": "Did you avoid any situations?"
-        },
-        "typesOfSituationYouAvoided": {
-          "title": "Situations avoided",
-          "subtitle": "Which ones did you avoid?"
-        },
-        "whyYouWereAvoidingIt": {
-          "title": "Reasons",
-          "subtitle": "Why were you trying to avoid it?"
-        },
-        "whenDidItHappen": {
-          "title": "When did it happen?",
-          "subtitle": "Tell us when this happened."
-        },
-        "typesOfSituationYouWereIn": {
-          "title": "Situation faced",
-          "subtitle": "Where were you?"
-        },
-        "typesOfBodySymptoms": {
-          "title": "Body sensations",
-          "subtitle": "What did you feel in your body?"
-        },
-        "anxietyLevelRating": {
-          "title": "Rate anxiety",
-          "subtitleAttack": "How intense was your anxiety?",
-          "subtitleAvoidance": "How afraid were you that something would happen?"
+    "steps": {
+      "location": {
+        "title": "Location",
+        "question": "Where were you?",
+        "options": {
+          "gym": { "title": "Gym" },
+          "work": { "title": "Work" },
+          "cafe": { "title": "Café" },
+          "transport": { "title": "Transport" },
+          "home": { "title": "Home" },
+          "social-gathering": { "title": "Social gathering" },
+          "other": { "title": "Other" }
         }
+      },
+      "urge": {
+        "title": "Urge",
+        "question": "What did anxiety try to make you do?",
+        "options": {
+          "leave": { "title": "Leave" },
+          "avoid-engaging": { "title": "Avoid engaging" },
+          "pause-to-reset": { "title": "Pause to reset" },
+          "seek-reassurance": { "title": "Seek reassurance" },
+          "change-plans": { "title": "Change plans" },
+          "nothing-noticeable": { "title": "Nothing noticeable" },
+          "other": { "title": "Other" }
+        }
+      },
+      "actionTaken": {
+        "title": "Action",
+        "question": "What did you do?",
+        "options": {
+          "left-early": {
+            "title": "Left early",
+            "description": "You ended the situation sooner than planned in order to get relief or feel safer, instead of staying until the natural end.",
+            "answer": "Stay 2 minutes longer before leaving."
+          },
+          "pause-to-reset": {
+            "title": "Paused",
+            "description": "You stopped, stepped away, or took a break to calm yourself or regain control before continuing.",
+            "answer": "Continue without pausing to reset."
+          },
+          "avoided-speaking-engaging": {
+            "title": "Avoided engaging",
+            "description": "You stayed physically present but held back from interacting, talking, or participating when the situation required it.",
+            "answer": "Speak once, even briefly."
+          },
+          "checked-symptoms": {
+            "title": "Checked symptoms",
+            "description": "You checked physical sensations such as breathing, heart rate, dizziness, or tension to see how you were doing.",
+            "answer": "Notice the urge and continue without checking."
+          },
+          "sought-reassurance": {
+            "title": "Sought reassurance",
+            "description": "You looked for confirmation from others, yourself, or external sources that you were okay or safe.",
+            "answer": "Do not seek reassurance afterward."
+          },
+          "delayed-until-felt-ready": {
+            "title": "Delayed action",
+            "description": "You waited for anxiety or discomfort to decrease before acting, instead of acting while it was present.",
+            "answer": "Act before feeling ready."
+          },
+          "changed-plans-because-of-anxiety": {
+            "title": "Changed plans",
+            "description": "You adjusted, canceled, or avoided plans in order to prevent anxiety or discomfort from occurring.",
+            "answer": "Keep plans unchanged next time."
+          },
+          "stayed": {
+            "title": "Stayed",
+            "description": "You remained in the situation until the planned or natural end, even if anxiety or discomfort was present."
+          },
+          "stayed-and-participated": {
+            "title": "Stayed and participated",
+            "description": "You remained in the situation and engaged or interacted as needed, even while anxiety or discomfort was present."
+          }
+        }
+      },
+      "outcome-stayed": {
+        "title": "Noted.",
+        "subtitle": "Anxiety did not change your behavior."
       }
     }
   },
@@ -1380,6 +1466,11 @@
       }
     },
     "newChallenge": {
+      "notStarted": {
+        "aria": "Start now.",
+        "title": "Start exposure",
+        "subtitle": "Anxiety is allowed."
+      },
       "pending": {
         "aria": "Daily challenge pending",
         "title": "Daily challenge pending",

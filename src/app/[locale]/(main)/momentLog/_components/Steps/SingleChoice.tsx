@@ -4,25 +4,25 @@ import { useController, useFormContext } from "react-hook-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ChallengeOutcomeSchema } from "@/lib/zod.types";
-import z from "zod";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { useTranslations } from "next-intl";
-import { SafetyBehaviorOptionItem } from "@/common/const/SafetyBehavior";
+import z from "zod";
+import { momentLogFormSchema } from "@/lib/zod.types";
+import { OptionItem } from "../helper";
 
-export function SingleChoice({
+export const SingleChoice = ({
   onNext,
   fieldName,
   options,
 }: {
   onNext(): void;
   onPrev?: () => void;
-  fieldName: keyof z.infer<typeof ChallengeOutcomeSchema>;
-  options: SafetyBehaviorOptionItem[];
-}) {
+  fieldName: keyof z.infer<typeof momentLogFormSchema>;
+  options: OptionItem[];
+}) => {
   const t = useTranslations();
   const { control, formState } =
-    useFormContext<z.infer<typeof ChallengeOutcomeSchema>>();
+    useFormContext<z.infer<typeof momentLogFormSchema>>();
 
   const { field } = useController({
     name: fieldName,
@@ -44,7 +44,6 @@ export function SingleChoice({
               key={option.id}
               role="radio"
               aria-checked={isSelected}
-              tabIndex={0}
               onClick={() => field.onChange(option.slug)}
               className={cn(
                 "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
@@ -72,14 +71,16 @@ export function SingleChoice({
                       )}
                     />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 space-y-1.5">
                     <h3
                       className={cn(
                         "text-base",
                         isSelected ? "text-blue-700" : "text-foreground",
                       )}
                     >
-                      {t(`${fieldName}.options.${option.slug}.title`)}
+                      {t(
+                        `momentLog.steps.${fieldName}.options.${option.slug}.title`,
+                      )}
                     </h3>
                   </div>
                 </div>
@@ -89,7 +90,6 @@ export function SingleChoice({
         })}
       </div>
 
-      {/* Optional step-level Next */}
       <div className="pt-2 text-right">
         {formState.isSubmitting ? (
           <Button disabled className="bg-blue-500 hover:bg-blue-600">
@@ -109,4 +109,4 @@ export function SingleChoice({
       </div>
     </div>
   );
-}
+};

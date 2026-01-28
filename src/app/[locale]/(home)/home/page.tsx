@@ -5,38 +5,37 @@ import { Metadata } from "next";
 import { CategoryLinks } from "../../(main)/_components/CategoryLinks";
 import {
   DailyChallenge,
-  UnAuthenticatedDailyChallenge,
+  UnauthenticatedDailyChallenge,
 } from "../../(main)/_components/DailyChallenge";
 import { Grounding } from "../../(main)/panic-emergency/_components/Grounding/Grounding";
 import { BoxBreathing } from "../../(main)/panic-emergency/_components/BoxBreathing/BoxBreathing";
 import { PositiveReminder } from "../../(main)/panic-emergency/_components/PositiveReminder/PositiveReminder";
 import { getTranslations } from "next-intl/server";
-import {
-  JournalButton,
-  UnAuthenticatedJournalButton,
-} from "../../(main)/_components/JournalButton";
 import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircleIcon, CheckCircle2Icon, PopcornIcon } from "lucide-react";
+import { AlertCircleIcon } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { JournalAnalytics } from "../../(main)/_components/JournalAnalytics";
 import { getUser } from "@/lib/auth/auth-helpers";
+import {
+  MomentLogButton,
+  UnauthenticatedMomentLogButton,
+} from "../../(main)/_components/MomentLogButton";
 
 export default async function Home() {
   const auth = await getUser();
   const t = await getTranslations("home");
   return (
     <div className="space-y-6 px-3">
-      <div className="grid w-full max-w-xl items-start gap-4">
+      <div className="grid items-start gap-4">
         <Accordion
           type="single"
           collapsible
-          className="w-full rounded-3xl border-red-400 bg-red-200 px-4 shadow-md"
+          className="w-full rounded-3xl border-gray-400 bg-gray-200 px-4 shadow-md"
         >
           <AccordionItem value="disclaimer-1">
             <AccordionTrigger>
@@ -56,21 +55,20 @@ export default async function Home() {
       </div>
       {auth ? (
         <>
-          <div className="">
-            {/* <JournalAnalytics /> */}
-            <JournalButton />
-          </div>
           <div>
             <DailyChallenge />
+          </div>
+          <div className="">
+            <MomentLogButton />
           </div>
         </>
       ) : (
         <SignInOverlayButton>
-          <div className="">
-            <UnAuthenticatedJournalButton />
-          </div>
           <div>
-            <UnAuthenticatedDailyChallenge />
+            <UnauthenticatedDailyChallenge />
+          </div>
+          <div className="">
+            <UnauthenticatedMomentLogButton />
           </div>
         </SignInOverlayButton>
       )}
@@ -85,7 +83,7 @@ export default async function Home() {
         <div className="mt-4 grid grid-cols-2 gap-3">
           <BoxBreathing />
           <Grounding />
-          <PositiveReminder />
+          {/* <PositiveReminder /> */}
         </div>
       </div>
       <div>

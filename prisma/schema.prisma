@@ -14,8 +14,6 @@ datasource db {
 }
 
 enum TaxonomyType {
-  LOCATION
-  CHALLENGE
   AVOIDANCE_REASON
   SYMPTOM
   STOP_REASON
@@ -38,126 +36,21 @@ enum Gender {
   OTHER
 }
 
-enum Difficulty {
-  EASY
-  MEDIUM
-  HARD
+enum Engagement {
+  STAY
+  PARTICIPATE
+  STRETCH
 }
 
-enum Company {
+enum SocialContext {
   ALONE
   WITH_OTHERS
 }
 
 enum ChallengeStatus {
   NOT_STARTED
+  STARTED
   FINISHED
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  dob           DateTime?
-  gender        Gender?
-  image         String?
-  deletedAt     DateTime? // soft delete
-
-  signInAudits SignInAudit[]
-  consents     Consent[]
-
-  // NEW: relations
-  challenges Challenge[]
-  journals   Journal[]
-
-  customTaxonomies CustomTaxonomy[]
-  userTaxonomies   UserTaxonomy[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([deletedAt])
-}
-
-model TaxonomyGroup {
-  id        String       @id @default(cuid())
-  type      TaxonomyType
-  slug      String
-  label     String
-  sortOrder Int          @default(0)
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
-
-  taxonomies       Taxonomy[]
-  customTaxonomies CustomTaxonomy[]
-
-  // unique per type to prevent duplicates, and a global unique slug helps cross-links if you prefer
-  @@unique([type, slug])
-}
-
-model Taxonomy {
-  id          String       @id @default(cuid())
-  type        TaxonomyType
-  slug        String       @unique // stable identifier from your ids
-  label       String
-  description String?
-  difficulty  Difficulty?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
-  userLinks UserTaxonomy[]
-
-  groupId String?
-  group   TaxonomyGroup? @relation(fields: [groupId], references: [id], onDelete: SetNull)
-
-  sortOrder Int         @default(0) // optional fine-grained ordering within group
-  Challenge Challenge[]
-
-  @@index([type, groupId, sortOrder])
-}
-
-model CustomTaxonomy {
-  id              String       @id @default(cuid())
-  userId          String
-  type            TaxonomyType
-  label           String
-  normalizedLabel String // lowercased, trimmed, single-spaced
-  description     String?
-  difficulty      Difficulty?
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-
-  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userLinks UserTaxonomy[]
-
-  taxonomyGroupId String?
-
-  groupId String?
-  group   TaxonomyGroup? @relation(fields: [groupId], references: [id], onDelete: SetNull)
-
-  sortOrder Int @default(0)
-
-  @@unique([userId, type, normalizedLabel])
-  @@index([type, groupId, sortOrder])
-}
-
-model UserTaxonomy {
-  id            String    @id @default(cuid())
-  userId        String
-  taxonomyId    String?
-  customId      String?
-  firstSeenAt   DateTime?
-  lastSeenAt    DateTime?
-  timesSelected Int       @default(0)
-
-  user     User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  taxonomy Taxonomy?       @relation(fields: [taxonomyId], references: [id], onDelete: SetNull)
-  custom   CustomTaxonomy? @relation(fields: [customId], references: [id], onDelete: SetNull)
-
-  @@unique([userId, taxonomyId])
-  @@unique([userId, customId])
-  @@index([userId, lastSeenAt])
 }
 
 model EmailOTP {
@@ -220,30 +113,61 @@ model RateLimitBucket {
   createdAt DateTime @default(now())
 }
 
-model Journal {
-  id                         String           @id @default(cuid())
-  hasAnxietyAttack           Boolean?
-  hasAvoidedSituations       Boolean?
-  typesOfSituationYouAvoided String[]
-  whenDidItHappen            WhenDidItHappen?
-  typesOfSituationYouWereIn  String?
-  whyYouWereAvoidingIt       String[]
-  typesOfBodySymptoms        String[]
-  anxietyLevelRating         Int?
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  dob           DateTime?
+  gender        Gender?
+  image         String?
+  deletedAt     DateTime?
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  userId    String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  signInAudits SignInAudit[]
+  consents     Consent[]
 
-  @@index([userId, createdAt])
+  challenges Challenge[]
+  momentLog  MomentLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([deletedAt])
 }
 
+model TaxonomyItem {
+  id          String       @id @default(cuid())
+  type        TaxonomyType
+  slug        String       @unique
+  label       String
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sortOrder Int @default(0)
+
+  @@index([type, sortOrder])
+}
+
+model ChallengeOption {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  label       String
+  description String?
+  engagement  Engagement
+
+  sortOrder  Int         @default(0)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  challenges Challenge[]
+
+  @@index([sortOrder])
+}
+
 model Challenge {
-  id      String  @id @default(cuid())
-  company Company
+  id            String        @id @default(cuid())
+  socialContext SocialContext
 
   status  ChallengeStatus   @default(NOT_STARTED)
   outcome ChallengeOutcome?
@@ -252,7 +176,7 @@ model Challenge {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   challengeOptionId String
-  challengeOption   Taxonomy @relation(fields: [challengeOptionId], references: [id], onDelete: Restrict)
+  challengeOption   ChallengeOption @relation(fields: [challengeOptionId], references: [id], onDelete: Restrict)
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -267,18 +191,51 @@ model ChallengeOutcome {
   challengeId String    @unique
   challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
 
-  didComplete      Boolean
-  reasonsNotDone   String[]
-  hadAnxietyAttack Boolean?
-  stoppedEarly     Boolean?
-  stopReasons      String[] // was: whyDidYouStoppedTheChallenge
-  actionsTaken     String[] // was: whatDidYouDo
-  bodySymptoms     String[]
-  anxietyLevel     Int?
-  challengeRating  Int?
-  copingStrategies String[]
+  didComplete    Boolean
+  safetyBehavior String?
+
+  // Optional clinician-mode fields (try not to use in core UX)
+  // afterAttackActions String[]
+  // keptGoingReasons   String[]
+  // skippedReasons     String[]
+  // hadPanicLikeSpike  Boolean?
+  // notedSymptoms      String[] // slugs of TaxonomyItem(type=SYMPTOM)
+  // stoppedEarly       Boolean?
+  // anxietyLevel       Int?
+  // copingStrategies   String[]
+  // End Optional
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+}
+
+model LocationOption {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  label       String
+  description String?
+
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+model MomentLog {
+  id String @id @default(cuid())
+
+  location    String
+  urge        String
+  actionTaken String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([deletedAt])
 }

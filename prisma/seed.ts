@@ -1,361 +1,365 @@
 // prisma/seed.ts
 
 import "dotenv/config";
-import { TaxonomyType, Difficulty } from "@prisma/client";
+import { Engagement, TaxonomyType } from "@prisma/client";
 import prisma from "../lib/prisma";
+
+type EngagementKey = "stay" | "participate" | "stretch";
 
 type SeedItem = {
   id: string;
   label: string;
   description?: string;
-  difficulty?: "easy" | "medium" | "hard";
+  engagement?: EngagementKey;
 };
 
-function mapDifficulty(d?: "easy" | "medium" | "hard"): Difficulty | undefined {
-  if (!d) return undefined;
-  if (d === "easy") return "EASY";
-  if (d === "medium") return "MEDIUM";
-  return "HARD";
+function mapEngagement(e?: EngagementKey): Engagement | undefined {
+  if (!e) return undefined;
+  if (e === "stay") return "STAY";
+  if (e === "participate") return "PARTICIPATE";
+  return "STRETCH";
 }
 
-async function upsertBatch(type: TaxonomyType, items: SeedItem[]) {
+async function upsertLocationOptions(items: SeedItem[]) {
   for (const item of items) {
-    await prisma.taxonomy.upsert({
+    await prisma.locationOption.upsert({
+      where: { slug: item.id },
+      update: {
+        label: item.label,
+        description: item.description ?? null,
+      },
+      create: {
+        slug: item.id,
+        label: item.label,
+        description: item.description ?? null,
+      },
+    });
+  }
+}
+
+async function upsertChallengeOptions(items: SeedItem[]) {
+  for (const item of items) {
+    const engagement = mapEngagement(item.engagement);
+    if (!engagement) {
+      throw new Error(
+        `ChallengeOption "${item.id}" is missing engagement (stay/participate/stretch)`,
+      );
+    }
+
+    await prisma.challengeOption.upsert({
+      where: { slug: item.id },
+      update: {
+        label: item.label,
+        description: item.description ?? null,
+        engagement,
+      },
+      create: {
+        slug: item.id,
+        label: item.label,
+        description: item.description ?? null,
+        engagement,
+      },
+    });
+  }
+}
+
+async function upsertTaxonomyItems(type: TaxonomyType, items: SeedItem[]) {
+  for (const item of items) {
+    await prisma.taxonomyItem.upsert({
       where: { slug: item.id },
       update: {
         type,
         label: item.label,
         description: item.description ?? null,
-        difficulty: mapDifficulty(item.difficulty) ?? null,
       },
       create: {
         type,
         slug: item.id,
         label: item.label,
         description: item.description ?? null,
-        difficulty: mapDifficulty(item.difficulty) ?? null,
       },
     });
   }
 }
 
 async function main() {
-  // import your arrays here or paste them directly
   const locationOptions: SeedItem[] = [
     {
       id: "home",
       label: "Home",
       description: "At home / familiar place",
-      difficulty: "easy",
     },
     {
       id: "outside",
       label: "Outside",
       description: "Street, park, small errands",
-      difficulty: "medium",
     },
     {
       id: "work",
       label: "Work/School",
       description: "Tasks, meetings, classes",
-      difficulty: "medium",
     },
     {
       id: "transport",
       label: "Transport",
       description: "Bus, train, car rides",
-      difficulty: "hard",
     },
     {
       id: "crowd",
       label: "Crowd/Queue",
       description: "Busy shops, waiting in line",
-      difficulty: "hard",
     },
 
-    // Social & events
     {
       id: "event_birthday",
       label: "Birthday",
       description: "Attend a birthday gathering",
-      difficulty: "medium",
     },
     {
       id: "event_company",
       label: "Company Event",
       description: "Work social, offsite, party",
-      difficulty: "hard",
     },
     {
       id: "event_gathering",
       label: "Friends Gathering",
       description: "Small/medium social meetup",
-      difficulty: "medium",
     },
     {
       id: "event_festival",
       label: "Festival/Concert",
       description: "Large crowd, loud music",
-      difficulty: "hard",
     },
 
-    // Travel specifics
     {
       id: "travel_airport",
       label: "Airport",
       description: "Check-in, security, gate",
-      difficulty: "hard",
     },
     {
       id: "travel_flight",
       label: "Flight",
       description: "Short- or long-haul flight",
-      difficulty: "hard",
     },
     {
       id: "transport_rideshare",
       label: "Ride Share/Taxi",
       description: "Uber/Taxi alone",
-      difficulty: "medium",
     },
 
-    // Everyday public places
     {
       id: "shopping_supermarket",
       label: "Supermarket",
       description: "Aisles, checkout line",
-      difficulty: "medium",
     },
     {
       id: "mall",
       label: "Shopping Mall",
       description: "Enclosed, busy space",
-      difficulty: "medium",
     },
     {
       id: "dining_restaurant",
       label: "Restaurant/Café",
       description: "Stay through full meal",
-      difficulty: "medium",
     },
     {
       id: "cinema",
       label: "Cinema/Theater",
       description: "Sit through screening/show",
-      difficulty: "medium",
     },
     {
       id: "gym",
       label: "Gym/Class",
       description: "Tolerate heartbeat sensations",
-      difficulty: "medium",
     },
     {
       id: "religious_service",
       label: "Religious Service",
       description: "Stay for full service",
-      difficulty: "medium",
     },
 
-    // Performance/interaction
     {
       id: "presentation",
       label: "Presentation/Meeting",
       description: "Speak or stay present",
-      difficulty: "hard",
     },
     {
       id: "interview",
       label: "Interview",
       description: "Job/School interview",
-      difficulty: "hard",
     },
     {
       id: "phone_call",
       label: "Phone Call",
       description: "Make/receive & stay on call",
-      difficulty: "easy",
     },
     {
       id: "video_call",
       label: "Video Call",
       description: "Camera on, stay engaged",
-      difficulty: "medium",
     },
 
-    // Movement & confined spaces
     {
       id: "elevator",
       label: "Elevator",
       description: "Ride and remain inside",
-      difficulty: "medium",
     },
     {
       id: "bridge_tunnel",
       label: "Bridge/Tunnel",
       description: "Cross or drive through",
-      difficulty: "hard",
     },
     {
       id: "highway_driving",
       label: "Highway Driving",
       description: "Sustained speed traffic",
-      difficulty: "hard",
     },
 
-    // Medical contexts
     {
       id: "medical_dentist",
       label: "Dentist",
       description: "Sit through appointment",
-      difficulty: "hard",
     },
     {
       id: "medical_hospital",
       label: "Hospital/Clinic",
       description: "Waiting room, procedures",
-      difficulty: "hard",
     },
 
-    // Gentle starters
     {
       id: "night_walk",
       label: "Night Walk",
       description: "Short evening neighborhood walk",
-      difficulty: "easy",
     },
   ];
+
   const challenges: SeedItem[] = [
-    // Easy starters (low-level exposure)
     {
       id: "short_walk",
       label: "Short Walk",
-      description: "5–10 min walk in the neighborhood",
-      difficulty: "easy",
+      description: "5–10 minute walk in the neighborhood",
+      engagement: "stay",
     },
     {
       id: "corner_shop",
       label: "Small Shop",
-      description: "Enter a local store, buy 1 item",
-      difficulty: "easy",
+      description: "Enter a local store and buy one item",
+      engagement: "participate",
     },
     {
       id: "coffee_takeaway",
       label: "Coffee To-Go",
       description: "Order a takeaway drink and wait",
-      difficulty: "easy",
+      engagement: "participate",
     },
     {
       id: "friend_chat",
       label: "Brief Conversation",
       description: "Small talk with a friend or neighbor",
-      difficulty: "easy",
+      engagement: "participate",
     },
 
-    // Medium challenges (moderate exposure)
     {
       id: "supermarket_quick",
       label: "Quick Supermarket Visit",
-      description: "Stay in store for 5–10 min, use checkout",
-      difficulty: "medium",
+      description: "Stay 5–10 minutes and use checkout",
+      engagement: "participate",
     },
     {
       id: "bus_one_stop",
       label: "Bus Ride (1 Stop)",
       description: "Ride one stop and remain seated",
-      difficulty: "medium",
+      engagement: "stay",
     },
     {
       id: "restaurant_meal",
       label: "Eat Out",
-      description: "Sit down and finish a meal at a café",
-      difficulty: "medium",
+      description: "Sit down and finish a meal",
+      engagement: "stretch",
     },
     {
       id: "exercise_session",
       label: "Light Exercise",
-      description: "Do 20 min workout, tolerate heart rate",
-      difficulty: "medium",
+      description: "20-minute workout while tolerating heart rate",
+      engagement: "participate",
     },
     {
       id: "social_small",
       label: "Small Gathering",
-      description: "Spend 30–60 min with 2–3 people",
-      difficulty: "medium",
+      description: "Spend 30–60 minutes with 2–3 people",
+      engagement: "participate",
     },
 
-    // Harder exposures (stronger triggers)
     {
       id: "crowded_train",
-      label: "Crowded Train/Bus",
+      label: "Crowded Train / Bus",
       description: "Stay for several stops during rush hour",
-      difficulty: "hard",
+      engagement: "stretch",
     },
     {
       id: "public_speaking",
       label: "Speak in Public",
       description: "Presentation, class, or group talk",
-      difficulty: "hard",
+      engagement: "stretch",
     },
     {
       id: "mall_weekend",
       label: "Busy Mall",
       description: "Walk through mall at peak time",
-      difficulty: "hard",
+      engagement: "stretch",
     },
     {
       id: "theater_movie",
-      label: "Cinema/Theater",
+      label: "Cinema / Theater",
       description: "Sit through full screening or event",
-      difficulty: "hard",
+      engagement: "stretch",
     },
     {
       id: "airport_checkin",
       label: "Airport",
-      description: "Go through security, wait at gate",
-      difficulty: "hard",
+      description: "Go through security and wait at gate",
+      engagement: "stretch",
     },
     {
       id: "flight_short",
       label: "Short Flight",
-      description: "Domestic/short-haul flight",
-      difficulty: "hard",
+      description: "Domestic or short-haul flight",
+      engagement: "stretch",
     },
     {
       id: "social_large",
       label: "Large Gathering",
-      description: "Spend 30–60 min in a crowded place",
-      difficulty: "hard",
+      description: "Spend 30–60 minutes in a crowded place",
+      engagement: "stretch",
     },
 
-    // Medical contexts (often high anxiety)
     {
       id: "doctor_waiting",
       label: "Doctor Appointment",
-      description: "Wait calmly in clinic room",
-      difficulty: "medium",
+      description: "Wait through clinic visit",
+      engagement: "participate",
     },
     {
       id: "dentist_chair",
       label: "Dentist",
       description: "Sit through routine checkup",
-      difficulty: "hard",
+      engagement: "stretch",
     },
 
-    // Social performance
     {
       id: "video_meeting",
       label: "Video Call",
       description: "Stay engaged with camera on",
-      difficulty: "medium",
+      engagement: "stretch",
     },
     {
       id: "phone_call_stranger",
       label: "Phone Call",
-      description: "Call a stranger (e.g., book appointment)",
-      difficulty: "medium",
+      description: "Call a stranger (e.g., booking an appointment)",
+      engagement: "participate",
     },
   ];
+
   const avoidanceReasons: SeedItem[] = [
     {
       id: "crowds_overwhelming",
@@ -692,14 +696,25 @@ async function main() {
     },
   ];
 
-  await upsertBatch("LOCATION", locationOptions);
-  await upsertBatch("CHALLENGE", challenges);
-  await upsertBatch("AVOIDANCE_REASON", avoidanceReasons);
-  await upsertBatch("SYMPTOM", symptomOptions);
-  await upsertBatch("STOP_REASON", stopReasonsOptions);
-  await upsertBatch("AFTER_ATTACK_ACTION", afterAttackActionsOptions);
-  await upsertBatch("KEPT_GOING_REASON", keptGoingReasonsOptions);
-  await upsertBatch("SKIPPED_CHALLENGE_REASON", skippedChallengeReasonsOptions);
+  await upsertLocationOptions(locationOptions);
+  await upsertChallengeOptions(challenges);
+
+  await upsertTaxonomyItems("AVOIDANCE_REASON", avoidanceReasons);
+  await upsertTaxonomyItems("SYMPTOM", symptomOptions);
+  await upsertTaxonomyItems("STOP_REASON", stopReasonsOptions);
+  await upsertTaxonomyItems("AFTER_ATTACK_ACTION", afterAttackActionsOptions);
+  await upsertTaxonomyItems("KEPT_GOING_REASON", keptGoingReasonsOptions);
+  await upsertTaxonomyItems(
+    "SKIPPED_CHALLENGE_REASON",
+    skippedChallengeReasonsOptions,
+  );
 }
 
-main().finally(() => prisma.$disconnect());
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

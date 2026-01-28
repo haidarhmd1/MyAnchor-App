@@ -1,3 +1,11 @@
+import {
+  OPTION_PARTICIPATE,
+  OPTION_STAY,
+  OPTION_STRETCH,
+  SafetyBehaviorOptionItem,
+} from "@/common/const/SafetyBehavior";
+import { Engagement } from "@prisma/client";
+
 export const BASE_STEP = [
   {
     id: "hadCompletedChallenge",
@@ -6,98 +14,52 @@ export const BASE_STEP = [
   },
 ] as const;
 
-export const ANXIETY_CHECK = [
+export const STOP_REASONS = [
   {
-    id: "hadAnxietyAttack",
-    titleKey: "challengeSteps.hadAnxietyAttack.title",
-    subtitleKey: "challengeSteps.hadAnxietyAttack.subtitle",
+    id: "safetyBehavior",
+    titleKey: "challengeSteps.safetyBehavior.title",
+    subtitleKey: "challengeSteps.safetyBehavior.subtitle",
   },
 ] as const;
 
-export const REASONS_FOR_SKIPPING_CHALLENGE = [
+export const PARTIAL_NO_FINISH_SCREEN = [
   {
-    id: "reasonsNotDone",
-    titleKey: "challengeSteps.reasonsNotDone.title",
-    subtitleKey: "challengeSteps.reasonsNotDone.subtitle",
+    id: "partialNoFinishScreen",
+    titleKey: "challengeSteps.partialNoScreen.title",
+    subtitleKey: "challengeSteps.partialNoScreen.subtitle",
   },
 ] as const;
 
-export const AVOIDANCE_STEPS = [
+export const YES_FINISH_SCREEN = [
   {
-    id: "stoppedEarly",
-    titleKey: "challengeSteps.stoppedEarly.title",
-    subtitleKey: "challengeSteps.stoppedEarly.subtitle",
-  },
-] as const;
-
-export const CONTINUED_CHALLENGE = [
-  {
-    id: "copingStrategies",
-    titleKey: "challengeSteps.copingStrategies.title",
-    subtitleKey: "challengeSteps.copingStrategies.subtitle",
-  },
-  {
-    id: "typesOfBodySymptoms",
-    titleKey: "challengeSteps.typesOfBodySymptomsWhileContinuing.title",
-    subtitleKey: "challengeSteps.typesOfBodySymptomsWhileContinuing.subtitle",
-  },
-  {
-    id: "anxietyLevelRating",
-    titleKey: "challengeSteps.anxietyLevelRating.title",
-    subtitleKey: "challengeSteps.anxietyLevelRating.subtitle",
-  },
-  {
-    id: "challengeRating",
-    titleKey: "challengeSteps.challengeRating.title",
-    subtitleKey: "challengeSteps.challengeRating.subtitle",
-  },
-] as const;
-
-export const STOPPED_CHALLENGE = [
-  {
-    id: "stopReasons",
-    titleKey: "challengeSteps.stopReasons.title",
-    subtitleKey: "challengeSteps.stopReasons.subtitle",
-  },
-  {
-    id: "actionsTaken",
-    titleKey: "challengeSteps.actionsTaken.title",
-    subtitleKey: "challengeSteps.actionsTaken.subtitle",
-  },
-  {
-    id: "typesOfBodySymptoms",
-    titleKey: "challengeSteps.typesOfBodySymptoms.title",
-    subtitleKey: "challengeSteps.typesOfBodySymptoms.subtitle",
-  },
-  {
-    id: "anxietyLevelRating",
-    titleKey: "challengeSteps.anxietyLevelRating.title",
-    subtitleKey: "challengeSteps.anxietyLevelRating.subtitle",
-  },
-] as const;
-
-export const NO_ANXIETY_STEPS = [
-  {
-    id: "challengeRating",
-    titleKey: "challengeSteps.challengeRating.title",
-    subtitleKey: "challengeSteps.challengeRating.subtitle",
+    id: "yesFinishScreen",
+    titleKey: "challengeSteps.yesFinishScreen.title",
+    subtitleKey: "challengeSteps.yesFinishScreen.subtitle",
   },
 ] as const;
 
 type BaseStep = (typeof BASE_STEP)[number];
-type DidTheChallenge = (typeof ANXIETY_CHECK)[number];
-type ReasonsWhyYouDidNotDoTheChallenge =
-  (typeof REASONS_FOR_SKIPPING_CHALLENGE)[number];
-type AvoidanceStep = (typeof AVOIDANCE_STEPS)[number];
-type AnxietyStep = (typeof NO_ANXIETY_STEPS)[number];
-type StoppedChallengeStep = (typeof STOPPED_CHALLENGE)[number];
-type ContinuedChallengeThoughAnxiety = (typeof CONTINUED_CHALLENGE)[number];
+type safetyBehavior = (typeof STOP_REASONS)[number];
+type partialNoFinishScreen = (typeof PARTIAL_NO_FINISH_SCREEN)[number];
+type yesFinishScreen = (typeof YES_FINISH_SCREEN)[number];
 
 export type Step =
   | BaseStep
-  | AvoidanceStep
-  | AnxietyStep
-  | StoppedChallengeStep
-  | ContinuedChallengeThoughAnxiety
-  | DidTheChallenge
-  | ReasonsWhyYouDidNotDoTheChallenge;
+  | safetyBehavior
+  | partialNoFinishScreen
+  | yesFinishScreen;
+
+export const engagementsafetyBehaviorMapper = (
+  engagement: Engagement,
+): SafetyBehaviorOptionItem[] => {
+  switch (engagement) {
+    case Engagement.STAY:
+      return OPTION_STAY.options;
+    case Engagement.PARTICIPATE:
+      return OPTION_PARTICIPATE.options;
+    case Engagement.STRETCH:
+      return OPTION_STRETCH.options;
+    default:
+      return OPTION_STAY.options;
+  }
+};

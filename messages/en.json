@@ -1,6 +1,7 @@
 {
   "safetyBehavior": {
     "label": "Safety behavior",
+    "nextTimeTitle": "Next time:",
     "nextTime": "Next time, drop it and {answer}",
     "options": {
       "left-early": {
@@ -95,7 +96,7 @@
     },
     "todaysChallenge": {
       "title": "Today’s challenge",
-      "description": "Build confidence in small steps"
+      "description": "Choose one exposure for today"
     },
     "journey": {
       "title": "Journey Steps",
@@ -103,8 +104,9 @@
     },
     "quicktools": {
       "main": {
-        "title": "Quick tools",
-        "subtitle": "For rising anxiety (1–2 minutes)"
+        "title": "Grounding Tools",
+        "subtitle": "Optional techniques. Not required for progress",
+        "disclaimer": "Use only if you choose. Not part of exposure practice."
       }
     }
   },
@@ -179,6 +181,7 @@
     "next": "Next",
     "previous": "Previous",
     "submit": "Submit",
+    "done": "Done",
     "log": "Log entry",
     "yes": "Yes",
     "no": "No",
@@ -529,8 +532,9 @@
   },
   "momentLogShortcut": {
     "title": "Your Moment Log",
-    "doneSubtitle": "You just created a new entry!",
-    "ctaSubtitle": "Moment Log"
+    "doneSubtitle": "Entry added. You can add another moment anytime.",
+    "ctaSubtitle": "Moment Log",
+    "addMomentSubtitle": "No moments logged today. You can add one if anxiety shows up."
   },
   "tips": {
     "items": {
@@ -670,7 +674,11 @@
     },
     "hadCompletedChallenge": {
       "title": "Challenge",
-      "subtitle": "Did you do the challenge?"
+      "subtitle": "How did it end?",
+      "answer": {
+        "stayed": "I stayed",
+        "leftEarly": "I left early"
+      }
     },
     "hadAnxietyAttack": {
       "title": "Anxiety check",

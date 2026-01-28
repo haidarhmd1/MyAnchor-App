@@ -23,7 +23,6 @@ export const NewChallenge = async () => {
       createdAt: "asc",
     },
   });
-  console.log(latestChallenge);
 
   if (!latestChallenge) {
     return (

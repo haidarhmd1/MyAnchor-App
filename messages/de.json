@@ -1,6 +1,7 @@
 {
   "safetyBehavior": {
     "label": "Sicherheitsverhalten",
+    "nextTimeTitle": "Nächstes Mal:",
     "nextTime": "Nächstes Mal: lass es weg und {answer}",
     "options": {
       "left-early": {
@@ -95,7 +96,7 @@
     },
     "todaysChallenge": {
       "title": "Heutige Herausforderung",
-      "description": "Vertrauen in kleinen Schritten aufbauen"
+      "description": "Wähle eine Exposition für heute"
     },
     "journey": {
       "title": "Schritte deiner Reise",
@@ -103,8 +104,9 @@
     },
     "quicktools": {
       "main": {
-        "title": "Schnelle Hilfen",
-        "subtitle": "Bei zunehmender Angst (1–2 Minuten)"
+        "title": "Stabilisierungsübungen",
+        "subtitle": "Optionale Techniken. Nicht erforderlich für Fortschritt",
+        "disclaimer": "Nur verwenden, wenn du möchtest. Kein Teil der Expositionsübung."
       }
     }
   },
@@ -179,6 +181,7 @@
     "next": "Weiter",
     "previous": "Zurück",
     "submit": "Absenden",
+    "done": "Abgeschlossen",
     "log": "Eintrag bestätigen",
     "yes": "Ja",
     "no": "Nein",
@@ -521,8 +524,9 @@
   },
   "momentLogShortcut": {
     "title": "Dein Moment-Log",
-    "doneSubtitle": "Du hast gerade einen neuen Eintrag erstellt!",
-    "ctaSubtitle": "Moment-Log"
+    "doneSubtitle": "Eintrag hinzugefügt. Du kannst jederzeit einen weiteren Moment erfassen.",
+    "ctaSubtitle": "Moment-Log",
+    "addMomentSubtitle": "Heute wurden keine Momente erfasst. Du kannst einen hinzufügen, falls Angst auftaucht."
   },
   "analyticsShortcut": {
     "title": "Schneller Überblick: Angst",
@@ -667,8 +671,12 @@
       "subtitle": "Mach mit deinem Tag weiter."
     },
     "hadCompletedChallenge": {
-      "title": "Challenge",
-      "subtitle": "Hast du die Challenge gemacht?"
+      "title": "Herausforderung",
+      "subtitle": "Wie ist es ausgegangen?",
+      "answer": {
+        "stayed": "Ich bin geblieben",
+        "leftEarly": "Ich bin früher gegangen"
+      }
     },
     "hadAnxietyAttack": {
       "title": "Angst-Check",
@@ -900,61 +908,45 @@
         "title": "Impuls",
         "question": "Was wollte die Angst, dass du tust?",
         "options": {
-          "leave": { "title": "Gehen" },
-          "avoid-engaging": { "title": "Nicht einlassen" },
-          "pause-to-reset": { "title": "Pause zum Reset" },
-          "seek-reassurance": { "title": "Rückversicherung suchen" },
-          "change-plans": { "title": "Pläne ändern" },
-          "nothing-noticeable": { "title": "Nichts Auffälliges" },
-          "other": { "title": "Sonstiges" }
+          "leave": { "title": "Ich wollte weggehen" },
+          "avoid-engaging": { "title": "Ich wollte mich zurückhalten" },
+          "pause-to-reset": { "title": "Ich wollte eine Pause machen" },
+          "seek-reassurance": { "title": "Ich wollte Rückversicherung suchen" },
+          "change-plans": { "title": "Ich wollte meine Pläne ändern" },
+          "nothing-noticeable": { "title": "Ich hatte keinen klaren Impuls" },
+          "other": { "title": "Etwas anderes" }
         }
       },
       "actionTaken": {
         "title": "Aktion",
-        "question": "Was hast du getan?",
+        "question": "Was hast du gemacht?",
         "options": {
           "left-early": {
-            "title": "Früh gegangen",
-            "description": "Du hast die Situation früher beendet, um Erleichterung zu bekommen oder dich sicherer zu fühlen, statt bis zum natürlichen Ende zu bleiben.",
-            "answer": "Bleib 2 Minuten länger, bevor du gehst."
+            "title": "Ich bin früher gegangen"
           },
           "pause-to-reset": {
-            "title": "Pausiert",
-            "description": "Du hast angehalten oder eine Pause gemacht, um dich zu beruhigen oder Kontrolle zurückzugewinnen.",
-            "answer": "Mach weiter, ohne zu pausieren."
+            "title": "Ich habe eine Pause gemacht"
           },
           "avoided-speaking-engaging": {
-            "title": "Nicht beteiligt",
-            "description": "Du warst anwesend, hast dich aber vom Sprechen oder Mitmachen zurückgehalten.",
-            "answer": "Sag einmal etwas – auch kurz."
+            "title": "Ich habe mich zurückgehalten"
           },
           "checked-symptoms": {
-            "title": "Symptome überprüft",
-            "description": "Du hast Atmung, Herzschlag, Schwindel oder Anspannung überprüft.",
-            "answer": "Nimm den Impuls wahr und mach weiter, ohne zu überprüfen."
+            "title": "Ich habe meine Symptome überprüft"
           },
           "sought-reassurance": {
-            "title": "Rückversicherung gesucht",
-            "description": "Du hast Bestätigung gesucht, dass du okay oder sicher bist.",
-            "answer": "Such danach keine Rückversicherung."
+            "title": "Ich habe Rückversicherung gesucht"
           },
           "delayed-until-felt-ready": {
-            "title": "Handlung verzögert",
-            "description": "Du hast gewartet, bis Angst oder Unwohlsein nachließen.",
-            "answer": "Handle, bevor du dich bereit fühlst."
+            "title": "Ich habe gewartet, bis es sich besser angefühlt hat"
           },
           "changed-plans-because-of-anxiety": {
-            "title": "Pläne geändert",
-            "description": "Du hast Pläne angepasst oder vermieden, um Angst zu verhindern.",
-            "answer": "Lass deine Pläne nächstes Mal unverändert."
+            "title": "Ich habe meine Pläne geändert"
           },
           "stayed": {
-            "title": "Geblieben",
-            "description": "Du bist bis zum geplanten oder natürlichen Ende geblieben, trotz Angst."
+            "title": "Ich bin geblieben"
           },
           "stayed-and-participated": {
-            "title": "Geblieben und beteiligt",
-            "description": "Du bist geblieben und hast dich beteiligt, trotz Angst."
+            "title": "Ich bin geblieben und habe mitgemacht"
           }
         }
       },

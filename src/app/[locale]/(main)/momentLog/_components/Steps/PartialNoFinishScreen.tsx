@@ -14,23 +14,29 @@ export const PartialNoFinishScreen = ({ onNext }: { onNext(): void }) => {
   const answer = t(`safetyBehavior.options.${partialNoReason}.answer`);
   return (
     <div className="w-full space-y-4">
-      <div className="min-h-28 w-full space-y-2 rounded-2xl border-0 bg-white p-4 shadow-md">
+      <div className="min-h-28 w-full space-y-4 rounded-2xl border-0 bg-white p-4 shadow-md">
+        <div className="space-y-1">
+          <p className="text-xs font-light text-gray-600">
+            {t(`safetyBehavior.label`)}
+          </p>
+          <p className="text-md font-light">
+            {t(`safetyBehavior.options.${partialNoReason}.title`)}
+          </p>
+        </div>
+
         <div>
-          <h3>
-            {t(`safetyBehavior.label`)}:{" "}
-            <i>{t(`safetyBehavior.options.${partialNoReason}.title`)}</i>
-          </h3>
           <p className="text-xs font-extralight">
             {t(`safetyBehavior.options.${partialNoReason}.description`)}
           </p>
         </div>
         <div className="h-px w-3/4 bg-gray-200" />
 
-        <p>
-          {t("safetyBehavior.nextTime", {
-            answer,
-          })}
-        </p>
+        <div>
+          <p className="text-md text-blue-600">
+            {t("safetyBehavior.nextTimeTitle")}
+          </p>
+          <p className="text-md font-light">{answer}</p>
+        </div>
       </div>
       <div className="w-auto pt-2 text-center">
         {formState.isSubmitting ? (

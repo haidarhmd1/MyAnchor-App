@@ -40,29 +40,29 @@ export async function MomentLogButton() {
 
   if (momentLogEntry) {
     return (
-      <ShortcutsCard
-        size="xs"
-        title={t("title")}
-        subtitle={t("doneSubtitle")}
-        icon={<CheckCheck className="h-5 w-5" aria-hidden="true" />}
-        gradient={{
-          from: "bg-sky-400",
-          to: "bg-sky-100",
-        }}
-      />
+      <Link href="/momentLog" style={{ display: "contents" }}>
+        <ShortcutsCard
+          size="xs"
+          title={t("title")}
+          subtitle={t("doneSubtitle")}
+          gradient={{
+            from: "bg-sky-400",
+            to: "bg-sky-100",
+          }}
+        />
+      </Link>
     );
   }
 
   return (
     <Link href="/momentLog" style={{ display: "contents" }}>
       <ShortcutsCard
-        size="sm"
+        size="xs"
         title={t("title")}
-        subtitle={t("ctaSubtitle")}
-        icon={<BookOpenCheck className="h-5 w-5" aria-hidden="true" />}
+        subtitle={t("addMomentSubtitle")}
         gradient={{
-          from: "bg-blue-600",
-          to: "bg-blue-100",
+          from: "bg-sky-400",
+          to: "bg-sky-100",
         }}
       />
     </Link>
@@ -74,10 +74,9 @@ export async function UnauthenticatedMomentLogButton() {
 
   return (
     <ShortcutsCard
-      size="sm"
+      size="xs"
       title={t("title")}
-      subtitle={t("ctaSubtitle")}
-      icon={<BookOpenCheck className="h-5 w-5" aria-hidden="true" />}
+      subtitle={t("addMomentSubtitle")}
       gradient={{
         from: "bg-blue-600",
         to: "bg-blue-100",

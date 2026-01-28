@@ -1,6 +1,7 @@
 {
   "safetyBehavior": {
     "label": "سلوك الأمان",
+    "nextTimeTitle": "في المرة القادمة:",
     "nextTime": "في المرة القادمة، اتركه و{answer}",
     "options": {
       "left-early": {
@@ -99,12 +100,13 @@
     },
     "todaysChallenge": {
       "title": "تحدي اليوم",
-      "description": "بناء الثقة بخطوات صغيرة"
+      "description": "اختر تعرّضًا واحدًا لليوم"
     },
     "quicktools": {
       "main": {
-        "title": "أدوات سريعة",
-        "subtitle": "للقلق المتزايد (1–2 دقيقة)"
+        "title": "تقنيات تثبيت",
+        "subtitle": "تقنيات اختيارية. غير مطلوبة للتقدّم",
+        "disclaimer": "استخدمها فقط إذا رغبت. ليست جزءًا من ممارسة التعرّض."
       }
     }
   },
@@ -179,6 +181,7 @@
     "next": "التالي",
     "previous": "السابق",
     "submit": "إرسال",
+    "done": "تم الإكمال",
     "log": "تسجيل",
     "yes": "نعم",
     "no": "لا",
@@ -520,8 +523,9 @@
   },
   "momentLogShortcut": {
     "title": "سجلّ اللحظات الخاص بك",
-    "doneSubtitle": "لقد أنشأت إدخالًا جديدًا للتو!",
-    "ctaSubtitle": "سجلّ اللحظات"
+    "doneSubtitle": "تمت إضافة الإدخال. يمكنك إضافة لحظة أخرى في أي وقت.",
+    "ctaSubtitle": "سجلّ اللحظات",
+    "addMomentSubtitle": "لم يتم تسجيل أي لحظات اليوم. يمكنك إضافة واحدة إذا ظهر القلق."
   },
   "analyticsShortcut": {
     "title": "نظرة سريعة على القلق",
@@ -667,7 +671,11 @@
     },
     "hadCompletedChallenge": {
       "title": "التحدّي",
-      "subtitle": "هل أنجزت التحدّي؟"
+      "subtitle": "كيف انتهى الأمر؟",
+      "answer": {
+        "stayed": "بقيت",
+        "leftEarly": "غادرت مبكرًا"
+      }
     },
     "hadAnxietyAttack": {
       "title": "فحص القلق",

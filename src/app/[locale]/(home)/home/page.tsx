@@ -31,11 +31,11 @@ export default async function Home() {
   const t = await getTranslations("home");
   return (
     <div className="space-y-6 px-3">
-      <div className="grid w-full max-w-xl items-start gap-4">
+      <div className="grid items-start gap-4">
         <Accordion
           type="single"
           collapsible
-          className="w-full rounded-3xl border-red-400 bg-red-200 px-4 shadow-md"
+          className="w-full rounded-3xl border-gray-400 bg-gray-200 px-4 shadow-md"
         >
           <AccordionItem value="disclaimer-1">
             <AccordionTrigger>
@@ -55,20 +55,20 @@ export default async function Home() {
       </div>
       {auth ? (
         <>
-          <div className="">
-            <MomentLogButton />
-          </div>
           <div>
             <DailyChallenge />
+          </div>
+          <div className="">
+            <MomentLogButton />
           </div>
         </>
       ) : (
         <SignInOverlayButton>
-          <div className="">
-            <UnauthenticatedMomentLogButton />
-          </div>
           <div>
             <UnauthenticatedDailyChallenge />
+          </div>
+          <div className="">
+            <UnauthenticatedMomentLogButton />
           </div>
         </SignInOverlayButton>
       )}
@@ -83,7 +83,7 @@ export default async function Home() {
         <div className="mt-4 grid grid-cols-2 gap-3">
           <BoxBreathing />
           <Grounding />
-          <PositiveReminder />
+          {/* <PositiveReminder /> */}
         </div>
       </div>
       <div>

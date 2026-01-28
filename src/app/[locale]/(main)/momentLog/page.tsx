@@ -173,7 +173,6 @@ const MomentLog = async () => {
       <div className="mb-3 flex flex-col justify-center gap-4">
         <NewMomentLogEntryButton />
 
-        {/* Past entries grouped */}
         {pastEntries.length > 0 && (
           <div className="ring-border/50 mt-6 space-y-10 rounded-2xl bg-white/60 p-2 shadow-sm ring-1 dark:bg-zinc-950/40">
             {order.map((groupKey) => {
@@ -216,7 +215,6 @@ const MomentLog = async () => {
                         locale,
                         pastEntry.createdAt,
                       );
-
                       return (
                         <div
                           key={pastEntry.id}
@@ -225,14 +223,20 @@ const MomentLog = async () => {
                           )}
                         >
                           <ShortcutsCard
-                            size="sm"
+                            size="xs"
                             title={t("momentLog.entry.title")}
                             subtitle={`${DateTime.fromJSDate(
                               pastEntry.createdAt,
                             )
                               .setZone(TZ)
                               .toFormat("yyyy LLL dd - HH:mm")} • ${relative}`}
-                          />
+                          >
+                            <div className="mt-2">
+                              <p className="rounded-xl bg-white p-2 text-xs font-light">
+                                {`${t(`momentLog.steps.location.options.${pastEntry.location}.title`)} -> ${t(`momentLog.steps.urge.options.${pastEntry.urge}.title`)} -> ${t(`momentLog.steps.actionTaken.options.${pastEntry.actionTaken}.title`)}`}
+                              </p>
+                            </div>
+                          </ShortcutsCard>
                         </div>
                       );
                     })}

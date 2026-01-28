@@ -39,7 +39,7 @@ export type ShortcutsCardProps = {
 
 const sizeStyles = {
   xs: {
-    container: "h-18",
+    container: "min-h-18",
     title: "text-base",
     subtitle: "text-xs",
     toolbarGap: "gap-1.5",
@@ -49,7 +49,7 @@ const sizeStyles = {
     rounded: "rounded-3xl",
   },
   sm: {
-    container: "h-28",
+    container: "min-h-28",
     title: "text-base",
     subtitle: "text-xs",
     toolbarGap: "gap-1.5",
@@ -59,7 +59,7 @@ const sizeStyles = {
     rounded: "rounded-3xl",
   },
   md: {
-    container: "h-36",
+    container: "min-h-36",
     title: "text-lg",
     subtitle: "text-sm",
     toolbarGap: "gap-2",
@@ -69,7 +69,7 @@ const sizeStyles = {
     rounded: "rounded-3xl",
   },
   lg: {
-    container: "h-44",
+    container: "min-h-44",
     title: "text-xl",
     subtitle: "text-base",
     toolbarGap: "gap-2.5",

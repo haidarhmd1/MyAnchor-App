@@ -1,11 +1,11 @@
 import { CardContainer } from "@/components/Card/Card";
 import { exerciseList } from "@/common/const/content";
-import { getTranslations } from "next-intl/server";
-import { useLocale } from "next-intl";
+import { getLocale, getTranslations } from "next-intl/server";
+
 import { cn } from "@/lib/utils";
 
-export const Exercises = async () => {
-  const locale = useLocale();
+export async function Exercises() {
+  const locale = await getLocale();
   const t = await getTranslations();
   const isRtl = locale.includes("ar");
   return (
@@ -31,4 +31,4 @@ export const Exercises = async () => {
       ))}
     </div>
   );
-};
+}

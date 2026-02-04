@@ -5,12 +5,15 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import MomentLogForm from "./MomentLogForm";
 
 export const NewMomentLogEntryButton = ({}: {}) => {
+  const locale = useLocale();
   const t = useTranslations("momentLog.newEntry");
   const [isOpen, setOpen] = useState(false);
+
+  const isRtl = locale.includes("ar");
 
   return (
     <>
@@ -21,7 +24,7 @@ export const NewMomentLogEntryButton = ({}: {}) => {
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") setOpen(true);
         }}
-        className={cn("mt-4 border border-dashed shadow-sm")}
+        className={"mt-4 border border-dashed shadow-sm"}
         aria-label={t("ariaOpen")}
       >
         <CardContent className="flex flex-row px-0">
@@ -32,7 +35,10 @@ export const NewMomentLogEntryButton = ({}: {}) => {
               </h3>
 
               <div
-                className="ml-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/35 shadow-inner backdrop-blur-[2px]"
+                className={cn(
+                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/35 shadow-inner backdrop-blur-[2px]",
+                  isRtl ? "mr-auto" : "ml-auto",
+                )}
                 aria-hidden
               >
                 <div className="text-black drop-shadow">

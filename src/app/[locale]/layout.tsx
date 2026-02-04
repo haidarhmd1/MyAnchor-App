@@ -63,7 +63,7 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
 
-  // const isRtl = locale === "ar";
+  const isRtl = locale.includes("ar");
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -74,6 +74,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       className="m-auto max-w-115 overscroll-contain scroll-smooth bg-white"
+      dir={isRtl ? "rtl" : "ltr"}
     >
       <body
         className={`${adventPro.variable} bg-background font-inter text-foreground typography background-color: var(--color-background) min-h-dvh antialiased`}

@@ -11,6 +11,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Languages } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const LOCALES = [
   { value: "en", label: "English" },
@@ -36,12 +37,17 @@ export function LanguageSwitcher({
     // sets cookie + updates URL
     router.replace(href, { locale: nextLocale });
   };
-
+  const isRtl = locale.includes("ar");
   return (
     <Select value={locale} onValueChange={onChange}>
-      <SelectTrigger className={variant === "normal" ? "w-40" : "mr-2"}>
+      <SelectTrigger
+        className={cn(
+          variant === "normal" ? "w-40" : isRtl ? "ml-2" : "mr-2",
+          "rounded-full",
+        )}
+      >
         <Languages />
-        {variant === "normal" && <SelectValue />}
+        <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {LOCALES.map((l) => (

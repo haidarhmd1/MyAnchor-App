@@ -15,7 +15,7 @@ export const Information = async () => {
       <Accordion
         type="single"
         collapsible
-        className="rounded-md border-1 bg-white p-2 px-6"
+        className="rounded-4xl border bg-white p-2 px-6"
       >
         {interoceptiveExposureGuide.map((guide) => (
           <AccordionItem key={guide.id} value={`item-${guide.id}`}>

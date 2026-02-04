@@ -5,8 +5,8 @@ type SettingsRowInputProps = {
 
 export const SettingsRowInput = ({ label, value }: SettingsRowInputProps) => {
   return (
-    <div className="my-2 flex flex-col rounded-2xl border p-4 py-2">
-      <span className="text-start text-base leading-6 font-medium text-[#0D141C]">
+    <div className="my-2 flex flex-col rounded-t-3xl border p-4 py-2 shadow-xs">
+      <span className="text-primary text-start text-base leading-6 font-medium">
         {label}
       </span>
 

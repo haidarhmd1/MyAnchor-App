@@ -1,10 +1,14 @@
 import { CardContainer } from "@/components/Card/Card";
 import { education } from "@/common/const/links";
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { cn } from "@/lib/utils";
 
 export default async function EducationPage() {
+  const locale = await getLocale();
   const t = await getTranslations();
+
+  const isRtl = locale.includes("ar");
 
   return (
     <>
@@ -30,7 +34,10 @@ export default async function EducationPage() {
               description={t(e.descriptionKey)}
               icon={
                 <div
-                  className="mr-2 h-16 w-16 rounded-md"
+                  className={cn(
+                    "h-16 w-16 rounded-md",
+                    isRtl ? "ml-2" : "mr-2",
+                  )}
                   style={{
                     backgroundImage: `url(${e.imgSrc})`,
                     backgroundPosition: "center",

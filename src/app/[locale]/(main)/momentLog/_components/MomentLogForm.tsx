@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FormProvider, useForm } from "react-hook-form";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ import {
 } from "./helper";
 import { toast } from "sonner";
 import { z } from "zod";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { momentLogFormSchema } from "@/lib/zod.types";
 import { SingleChoice } from "./Steps/SingleChoice";
 import { PartialNoFinishScreen } from "./Steps/PartialNoFinishScreen";
@@ -57,8 +57,11 @@ export default function MomentLogForm({
   callback?: VoidFunction;
 }) {
   const t = useTranslations();
+  const locale = useLocale();
   const reduce = useReducedMotion();
   const router = useRouter();
+  const isRtl = locale.includes("ar");
+
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const form = useForm<z.infer<typeof momentLogFormSchema>>({
@@ -148,7 +151,11 @@ export default function MomentLogForm({
           disabled={currentStepIndex === 0}
           onClick={handlePrevious}
         >
-          <ChevronLeft className="h-4 w-4" />
+          {isRtl ? (
+            <ChevronRight className="h-4 w-4" />
+          ) : (
+            <ChevronLeft className="h-4 w-4" />
+          )}
           <span>{t("common.previous")}</span>
         </Button>
       </div>

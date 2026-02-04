@@ -15,7 +15,7 @@ import { Spinner } from "@/components/Spinner/Spinner";
 import { useForm } from "react-hook-form";
 import { ChallengeSchema } from "@/lib/zod.types";
 import { z } from "zod";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { mapChallengeOptionsToFormFields } from "@/i18n/challengeoptions-mapper";
 
 enum STEP_ID {
@@ -54,6 +54,8 @@ export default function ChallengeForm({
 }) {
   const router = useRouter();
   const t = useTranslations();
+  const locale = useLocale();
+  const isRtl = locale.includes("ar");
 
   const localizedChallenges = useMemo(() => {
     return mapChallengeOptionsToFormFields(challengesOptions);
@@ -294,7 +296,11 @@ export default function ChallengeForm({
                 disabled={currentStepIndex === 0 || form.formState.isSubmitting}
                 className="flex items-center space-x-2 bg-transparent"
               >
-                <ChevronLeft className="h-4 w-4" />
+                {isRtl ? (
+                  <ChevronRight className="h-4 w-4" />
+                ) : (
+                  <ChevronLeft className="h-4 w-4" />
+                )}
                 <span>{t("common.previous")}</span>
               </Button>
 
@@ -328,7 +334,11 @@ export default function ChallengeForm({
                   className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
                 >
                   <span>{t("common.next")}</span>
-                  <ChevronRight className="h-4 w-4" />
+                  {isRtl ? (
+                    <ChevronLeft className="h-4 w-4" />
+                  ) : (
+                    <ChevronRight className="h-4 w-4" />
+                  )}
                 </Button>
               )}
             </div>

@@ -4,12 +4,12 @@ import { Award, BadgePlus } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import prisma from "../../../../../../../lib/prisma";
 import { ChallengeStatus } from "@prisma/client";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { StartChallengeBtn } from "./StartChallengeBtn";
 
 export const NewChallenge = async () => {
   const t = await getTranslations("exposure.newChallenge");
-
+  const locale = await getLocale();
   const latestChallenge = await prisma.challenge.findFirst({
     where: {
       deletedAt: null,
@@ -24,6 +24,8 @@ export const NewChallenge = async () => {
     },
   });
 
+  const isRtl = locale.includes("ar");
+
   if (!latestChallenge) {
     return (
       <Link href="/exposure/challenge" style={{ display: "contents" }}>
@@ -35,10 +37,17 @@ export const NewChallenge = async () => {
           )}
         >
           <CardContent className="flex flex-row gap-2">
-            <div className="shrink-0">
-              <BadgePlus />
-            </div>
+            {!isRtl && (
+              <div className="shrink-0">
+                <BadgePlus />
+              </div>
+            )}
             <p>{t("start.cta")}</p>
+            {isRtl && (
+              <div className="shrink-0">
+                <BadgePlus />
+              </div>
+            )}
           </CardContent>
         </Card>
       </Link>

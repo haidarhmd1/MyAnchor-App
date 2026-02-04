@@ -14,9 +14,7 @@ export default async function Layout({
   return (
     <div className="m-auto max-w-1150">
       <header className="flex min-h-16 items-center justify-between px-4 py-4">
-        <h6 className="text-center font-light">
-          MyAnchor<sub>beta</sub>
-        </h6>
+        <h6 className="text-center font-light">MyAnchor</h6>
 
         <div className="flex items-center">
           <LanguageSwitcher variant="xs" />
@@ -24,7 +22,7 @@ export default async function Layout({
             <SignInButton />
           ) : (
             <Link href="/profile">
-              <CircleUser strokeWidth={1} />
+              <CircleUser strokeWidth="0.75px" />
             </Link>
           )}
         </div>

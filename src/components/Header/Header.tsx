@@ -7,7 +7,6 @@ import { LanguageSwitcher } from "@/app/[locale]/(home)/profile/_components/Lang
 
 export async function Header({
   title = "MyAnchor App",
-  // right,
 }: {
   title?: string;
   right?: React.ReactNode;
@@ -19,9 +18,7 @@ export async function Header({
         <BackArrow />
       </div>
 
-      <h6 className="text-center font-light">
-        MyAnchor<sub>beta</sub>
-      </h6>
+      <h6 className="text-center font-light">MyAnchor</h6>
 
       <div className="flex items-center">
         <LanguageSwitcher variant="xs" />
@@ -29,7 +26,7 @@ export async function Header({
           <SignInButton />
         ) : (
           <Link href="/profile">
-            <CircleUser strokeWidth={1} />
+            <CircleUser size="32px" strokeWidth="0.75px" />
           </Link>
         )}
       </div>

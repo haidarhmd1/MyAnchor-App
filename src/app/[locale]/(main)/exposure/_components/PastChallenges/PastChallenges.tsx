@@ -3,13 +3,9 @@ import { cn } from "@/lib/utils";
 import prisma from "../../../../../../../lib/prisma";
 import { ChallengeStatus } from "@prisma/client";
 import { getLocale, getTranslations } from "next-intl/server";
-import { mapTaxonomyToFormField } from "@/i18n/taxonomy-mapper";
 import { DateTime } from "luxon";
 import { formatRelative } from "@/i18n/relative-time";
-import {
-  mapChallengeOptionsToFormFields,
-  mapSingleChallengeOptionItemToTranslater,
-} from "@/i18n/challengeoptions-mapper";
+import { mapSingleChallengeOptionItemToTranslater } from "@/i18n/challengeoptions-mapper";
 
 type GroupKey =
   | "today"
@@ -58,7 +54,7 @@ function groupTone(groupKey: GroupKey) {
 export const PastChallenges = async () => {
   const t = await getTranslations();
   const locale = await getLocale();
-
+  const isRtl = locale.includes("ar");
   const pastChallenges = await prisma.challenge.findMany({
     where: {
       status: ChallengeStatus.FINISHED,
@@ -122,12 +118,13 @@ export const PastChallenges = async () => {
 
         return (
           <section
+            dir={isRtl ? "rtl" : "ltr"}
             key={groupKey}
             className={cn("space-y-3", groupTone(groupKey))}
           >
             <div
               className={cn(
-                "sticky top-0 z-20 -mx-2 w-full px-2 py-2",
+                "sticky top-0 z-20 w-full px-2 py-2",
                 "rounded-4xl border",
                 "supports-backdrop-filter:bg-white/50",
               )}

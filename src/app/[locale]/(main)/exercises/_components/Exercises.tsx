@@ -1,9 +1,13 @@
 import { CardContainer } from "@/components/Card/Card";
 import { exerciseList } from "@/common/const/content";
 import { getTranslations } from "next-intl/server";
+import { useLocale } from "next-intl";
+import { cn } from "@/lib/utils";
 
 export const Exercises = async () => {
+  const locale = useLocale();
   const t = await getTranslations();
+  const isRtl = locale.includes("ar");
   return (
     <div className="my-4">
       {exerciseList.map((exercise) => (
@@ -14,7 +18,7 @@ export const Exercises = async () => {
           title={t(exercise.titleKey)}
           icon={
             <div
-              className="mr-2 h-16 w-16 rounded-md"
+              className={cn("h-16 w-16 rounded-md", isRtl ? "ml-2" : "mr-2")}
               style={{
                 backgroundImage: `url(${exercise.imgSrc})`,
                 backgroundPosition: "center",

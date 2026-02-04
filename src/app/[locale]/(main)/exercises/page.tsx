@@ -43,10 +43,8 @@ export default async function Page() {
             </p>
           ))}
         </div>
+        <Information />
         <Exercises />
-        <>
-          <Information />
-        </>
       </div>
     </>
   );

@@ -1,13 +1,17 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {
+  const locale = useLocale();
+  const isRtl = locale.includes("ar");
   return (
     <div
+      dir={isRtl ? "rtl" : "ltr"}
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex transform flex-col gap-6 rounded-[22px] py-6 transition will-change-transform focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40 active:scale-[0.98]",
+        "bg-card text-card-foreground flex transform flex-col gap-6 rounded-4xl py-6 transition will-change-transform focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40 active:scale-[0.98]",
         className,
       )}
       {...props}

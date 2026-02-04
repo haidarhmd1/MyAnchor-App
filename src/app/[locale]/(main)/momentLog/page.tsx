@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import { DateTime } from "luxon";
-import { CheckCheck, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { TZ } from "@/lib/timezone";
 import ShortcutsCard from "../_components/ShortcutsCard";
 import { requireAuth } from "@/lib/auth/require-auth";
-import { getPastEntries, today } from "./helper";
+import { getPastEntries } from "./helper";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -111,6 +111,7 @@ const UnauthenticatedMomentLog = async () => {
 const MomentLog = async () => {
   const t = await getTranslations();
   const locale = await getLocale();
+  const isRtl = locale.includes("ar");
 
   const user = await requireAuth();
   const pastEntries = await getPastEntries(user.id);
@@ -191,14 +192,19 @@ const MomentLog = async () => {
                   {/* Sticky glass header */}
                   <div
                     className={cn(
-                      "sticky top-0 z-20 -mx-2 w-full px-2 py-2",
+                      "sticky top-0 z-20 w-full px-2 py-2",
                       "backdrop-blur-md",
                       "bg-white/70 dark:bg-zinc-950/60",
                       "border-border/60 border-b",
                     )}
                   >
                     <div className="flex w-full items-center justify-between">
-                      <h3 className="text-foreground ml-2 text-sm font-semibold tracking-wide">
+                      <h3
+                        className={cn(
+                          "text-foreground text-sm font-semibold tracking-wide",
+                          isRtl ? "mr-2" : "ml-2",
+                        )}
+                      >
                         {t(`common.groups.${groupKey}`)}
                       </h3>
 

@@ -9,7 +9,6 @@ export const SettingsRowInput = ({ label, value }: SettingsRowInputProps) => {
       <span className="text-primary text-start text-base leading-6 font-medium">
         {label}
       </span>
-
       <span
         className="sub text-start text-xs"
         aria-label={`${label}: ${value ?? ""}`}

@@ -22,7 +22,7 @@ export default async function Layout({
             <SignInButton />
           ) : (
             <Link href="/profile">
-              <CircleUser strokeWidth="0.75px" />
+              <CircleUser size="32px" strokeWidth="0.75px" />
             </Link>
           )}
         </div>

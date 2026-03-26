@@ -2,10 +2,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Award, BadgePlus } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import prisma from "../../../../../../../lib/prisma";
-import { ChallengeStatus } from "@prisma/client";
 import { getLocale, getTranslations } from "next-intl/server";
 import { StartChallengeBtn } from "./StartChallengeBtn";
+import { prisma } from "../../../../../../../lib/prisma";
+import { ChallengeStatus } from "@/generated/prisma/enums";
 
 export const NewChallenge = async () => {
   const t = await getTranslations("exposure.newChallenge");

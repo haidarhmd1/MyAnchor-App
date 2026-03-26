@@ -1,8 +1,8 @@
-import prisma from "../../../../lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { ChallengeSchema } from "@/lib/zod.types";
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
 import z from "zod";
+import { prisma } from "../../../../lib/prisma";
 
 export const GET = async () => {
   const { userId } = await getUserOrThrow();

@@ -1,21 +1,40 @@
+import { Prisma } from "@/generated/prisma/browser";
 import {
   ChallengeStatus,
   Gender,
-  Prisma,
   SocialContext,
-  WhenDidItHappen,
-} from "@prisma/client";
+} from "@/generated/prisma/enums";
 import { z } from "zod";
+import {
+  AnxietySupportResultZodSchema,
+  LocationSchema,
+  SupportedReasoningLocaleSchema,
+  SymptomSchema,
+} from "./ai/anxietySupport/types";
 
 const JsonValueSchema: z.ZodType<Prisma.InputJsonValue> = z.lazy(() =>
   z.union([z.string(), z.number(), z.boolean(), z.array(JsonValueSchema)]),
 );
 
 export const momentLogFormSchema = z.object({
-  location: z.string(),
-  urge: z.string(),
-  actionTaken: z.string().optional(),
+  location: LocationSchema,
+  symptoms: z.array(SymptomSchema).default([]),
+
+  reasoningEn: AnxietySupportResultZodSchema.optional(),
+  reasoning: AnxietySupportResultZodSchema.optional(),
+  reasoningLocale: SupportedReasoningLocaleSchema.optional(),
 });
+
+export const submitMomentLogSchema = z.object({
+  location: LocationSchema,
+  symptoms: z.array(SymptomSchema).min(1).max(12),
+
+  reasoningEn: AnxietySupportResultZodSchema,
+  reasoning: AnxietySupportResultZodSchema,
+  reasoningLocale: SupportedReasoningLocaleSchema,
+});
+
+export type MomentLogFormValues = z.infer<typeof momentLogFormSchema>;
 
 export const ChallengeSchema = z.object({
   socialContext: z.enum(SocialContext),

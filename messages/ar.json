@@ -1,4 +1,15 @@
 {
+  "aiResponseMomentLog": {
+    "affirmation": "تأكيد",
+    "symptoms": "لماذا قد تحدث هذه المشاعر",
+    "tolerance_message": "كيف تتجاوز هذه الموجة",
+    "mechanism": "ما الذي قد يحدث في جسمك",
+    "location_support": "لهذا المكان تحديدًا",
+    "catastrophic_thought_reframe": "فكرة أكثر توازنًا",
+    "reassurance_without_certainty": "الحفاظ على منظور واقعي",
+    "what_to_do_now": "ماذا تفعل الآن",
+    "red_flags": "اطلب مساعدة فورية إذا"
+  },
   "safetyBehavior": {
     "label": "سلوك الأمان",
     "nextTimeTitle": "في المرة القادمة:",
@@ -111,6 +122,7 @@
     }
   },
   "common": {
+    "loading": "جارٍ التحميل، يرجى الانتظار...",
     "engagement": {
       "STAY": {
         "label": "البقاء",
@@ -892,14 +904,14 @@
     "steps": {
       "location": {
         "title": "المكان",
-        "question": "أين كنت؟",
+        "question": "أين أنت؟",
         "options": {
           "gym": { "title": "النادي الرياضي" },
           "work": { "title": "العمل" },
           "cafe": { "title": "مقهى" },
           "transport": { "title": "وسائل النقل" },
           "home": { "title": "المنزل" },
-          "social-gathering": { "title": "تجمع اجتماعي" },
+          "social_gathering": { "title": "تجمع اجتماعي" },
           "other": { "title": "أخرى" }
         }
       },
@@ -964,6 +976,11 @@
             "description": "بقيت وتفاعلت رغم القلق."
           }
         }
+      },
+      "symptom": {
+        "title": "الأعراض",
+        "subtitle": "ماذا تشعر؟",
+        "question": "ماذا تشعر؟"
       },
       "outcome-stayed": {
         "title": "تم التدوين.",
@@ -1127,7 +1144,7 @@
         "label": "تسارع ضربات القلب",
         "description": "نبض سريع أو قوي يبدو خطيرًا"
       },
-      "shortness_breath": {
+      "shortness_of_breath": {
         "label": "ضيق نفس",
         "description": "شعور بعدم القدرة على أخذ نفس كافٍ"
       },
@@ -1160,7 +1177,7 @@
         "label": "تشوش الرؤية",
         "description": "صعوبة التركيز والخوف من السقوط"
       },
-      "feeling_unreal": {
+      "derealization_depersonalization": {
         "label": "شعور بعدم الواقعية",
         "description": "انفصال أو إحساس بأن الأمور غير حقيقية"
       },

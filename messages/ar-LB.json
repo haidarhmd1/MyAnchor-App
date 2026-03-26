@@ -1,4 +1,15 @@
 {
+  "aiResponseMomentLog": {
+    "affirmation": "تطمن",
+    "symptoms": "ليش ممكن يصير معك هالشعور",
+    "tolerance_message": "كيف تقطع هالموجة",
+    "mechanism": "شو عم بيصير بجسمك",
+    "location_support": "لهالمكان تحديدًا",
+    "catastrophic_thought_reframe": "فكرة أهدى وأوضح",
+    "reassurance_without_certainty": "خلّيك شايف الصورة صح",
+    "what_to_do_now": "شو تعمل هلّق",
+    "red_flags": "لازم تطلب مساعدة فورًا إذا"
+  },
   "safetyBehavior": {
     "label": "سلوك الأمان",
     "nextTimeTitle": "المرة الجاية:",
@@ -111,6 +122,7 @@
     }
   },
   "common": {
+    "loading": "عم يتحمّل...",
     "engagement": {
       "STAY": {
         "label": "بقاء",
@@ -890,14 +902,14 @@
     "steps": {
       "location": {
         "title": "المكان",
-        "question": "وين كنت؟",
+        "question": "وين إنت؟",
         "options": {
           "gym": { "title": "النادي" },
           "work": { "title": "الشغل" },
           "cafe": { "title": "قهوة" },
           "transport": { "title": "مواصلات" },
           "home": { "title": "البيت" },
-          "social-gathering": { "title": "تجمّع اجتماعي" },
+          "social_gathering": { "title": "تجمّع اجتماعي" },
           "other": { "title": "غيره" }
         }
       },
@@ -962,6 +974,11 @@
             "description": "ضلّيت وتفاعلت رغم القلق."
           }
         }
+      },
+      "symptom": {
+        "title": "الأعراض",
+        "subtitle": "شو عم تحس؟",
+        "question": "شو عم تحس؟"
       },
       "outcome-stayed": {
         "title": "ملاحظة.",
@@ -1113,7 +1130,7 @@
         "label": "خفقان/تسارع قلب",
         "description": "قلب سريع أو قوي وبيخوف"
       },
-      "shortness_breath": {
+      "shortness_of_breath": {
         "label": "ضيق نفس",
         "description": "إحساس إنك ما عم تاخد هوا كفاية"
       },
@@ -1146,7 +1163,7 @@
         "label": "غباش بالرؤية",
         "description": "صعوبة تركيز وخوف من الوقعة"
       },
-      "feeling_unreal": {
+      "derealization_depersonalization": {
         "label": "شعور بعدم الواقعية",
         "description": "انفصال أو إحساس إنو مش حقيقي"
       },

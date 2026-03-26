@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { ChallengeStatus } from "@prisma/client";
 import { ChallengeOutcomeSchema } from "@/lib/zod.types";
-import prisma from "../../../../../lib/prisma";
 import { z } from "zod";
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
+import { ChallengeStatus } from "@/generated/prisma/enums";
+import { prisma } from "../../../../../lib/prisma";
 
 type Ctx = { params: Promise<{ id: string }> };
 

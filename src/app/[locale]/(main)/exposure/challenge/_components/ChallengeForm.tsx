@@ -8,7 +8,6 @@ import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createChallenge } from "@/lib/api";
-import { ChallengeOption, Engagement, SocialContext } from "@prisma/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/Spinner/Spinner";
@@ -17,6 +16,8 @@ import { ChallengeSchema } from "@/lib/zod.types";
 import { z } from "zod";
 import { useLocale, useTranslations } from "next-intl";
 import { mapChallengeOptionsToFormFields } from "@/i18n/challengeoptions-mapper";
+import { Engagement, SocialContext } from "@/generated/prisma/enums";
+import { ChallengeOption } from "@/generated/prisma/browser";
 
 enum STEP_ID {
   CHALLENGE_OPTION = "CHALLENGE_OPTION",

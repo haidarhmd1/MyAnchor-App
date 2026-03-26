@@ -1,4 +1,5 @@
-import type { TaxonomyItem, TaxonomyType } from "@prisma/client";
+import { TaxonomyItem } from "@/generated/prisma/browser";
+import { TaxonomyType } from "@/generated/prisma/enums";
 
 export type FormFieldType = {
   id: string;

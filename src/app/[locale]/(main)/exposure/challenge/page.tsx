@@ -1,4 +1,4 @@
-import prisma from "../../../../../../lib/prisma";
+import { prisma } from "../../../../../../lib/prisma";
 import ChallengeForm from "./_components/ChallengeForm";
 import { getTranslations } from "next-intl/server";
 

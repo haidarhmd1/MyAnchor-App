@@ -1,4 +1,5 @@
-import { ChallengeOption, Engagement } from "@prisma/client";
+import { Engagement } from "@/generated/prisma/enums";
+import { ChallengeOption } from "@/generated/prisma/browser";
 
 export type TFn = (key: string, values?: Record<string, any>) => string;
 

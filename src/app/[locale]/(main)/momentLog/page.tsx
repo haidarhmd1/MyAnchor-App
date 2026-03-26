@@ -238,9 +238,9 @@ const MomentLog = async () => {
                               .toFormat("yyyy LLL dd - HH:mm")} • ${relative}`}
                           >
                             <div className="mt-2">
-                              <p className="rounded-xl bg-white p-2 text-xs font-light">
+                              {/* <p className="rounded-xl bg-white p-2 text-xs font-light">
                                 {`${t(`momentLog.steps.location.options.${pastEntry.location}.title`)} -> ${t(`momentLog.steps.urge.options.${pastEntry.urge}.title`)} -> ${t(`momentLog.steps.actionTaken.options.${pastEntry.actionTaken}.title`)}`}
-                              </p>
+                              </p> */}
                             </div>
                           </ShortcutsCard>
                         </div>

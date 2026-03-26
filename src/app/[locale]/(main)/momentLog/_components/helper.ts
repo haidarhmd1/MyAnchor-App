@@ -1,46 +1,29 @@
-export const BASE_STEP = [
+export const FORM_STEPS = [
   {
     id: "location",
     titleKey: "momentLog.steps.location.title",
     subtitleKey: "momentLog.steps.location.question",
   },
   {
-    id: "urge",
-    titleKey: "momentLog.steps.urge.title",
-    subtitleKey: "momentLog.steps.urge.question",
+    id: "symptoms",
+    titleKey: "momentLog.steps.symptom.title",
+    subtitleKey: "momentLog.steps.symptom.question",
   },
   {
-    id: "actionTaken",
-    titleKey: "momentLog.steps.actionTaken.title",
-    subtitleKey: "momentLog.steps.actionTaken.question",
+    id: "reasoning",
+    titleKey: "",
+    subtitleKey: "",
   },
 ] as const;
 
-export const PARTIALY_NO = [
-  {
-    id: "outcomePartialNo",
-    titleKey: "challengeSteps.partialNoScreen.title",
-    subtitleKey: "challengeSteps.partialNoScreen.subtitle",
-  },
-] as const;
+type BaseStep = (typeof FORM_STEPS)[number];
 
-export const STAYED_BEHAVIOR = [
-  {
-    id: "outcomeStayed",
-    titleKey: "momentLog.steps.outcome-stayed.title",
-    subtitleKey: "momentLog.steps.outcome-stayed.subtitle",
-  },
-] as const;
-
-type BaseStep = (typeof BASE_STEP)[number];
-type StayedBehavior = (typeof STAYED_BEHAVIOR)[number];
-type PartialNo = (typeof PARTIALY_NO)[number];
-
-export type Step = BaseStep | StayedBehavior | PartialNo;
+export type Step = BaseStep;
 
 export type OptionItem = {
   id: string;
   slug: string;
+  descriptionSlug?: string;
 };
 
 export const locationOptions: OptionItem[] = [
@@ -66,80 +49,69 @@ export const locationOptions: OptionItem[] = [
   },
   {
     id: "locationOptions_5",
-    slug: "social-gathering",
-  },
-  {
-    id: "locationOptions_6",
-    slug: "other",
+    slug: "social_gathering",
   },
 ];
 
-export const urgeOptions: OptionItem[] = [
+export const feelingOptions: OptionItem[] = [
   {
-    id: "urgeOptions_0",
-    slug: "leave",
+    id: "racing_heart",
+    slug: "Racing heartbeat",
+    descriptionSlug: "Fast or pounding heart feels dangerous",
   },
   {
-    id: "urgeOptions_1",
-    slug: "avoid-engaging",
+    id: "shortness_of_breath",
+    slug: "Shortness of breath",
+    descriptionSlug: "Feeling like I can’t get enough air",
   },
   {
-    id: "urgeOptions_2",
-    slug: "pause-to-reset",
+    id: "dizziness",
+    slug: "Dizziness / lightheadedness",
+    descriptionSlug: "Fear of fainting or losing balance",
   },
   {
-    id: "urgeOptions_3",
-    slug: "seek-reassurance",
+    id: "chest_tightness",
+    slug: "Chest tightness",
+    descriptionSlug: "Pressure or heaviness in the chest",
   },
   {
-    id: "urgeOptions_4",
-    slug: "change-plans",
+    id: "nausea",
+    slug: "Nausea",
+    descriptionSlug: "Fear of vomiting or stomach upset",
   },
   {
-    id: "urgeOptions_5",
-    slug: "nothing-noticeable",
+    id: "tingling",
+    slug: "Tingling",
+    descriptionSlug: "Pins and needles in face or hands",
   },
   {
-    id: "urgeOptions_6",
-    slug: "other",
-  },
-];
-
-export const actionTakenOptions: OptionItem[] = [
-  {
-    id: "actionTaken_7",
-    slug: "stayed",
+    id: "sweating",
+    slug: "Sweating",
+    descriptionSlug: "Fear of others noticing sweat",
   },
   {
-    id: "actionTaken_8",
-    slug: "stayed-and-participated",
+    id: "hot_flush",
+    slug: "Hot flush",
+    descriptionSlug: "Sudden warmth or blushing",
   },
   {
-    id: "actionTaken_0",
-    slug: "left-early",
+    id: "shaking",
+    slug: "Shaking",
+    descriptionSlug: "Trembling or trembling hands",
   },
   {
-    id: "actionTaken_1",
-    slug: "pause-to-reset",
+    id: "blurred_vision",
+    slug: "Blurred vision",
+    descriptionSlug: "Difficulty focusing, fear of collapse",
   },
   {
-    id: "actionTaken_2",
-    slug: "avoided-speaking-engaging",
+    id: "derealization_depersonalization",
+    slug: "Derealization / depersonalization",
+    descriptionSlug: "Feeling detached or unreal",
   },
   {
-    id: "actionTaken_3",
-    slug: "checked-symptoms",
-  },
-  {
-    id: "actionTaken_4",
-    slug: "sought-reassurance",
-  },
-  {
-    id: "actionTaken_5",
-    slug: "delayed-until-felt-ready",
-  },
-  {
-    id: "actionTaken_6",
-    slug: "changed-plans-because-of-anxiety",
+    id: "cold_chills",
+    slug: "Cold chills",
+    descriptionSlug: "Sudden cold or shivering sensations",
   },
 ];

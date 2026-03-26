@@ -2,9 +2,9 @@
 "use server";
 
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
-import { ChallengeStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import prisma from "../../../../../../lib/prisma";
+import { prisma } from "../../../../../../lib/prisma";
+import { ChallengeStatus } from "@/generated/prisma/enums";
 
 export async function startChallengeAction(
   challengeId: string,

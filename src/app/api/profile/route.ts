@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-
-import prisma from "../../../../lib/prisma";
 import { UserSchema } from "@/lib/zod.types";
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
 import z from "zod";
+import { prisma } from "../../../../lib/prisma";
 
 export const PATCH = async (request: NextRequest) => {
   const { userId } = await getUserOrThrow();

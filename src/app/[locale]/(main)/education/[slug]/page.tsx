@@ -1,7 +1,6 @@
 import { education } from "@/common/const/links";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 
 import { notFound } from "next/navigation";
 

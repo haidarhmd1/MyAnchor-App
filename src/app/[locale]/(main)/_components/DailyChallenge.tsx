@@ -1,14 +1,14 @@
 import { Award, CheckCheck } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 
-import prisma from "../../../../../lib/prisma";
-import { ChallengeStatus } from "@prisma/client";
 import ShortcutsCard from "./ShortcutsCard";
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { StartChallengeBtn } from "../exposure/_components/NewChallenge/StartChallengeBtn";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { prisma } from "../../../../../lib/prisma";
+import { ChallengeStatus } from "@/generated/prisma/enums";
 
 export const DailyChallenge = async () => {
   const t = await getTranslations();

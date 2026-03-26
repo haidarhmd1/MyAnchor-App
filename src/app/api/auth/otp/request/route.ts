@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { DateTime } from "luxon";
 import { hashSync } from "bcryptjs";
-import prisma from "../../../../../../lib/prisma";
+import { prisma } from "../../../../../../lib/prisma";
 
 function generateCode(length = 6) {
   const min = Math.pow(10, length - 1);

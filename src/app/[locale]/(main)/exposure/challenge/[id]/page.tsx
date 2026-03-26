@@ -1,6 +1,6 @@
+import { prisma } from "../../../../../../../lib/prisma";
 import { ResultForm } from "./_components/ResultForm";
 import { notFound } from "next/navigation";
-import prisma from "../../../../../../../lib/prisma";
 
 export default async function Page({
   params,

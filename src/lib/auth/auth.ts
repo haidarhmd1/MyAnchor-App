@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { compareSync } from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextResponse } from "next/server";
-import prisma from "../../../lib/prisma";
+import { prisma } from "../../../lib/prisma";
 
 // Keep in sync with your next-intl locales:
 const LOCALES = ["en", "de", "ar", "ar-LB"] as const;

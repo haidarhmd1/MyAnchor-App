@@ -1,4 +1,15 @@
 {
+  "aiResponseMomentLog": {
+    "affirmation": "Bestärkung",
+    "symptoms": "Warum diese Gefühle auftreten können",
+    "tolerance_message": "Wie du die Welle reitest",
+    "mechanism": "Was in deinem Körper passieren könnte",
+    "location_support": "Speziell für diesen Ort",
+    "catastrophic_thought_reframe": "Ein ausgewogenerer Gedanke",
+    "reassurance_without_certainty": "Die Perspektive behalten",
+    "what_to_do_now": "Was du jetzt tun solltest",
+    "red_flags": "Sofort Hilfe holen, wenn"
+  },
   "safetyBehavior": {
     "label": "Sicherheitsverhalten",
     "nextTimeTitle": "Nächstes Mal:",
@@ -111,6 +122,7 @@
     }
   },
   "common": {
+    "loading": "Wird geladen, bitte warten...",
     "engagement": {
       "STAY": {
         "label": "Bleiben",
@@ -893,14 +905,14 @@
     "steps": {
       "location": {
         "title": "Ort",
-        "question": "Wo warst du?",
+        "question": "Wo bist du?",
         "options": {
           "gym": { "title": "Fitnessstudio" },
           "work": { "title": "Arbeit" },
           "cafe": { "title": "Café" },
           "transport": { "title": "Transport" },
           "home": { "title": "Zuhause" },
-          "social-gathering": { "title": "Soziales Treffen" },
+          "social_gathering": { "title": "Soziales Treffen" },
           "other": { "title": "Sonstiges" }
         }
       },
@@ -949,6 +961,11 @@
             "title": "Ich bin geblieben und habe mitgemacht"
           }
         }
+      },
+      "symptom": {
+        "title": "Symptome",
+        "subtitle": "Was fühlst du?",
+        "question": "Was fühlst du?"
       },
       "outcome-stayed": {
         "title": "Notiert.",
@@ -1130,7 +1147,7 @@
         "label": "Herzrasen",
         "description": "Schneller oder pochender Herzschlag wirkt bedrohlich"
       },
-      "shortness_breath": {
+      "shortness_of_breath": {
         "label": "Kurzatmigkeit",
         "description": "Gefühl, nicht genug Luft zu bekommen"
       },
@@ -1166,7 +1183,7 @@
         "label": "Verschwommenes Sehen",
         "description": "Schwierigkeiten zu fokussieren; Sorge vor Kollaps"
       },
-      "feeling_unreal": {
+      "derealization_depersonalization": {
         "label": "Unwirklichkeitsgefühl",
         "description": "Gefühl von Distanz oder Unwirklichkeit"
       },

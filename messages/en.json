@@ -1,4 +1,15 @@
 {
+  "aiResponseMomentLog": {
+    "affirmation": "Affirmation",
+    "symptoms": "Why these feelings can happen",
+    "tolerance_message": "How to ride the wave",
+    "mechanism": "What may be happening in your body",
+    "location_support": "For this place specifically",
+    "catastrophic_thought_reframe": "A more balanced thought",
+    "reassurance_without_certainty": "Keep perspective",
+    "what_to_do_now": "What to do right now",
+    "red_flags": "Get urgent help if"
+  },
   "safetyBehavior": {
     "label": "Safety behavior",
     "nextTimeTitle": "Next time:",
@@ -111,6 +122,7 @@
     }
   },
   "common": {
+    "loading": "Loading, please wait...",
     "engagement": {
       "STAY": {
         "label": "Stay",
@@ -431,7 +443,6 @@
         "p2": "Eventually combine exposures with real-life (in vivo) exposures like standing in line, sitting in traffic, or staying in crowded places."
       }
     },
-
     "exerciseList": {
       "lightDizziness": {
         "title": "Light Dizziness",
@@ -895,14 +906,14 @@
     "steps": {
       "location": {
         "title": "Location",
-        "question": "Where were you?",
+        "question": "Where are you?",
         "options": {
           "gym": { "title": "Gym" },
           "work": { "title": "Work" },
           "cafe": { "title": "Café" },
           "transport": { "title": "Transport" },
           "home": { "title": "Home" },
-          "social-gathering": { "title": "Social gathering" },
+          "social_gathering": { "title": "Social gathering" },
           "other": { "title": "Other" }
         }
       },
@@ -967,6 +978,11 @@
             "description": "You remained in the situation and engaged or interacted as needed, even while anxiety or discomfort was present."
           }
         }
+      },
+      "symptom": {
+        "title": "Symptoms",
+        "subtitle": "What are you feeling?",
+        "question": "What are you feeling?"
       },
       "outcome-stayed": {
         "title": "Noted.",
@@ -1145,7 +1161,7 @@
         "label": "Racing heartbeat",
         "description": "Fast or pounding heart feels dangerous"
       },
-      "shortness_breath": {
+      "shortness_of_breath": {
         "label": "Shortness of breath",
         "description": "Feeling like I can’t get enough air"
       },
@@ -1181,7 +1197,7 @@
         "label": "Blurred vision",
         "description": "Difficulty focusing, fear of collapse"
       },
-      "feeling_unreal": {
+      "derealization_depersonalization": {
         "label": "Derealization / depersonalization",
         "description": "Feeling detached or unreal"
       },

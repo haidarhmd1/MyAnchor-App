@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 import { auth } from "./auth";
-import prisma from "../../../lib/prisma";
+import { prisma } from "../../../lib/prisma";
 
 export async function getUser() {
   const session = await auth();

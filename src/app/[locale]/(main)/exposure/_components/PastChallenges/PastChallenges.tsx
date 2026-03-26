@@ -1,11 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import prisma from "../../../../../../../lib/prisma";
-import { ChallengeStatus } from "@prisma/client";
+
 import { getLocale, getTranslations } from "next-intl/server";
 import { DateTime } from "luxon";
 import { formatRelative } from "@/i18n/relative-time";
 import { mapSingleChallengeOptionItemToTranslater } from "@/i18n/challengeoptions-mapper";
+import { prisma } from "../../../../../../../lib/prisma";
+import { ChallengeStatus } from "@/generated/prisma/enums";
 
 type GroupKey =
   | "today"
@@ -140,7 +141,7 @@ export const PastChallenges = async () => {
             </div>
 
             <div className="space-y-3">
-              {items.map(({ id, challengeOption }) => {
+              {items.map(({ id, challengeOption }: (typeof items)[0]) => {
                 const mappedChallengeOptions =
                   mapSingleChallengeOptionItemToTranslater(challengeOption);
                 const dateText = DateTime.fromJSDate(challengeOption.createdAt)
@@ -200,7 +201,6 @@ export const PastChallenges = async () => {
 
 export const UnauthenticatedPastChallenges = async () => {
   const t = await getTranslations();
-  const locale = await getLocale();
 
   return (
     <Card className={cn("mt-4 border-2 bg-white")}>

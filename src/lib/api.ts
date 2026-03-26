@@ -1,14 +1,25 @@
+import { User } from "next-auth";
+import {
+  ChallengeOutcomeSchema,
+  ChallengeSchema,
+  momentLogFormSchema,
+} from "./zod.types";
+import { z } from "zod";
+import {
+  ChallengeStatus,
+  Gender,
+  SocialContext,
+} from "@/generated/prisma/enums";
 import {
   Challenge,
   ChallengeOutcome,
-  ChallengeStatus,
-  Gender,
   MomentLog,
-  SocialContext,
-  User,
-} from "@prisma/client";
-import { ChallengeOutcomeSchema, ChallengeSchema } from "./zod.types";
-import { z } from "zod";
+} from "@/generated/prisma/browser";
+import {
+  AnxietySupportPreviewResponse,
+  AnxietySupportPreviewResponseSchema,
+  SupportedReasoningLocale,
+} from "./ai/anxietySupport/types";
 
 type CreateChallengeInputType = z.infer<typeof ChallengeSchema>;
 export async function createChallenge({
@@ -62,14 +73,11 @@ export async function createChallengeOutcome({
   return (await res.json()) as ChallengeOutcome;
 }
 
+type MomentLogInputType = z.infer<typeof momentLogFormSchema>;
 export async function createMomentLogEntry({
   data,
 }: {
-  data: {
-    location: string;
-    urge: string;
-    actionTaken?: string;
-  };
+  data: MomentLogInputType;
 }): Promise<MomentLog> {
   const res = await fetch("/api/momentLog", {
     method: "POST",
@@ -82,6 +90,31 @@ export async function createMomentLogEntry({
     throw new Error(`Create moment log entry failed: ${res.status} ${text}`);
   }
   return (await res.json()) as MomentLog;
+}
+
+export async function getReasoningPreview({
+  data,
+}: {
+  data: {
+    location: string;
+    symptoms: string[];
+    locale: SupportedReasoningLocale;
+  };
+}): Promise<AnxietySupportPreviewResponse> {
+  const res = await fetch("/api/reasoning", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error(
+      `Getting reasoning preview failed: ${res.status} ${await res.text()}`,
+    );
+  }
+
+  const json = await res.json();
+  return AnxietySupportPreviewResponseSchema.parse(json);
 }
 
 export async function updateUserProfile({

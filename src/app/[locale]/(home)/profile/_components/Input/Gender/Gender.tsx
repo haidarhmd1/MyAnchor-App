@@ -21,13 +21,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Gender } from "@prisma/client";
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { updateUserProfile } from "@/lib/api";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { Gender } from "@/generated/prisma/enums";
 
 const genderKey = (gender: Gender | string) => {
   switch (gender) {

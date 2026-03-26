@@ -4,7 +4,7 @@ import {
   OPTION_STRETCH,
   SafetyBehaviorOptionItem,
 } from "@/common/const/SafetyBehavior";
-import { Engagement } from "@prisma/client";
+import { Engagement } from "@/generated/prisma/enums";
 
 export const BASE_STEP = [
   {

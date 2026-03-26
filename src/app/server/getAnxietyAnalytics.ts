@@ -1,7 +1,7 @@
 import "server-only";
 import { DateTime } from "luxon";
-import prisma from "../../../lib/prisma";
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
+import { prisma } from "../../../lib/prisma";
 
 export async function getAnxietyAnalytics(startDateISO?: string | null) {
   const { userId } = await getUserOrThrow();

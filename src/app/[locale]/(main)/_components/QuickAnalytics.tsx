@@ -1,5 +1,4 @@
 import { AlertCircleIcon } from "lucide-react";
-import prisma from "../../../../../lib/prisma";
 import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
 import ShortcutsCard from "./ShortcutsCard";
@@ -8,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import { TZ } from "@/lib/timezone";
 import { DateTime } from "luxon";
 import { getTranslations } from "next-intl/server";
+import { prisma } from "../../../../../lib/prisma";
 
 export const QuickAnalytics = async () => {
   const t = await getTranslations("analyticsShortcut");

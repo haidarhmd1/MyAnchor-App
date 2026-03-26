@@ -1,8 +1,8 @@
 // prisma/seed.ts
 
 import "dotenv/config";
-import { Engagement, TaxonomyType } from "@prisma/client";
-import prisma from "../lib/prisma";
+import { Engagement, TaxonomyType } from "@/generated/prisma/client";
+import { prisma } from "../lib/prisma";
 
 type EngagementKey = "stay" | "participate" | "stretch";
 
@@ -434,7 +434,7 @@ async function main() {
       description: "Fast or pounding heart feels dangerous",
     },
     {
-      id: "shortness_breath",
+      id: "shortness_of_breath",
       label: "Shortness of breath",
       description: "Feeling like I can’t get enough air",
     },

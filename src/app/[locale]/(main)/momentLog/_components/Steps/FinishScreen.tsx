@@ -11,7 +11,7 @@ import { getReasoningPreview } from "@/lib/api";
 import { useEffect } from "react";
 
 export const FinishScreen = ({ onNext }: { onNext(): void }) => {
-  const locale = useLocale();
+  const locale = useLocale() as "en" | "de" | "ar" | "ar-LB";
   const t = useTranslations();
   const { formState, getValues, setValue } =
     useFormContext<z.infer<typeof momentLogFormSchema>>();

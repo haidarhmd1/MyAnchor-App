@@ -16,7 +16,6 @@ export const SingleChoice = ({
   options,
 }: {
   onNext(): void;
-  onPrev?: () => void;
   fieldName: keyof z.infer<typeof momentLogFormSchema>;
   options: OptionItem[];
 }) => {
@@ -39,60 +38,66 @@ export const SingleChoice = ({
       <div className="space-y-3" role="radiogroup">
         {options.map((option) => {
           const isSelected = String(field.value) === option.slug;
+
           return (
-            <Card
+            <button
               key={option.id}
+              type="button"
               role="radio"
               aria-checked={isSelected}
               onClick={() => field.onChange(option.slug)}
               className={cn(
+                "block w-full rounded-4xl text-left",
+                "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
                 "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
-                "cursor-pointer p-2 transition-all duration-200 hover:shadow-md",
-                isSelected
-                  ? "border-blue-500 bg-blue-50 shadow-sm"
-                  : "hover:border-muted-foreground/50",
               )}
             >
-              <CardContent className="p-2">
-                <div className="flex items-start space-x-3">
-                  {/* Radio visual */}
-                  <div
-                    className={cn(
-                      "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
-                      isSelected
-                        ? "border-blue-500"
-                        : "border-muted-foreground/30",
-                    )}
-                  >
+              <Card
+                className={cn(
+                  "border-border p-2 shadow-sm transition-all duration-200",
+                  "hover:-translate-y-px hover:shadow-md",
+                  isSelected
+                    ? "border-primary bg-accent"
+                    : "bg-card hover:bg-muted/40",
+                )}
+              >
+                <CardContent className="p-2">
+                  <div className="flex items-start gap-3">
                     <div
                       className={cn(
-                        "h-2.5 w-2.5 rounded-full transition-colors",
-                        isSelected ? "bg-blue-500" : "bg-transparent",
-                      )}
-                    />
-                  </div>
-                  <div className="flex-1 space-y-1.5">
-                    <h3
-                      className={cn(
-                        "text-base",
-                        isSelected ? "text-blue-700" : "text-foreground",
+                        "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+                        isSelected ? "border-primary" : "border-border",
                       )}
                     >
-                      {t(
-                        `momentLog.steps.${fieldName}.options.${option.slug}.title`,
-                      )}
-                    </h3>
+                      <div
+                        className={cn(
+                          "h-2.5 w-2.5 rounded-full transition-colors",
+                          isSelected ? "bg-primary" : "bg-transparent",
+                        )}
+                      />
+                    </div>
+
+                    <div className="min-w-0 flex-1 space-y-1.5">
+                      <h3 className="text-foreground text-base font-medium">
+                        {t(
+                          `momentLog.steps.${fieldName}.options.${option.slug}.title`,
+                        )}
+                      </h3>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </button>
           );
         })}
       </div>
 
       <div className="pt-2 text-right">
         {formState.isSubmitting ? (
-          <Button disabled className="bg-blue-500 hover:bg-blue-600">
+          <Button
+            disabled
+            className="bg-primary text-primary-foreground rounded-2xl hover:opacity-95"
+          >
             <Spinner />
             <span>{t("form.submitting")}</span>
           </Button>
@@ -101,7 +106,7 @@ export const SingleChoice = ({
             type="button"
             onClick={onNext}
             disabled={!hasSelection}
-            className="bg-blue-500 hover:bg-blue-600"
+            className="bg-primary text-primary-foreground rounded-2xl hover:opacity-95"
           >
             {t("form.next")}
           </Button>

@@ -1,23 +1,31 @@
 import { Switch } from "@/components/ui/switch";
 
-export const SettingsRowSwitch = ({
-  configTitle,
-  configDesctiption,
-}: {
+type SettingsRowSwitchProps = {
+  id: string;
   configTitle: string;
-  configDesctiption: string;
-}) => {
+  configDescription: string;
+};
+
+export const SettingsRowSwitch = ({
+  id,
+  configTitle,
+  configDescription,
+}: SettingsRowSwitchProps) => {
   return (
-    <div className="flex h-[72px] min-h-[72px] items-center justify-between self-stretch py-2 [background:#F7FAFC]">
-      <div>
-        <p className="self-stretch text-base leading-6 font-medium text-[#0D141C] [font-feature-settings:'dlig'_on]">
-          {configTitle}
+    <label
+      htmlFor={id}
+      className="bg-card border-border flex min-h-18 cursor-pointer items-center justify-between rounded-2xl border px-4 py-3 shadow-sm"
+    >
+      <div className="min-w-0">
+        <p className="text-foreground text-base font-medium">{configTitle}</p>
+        <p className="text-muted-foreground text-sm leading-6">
+          {configDescription}
         </p>
-        <p className="sub">{configDesctiption}</p>
       </div>
-      <div>
-        <Switch id="airplane-mode" />
+
+      <div className="ml-4 shrink-0">
+        <Switch id={id} />
       </div>
-    </div>
+    </label>
   );
 };

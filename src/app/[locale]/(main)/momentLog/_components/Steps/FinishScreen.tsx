@@ -1,199 +1,422 @@
+"use client";
+
 import { Spinner } from "@/components/Spinner/Spinner";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { momentLogFormSchema } from "@/lib/zod.types";
+import { getReasoningPreview } from "@/lib/api";
+import { cn } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
+import { useEffect, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import z from "zod";
 import { toRenderSections } from "./FinishScreen.helper";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useQuery } from "@tanstack/react-query";
-import { getReasoningPreview } from "@/lib/api";
-import { useEffect } from "react";
+
+type FormValues = z.infer<typeof momentLogFormSchema>;
+
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 14,
+    filter: "blur(8px)",
+    scale: 0.985,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 190,
+      damping: 22,
+      mass: 0.8,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -8,
+    filter: "blur(6px)",
+    transition: {
+      duration: 0.18,
+      ease: "easeOut",
+    },
+  },
+};
+
+const loadingPulse: Variants = {
+  initial: { opacity: 0.55, scale: 0.99 },
+  animate: {
+    opacity: [0.55, 0.9, 0.55],
+    scale: [0.99, 1, 0.99],
+    transition: {
+      duration: 1.35,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const stickyBarVariants: Variants = {
+  hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      delay: 0.18,
+      duration: 0.28,
+      ease: "easeOut",
+    },
+  },
+};
+
+function sectionTone(type: string) {
+  switch (type) {
+    case "intro":
+      return "bg-accent border-border";
+    case "text":
+      return "bg-card border-border";
+    case "steps":
+      return "bg-secondary border-border";
+    case "red_flags":
+      return "bg-destructive/10 border-destructive/25";
+    case "affirmation":
+      return "bg-accent border-primary/20";
+    default:
+      return "bg-card border-border";
+  }
+}
+
+function AnimatedPanel({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.section
+      variants={itemVariants}
+      layout
+      className={cn("rounded-3xl border p-4 shadow-sm", className)}
+    >
+      {children}
+    </motion.section>
+  );
+}
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h3 className="text-foreground text-base font-semibold">{children}</h3>
+  );
+}
+
+function syncReasoningToForm(
+  setValue: ReturnType<typeof useFormContext<FormValues>>["setValue"],
+  data: {
+    reasoningEn: string;
+    reasoning: string;
+    reasoningLocale: string;
+  },
+) {
+  setValue("reasoningEn", JSON.parse(data.reasoningEn), {
+    shouldDirty: false,
+    shouldTouch: false,
+    shouldValidate: false,
+  });
+  setValue("reasoning", JSON.parse(data.reasoning), {
+    shouldDirty: false,
+    shouldTouch: false,
+    shouldValidate: false,
+  });
+  setValue("reasoningLocale", JSON.parse(data.reasoningLocale), {
+    shouldDirty: false,
+    shouldTouch: false,
+    shouldValidate: false,
+  });
+}
 
 export const FinishScreen = ({ onNext }: { onNext(): void }) => {
   const locale = useLocale() as "en" | "de" | "ar" | "ar-LB";
   const t = useTranslations();
-  const { formState, getValues, setValue } =
-    useFormContext<z.infer<typeof momentLogFormSchema>>();
+  const reduceMotion = useReducedMotion();
 
-  const location = getValues("location");
-  const symptoms = getValues("symptoms");
+  const { formState, watch, setValue } = useFormContext<FormValues>();
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["reasoningPreview", location, symptoms, locale],
+  const location = watch("location");
+  const symptoms = watch("symptoms");
+
+  const canFetchPreview = Boolean(location && symptoms?.length);
+
+  const previewInputKey = useMemo(() => {
+    const safeSymptoms = Array.isArray(symptoms) ? [...symptoms].sort() : [];
+    return JSON.stringify({
+      location: location ?? null,
+      symptoms: safeSymptoms,
+      locale,
+    });
+  }, [location, symptoms, locale]);
+
+  const query = useQuery({
+    queryKey: ["reasoningPreview", previewInputKey],
     queryFn: async () => {
-      const response = await getReasoningPreview({
+      return getReasoningPreview({
         data: {
-          location,
-          symptoms,
+          location: location!,
+          symptoms: symptoms!,
           locale,
         },
       });
-
-      setValue("reasoningEn", response.reasoningEn);
-      setValue("reasoning", response.reasoning);
-      setValue("reasoningLocale", response.reasoningLocale);
-
-      return response;
     },
-    enabled: Boolean(location && symptoms?.length),
+    enabled: canFetchPreview,
+    staleTime: 0,
   });
 
+  const { data, isLoading, isFetching, isError } = query;
+
   useEffect(() => {
-    setValue("reasoningEn", undefined);
-    setValue("reasoning", undefined);
-    setValue("reasoningLocale", undefined);
-  }, [location, symptoms, locale, setValue]);
+    if (!data) return;
+    syncReasoningToForm(setValue, {
+      reasoningEn: JSON.stringify(data.reasoningEn),
+      reasoning: JSON.stringify(data.reasoning),
+      reasoningLocale: JSON.stringify(data.reasoningLocale),
+    });
+  }, [data, setValue]);
+
+  const reasoning = data?.reasoning ?? "";
+  const sections = useMemo(
+    () => (reasoning ? toRenderSections(reasoning) : []),
+    [reasoning],
+  );
 
   if (isError) {
     return (
-      <div className="w-full">
-        <div className="rounded-3xl border border-red-400 bg-red-100 p-4 shadow-md">
-          <p className="text-sm font-medium">{t("deleteAccount.error")}</p>
+      <motion.div
+        initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+        animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
+        className="w-full"
+      >
+        <div className="border-destructive/30 bg-destructive/10 rounded-3xl border p-4 shadow-sm">
+          <p className="text-foreground text-sm font-medium">
+            {t("deleteAccount.error")}
+          </p>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
-  if (isLoading && !data) {
+  if ((isLoading || isFetching) && !data) {
     return (
-      <div className="w-full">
-        <div className="space-y-4">
-          <div className="space-y-6">
-            <h5>{t("common.loading")}</h5>
-            <div className="space-y-4">
-              <Skeleton className="h-12 w-full bg-gray-200" />
-              <Skeleton className="h-32 w-full bg-gray-200" />
-              <Skeleton className="h-12 w-full bg-gray-200" />
-              <Skeleton className="h-12 w-full bg-gray-200" />
-            </div>
+      <motion.div
+        className="w-full space-y-4"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div variants={itemVariants} className="space-y-2 text-center">
+          <motion.h3
+            initial={reduceMotion ? false : { opacity: 0.4 }}
+            animate={reduceMotion ? {} : { opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="text-foreground text-lg font-semibold"
+          >
+            {t("common.loading")}
+          </motion.h3>
+        </motion.div>
+
+        <motion.div
+          variants={loadingPulse}
+          initial="initial"
+          animate="animate"
+          className="space-y-4"
+        >
+          <div className="surface-soft rounded-3xl p-4 shadow-sm">
+            <Skeleton className="bg-muted h-4 w-28" />
+            <Skeleton className="bg-muted mt-4 h-24 w-full rounded-2xl" />
           </div>
-        </div>
-      </div>
+
+          <div className="border-border bg-card rounded-3xl border p-4 shadow-sm">
+            <Skeleton className="bg-muted h-5 w-40" />
+            <Skeleton className="bg-muted mt-3 h-4 w-full" />
+            <Skeleton className="bg-muted mt-2 h-4 w-11/12" />
+            <Skeleton className="bg-muted mt-2 h-4 w-9/12" />
+          </div>
+
+          <div className="border-border bg-secondary rounded-3xl border p-4 shadow-sm">
+            <Skeleton className="bg-muted h-5 w-36" />
+            <Skeleton className="bg-muted mt-3 h-4 w-full" />
+            <Skeleton className="bg-muted mt-2 h-4 w-10/12" />
+          </div>
+        </motion.div>
+      </motion.div>
     );
   }
-
-  const reasoning = data?.reasoning;
-  const sections = reasoning ? toRenderSections(reasoning) : [];
 
   return (
     <div className="w-full">
-      <div className="space-y-4">
-        {sections.map((section, index) => {
-          switch (section.type) {
-            case "title":
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={previewInputKey}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          className="space-y-4"
+        >
+          {sections.map((section, index) => {
+            const key = `${section.type}-${index}`;
+
+            if (section.type === "title") {
               return (
-                <h3 key={index} className="text-lg font-medium text-black">
+                <motion.h3
+                  key={key}
+                  variants={itemVariants}
+                  className="text-foreground text-xl font-semibold tracking-tight"
+                >
                   {section.content}
-                </h3>
+                </motion.h3>
               );
+            }
 
-            case "intro":
+            if (section.type === "intro") {
               return (
-                <div
-                  key={index}
-                  className="rounded-3xl border border-blue-400 bg-blue-100 p-4 shadow-md"
-                >
-                  <p className="text-sm leading-6">{section.content}</p>
-                </div>
+                <AnimatedPanel key={key} className={sectionTone(section.type)}>
+                  <p className="text-muted-foreground text-sm leading-6">
+                    {section.content}
+                  </p>
+                </AnimatedPanel>
               );
+            }
 
-            case "text":
+            if (section.type === "text") {
               return (
-                <section
-                  key={index}
-                  className="space-y-2 rounded-3xl border border-green-400 bg-green-100 p-4 shadow-md"
-                >
-                  <h3 className="text-md truncate font-medium text-black">
-                    {t(`aiResponseMomentLog.${section.id}`)}
-                  </h3>
-                  <p className="text-sm leading-6">{section.content}</p>
-                </section>
+                <AnimatedPanel key={key} className={sectionTone(section.type)}>
+                  <div className="space-y-2">
+                    <SectionHeading>
+                      {t(`aiResponseMomentLog.${section.id}`)}
+                    </SectionHeading>
+                    <p className="text-muted-foreground text-sm leading-6">
+                      {section.content}
+                    </p>
+                  </div>
+                </AnimatedPanel>
               );
+            }
 
-            case "steps":
+            if (section.type === "steps" || section.type === "red_flags") {
               return (
-                <section
-                  key={index}
-                  className="space-y-2 rounded-3xl border border-yellow-400 bg-yellow-100 p-4 shadow-md"
-                >
-                  <h3 className="text-md truncate font-medium text-black">
-                    {t(`aiResponseMomentLog.${section.id}`)}
-                  </h3>
-                  <ul className="space-y-2">
-                    {section.items.map((item, i) => (
-                      <li key={i} className="text-sm leading-6">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              );
-
-            case "red_flags":
-              return (
-                <section
-                  key={index}
-                  className="space-y-2 rounded-3xl border border-red-400 bg-red-100 p-4 shadow-md"
-                >
-                  <h3 className="text-md truncate font-medium text-black">
-                    {t(`aiResponseMomentLog.${section.id}`)}
-                  </h3>
-                  <ul className="space-y-2">
-                    {section.items.map((item, i) => (
-                      <li key={i} className="text-sm leading-6">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              );
-
-            case "symptoms":
-              return (
-                <section key={index} className="space-y-2">
-                  <h3 className="text-md truncate font-medium text-black">
-                    {t(`aiResponseMomentLog.${section.id}`)}
-                  </h3>
+                <AnimatedPanel key={key} className={sectionTone(section.type)}>
                   <div className="space-y-3">
+                    <SectionHeading>
+                      {t(`aiResponseMomentLog.${section.id}`)}
+                    </SectionHeading>
+
+                    <motion.ul
+                      className="space-y-2"
+                      variants={containerVariants}
+                      initial="hidden"
+                      animate="visible"
+                    >
+                      {section.items.map((item, i) => (
+                        <motion.li
+                          key={i}
+                          variants={itemVariants}
+                          className="bg-card/70 text-muted-foreground rounded-2xl px-3 py-2 text-sm leading-6"
+                        >
+                          {item}
+                        </motion.li>
+                      ))}
+                    </motion.ul>
+                  </div>
+                </AnimatedPanel>
+              );
+            }
+
+            if (section.type === "symptoms") {
+              return (
+                <motion.section
+                  key={key}
+                  variants={itemVariants}
+                  layout
+                  className="space-y-3"
+                >
+                  <SectionHeading>
+                    {t(`aiResponseMomentLog.${section.id}`)}
+                  </SectionHeading>
+
+                  <motion.div
+                    className="space-y-3"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
                     {section.items.map((item, i) => (
-                      <div key={i} className="rounded-xl border p-3">
-                        <div className="text-sm font-medium">
+                      <motion.div
+                        key={i}
+                        variants={itemVariants}
+                        className="border-border bg-card rounded-3xl border p-4 shadow-sm"
+                      >
+                        <div className="text-foreground text-sm font-semibold">
                           {t(`taxonomy.SYMPTOM.${item.symptom}.label`)}
                         </div>
-                        <div className="text-sm leading-6 opacity-80">
+                        <div className="text-muted-foreground mt-1 text-sm leading-6">
                           {item.explanation}
                         </div>
-                      </div>
+                      </motion.div>
                     ))}
-                  </div>
-                </section>
+                  </motion.div>
+                </motion.section>
               );
+            }
 
-            case "affirmation":
+            if (section.type === "affirmation") {
               return (
-                <section
-                  key={index}
-                  className="mb-8 rounded-xl border border-green-400 bg-green-100 p-3 shadow-lg"
-                >
-                  <div className="text-sm font-medium">
-                    {t(`aiResponseMomentLog.${section.id}`)}
+                <AnimatedPanel key={key} className={sectionTone(section.type)}>
+                  <div className="space-y-1">
+                    <div className="text-foreground text-sm font-semibold">
+                      {t(`aiResponseMomentLog.${section.id}`)}
+                    </div>
+                    <p className="text-muted-foreground text-sm leading-6">
+                      {section.content}
+                    </p>
                   </div>
-                  <p className="text-sm leading-6">{section.content}</p>
-                </section>
+                </AnimatedPanel>
               );
+            }
 
-            default:
-              return null;
-          }
-        })}
-      </div>
+            return null;
+          })}
+        </motion.div>
+      </AnimatePresence>
 
-      <div className="sticky bottom-0 w-full rounded-lg bg-white/60 pt-4 pb-4 text-center">
+      <motion.div
+        variants={stickyBarVariants}
+        initial="hidden"
+        animate="visible"
+        className="border-border bg-background/80 sticky bottom-0 z-10 mt-6 w-full rounded-3xl border px-4 py-4 text-center shadow-sm backdrop-blur-md"
+      >
         {formState.isSubmitting ? (
           <Button
-            disabled={isLoading || formState.isSubmitting}
-            className="bg-blue-500 hover:bg-blue-600"
+            disabled={isLoading || isFetching || formState.isSubmitting}
+            className="bg-primary text-primary-foreground rounded-2xl hover:opacity-95"
           >
             <Spinner />
             <span>{t("form.submitting")}</span>
@@ -201,14 +424,14 @@ export const FinishScreen = ({ onNext }: { onNext(): void }) => {
         ) : (
           <Button
             type="button"
-            disabled={isLoading || sections.length === 0}
+            disabled={isLoading || isFetching || sections.length === 0}
             onClick={onNext}
-            className="bg-blue-500 hover:bg-blue-600"
+            className="bg-primary text-primary-foreground rounded-2xl hover:opacity-95"
           >
             {t("form.log")}
           </Button>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

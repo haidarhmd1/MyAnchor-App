@@ -17,23 +17,39 @@ export default async function Page() {
 
   if (!challengesOptions || challengesOptions.length === 0) {
     return (
-      <div className="p-4">
-        <h5>{t("eyebrow")}</h5>
-        <h2>{t("title")}</h2>
-        <div className="pt-8">
-          <h2>{t("error")}</h2>
+      <section className="bg-background text-foreground space-y-6 px-4 py-4">
+        <header className="space-y-2">
+          <p className="text-muted-foreground text-sm font-medium tracking-[0.16em] uppercase">
+            {t("eyebrow")}
+          </p>
+          <h1 className="text-foreground text-2xl font-semibold tracking-tight">
+            {t("title")}
+          </h1>
+        </header>
+
+        <div className="surface-soft rounded-[2rem] p-5 shadow-sm">
+          <p className="text-muted-foreground text-sm leading-6">
+            {t("error")}
+          </p>
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="p-4">
-      <h5>{t("eyebrow")}</h5>
-      <h2>{t("title")}</h2>
-      <div className="pt-8">
+    <section className="bg-background text-foreground space-y-6 px-4 py-4">
+      <header className="space-y-2">
+        <p className="text-muted-foreground text-sm font-medium tracking-[0.16em] uppercase">
+          {t("eyebrow")}
+        </p>
+        <h1 className="text-foreground text-2xl font-semibold tracking-tight">
+          {t("title")}
+        </h1>
+      </header>
+
+      <section className="pt-2">
         <ChallengeForm challengesOptions={challengesOptions} />
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }

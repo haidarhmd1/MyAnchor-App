@@ -12,28 +12,37 @@ export const PartialNoFinishScreen = ({ onNext }: { onNext(): void }) => {
 
   const partialNoReason = getValues("safetyBehavior");
   const answer = t(`safetyBehavior.options.${partialNoReason}.answer`);
+
   return (
     <div className="w-full space-y-4">
-      <div className="min-h-28 w-full space-y-4 rounded-2xl border-0 bg-white p-4 shadow-md">
+      <div className="surface-soft w-full space-y-4 rounded-3xl p-4 shadow-sm">
         <div className="space-y-1">
-          <p className="text-xs font-light text-gray-600">
-            {t(`safetyBehavior.label`)}
+          <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+            {t("safetyBehavior.label")}
           </p>
-          <p className="text-md font-light">
+
+          <p className="text-foreground text-base font-medium">
             {t(`safetyBehavior.options.${partialNoReason}.title`)}
           </p>
         </div>
-        <div className="h-px w-full bg-gray-200" />
-        <div>
-          <p className="text-md text-blue-600">
+
+        <div className="bg-border h-px w-full" />
+
+        <div className="space-y-1">
+          <p className="text-primary text-sm font-semibold">
             {t("safetyBehavior.nextTimeTitle")}
           </p>
-          <p className="text-md font-light">{answer}</p>
+
+          <p className="text-muted-foreground text-sm leading-6">{answer}</p>
         </div>
       </div>
-      <div className="w-auto pt-2 text-center">
+
+      <div className="pt-2 text-center">
         {formState.isSubmitting ? (
-          <Button disabled className="bg-blue-500 hover:bg-blue-600">
+          <Button
+            disabled
+            className="bg-primary text-primary-foreground rounded-2xl hover:opacity-95"
+          >
             <Spinner />
             <span>{t("form.submitting")}</span>
           </Button>
@@ -41,7 +50,7 @@ export const PartialNoFinishScreen = ({ onNext }: { onNext(): void }) => {
           <Button
             type="button"
             onClick={onNext}
-            className="bg-blue-500 hover:bg-blue-600"
+            className="bg-primary text-primary-foreground rounded-2xl hover:opacity-95"
           >
             {t("form.done")}
           </Button>

@@ -1,4 +1,12 @@
 {
+  "appearance": {
+    "title": "Appearance",
+    "theme": "Theme",
+    "system": "System",
+    "light": "Light",
+    "language": "Language",
+    "english": "English"
+  },
   "aiResponseMomentLog": {
     "affirmation": "Affirmation",
     "symptoms": "Why these feelings can happen",

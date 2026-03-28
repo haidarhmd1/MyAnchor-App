@@ -9,7 +9,9 @@ export default async function Page({
 }) {
   const { id } = await params;
 
-  if (!id) return notFound();
+  if (!id) {
+    notFound();
+  }
 
   const challenge = await prisma.challenge.findFirst({
     where: {
@@ -29,11 +31,15 @@ export default async function Page({
     },
   });
 
-  if (!challenge) return notFound();
+  if (!challenge) {
+    notFound();
+  }
 
   return (
-    <div className="p-4">
-      <ResultForm challengeId={challenge.id} />
-    </div>
+    <section className="bg-background text-foreground px-4 py-4">
+      <div className="mx-auto w-full max-w-2xl">
+        <ResultForm challengeId={challenge.id} />
+      </div>
+    </section>
   );
 }

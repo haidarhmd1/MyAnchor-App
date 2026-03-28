@@ -1,8 +1,6 @@
 import { Metadata } from "next";
 import { DateTime } from "luxon";
-import { Plus } from "lucide-react";
 import { TZ } from "@/lib/timezone";
-import ShortcutsCard from "../_components/ShortcutsCard";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { getPastEntries } from "./helper";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,6 +10,7 @@ import { formatRelative } from "@/i18n/relative-time";
 import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 import { getUser } from "@/lib/auth/auth-helpers";
 import { NewMomentLogEntryButton } from "./_components/NewMomentLogEntryButton";
+import { Plus } from "lucide-react";
 
 type GroupKey =
   | "today"
@@ -50,10 +49,10 @@ function groupTone(groupKey: GroupKey) {
     case "thisMonth":
       return "opacity-90";
     case "lastMonth":
-      return "opacity-85 grayscale-[0.05]";
+      return "opacity-85";
     case "older":
     default:
-      return "opacity-75 grayscale-[0.1]";
+      return "opacity-75";
   }
 }
 
@@ -64,80 +63,71 @@ export default async function Page() {
 
 const UnauthenticatedMomentLog = async () => {
   const t = await getTranslations();
+
   return (
-    <div className="p-4">
-      <div className="mb-3 flex flex-col justify-center">
-        <Card className={cn("mt-4 border-2 bg-white")}>
-          <CardContent className="flex flex-row gap-2">
-            <p>{t("momentLog.noEntries")}</p>
-          </CardContent>
-        </Card>
+    <section className="bg-background text-foreground space-y-4 px-4 py-4">
+      <Card className="border-border bg-card border shadow-sm">
+        <CardContent className="p-4">
+          <p className="text-muted-foreground text-sm leading-6">
+            {t("momentLog.noEntries")}
+          </p>
+        </CardContent>
+      </Card>
 
-        <SignInOverlayButton>
-          <div className="h-96 w-full">
-            <Card
-              role="button"
-              tabIndex={0}
-              className={cn(
-                "mt-8 border-2 border-dashed p-0 shadow-[0_6px_18px_rgba(0,0,0,0.15)]",
-              )}
-            >
-              <CardContent className="flex flex-row px-0">
-                <div className="relative h-full w-full p-3.5 sm:p-4">
-                  <div className="flex items-center">
-                    <h3 className="truncate align-middle leading-snug font-medium text-black drop-shadow">
-                      {t("momentLog.entry.title")}
-                    </h3>
+      <SignInOverlayButton>
+        <div className="h-96 w-full">
+          <div className="border-border bg-card mt-6 rounded-4xl border border-dashed shadow-sm">
+            <div className="flex items-center gap-3 p-4">
+              <div className="bg-accent text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl">
+                <Plus className="h-5 w-5" />
+              </div>
 
-                    <div
-                      className="ml-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/35 shadow-inner backdrop-blur-[2px]"
-                      aria-hidden
-                    >
-                      <div className="text-black drop-shadow">
-                        <Plus size={16} strokeWidth={2.25} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+              <div className="min-w-0">
+                <h3 className="text-foreground truncate text-base font-semibold">
+                  {t("momentLog.entry.title")}
+                </h3>
+              </div>
+            </div>
           </div>
-        </SignInOverlayButton>
-      </div>
-    </div>
+        </div>
+      </SignInOverlayButton>
+    </section>
   );
 };
 
 const MomentLog = async () => {
   const t = await getTranslations();
   const locale = await getLocale();
-  const isRtl = locale.includes("ar");
+  const isRtl = locale.startsWith("ar");
 
   const user = await requireAuth();
   const pastEntries = await getPastEntries(user.id);
 
-  // Empty state
   if (pastEntries.length === 0) {
     return (
-      <div className="p-4">
-        <div className="mb-3 flex flex-col justify-center">
-          <div className="rounded-3xl border border-amber-300 bg-white p-4 shadow-md">
-            <h3>{t("momentLog.disclaimer.title")}</h3>
-            <p className="text-sm font-light">
-              {t("momentLog.disclaimer.description")}
-            </p>
-          </div>
-
-          <NewMomentLogEntryButton />
-          <div className="mt-8 rounded-2xl border bg-white p-4 shadow-md">
-            <p>{t("momentLog.noEntries")}</p>
-          </div>
+      <section className="bg-background text-foreground space-y-8 px-4 py-4">
+        <div className="surface-soft rounded-3xl p-4 shadow-sm">
+          <h3 className="text-foreground text-base font-semibold">
+            {t("momentLog.disclaimer.title")}
+          </h3>
+          <p className="text-muted-foreground mt-1 text-sm leading-6">
+            {t("momentLog.disclaimer.description")}
+          </p>
         </div>
-      </div>
+
+        <NewMomentLogEntryButton />
+
+        <Card className="border-border bg-card border shadow-sm">
+          <CardContent className="p-4">
+            <p className="text-muted-foreground text-sm leading-6">
+              {t("momentLog.noEntries")}
+            </p>
+          </CardContent>
+        </Card>
+      </section>
     );
   }
 
-  // group
   const groups: Record<GroupKey, typeof pastEntries> = {
     today: [],
     thisWeek: [],
@@ -162,98 +152,85 @@ const MomentLog = async () => {
   ];
 
   return (
-    <div className="p-4">
-      <div className="rounded-3xl border border-amber-300 bg-white p-4 shadow-md">
-        <h3 className="text-md font-medium">
+    <section className="bg-background text-foreground space-y-8 px-4 py-4">
+      <div className="surface-soft rounded-3xl p-4 shadow-sm">
+        <h3 className="text-foreground text-base font-semibold">
           {t("momentLog.disclaimer.title")}
         </h3>
-        <p className="text-xs font-light">
+        <p className="text-muted-foreground mt-1 text-sm leading-6">
           {t("momentLog.disclaimer.description")}
         </p>
       </div>
-      <div className="mb-3 flex flex-col justify-center gap-4">
-        <NewMomentLogEntryButton />
 
-        {pastEntries.length > 0 && (
-          <div className="ring-border/50 mt-6 space-y-10 rounded-2xl bg-white/60 p-2 shadow-sm ring-1 dark:bg-zinc-950/40">
-            {order.map((groupKey) => {
-              const items = groups[groupKey];
-              if (!items.length) return null;
+      <NewMomentLogEntryButton />
 
-              return (
-                <section
-                  key={groupKey}
-                  className={cn(
-                    "space-y-3",
-                    groupTone(groupKey),
-                    "animate-[fadeUp_.35s_ease-out_both] motion-reduce:animate-none",
-                  )}
-                >
-                  {/* Sticky glass header */}
-                  <div
+      <div className="space-y-8 pt-2">
+        {order.map((groupKey) => {
+          const items = groups[groupKey];
+          if (!items.length) return null;
+
+          return (
+            <section
+              key={groupKey}
+              dir={isRtl ? "rtl" : "ltr"}
+              className={cn(
+                "space-y-3",
+                groupTone(groupKey),
+                "animate-[fadeUp_.35s_ease-out_both] motion-reduce:animate-none",
+              )}
+            >
+              <div className="sticky top-0 z-20">
+                <div className="bg-background/85 border-border flex w-full items-center justify-between rounded-3xl border px-3 py-2 shadow-sm backdrop-blur-md">
+                  <h3
                     className={cn(
-                      "sticky top-0 z-20 w-full px-2 py-2",
-                      "backdrop-blur-md",
-                      "bg-white/70 dark:bg-zinc-950/60",
-                      "border-border/60 border-b",
+                      "text-foreground text-sm font-semibold tracking-wide",
+                      isRtl ? "mr-1" : "ml-1",
                     )}
                   >
-                    <div className="flex w-full items-center justify-between">
-                      <h3
-                        className={cn(
-                          "text-foreground text-sm font-semibold tracking-wide",
-                          isRtl ? "mr-2" : "ml-2",
-                        )}
-                      >
-                        {t(`common.groups.${groupKey}`)}
-                      </h3>
+                    {t(`common.groups.${groupKey}`)}
+                  </h3>
 
-                      <span className="border-border/70 text-foreground/80 rounded-full border bg-white/60 px-2 py-0.5 text-[11px] font-medium dark:bg-zinc-900/40">
-                        {items.length}
-                      </span>
-                    </div>
-                  </div>
+                  <span className="bg-card text-muted-foreground border-border rounded-full border px-2 py-0.5 text-[11px] font-medium">
+                    {items.length}
+                  </span>
+                </div>
+              </div>
 
-                  <div className="space-y-3 pb-4">
-                    {items.map((pastEntry) => {
-                      const relative = formatRelative(
-                        t,
-                        locale,
-                        pastEntry.createdAt,
-                      );
-                      return (
-                        <div
-                          key={pastEntry.id}
-                          className={cn(
-                            "animate-[fadeUp_.35s_ease-out_both] motion-reduce:animate-none",
-                          )}
-                        >
-                          <ShortcutsCard
-                            size="xs"
-                            title={t("momentLog.entry.title")}
-                            subtitle={`${DateTime.fromJSDate(
-                              pastEntry.createdAt,
-                            )
-                              .setZone(TZ)
-                              .toFormat("yyyy LLL dd - HH:mm")} • ${relative}`}
-                          >
-                            <div className="mt-2">
-                              {/* <p className="rounded-xl bg-white p-2 text-xs font-light">
-                                {`${t(`momentLog.steps.location.options.${pastEntry.location}.title`)} -> ${t(`momentLog.steps.urge.options.${pastEntry.urge}.title`)} -> ${t(`momentLog.steps.actionTaken.options.${pastEntry.actionTaken}.title`)}`}
-                              </p> */}
-                            </div>
-                          </ShortcutsCard>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </section>
-              );
-            })}
-          </div>
-        )}
+              <div className="space-y-3">
+                {items.map((pastEntry) => {
+                  const relative = formatRelative(
+                    t,
+                    locale,
+                    pastEntry.createdAt,
+                  );
+
+                  const subtitle = `${DateTime.fromJSDate(pastEntry.createdAt)
+                    .setZone(TZ)
+                    .toFormat("yyyy LLL dd - HH:mm")} • ${relative}`;
+
+                  return (
+                    <Card
+                      key={pastEntry.id}
+                      className="border-border bg-accent/60 animate-[fadeUp_.35s_ease-out_both] shadow-sm transition-all motion-reduce:animate-none"
+                    >
+                      <CardContent className="space-y-2 p-4">
+                        <h4 className="text-foreground text-sm font-semibold">
+                          {t("momentLog.entry.title")}
+                        </h4>
+
+                        <p className="text-muted-foreground text-xs font-medium">
+                          {subtitle}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })}
       </div>
-    </div>
+    </section>
   );
 };
 

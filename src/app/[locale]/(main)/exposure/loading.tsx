@@ -1,25 +1,37 @@
 export default function Loading() {
   return (
     <div className="mx-auto w-full max-w-4xl">
-      {/* Hero Image Skeleton */}
-      <div className="h-[240px] w-full animate-pulse rounded-b-4xl bg-gray-200" />
+      {/* Hero */}
+      <div className="bg-muted relative h-60 w-full overflow-hidden rounded-b-4xl">
+        <div className="animate-shimmer absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent" />
+      </div>
 
       <div className="space-y-4 p-4">
-        {/* Category Badge Skeleton */}
-        <div className="h-4 w-32 animate-pulse rounded bg-gray-200" />
-
-        {/* Main Title Skeleton */}
-        <div className="space-y-2">
-          <div className="h-8 w-3/4 animate-pulse rounded bg-gray-200" />
-          <div className="h-8 w-1/2 animate-pulse rounded bg-gray-200" />
+        {/* Category */}
+        <div className="bg-muted relative h-4 w-32 overflow-hidden rounded">
+          <div className="animate-shimmer absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent" />
         </div>
 
-        {/* Description Skeleton */}
+        {/* Title */}
         <div className="space-y-2">
-          <div className="h-4 w-full animate-pulse rounded bg-gray-200" />
-          <div className="h-4 w-2/3 animate-pulse rounded bg-gray-200" />
-          <div className="h-4 w-full animate-pulse rounded bg-gray-200" />
-          <div className="h-4 w-2/3 animate-pulse rounded bg-gray-200" />
+          <div className="bg-muted relative h-8 w-3/4 overflow-hidden rounded">
+            <div className="animate-shimmer absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent" />
+          </div>
+          <div className="bg-muted relative h-8 w-1/2 overflow-hidden rounded">
+            <div className="animate-shimmer absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent" />
+          </div>
+        </div>
+
+        {/* Paragraph */}
+        <div className="space-y-2">
+          {[...Array(4)].map((_, i) => (
+            <div
+              key={i}
+              className="bg-muted relative h-4 w-full overflow-hidden rounded"
+            >
+              <div className="animate-shimmer absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent" />
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -2,62 +2,50 @@
 
 import { Sheet } from "react-modal-sheet";
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import MomentLogForm from "./MomentLogForm";
+import { cn } from "@/lib/utils";
 
-export const NewMomentLogEntryButton = ({}: {}) => {
-  const locale = useLocale();
+export const NewMomentLogEntryButton = () => {
   const t = useTranslations("momentLog.newEntry");
   const [isOpen, setOpen] = useState(false);
 
-  const isRtl = locale.includes("ar");
-
   return (
     <>
-      <Card
-        role="button"
-        tabIndex={0}
+      <button
+        type="button"
         onClick={() => setOpen(true)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") setOpen(true);
-        }}
-        className={"mt-4 border border-dashed shadow-sm"}
+        className={cn(
+          "bg-card border-border mt-4 flex w-full items-center rounded-4xl border border-dashed p-12 text-left shadow-sm transition",
+          "hover:bg-muted/40 active:scale-[0.98]",
+          "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
+        )}
         aria-label={t("ariaOpen")}
       >
-        <CardContent className="flex flex-row px-0">
-          <div className="relative h-full w-full p-3.5 sm:p-4">
-            <div className="flex items-center">
-              <h3 className="text-md truncate font-medium text-black">
-                {t("title")}
-              </h3>
+        <div className="flex min-w-0 flex-1 items-center gap-3">
+          <h3 className="text-foreground truncate text-base font-medium">
+            {t("title")}
+          </h3>
 
-              <div
-                className={cn(
-                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/35 shadow-inner backdrop-blur-[2px]",
-                  isRtl ? "mr-auto" : "ml-auto",
-                )}
-                aria-hidden
-              >
-                <div className="text-black drop-shadow">
-                  <Plus size={16} strokeWidth={2.25} />
-                </div>
-              </div>
-            </div>
+          <div
+            className="bg-accent text-primary ml-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-xl"
+            aria-hidden
+          >
+            <Plus className="h-4 w-4" strokeWidth={2.25} />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </button>
 
       <Sheet isOpen={isOpen} onClose={() => setOpen(false)}>
-        <Sheet.Container>
-          <Sheet.Header className="bg-gray-50" />
-          <Sheet.Content className="bg-gray-50 p-4">
+        <Sheet.Container className="bg-background! text-foreground!">
+          <Sheet.Header className="bg-background!" />
+          <Sheet.Content className="bg-background! p-4">
             <MomentLogForm callback={() => setOpen(false)} />
           </Sheet.Content>
         </Sheet.Container>
-        <Sheet.Backdrop />
+
+        <Sheet.Backdrop className="bg-foreground/20! backdrop-blur-sm!" />
       </Sheet>
     </>
   );

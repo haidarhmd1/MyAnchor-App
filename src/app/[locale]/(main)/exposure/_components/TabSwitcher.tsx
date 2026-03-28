@@ -16,17 +16,24 @@ export const TabSwitcher = async () => {
   const t = await getTranslations("exposure.tabSwitcher");
 
   return (
-    <Tabs defaultValue="new-challenge" className="w-full">
-      <TabsList className="w-full">
-        <TabsTrigger value="new-challenge" className="p-4">
+    <Tabs defaultValue="new-challenge" className="w-full space-y-4">
+      <TabsList className="bg-muted text-muted-foreground grid h-auto w-full grid-cols-2 rounded-2xl p-1">
+        <TabsTrigger
+          value="new-challenge"
+          className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-xl px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
+        >
           {t("newDailyChallenge")}
         </TabsTrigger>
-        <TabsTrigger value="past-challenge" className="p-4">
+
+        <TabsTrigger
+          value="past-challenge"
+          className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-xl px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
+        >
           {t("pastChallenges")}
         </TabsTrigger>
       </TabsList>
 
-      <TabsContent value="new-challenge">
+      <TabsContent value="new-challenge" className="mt-0">
         {!auth ? (
           <SignInOverlayButton>
             <UnauthenticatedNewChallenge />
@@ -35,7 +42,8 @@ export const TabSwitcher = async () => {
           <NewChallenge />
         )}
       </TabsContent>
-      <TabsContent value="past-challenge">
+
+      <TabsContent value="past-challenge" className="mt-0">
         {!auth ? (
           <SignInOverlayButton>
             <UnauthenticatedPastChallenges />

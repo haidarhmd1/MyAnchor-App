@@ -4,35 +4,47 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
 import { interoceptiveExposureGuide } from "@/common/const/content";
 import { getTranslations } from "next-intl/server";
 
 export const Information = async () => {
   const t = await getTranslations();
+
   return (
-    <div className="mt-4">
+    <section className="space-y-4">
       <Accordion
         type="single"
         collapsible
-        className="rounded-4xl border bg-white p-2 px-6"
+        className="surface-soft rounded-[2rem] px-4 shadow-sm"
       >
-        {interoceptiveExposureGuide.map((guide) => (
-          <AccordionItem key={guide.id} value={`item-${guide.id}`}>
-            <AccordionTrigger>{t(guide.titleKey)}</AccordionTrigger>
-            <AccordionContent>
-              {t(guide.descriptionKey) && <div>{t(guide.descriptionKey)}</div>}
-              <ul>
-                {guide.content.map((content) => (
-                  <li key={content.id} className="mb-2 list-disc">
-                    {t(content.textKey)}
-                  </li>
-                ))}
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
+        {interoceptiveExposureGuide.map((guide) => {
+          const description = t(guide.descriptionKey);
+
+          return (
+            <AccordionItem
+              key={guide.id}
+              value={`item-${guide.id}`}
+              className="border-border"
+            >
+              <AccordionTrigger className="text-foreground text-left text-sm font-semibold hover:no-underline">
+                {t(guide.titleKey)}
+              </AccordionTrigger>
+
+              <AccordionContent className="text-muted-foreground space-y-4 pb-4 text-sm leading-6">
+                {description ? <div>{description}</div> : null}
+
+                <ul className="space-y-2 ps-5">
+                  {guide.content.map((content) => (
+                    <li key={content.id} className="list-disc">
+                      {t(content.textKey)}
+                    </li>
+                  ))}
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+          );
+        })}
       </Accordion>
-    </div>
+    </section>
   );
 };

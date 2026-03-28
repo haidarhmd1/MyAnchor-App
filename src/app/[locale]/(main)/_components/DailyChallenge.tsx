@@ -10,6 +10,55 @@ import { cn } from "@/lib/utils";
 import { prisma } from "../../../../../lib/prisma";
 import { ChallengeStatus } from "@/generated/prisma/enums";
 
+const DailyChallengeShell = ({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <section className="surface-soft space-y-6 rounded-3xl p-4 shadow-sm">
+      <div className="space-y-1">
+        <h4 className="text-foreground text-base font-semibold tracking-tight">
+          {title}
+        </h4>
+        <p className="text-muted-foreground text-sm leading-6">{description}</p>
+      </div>
+
+      {children}
+    </section>
+  );
+};
+
+const DailyChallengeInfoCard = ({ text }: { text: string }) => {
+  return (
+    <div className="surface-muted rounded-2xl p-3">
+      <p className="text-muted-foreground text-sm leading-6">{text}</p>
+    </div>
+  );
+};
+
+const DailyChallengePrimaryButton = ({
+  href,
+  label,
+}: {
+  href: string;
+  label: string;
+}) => {
+  return (
+    <Button
+      type="button"
+      className="bg-primary text-primary-foreground w-full rounded-2xl transition will-change-transform hover:opacity-95 active:scale-[0.98]"
+      asChild
+    >
+      <Link href={href}>{label}</Link>
+    </Button>
+  );
+};
+
 export const DailyChallenge = async () => {
   const t = await getTranslations();
 
@@ -29,61 +78,39 @@ export const DailyChallenge = async () => {
 
   if (!latestChallenge) {
     return (
-      <div className="space-y-6 rounded-3xl bg-blue-100 p-4 shadow-md">
-        <div className="">
-          <h4 className="text-md font-bold">
-            {t("home.todaysChallenge.title")}
-          </h4>
-          <p className="text-xs font-thin">
-            {t("home.todaysChallenge.description")}
-          </p>
-        </div>
-        <div className="rounded-xl bg-white p-2 shadow-2xl">
-          <p className="text-sm font-light">
-            {t("dailyChallenge.startNew.subtitle")}
-          </p>
-        </div>
-        <Button
-          type="button"
-          className="w-full rounded-2xl bg-blue-400 transition will-change-transform active:scale-[0.98]"
-        >
-          <Link href="/exposure/challenge">{t("tracker.start")}</Link>
-        </Button>
-      </div>
+      <DailyChallengeShell
+        title={t("home.todaysChallenge.title")}
+        description={t("home.todaysChallenge.description")}
+      >
+        <DailyChallengeInfoCard text={t("dailyChallenge.startNew.subtitle")} />
+        <DailyChallengePrimaryButton
+          href="/exposure/challenge"
+          label={t("tracker.start")}
+        />
+      </DailyChallengeShell>
     );
   }
 
   switch (latestChallenge.status) {
     case ChallengeStatus.NOT_STARTED:
       return (
-        <div className="space-y-6 rounded-3xl bg-blue-100 p-4 shadow-md">
-          <div className="">
-            <h4 className="text-md font-bold">
-              {t("home.todaysChallenge.title")}
-            </h4>
-            <p className="text-xs font-thin">
-              {t("home.todaysChallenge.description")}
-            </p>
-          </div>
-
+        <DailyChallengeShell
+          title={t("home.todaysChallenge.title")}
+          description={t("home.todaysChallenge.description")}
+        >
           <StartChallengeBtn
             challengeId={latestChallenge.id}
             pathToRevalidate="/exposure"
           />
-        </div>
+        </DailyChallengeShell>
       );
 
     case ChallengeStatus.STARTED:
       return (
-        <div className="space-y-6 rounded-3xl bg-blue-100 p-4 shadow-md">
-          <div className="">
-            <h4 className="text-md font-bold">
-              {t("home.todaysChallenge.title")}
-            </h4>
-            <p className="text-xs font-thin">
-              {t("home.todaysChallenge.description")}
-            </p>
-          </div>
+        <DailyChallengeShell
+          title={t("home.todaysChallenge.title")}
+          description={t("home.todaysChallenge.description")}
+        >
           <Link
             href={`/exposure/challenge/${latestChallenge.id}`}
             className="focus:outline-none"
@@ -92,80 +119,66 @@ export const DailyChallenge = async () => {
           >
             <Card
               className={cn(
-                "group mt-4 border-2 border-dashed border-amber-300 bg-linear-to-br from-amber-100 to-amber-200",
-                "shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-all",
-                "focus-within:ring-2 hover:-translate-y-px hover:border-amber-400",
+                "bg-accent text-accent-foreground border-border group mt-1 rounded-2xl border",
+                "shadow-sm transition-all",
+                "focus-within:ring-ring focus-within:ring-2 hover:-translate-y-px hover:shadow-md",
                 "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
               )}
               aria-label={t("exposure.newChallenge.pending.aria")}
             >
               <CardContent className="flex items-start gap-4 p-4 sm:p-5">
-                <div className="text-foreground/80 shrink-0">
+                <div className="text-primary shrink-0">
                   <Award className="h-5 w-5" aria-hidden="true" />
                 </div>
+
                 <div className="space-y-1">
-                  <h5 className="text-foreground/80 text-sm leading-none font-light">
+                  <h5 className="text-muted-foreground text-sm leading-none font-medium">
                     {t("exposure.newChallenge.pending.title")}
                   </h5>
-                  <h4 className="text-base font-semibold">
+                  <h4 className="text-foreground text-base font-semibold">
                     {t("exposure.newChallenge.pending.subtitle")}
                   </h4>
                 </div>
               </CardContent>
             </Card>
           </Link>
-        </div>
+        </DailyChallengeShell>
       );
 
     case ChallengeStatus.FINISHED:
       return (
-        <div className="space-y-6 rounded-3xl bg-blue-100 p-4 shadow-md">
-          <div className="">
-            <h4 className="text-md font-bold">
-              {t("home.todaysChallenge.title")}
-            </h4>
-            <p className="text-xs font-thin">
-              {t("home.todaysChallenge.description")}
-            </p>
-          </div>
-
+        <DailyChallengeShell
+          title={t("home.todaysChallenge.title")}
+          description={t("home.todaysChallenge.description")}
+        >
           <Link className="block focus:outline-none" href="/exposure/challenge">
             <ShortcutsCard
               title={t("exposure.newChallenge.dailyChallenge.done.title")}
               subtitle={t("exposure.newChallenge.dailyChallenge.done.subtitle")}
               icon={<CheckCheck className="h-5 w-5" aria-hidden="true" />}
               gradient={{
-                from: "from-green-600",
-                to: "to-green-300",
+                from: "from-primary",
+                to: "to-accent",
               }}
             />
           </Link>
-        </div>
+        </DailyChallengeShell>
       );
 
     default:
       return (
-        <div className="space-y-6 rounded-3xl bg-blue-100 p-4 shadow-md">
-          <div className="">
-            <h4 className="text-md font-bold">
-              {t("home.todaysChallenge.title")}
-            </h4>
-            <p className="text-xs font-thin">
-              {t("home.todaysChallenge.description")}
-            </p>
-          </div>
-          <div className="rounded-xl bg-white p-2 shadow-2xl">
-            <p className="text-sm font-light">
-              {t("dailyChallenge.startNew.subtitle")}
-            </p>
-          </div>
-          <Button
-            type="button"
-            className="w-full rounded-2xl bg-blue-400 transition will-change-transform active:scale-[0.98]"
-          >
-            <Link href="/exposure/challenge">{t("tracker.start")}</Link>
-          </Button>
-        </div>
+        <DailyChallengeShell
+          title={t("home.todaysChallenge.title")}
+          description={t("home.todaysChallenge.description")}
+        >
+          <DailyChallengeInfoCard
+            text={t("dailyChallenge.startNew.subtitle")}
+          />
+          <DailyChallengePrimaryButton
+            href="/exposure/challenge"
+            label={t("tracker.start")}
+          />
+        </DailyChallengeShell>
       );
   }
 };
@@ -174,27 +187,18 @@ export const UnauthenticatedDailyChallenge = async () => {
   const t = await getTranslations();
 
   return (
-    <div className="space-y-6 rounded-3xl bg-blue-100 p-4 shadow-md">
-      <div>
-        <h4 className="text-md font-bold">{t("home.todaysChallenge.title")}</h4>
-        <p className="text-xs font-thin">
-          {t("home.todaysChallenge.description")}
-        </p>
-      </div>
+    <DailyChallengeShell
+      title={t("home.todaysChallenge.title")}
+      description={t("home.todaysChallenge.description")}
+    >
+      <DailyChallengeInfoCard text={t("dailyChallenge.startNew.subtitle")} />
 
-      <div className="rounded-xl bg-white p-2 shadow-2xl">
-        <p className="text-sm font-light">
-          {t("dailyChallenge.startNew.subtitle")}
-        </p>
+      <div className="mt-2">
+        <DailyChallengePrimaryButton
+          href="/exposure/challenge"
+          label={t("tracker.start")}
+        />
       </div>
-      <div className="mt-6">
-        <Button
-          type="button"
-          className="w-full rounded-2xl bg-blue-400 transition will-change-transform active:scale-[0.98]"
-        >
-          <Link href="/exposure/challenge">{t("tracker.start")}</Link>
-        </Button>
-      </div>
-    </div>
+    </DailyChallengeShell>
   );
 };

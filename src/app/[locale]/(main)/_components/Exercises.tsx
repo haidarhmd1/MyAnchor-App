@@ -45,20 +45,23 @@ export const Exercises = async () => {
   const t = await getTranslations("exercisesPage");
 
   return (
-    <>
-      <div className="flex h-[60px] flex-col items-start self-stretch pt-5 pb-3">
-        <h2>{t("title")}</h2>
+    <section className="space-y-4">
+      <div className="space-y-1 pt-2">
+        <h2 className="text-foreground text-2xl font-semibold tracking-tight">
+          {t("title")}
+        </h2>
       </div>
 
-      {exercises.map((e) => (
-        <div key={e.id} className="mb-4">
+      <div className="space-y-4">
+        {exercises.map((exercise) => (
           <CardContainer
-            title={t(e.titleKey)}
-            description={t(e.descriptionKey)}
-            link={e.link}
+            key={exercise.id}
+            title={t(exercise.titleKey)}
+            description={t(exercise.descriptionKey)}
+            link={exercise.link}
           />
-        </div>
-      ))}
-    </>
+        ))}
+      </div>
+    </section>
   );
 };

@@ -25,34 +25,37 @@ export const Name = ({ label, name }: { label?: string; name: string }) => {
   const t = useTranslations("form");
   const router = useRouter();
 
-  const [open, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
-  // changes whenever dialog opens or server value changes -> remount form -> defaultValues re-applied
   const formKey = useMemo(() => {
     return `${open ? "open" : "closed"}-${name ?? ""}`;
   }, [open, name]);
 
   return (
-    <Dialog open={open} onOpenChange={setIsOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button type="button" className="w-full text-left">
+        <button
+          type="button"
+          className="focus-visible:ring-ring/70 w-full rounded-2xl text-left transition focus:outline-none focus-visible:ring-2"
+        >
           <SettingsRowInput label={t("name.label")} value={label ?? name} />
         </button>
       </DialogTrigger>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{t("name.dialogTitle")}</DialogTitle>
+      <DialogContent className="border-border bg-card text-card-foreground rounded-3xl border shadow-lg">
+        <DialogHeader className="space-y-1">
+          <DialogTitle className="text-foreground text-lg font-semibold tracking-tight">
+            {t("name.dialogTitle")}
+          </DialogTitle>
         </DialogHeader>
 
         <NameFormInner
           key={formKey}
           initialName={name}
-          t={t}
           isPending={isPending}
           onSaved={() => {
-            setIsOpen(false);
+            setOpen(false);
             startTransition(() => router.refresh());
           }}
         />
@@ -63,26 +66,29 @@ export const Name = ({ label, name }: { label?: string; name: string }) => {
 
 function NameFormInner({
   initialName,
-  t,
   isPending,
   onSaved,
 }: {
   initialName: string;
-  t: ReturnType<typeof useTranslations>;
   isPending: boolean;
   onSaved: () => void;
 }) {
+  const t = useTranslations("form");
+
   const form = useForm<FormValues>({
     defaultValues: { name: initialName },
   });
 
   const handleSave = async (data: FormValues) => {
     try {
-      const name = data.name?.trim();
-      if (!name) return;
+      const trimmedName = data.name?.trim();
+
+      if (!trimmedName) {
+        return;
+      }
 
       await updateUserProfile({
-        data: { name },
+        data: { name: trimmedName },
       });
 
       toast.success(t("name.toast.success"));
@@ -95,17 +101,22 @@ function NameFormInner({
 
   return (
     <form className="space-y-4" onSubmit={form.handleSubmit(handleSave)}>
-      <Input {...form.register("name")} autoFocus />
+      <Input
+        {...form.register("name")}
+        autoFocus
+        className="bg-background text-foreground border-border"
+      />
 
-      <DialogFooter className="grid grid-cols-2">
+      <DialogFooter className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         <DialogClose asChild>
-          <Button variant="outline" type="button">
+          <Button variant="outline" type="button" className="w-full">
             {t("actions.cancel")}
           </Button>
         </DialogClose>
 
         <Button
           type="submit"
+          className="bg-primary text-primary-foreground w-full hover:opacity-95"
           disabled={form.formState.isSubmitting || isPending}
         >
           {form.formState.isSubmitting || isPending

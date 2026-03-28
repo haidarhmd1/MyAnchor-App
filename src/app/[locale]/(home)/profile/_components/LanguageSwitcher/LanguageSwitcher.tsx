@@ -18,7 +18,7 @@ const LOCALES = [
   { value: "de", label: "Deutsch" },
   { value: "ar", label: "العربية" },
   { value: "ar-LB", label: "لبناني (عربي)" },
-];
+] as const;
 
 export function LanguageSwitcher({
   variant = "normal",
@@ -34,22 +34,31 @@ export function LanguageSwitcher({
     const query = searchParams.toString();
     const href = query ? `${pathname}?${query}` : pathname;
 
-    // sets cookie + updates URL
     router.replace(href, { locale: nextLocale });
   };
-  const isRtl = locale.includes("ar");
+
+  const isCompact = variant === "xs";
+
   return (
     <Select value={locale} onValueChange={onChange}>
       <SelectTrigger
         className={cn(
-          variant === "normal" ? "w-40" : isRtl ? "ml-2" : "mr-2",
-          "rounded-full",
+          "bg-card text-card-foreground border-border rounded-md shadow-sm",
+          "data-placeholder:text-muted-foreground",
+          isCompact ? "h-9 min-w-9 gap-2 px-3 text-sm" : "h-10 w-40 gap-2 px-4",
         )}
+        aria-label="Language switcher"
       >
-        <Languages />
+        <Languages
+          className={cn(
+            "text-muted-foreground shrink-0",
+            isCompact ? "h-4 w-4" : "h-4 w-4",
+          )}
+        />
         <SelectValue />
       </SelectTrigger>
-      <SelectContent>
+
+      <SelectContent className="bg-popover text-popover-foreground border-border rounded-2xl border shadow-lg">
         {LOCALES.map((l) => (
           <SelectItem key={l.value} value={l.value}>
             {l.label}

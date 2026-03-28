@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-
 import { getLocale, getTranslations } from "next-intl/server";
 import { DateTime } from "luxon";
 import { formatRelative } from "@/i18n/relative-time";
@@ -45,17 +44,18 @@ function groupTone(groupKey: GroupKey) {
     case "thisMonth":
       return "opacity-90";
     case "lastMonth":
-      return "opacity-85 grayscale-[0.05]";
+      return "opacity-85";
     case "older":
     default:
-      return "opacity-75 grayscale-[0.1]";
+      return "opacity-75";
   }
 }
 
 export const PastChallenges = async () => {
   const t = await getTranslations();
   const locale = await getLocale();
-  const isRtl = locale.includes("ar");
+  const isRtl = locale.startsWith("ar");
+
   const pastChallenges = await prisma.challenge.findMany({
     where: {
       status: ChallengeStatus.FINISHED,
@@ -79,15 +79,16 @@ export const PastChallenges = async () => {
 
   if (pastChallenges.length === 0) {
     return (
-      <Card className={cn("mt-4 border-2 bg-white")}>
-        <CardContent className="flex flex-row gap-2">
-          <p>{t("exposure.pastChallenges.empty")}</p>
+      <Card className="border-border bg-card mt-4 border shadow-sm">
+        <CardContent className="p-4">
+          <p className="text-muted-foreground text-sm leading-6">
+            {t("exposure.pastChallenges.empty")}
+          </p>
         </CardContent>
       </Card>
     );
   }
 
-  // group
   const groups: Record<GroupKey, typeof pastChallenges> = {
     today: [],
     thisWeek: [],
@@ -123,27 +124,23 @@ export const PastChallenges = async () => {
             key={groupKey}
             className={cn("space-y-3", groupTone(groupKey))}
           >
-            <div
-              className={cn(
-                "sticky top-0 z-20 w-full px-2 py-2",
-                "rounded-4xl border",
-                "supports-backdrop-filter:bg-white/50",
-              )}
-            >
-              <div className="flex w-full items-center justify-between">
-                <h3 className="text-foreground ml-2 text-sm font-semibold tracking-wide">
+            <div className="sticky top-0 z-20">
+              <div className="bg-background/85 border-border flex w-full items-center justify-between rounded-3xl border px-3 py-2 shadow-sm backdrop-blur-md">
+                <h3 className="text-foreground text-sm font-semibold tracking-wide">
                   {t(`common.groups.${groupKey}`)}
                 </h3>
-                <span className="border-border/70 text-foreground/80 rounded-full border bg-white/60 px-2 py-0.5 text-[11px] font-medium dark:bg-zinc-900/40">
+
+                <span className="bg-card text-muted-foreground border-border rounded-full border px-2 py-0.5 text-[11px] font-medium">
                   {items.length}
                 </span>
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-6">
               {items.map(({ id, challengeOption }: (typeof items)[0]) => {
                 const mappedChallengeOptions =
                   mapSingleChallengeOptionItemToTranslater(challengeOption);
+
                 const dateText = DateTime.fromJSDate(challengeOption.createdAt)
                   .setLocale(locale)
                   .toLocaleString(DateTime.DATE_MED);
@@ -157,33 +154,37 @@ export const PastChallenges = async () => {
                 return (
                   <Card
                     key={id}
-                    className="group border-0 border-green-300 bg-linear-to-br from-green-200 to-green-400 p-0 shadow-md transition-all"
+                    className="border-border bg-accent/70 shadow-sm transition-all hover:-translate-y-px hover:shadow-md"
                   >
                     <CardContent className="flex flex-col gap-4 p-4">
                       <div>
-                        <p className="text-xs font-light">
+                        <p className="text-muted-foreground text-xs font-medium">
                           {dateText} • {relative}
                         </p>
                       </div>
 
                       <div className="space-y-1">
-                        <p className="text-xs font-bold">
+                        <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
                           {t(mappedChallengeOptions.label)}
                         </p>
+
                         {mappedChallengeOptions.description ? (
-                          <p className="text-xs">
+                          <p className="text-foreground text-sm leading-6">
                             {t(mappedChallengeOptions.description)}
                           </p>
                         ) : null}
                       </div>
-                      <div className="space-y-2">
-                        <p className="text-xs font-bold">
+
+                      <div className="space-y-1">
+                        <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
                           {t(mappedChallengeOptions.engagement.label)}
                         </p>
-                        <p className="text-xs font-medium">
+
+                        <p className="text-foreground text-sm font-medium">
                           {t(mappedChallengeOptions.engagement.title)}
                         </p>
-                        <p className="text-xs font-extralight">
+
+                        <p className="text-muted-foreground text-sm leading-6">
                           {t(mappedChallengeOptions.engagement.description)}
                         </p>
                       </div>
@@ -203,9 +204,11 @@ export const UnauthenticatedPastChallenges = async () => {
   const t = await getTranslations();
 
   return (
-    <Card className={cn("mt-4 border-2 bg-white")}>
-      <CardContent className="flex flex-row gap-2">
-        <p>{t("exposure.pastChallenges.empty")}</p>
+    <Card className="border-border bg-card mt-4 border shadow-sm">
+      <CardContent className="p-4">
+        <p className="text-muted-foreground text-sm leading-6">
+          {t("exposure.pastChallenges.empty")}
+        </p>
       </CardContent>
     </Card>
   );

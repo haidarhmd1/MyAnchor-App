@@ -16,7 +16,9 @@ export async function MomentLogButton() {
     redirect("/");
   }
 
-  const user = await prisma.user.findUnique({ where: { id: session.user.id } });
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+  });
 
   if (!user || user.deletedAt) {
     redirect("/");
@@ -45,8 +47,8 @@ export async function MomentLogButton() {
           title={t("title")}
           subtitle={t("doneSubtitle")}
           gradient={{
-            from: "bg-sky-400",
-            to: "bg-sky-100",
+            from: "from-primary",
+            to: "to-accent",
           }}
         />
       </Link>
@@ -60,8 +62,8 @@ export async function MomentLogButton() {
         title={t("title")}
         subtitle={t("addMomentSubtitle")}
         gradient={{
-          from: "bg-sky-400",
-          to: "bg-sky-100",
+          from: "from-secondary",
+          to: "to-accent",
         }}
       />
     </Link>
@@ -77,8 +79,8 @@ export async function UnauthenticatedMomentLogButton() {
       title={t("title")}
       subtitle={t("addMomentSubtitle")}
       gradient={{
-        from: "bg-blue-600",
-        to: "bg-blue-100",
+        from: "from-secondary",
+        to: "to-accent",
       }}
     />
   );

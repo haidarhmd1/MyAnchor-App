@@ -1,12 +1,10 @@
-// components/StartChallengeCard.client.tsx
 "use client";
 
 import { useTransition } from "react";
 import { startChallengeAction } from "../../challenge/action";
-import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { Award } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 export function StartChallengeBtn({
   challengeId,
@@ -19,33 +17,37 @@ export function StartChallengeBtn({
   const [isPending, startTransition] = useTransition();
 
   return (
-    <Card
+    <button
+      type="button"
       onClick={() =>
         startTransition(async () => {
           await startChallengeAction(challengeId, pathToRevalidate);
         })
       }
-      className={cn(
-        "group mt-4 border-2 border-dashed border-blue-300 bg-linear-to-br from-blue-100 to-blue-200",
-        "shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-all",
-        "focus-within:ring-2 hover:-translate-y-px hover:border-blue-400",
-        "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
-      )}
+      disabled={isPending}
       aria-label={t("notStarted.aria")}
+      className={cn(
+        "group border-primary/20 bg-accent mt-4 w-full rounded-4xl border text-left shadow-sm transition-all",
+        "hover:-translate-y-px hover:shadow-md",
+        "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
+        "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
+        "disabled:cursor-not-allowed disabled:opacity-70",
+      )}
     >
-      <CardContent className="flex items-start gap-4 p-4 sm:p-5">
-        <div className="text-foreground/80 shrink-0">
+      <div className="flex items-start gap-4 p-4 sm:p-5">
+        <div className="text-primary shrink-0">
           <Award className="h-5 w-5" aria-hidden="true" />
         </div>
+
         <div className="space-y-1">
-          <h5 className="text-foreground/80 text-sm leading-none font-light">
+          <h5 className="text-muted-foreground text-sm leading-none font-medium">
             {t("notStarted.title")}
           </h5>
-          <h4 className="text-base font-semibold">
-            {t("notStarted.subtitle")}
+          <h4 className="text-foreground text-base font-semibold">
+            {isPending ? t("actions.saving") : t("notStarted.subtitle")}
           </h4>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </button>
   );
 }

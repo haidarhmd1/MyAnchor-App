@@ -5,11 +5,13 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Sheet } from "react-modal-sheet";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 type Phase = "inhale" | "hold1" | "exhale" | "hold2";
 type BreathingType = "boxBreathing" | "relaxingBreath";
 
 const PHASES: Phase[] = ["inhale", "hold1", "exhale", "hold2"];
+
 const BREATHING_CONFIG: Record<
   BreathingType,
   Partial<Record<Phase, number>>
@@ -27,7 +29,7 @@ const BREATHING_CONFIG: Record<
   },
 };
 
-const secondsPerSide = 4;
+const DEFAULT_SECONDS = 4;
 
 export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
   const t = useTranslations("panicEmergency.boxBreathing");
@@ -37,21 +39,20 @@ export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
   const [breathingType, setBreathingType] =
     useState<BreathingType>("boxBreathing");
 
-  const [phaseIndex, setPhaseIndex] = useState(0); // which phase you are in
-  const [roundIndex, setRoundIndex] = useState(0); // which round you are in
-  const [countdown, setCountdown] = useState(secondsPerSide); // countdown in seconds
+  const [phaseIndex, setPhaseIndex] = useState(0);
+  const [roundIndex, setRoundIndex] = useState(0);
+  const [countdown, setCountdown] = useState(DEFAULT_SECONDS);
 
-  const config = BREATHING_CONFIG[breathingType]; // choosing the breathing type
+  const config = BREATHING_CONFIG[breathingType];
 
-  // != null to filter out relaxing not having hold2
   const phases = (Object.keys(config) as Phase[]).filter(
     (p) => config[p] != null,
   );
 
   const phase = phases[phaseIndex];
-  const secondsForPhase = config[phase] ?? 4;
+  const secondsForPhase = config[phase] ?? DEFAULT_SECONDS;
+  const done = roundIndex >= rounds;
 
-  // Labels
   const phaseLabel =
     phase === "inhale"
       ? t("phases.inhale")
@@ -68,7 +69,6 @@ export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
           ? t("hints.exhale")
           : t("hints.hold2");
 
-  // Reset when opening / closing
   useEffect(() => {
     if (!open) {
       setStarted(false);
@@ -77,16 +77,14 @@ export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
 
     setPhaseIndex(0);
     setRoundIndex(0);
-    setCountdown(secondsForPhase);
+    setCountdown(config.inhale ?? DEFAULT_SECONDS);
     setStarted(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, breathingType]);
+  }, [open, breathingType, config.inhale]);
 
-  // Breathing loop (starts only after pressing Start)
   useEffect(() => {
-    if (!open || !started || roundIndex >= rounds) return;
+    if (!open || !started || done) return;
 
-    let raf: number;
+    let raf = 0;
     let start: number | null = null;
     const durationMs = secondsForPhase * 1000;
 
@@ -98,11 +96,14 @@ export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
       setCountdown(Math.ceil(remaining / 1000));
 
       if (elapsed >= durationMs) {
-        const nextPhaseIndex = (phaseIndex + 1) % PHASES.length;
+        const nextPhaseIndex = (phaseIndex + 1) % phases.length;
         const completedCycle = nextPhaseIndex === 0;
 
         setPhaseIndex(nextPhaseIndex);
-        if (completedCycle) setRoundIndex((r) => r + 1);
+
+        if (completedCycle) {
+          setRoundIndex((prev) => prev + 1);
+        }
 
         start = null;
       }
@@ -111,183 +112,194 @@ export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
     };
 
     raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [
-    open,
-    started,
-    roundIndex,
-    rounds,
-    phaseIndex,
-    phases.length,
-    secondsForPhase,
-  ]);
 
-  const done = roundIndex >= rounds;
+    return () => cancelAnimationFrame(raf);
+  }, [open, started, done, secondsForPhase, phaseIndex, phases.length]);
 
   const scaleAnim = {
     scale:
       phase === "inhale"
-        ? [0.7, 1.08]
+        ? [0.72, 1.04]
         : phase === "hold1"
-          ? [1.08]
+          ? [1.04]
           : phase === "exhale"
-            ? [1.08, 0.7]
-            : phase === "hold2"
-              ? [0.7]
-              : [1.08],
+            ? [1.04, 0.72]
+            : [0.72],
   };
 
-  const scaleTransition = { duration: secondsForPhase, ease: easeInOut };
+  const scaleTransition = {
+    duration: secondsForPhase,
+    ease: easeInOut,
+  };
 
-  const totalForText = typeof rounds === "number" ? String(rounds) : "∞";
+  const totalForText = String(rounds);
   const currentForText = String(Math.min(roundIndex + 1, rounds));
+
+  const handleRestart = () => {
+    setPhaseIndex(0);
+    setRoundIndex(0);
+    setCountdown(config.inhale ?? DEFAULT_SECONDS);
+    setStarted(true);
+  };
 
   return (
     <div>
-      {/* Card */}
-      <div
+      <button
+        type="button"
         onClick={() => setOpen(true)}
-        className="h-28 min-h-24 transform rounded-2xl bg-white p-3 shadow-md transition will-change-transform active:scale-[0.98]"
+        className="surface-soft h-28 min-h-24 w-full rounded-2xl p-3 text-left shadow-sm transition will-change-transform active:scale-[0.98]"
       >
-        <div className="text-left">
-          <h4 className="text-sm font-medium">{t("card.title")}</h4>
-          <p className="text-xs font-extralight">{t("card.subtitle")}</p>
+        <div>
+          <h4 className="text-foreground text-sm font-medium">
+            {t("card.title")}
+          </h4>
+          <p className="text-muted-foreground text-xs font-light">
+            {t("card.subtitle")}
+          </p>
         </div>
-      </div>
+      </button>
 
-      {/* Sheet */}
       <Sheet isOpen={open} onClose={() => setOpen(false)}>
-        <Sheet.Container>
+        <Sheet.Container className="!bg-background !text-foreground">
           <Sheet.Header />
           <Sheet.Content>
-            <div className="grid grid-cols-2 gap-4 px-4">
-              <div
-                onClick={() => {
-                  setBreathingType("boxBreathing");
-                }}
-                className={[
-                  "flex min-h-12 justify-between rounded-xl border p-4 shadow-md transition-all",
-                  breathingType === "boxBreathing"
-                    ? "bg-blue-300/60"
-                    : "bg-white",
-                ].join(" ")}
-              >
-                <p>4-4-4-4</p>
-              </div>
-
-              <div
-                onClick={() => {
-                  setBreathingType("relaxingBreath");
-                }}
-                className={[
-                  "flex min-h-12 justify-between rounded-xl border p-4 shadow-md transition-all",
-                  breathingType !== "boxBreathing"
-                    ? "bg-blue-300/60"
-                    : "bg-white",
-                ].join(" ")}
-              >
-                <p>4-7-8</p>
-              </div>
-            </div>
-            <div className="mx-auto mt-4 flex max-w-sm flex-col items-center">
-              <h4 className="mt-4 text-2xl font-medium">
-                {breathingType === "boxBreathing"
-                  ? t("breathing.box.title")
-                  : t("breathing.relaxed.title")}
-              </h4>
-              <p className="text-accent-foreground text-center font-light">
-                {breathingType === "boxBreathing"
-                  ? t("breathing.box.description")
-                  : t("breathing.relaxed.description")}
-              </p>
-              <div className="mx-auto mt-4 flex max-w-sm flex-col items-center gap-2">
-                {/* Animated box */}
-                <motion.div
-                  key={`${phase}-${roundIndex}`}
-                  className="my-12 min-h-64 min-w-64 rounded-[22px] bg-linear-to-br from-sky-300 to-sky-500"
-                  animate={started ? scaleAnim : { scale: 0.7 }}
-                  transition={started ? scaleTransition : { duration: 0 }}
-                  style={{
-                    boxShadow:
-                      "0 8px 30px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)",
-                  }}
-                />
-
-                {/* Text */}
-                <div className="flex flex-col items-center">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={phase}
-                      className="text-2xl font-medium tracking-wide"
-                    >
-                      {phaseLabel}
-                    </motion.div>
-                  </AnimatePresence>
-
-                  <div className="text-muted-foreground mt-2 text-sm">
-                    {phaseHint}
-                  </div>
-
-                  <div className="mt-4 text-4xl tabular-nums">
-                    {started ? Math.max(0, countdown) : secondsForPhase}
-                  </div>
-
-                  <div className="text-muted-foreground mt-2 text-xs">
-                    {t("progress.round", {
-                      current: currentForText,
-                      total: totalForText,
-                    })}
-                  </div>
-                </div>
+            <div className="space-y-6 px-4 pb-6">
+              <div className="grid grid-cols-2 gap-3">
                 <button
-                  onClick={() => setStarted(true)}
-                  disabled={started}
-                  className="rounded-xl bg-blue-600 px-4 py-2 text-sm text-white disabled:opacity-50"
-                >
-                  {t("actions.start")}
-                </button>
-                {/* Actions */}
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => setOpen(false)}
-                    className="rounded-xl bg-black px-4 py-2 text-sm text-white"
-                  >
-                    {t("actions.done")}
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setPhaseIndex(0);
-                      setRoundIndex(0);
-                      setCountdown(secondsPerSide);
-                      setStarted(true);
-                    }}
-                    className="rounded-xl border px-4 py-2 text-sm"
-                  >
-                    {t("actions.restart")}
-                  </button>
-                </div>
-
-                {/* Completion */}
-                <AnimatePresence>
-                  {done && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      className="w-full rounded-xl bg-emerald-50 p-3 text-center text-emerald-700"
-                      role="status"
-                      aria-live="polite"
-                    >
-                      {t("completion")}
-                    </motion.div>
+                  type="button"
+                  onClick={() => setBreathingType("boxBreathing")}
+                  className={cn(
+                    "rounded-2xl border p-4 text-left shadow-sm transition-all",
+                    breathingType === "boxBreathing"
+                      ? "border-primary bg-accent text-accent-foreground"
+                      : "border-border bg-card text-card-foreground",
                   )}
-                </AnimatePresence>
+                >
+                  <p className="text-sm font-semibold">4-4-4-4</p>
+                  <p className="text-muted-foreground mt-1 text-xs">
+                    {t("breathing.box.title")}
+                  </p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setBreathingType("relaxingBreath")}
+                  className={cn(
+                    "rounded-2xl border p-4 text-left shadow-sm transition-all",
+                    breathingType === "relaxingBreath"
+                      ? "border-primary bg-accent text-accent-foreground"
+                      : "border-border bg-card text-card-foreground",
+                  )}
+                >
+                  <p className="text-sm font-semibold">4-7-8</p>
+                  <p className="text-muted-foreground mt-1 text-xs">
+                    {t("breathing.relaxed.title")}
+                  </p>
+                </button>
+              </div>
+
+              <div className="mx-auto flex max-w-sm flex-col items-center">
+                <h4 className="text-foreground mt-2 text-2xl font-semibold tracking-tight">
+                  {breathingType === "boxBreathing"
+                    ? t("breathing.box.title")
+                    : t("breathing.relaxed.title")}
+                </h4>
+
+                <p className="text-muted-foreground mt-2 text-center text-sm leading-6">
+                  {breathingType === "boxBreathing"
+                    ? t("breathing.box.description")
+                    : t("breathing.relaxed.description")}
+                </p>
+
+                <div className="mt-4 flex w-full flex-col items-center gap-2">
+                  <motion.div
+                    key={`${phase}-${roundIndex}`}
+                    className="from-primary to-accent my-10 min-h-64 min-w-64 rounded-[28px] bg-linear-to-br"
+                    animate={started ? scaleAnim : { scale: 0.72 }}
+                    transition={started ? scaleTransition : { duration: 0 }}
+                    style={{
+                      boxShadow:
+                        "0 10px 30px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(255,255,255,0.08)",
+                    }}
+                  />
+
+                  <div className="flex flex-col items-center">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={phase}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        className="text-foreground text-2xl font-medium tracking-wide"
+                      >
+                        {phaseLabel}
+                      </motion.div>
+                    </AnimatePresence>
+
+                    <div className="text-muted-foreground mt-2 text-sm">
+                      {phaseHint}
+                    </div>
+
+                    <div className="text-foreground mt-4 text-4xl font-semibold tabular-nums">
+                      {started ? Math.max(0, countdown) : secondsForPhase}
+                    </div>
+
+                    <div className="text-muted-foreground mt-2 text-xs">
+                      {t("progress.round", {
+                        current: currentForText,
+                        total: totalForText,
+                      })}
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setStarted(true)}
+                    disabled={started || done}
+                    className="bg-primary text-primary-foreground mt-4 rounded-2xl px-4 py-2 text-sm font-medium transition hover:opacity-95 disabled:opacity-50"
+                  >
+                    {t("actions.start")}
+                  </button>
+
+                  <div className="mt-2 flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setOpen(false)}
+                      className="bg-secondary text-secondary-foreground rounded-2xl px-4 py-2 text-sm font-medium transition hover:opacity-95"
+                    >
+                      {t("actions.done")}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleRestart}
+                      className="border-border bg-card text-card-foreground hover:bg-muted rounded-2xl border px-4 py-2 text-sm font-medium transition"
+                    >
+                      {t("actions.restart")}
+                    </button>
+                  </div>
+
+                  <AnimatePresence>
+                    {done && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        className="border-primary/20 bg-accent text-accent-foreground mt-4 w-full rounded-2xl border p-3 text-center text-sm"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        {t("completion")}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
             </div>
           </Sheet.Content>
         </Sheet.Container>
-        <Sheet.Backdrop />
+
+        <Sheet.Backdrop className="bg-foreground/20! backdrop-blur-sm!" />
       </Sheet>
     </div>
   );

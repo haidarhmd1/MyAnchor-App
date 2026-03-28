@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { FormProvider, useForm } from "react-hook-form";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-
 import { useRouter } from "next/navigation";
 import {
   FORM_STEPS,
@@ -22,7 +21,6 @@ import { SingleChoice } from "./Steps/SingleChoice";
 import { createMomentLogEntry } from "@/lib/api";
 import { MultipleChoice } from "./Steps/MultipleChoice";
 import { FinishScreen } from "./Steps/FinishScreen";
-import { useMutation } from "@tanstack/react-query";
 
 export type StepId = Step["id"];
 
@@ -52,7 +50,7 @@ export default function MomentLogForm({
   const locale = useLocale();
   const reduce = useReducedMotion();
   const router = useRouter();
-  const isRtl = locale.includes("ar");
+  const isRtl = locale.startsWith("ar");
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const form = useForm<z.infer<typeof momentLogFormSchema>>({
@@ -77,29 +75,55 @@ export default function MomentLogForm({
     }
   };
 
-  const handleNext = async () => {
+  const handleNext = () => {
     if (currentStepIndex >= FORM_STEPS.length - 1) {
       form.handleSubmit(onSubmit)();
       return;
     }
+
     setCurrentStepIndex((prev) => prev + 1);
   };
 
   const handlePrevious = () => {
-    if (currentStepIndex > 0) {
-      const currentField = FORM_STEPS[currentStepIndex].id;
-      form.setValue(
-        currentField as any,
-        currentField === "symptoms" ? [] : undefined,
-        {
-          shouldDirty: true,
-          shouldTouch: true,
-          shouldValidate: true,
-        },
-      );
+    if (currentStepIndex <= 0) return;
 
-      setCurrentStepIndex(currentStepIndex - 1);
+    const currentField = FORM_STEPS[currentStepIndex].id;
+
+    if (currentField === "symptoms") {
+      form.setValue("symptoms", [], {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      });
     }
+
+    if (currentField === "location") {
+      form.setValue("location", undefined as any, {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      });
+    }
+
+    if (currentField === "reasoning") {
+      form.setValue("reasoning", undefined as any, {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      });
+      form.setValue("reasoningEn", undefined as any, {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      });
+      form.setValue("reasoningLocale", undefined as any, {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      });
+    }
+
+    setCurrentStepIndex((prev) => prev - 1);
   };
 
   useEffect(() => {
@@ -122,16 +146,20 @@ export default function MomentLogForm({
     location: locationOptions,
     symptoms: feelingOptions,
   };
+
   const option = optionsInStep[activeStep.id as StepId] ?? [];
+  const progress = ((currentStepIndex + 1) / FORM_STEPS.length) * 100;
 
   return (
-    <>
+    <section className="space-y-6">
       {currentStepIndex < FORM_STEPS.length - 1 && (
-        <div className="mb-8 flex justify-between">
+        <div className="flex items-center justify-between">
           <Button
-            variant="secondary"
+            type="button"
+            variant="outline"
             disabled={currentStepIndex === 0}
             onClick={handlePrevious}
+            className="rounded-2xl"
           >
             {isRtl ? (
               <ChevronRight className="h-4 w-4" />
@@ -140,49 +168,67 @@ export default function MomentLogForm({
             )}
             <span>{t("common.previous")}</span>
           </Button>
+
+          <span className="text-muted-foreground text-sm">
+            {Math.round(progress)}%
+          </span>
+        </div>
+      )}
+
+      {currentStepIndex < FORM_STEPS.length - 1 && (
+        <div className="bg-muted h-2 w-full rounded-full">
+          <div
+            className="bg-primary h-2 rounded-full transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          />
         </div>
       )}
 
       <div className="flex items-center justify-center py-0">
         <div className="mx-auto w-full max-w-2xl">
-          <FormProvider {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              {activeStep.titleKey && activeStep.subtitleKey && (
-                <div className="mb-6 text-center">
-                  <h5 className="text-2xl font-light">
-                    {t(activeStep.titleKey)}
-                  </h5>
-                  <h2 className="text-xs font-light">
-                    {t(activeStep.subtitleKey)}
-                  </h2>
-                </div>
-              )}
+          <div className="surface-soft rounded-4xl p-5 shadow-sm sm:p-6">
+            <FormProvider {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
+                {activeStep.titleKey && activeStep.subtitleKey && (
+                  <div className="space-y-2 text-center">
+                    <h1 className="text-foreground text-2xl font-semibold tracking-tight">
+                      {t(activeStep.titleKey)}
+                    </h1>
+                    <p className="text-muted-foreground text-sm leading-6">
+                      {t(activeStep.subtitleKey)}
+                    </p>
+                  </div>
+                )}
 
-              <div className="min-h-65">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeStep.id}
-                    variants={variants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    transition={{
-                      duration: reduce ? 0 : 0.28,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <ActiveStepComponent
-                      onNext={handleNext}
-                      onPrev={handlePrevious}
-                      option={option}
-                    />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </form>
-          </FormProvider>
+                <div className="min-h-64">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeStep.id}
+                      variants={variants}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                      transition={{
+                        duration: reduce ? 0 : 0.28,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <ActiveStepComponent
+                        onNext={handleNext}
+                        onPrev={handlePrevious}
+                        option={option}
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </form>
+            </FormProvider>
+          </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }

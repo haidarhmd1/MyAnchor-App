@@ -6,12 +6,13 @@ import { useLocale } from "next-intl";
 function Card({ className, ...props }: React.ComponentProps<"div">) {
   const locale = useLocale();
   const isRtl = locale.includes("ar");
+
   return (
     <div
       dir={isRtl ? "rtl" : "ltr"}
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex transform flex-col gap-6 rounded-4xl py-6 transition will-change-transform focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40 active:scale-[0.98]",
+        "bg-card text-card-foreground border-border focus-visible:ring-ring/70 flex flex-col gap-6 rounded-4xl border py-6 shadow-sm transition will-change-transform focus:outline-none focus-visible:ring-2 active:scale-[0.98]",
         className,
       )}
       {...props}
@@ -36,7 +37,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-title"
-      className={cn("leading-none font-semibold", className)}
+      className={cn("text-foreground leading-none font-semibold", className)}
       {...props}
     />
   );
@@ -46,7 +47,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-description"
-      className={cn("text-muted-foreground text-sm", className)}
+      className={cn("text-muted-foreground text-sm leading-6", className)}
       {...props}
     />
   );

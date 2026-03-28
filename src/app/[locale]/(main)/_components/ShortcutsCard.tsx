@@ -2,34 +2,14 @@
 
 import React from "react";
 import { Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-/**
- * iOS Shortcuts-style Card
- * ------------------------------------------------------
- * TailwindCSS + React component that mimics the look/feel
- * of the iOS Shortcuts app tiles.
- *
- * Props
- * - title: string (required)
- * - subtitle?: string
- * - gradient?: { from: string; to: string } (Tailwind color classes)
- * - icon?: React.ReactNode (defaults to <Sparkles />)
- * - size?: "sm" | "md" | "lg" (default: "md")
- * - onOpen?: () => void (tap/click on the card)
- * - onPlay?: () => void (primary action, bottom-left)
- * - onOptions?: () => void (ellipsis/menu, bottom-right)
- * - onShare?: () => void (optional secondary control)
- * - className?: string
- *
- * Accessibility
- * - Entire card is a button with role and keyboard handlers
- * - Focus ring adapted for keyboard users
- */
+export type ShortcutsCardTone = "primary" | "secondary" | "accent";
 
 export type ShortcutsCardProps = {
   title?: string;
   subtitle?: string;
-  gradient?: { from: string; to: string };
+  tone?: ShortcutsCardTone;
   icon?: React.ReactNode;
   children?: React.ReactNode;
   size?: "xs" | "sm" | "md" | "lg";
@@ -39,118 +19,118 @@ export type ShortcutsCardProps = {
 
 const sizeStyles = {
   xs: {
-    container: "min-h-18",
+    container: "min-h-[4.5rem]",
     title: "text-base",
     subtitle: "text-xs",
-    toolbarGap: "gap-1.5",
     iconWrap: "h-8 w-8",
     iconSize: 16,
-    btn: "h-4 w-4",
     rounded: "rounded-3xl",
+    padding: "p-3",
   },
   sm: {
     container: "min-h-28",
     title: "text-base",
     subtitle: "text-xs",
-    toolbarGap: "gap-1.5",
     iconWrap: "h-8 w-8",
     iconSize: 16,
-    btn: "h-8 w-8",
     rounded: "rounded-3xl",
+    padding: "p-3.5",
   },
   md: {
     container: "min-h-36",
     title: "text-lg",
     subtitle: "text-sm",
-    toolbarGap: "gap-2",
     iconWrap: "h-9 w-9",
     iconSize: 18,
-    btn: "h-9 w-9",
     rounded: "rounded-3xl",
+    padding: "p-4",
   },
   lg: {
     container: "min-h-44",
     title: "text-xl",
     subtitle: "text-base",
-    toolbarGap: "gap-2.5",
     iconWrap: "h-10 w-10",
     iconSize: 20,
-    btn: "h-10 w-10",
     rounded: "rounded-3xl",
+    padding: "p-4",
   },
 } as const;
+
+const toneStyles: Record<ShortcutsCardTone, string> = {
+  primary: "from-primary to-accent",
+  secondary: "from-secondary to-muted",
+  accent: "from-accent to-secondary",
+};
 
 export default function ShortcutsCard({
   title,
   subtitle,
   children,
-  gradient = { from: "from-indigo-500", to: "to-violet-500" },
+  tone = "primary",
   icon,
   size = "md",
   onOpen,
-  className = "",
+  className,
 }: ShortcutsCardProps) {
   const S = sizeStyles[size];
-
-  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onOpen?.();
-    }
-  };
+  const Comp = onOpen ? "button" : "div";
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      aria-label={`${title}${subtitle ? ", " + subtitle : ""}`}
-      onClick={() => onOpen?.()}
-      onKeyDown={handleKeyDown}
-      className={[
-        // Shape & surface
-        "group relative w-full overflow-hidden select-none",
-        "shadow-md",
-        "bg-linear-to-br",
+    <Comp
+      {...(onOpen
+        ? {
+            type: "button" as const,
+            onClick: onOpen,
+            "aria-label": `${title ?? ""}${subtitle ? `, ${subtitle}` : ""}`,
+          }
+        : {})}
+      className={cn(
+        "group text-foreground relative w-full overflow-hidden bg-linear-to-br shadow-sm select-none",
+        "transition will-change-transform active:scale-[0.98]",
+        "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
         S.rounded,
-        gradient.from,
-        gradient.to,
-        // Sizing
         S.container,
-        // Interactions
-        "transform transition will-change-transform",
-        "active:scale-[0.98]",
-        "focus:outline-none focus-visible:ring-4 focus-visible:ring-white/40",
+        S.padding,
+        toneStyles[tone],
         className,
-      ].join(" ")}
+      )}
     >
-      {/* Content */}
-      <div className="relative h-full p-3.5 sm:p-4">
-        {/* Top Row: Title + Glyph */}
-        <div className="flex items-start justify-between">
-          <div className="min-w-0 pr-2">
-            <h3
-              className={`truncate leading-snug font-semibold text-white drop-shadow ${S.title}`}
-            >
-              {title}
-            </h3>
-            {subtitle && (
-              <p className={`mt-0.5 text-white/80 drop-shadow ${S.subtitle}`}>
-                {subtitle}
-              </p>
+      <div className="relative flex h-full items-start justify-between gap-3">
+        <div className="min-w-0 pr-2 text-left">
+          <h3
+            className={cn(
+              "text-foreground truncate leading-snug font-semibold",
+              S.title,
             )}
-          </div>
-
-          <div
-            className={`shrink-0 ${S.iconWrap} flex items-center justify-center rounded-xl bg-white/35 shadow-inner backdrop-blur-[2px]`}
-            aria-hidden
           >
-            <div className="text-white drop-shadow">
-              {icon ?? <Sparkles size={S.iconSize} strokeWidth={2.25} />}
-            </div>
-          </div>
+            {title}
+          </h3>
+
+          {subtitle && (
+            <p
+              className={cn(
+                "text-muted-foreground mt-1 line-clamp-2",
+                S.subtitle,
+              )}
+            >
+              {subtitle}
+            </p>
+          )}
         </div>
-        {children && children}
+
+        <div
+          className={cn(
+            "bg-card/65 text-primary border-border/50 shrink-0 rounded-2xl border shadow-sm backdrop-blur-sm",
+            "flex items-center justify-center",
+            S.iconWrap,
+          )}
+          aria-hidden
+        >
+          {icon ?? <Sparkles size={S.iconSize} strokeWidth={2.1} />}
+        </div>
       </div>
-    </div>
+
+      {children ? <div className="relative mt-3">{children}</div> : null}
+    </Comp>
   );
 }

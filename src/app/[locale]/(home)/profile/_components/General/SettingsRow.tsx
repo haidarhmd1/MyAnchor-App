@@ -8,15 +8,16 @@ export const SettingsRow = ({
   setting: string;
 }) => {
   return (
-    <div className="flex h-18 min-h-18 items-center justify-between self-stretch py-2 [background:#F7FAFC]">
-      <div>
-        <p className="text-primary self-stretch text-base leading-6 font-medium [font-feature-settings:'dlig'_on]">
-          {config}
+    <div className="border-border flex min-h-[4.5rem] items-center justify-between border-b py-3 last:border-b-0">
+      <div className="min-w-0">
+        <p className="text-foreground text-base font-medium">{config}</p>
+        <p className="text-muted-foreground text-sm leading-6">
+          {defaultConfig}
         </p>
-        <p className="sub">{defaultConfig}</p>
       </div>
-      <div>
-        <p>{setting}</p>
+
+      <div className="ml-4 shrink-0">
+        <p className="text-primary text-sm font-medium">{setting}</p>
       </div>
     </div>
   );

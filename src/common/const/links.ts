@@ -2,12 +2,66 @@ import { StaticImageData } from "next/image";
 import {
   findYourWayOut,
   panicDisorderExplained,
-  Paragraph,
   rewireEffect,
-  Source,
   theCurveOfPanic,
   understandingAnxiety,
+  Source,
 } from "./content";
+
+export type EducationBlock =
+  | {
+      id: string;
+      type: "intro";
+      textKey: string;
+    }
+  | {
+      id: string;
+      type: "text";
+      titleKey?: string;
+      textKey: string;
+    }
+  | {
+      id: string;
+      type: "highlight";
+      titleKey: string;
+      textKey: string;
+    }
+  | {
+      id: string;
+      type: "list";
+      titleKey?: string;
+      items: {
+        id: string;
+        textKey: string;
+      }[];
+    }
+  | {
+      id: string;
+      type: "steps";
+      titleKey: string;
+      items: {
+        id: string;
+        textKey: string;
+      }[];
+    }
+  | {
+      id: string;
+      type: "affirmation";
+      textKey: string;
+    }
+  | {
+      id: string;
+      type: "warning";
+      titleKey: string;
+      textKey: string;
+    };
+
+export type EducationContent = {
+  titleKey: string;
+  subtitleKey: string;
+  content: EducationBlock[];
+  sources: Source[];
+};
 
 type EducationItem = {
   id: string;
@@ -16,12 +70,7 @@ type EducationItem = {
   link: string;
   imgSrc: string | StaticImageData;
   slug: string;
-  content: {
-    titleKey: string;
-    subtitleKey: string;
-    content: Paragraph[];
-    sources: Source[];
-  };
+  content: EducationContent;
 };
 
 export const education: EducationItem[] = [
@@ -72,14 +121,16 @@ export const education: EducationItem[] = [
   },
 ];
 
-type Category = {
+export type CategoryTone = "primary" | "secondary" | "accent";
+
+export type Category = {
   id: string;
   titleKey: string;
   descriptionKey: string;
+  imgSrc: string;
   link: string;
-  gradient: { from: string; to: string };
-  imgSrc: string | StaticImageData;
   slug: string;
+  tone: CategoryTone;
 };
 
 export const categories: Category[] = [
@@ -90,14 +141,7 @@ export const categories: Category[] = [
     imgSrc: "/illustration/psycho-education.png",
     link: "/education",
     slug: "education",
-    // gradient: {
-    //   from: "from-sky-100/60",
-    //   to: "to-sky-200/30",
-    // },
-    gradient: {
-      from: "from-white",
-      to: "to-white",
-    },
+    tone: "secondary",
   },
   {
     id: "78d869da-2632-4d0e-9329-9e161bb38696",
@@ -106,14 +150,7 @@ export const categories: Category[] = [
     imgSrc: "/illustration/exercises.png",
     link: "/exercises",
     slug: "exercises",
-    // gradient: {
-    //   from: "from-indigo-100/60",
-    //   to: "to-indigo-200/30",
-    // },
-    gradient: {
-      from: "from-white",
-      to: "to-white",
-    },
+    tone: "accent",
   },
   {
     id: "0b86e632-447a-487b-90b6-bb5dc312cde6",
@@ -122,13 +159,6 @@ export const categories: Category[] = [
     imgSrc: "/illustration/psycho-education.png",
     link: "/exposure",
     slug: "exposure",
-    // gradient: {
-    //   from: "from-violet-100/60",
-    //   to: "to-violet-200/30",
-    // },
-    gradient: {
-      from: "from-white",
-      to: "to-white",
-    },
+    tone: "primary",
   },
 ];

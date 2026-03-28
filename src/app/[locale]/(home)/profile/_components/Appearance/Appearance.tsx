@@ -7,22 +7,20 @@ export const Appearance = () => {
   const t = useTranslations("appearance");
 
   return (
-    <div>
-      <div className="flex flex-col items-start self-stretch pt-4 pb-2">
-        <h4>{t("title")}</h4>
+    <section className="space-y-4">
+      <div className="pt-4 pb-1">
+        <h4 className="text-foreground text-base font-semibold tracking-tight">
+          {t("title")}
+        </h4>
       </div>
 
-      <SettingsRow
-        config={t("theme")}
-        defaultConfig={t("system")}
-        setting={t("light")}
-      />
-
-      <SettingsRow
-        config={t("language")}
-        defaultConfig={t("english")}
-        setting={t("english")}
-      />
-    </div>
+      <div className="space-y-3">
+        <SettingsRow
+          config={t("theme")}
+          defaultConfig={t("system")}
+          setting={t("light")}
+        />
+      </div>
+    </section>
   );
 };

@@ -8,49 +8,62 @@ export default async function EducationPage() {
   const locale = await getLocale();
   const t = await getTranslations();
 
-  const isRtl = locale.includes("ar");
+  const isRtl = locale.startsWith("ar");
 
   return (
-    <>
+    <section className="bg-background text-foreground pb-8">
       <div
-        className="h-60 w-full rounded-b-4xl"
+        className="bg-muted h-60 w-full rounded-b-4xl"
         style={{
-          backgroundImage: `url("/illustration/psycho-education.png")`,
+          backgroundImage: 'url("/illustration/psycho-education.png")',
           backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       />
-      <div className="p-4">
-        <div>
-          <h5 className="font-light">{t("educationPage.hero.eyebrow")}</h5>
-          <h2>{t("educationPage.hero.title")}</h2>
-          <p className="mt-2">{t("educationPage.hero.subtitle")}</p>
+
+      <div className="space-y-6 px-4 py-4">
+        <div className="space-y-2">
+          <p className="text-muted-foreground text-sm font-medium tracking-[0.16em] uppercase">
+            {t("educationPage.hero.eyebrow")}
+          </p>
+
+          <h2 className="text-foreground text-2xl font-semibold tracking-tight">
+            {t("educationPage.hero.title")}
+          </h2>
+
+          <p className="text-muted-foreground max-w-2xl text-sm leading-6 sm:text-base">
+            {t("educationPage.hero.subtitle")}
+          </p>
         </div>
-        <div className="mt-6">
-          {education.map((e) => (
+
+        <div className="space-y-6">
+          {education.map((item) => (
             <CardContainer
-              key={e.id}
-              className="mb-4 animate-[fadeUp_.35s_ease-out_both] shadow-md will-change-transform motion-reduce:animate-none"
-              title={t(e.titleKey)}
-              description={t(e.descriptionKey)}
+              key={item.id}
+              className="animate-[fadeUp_.35s_ease-out_both] shadow-sm will-change-transform motion-reduce:animate-none"
+              title={t(item.titleKey)}
+              description={t(item.descriptionKey)}
               icon={
                 <div
                   className={cn(
-                    "h-16 w-16 rounded-md",
+                    "bg-card h-16 w-16 shrink-0 rounded-2xl",
                     isRtl ? "ml-2" : "mr-2",
                   )}
                   style={{
-                    backgroundImage: `url(${e.imgSrc})`,
+                    backgroundImage: `url(${item.imgSrc})`,
                     backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
                   }}
                 />
               }
-              link={e.link}
+              link={item.link}
             />
           ))}
         </div>
       </div>
-    </>
+    </section>
   );
 }
 

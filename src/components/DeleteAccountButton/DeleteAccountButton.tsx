@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,6 +28,7 @@ export const DeleteAccountButton = () => {
       setLoading(true);
 
       const res = await fetch("/api/account", { method: "DELETE" });
+
       if (!res.ok) {
         throw new Error("delete_failed");
       }
@@ -34,7 +36,7 @@ export const DeleteAccountButton = () => {
       await signOut({ callbackUrl: "/home" });
     } catch (err) {
       console.error(err);
-      alert(t("error"));
+      toast.error(t("error"));
       setLoading(false);
     }
   };
@@ -42,26 +44,35 @@ export const DeleteAccountButton = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button type="button" variant="destructive">
+        <Button
+          type="button"
+          variant="destructive"
+          className="w-full rounded-2xl"
+        >
           {t("button")}
         </Button>
       </AlertDialogTrigger>
 
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{t("title")}</AlertDialogTitle>
-          <AlertDialogDescription>{t("description")}</AlertDialogDescription>
+      <AlertDialogContent className="bg-card text-card-foreground border-border rounded-3xl border shadow-lg">
+        <AlertDialogHeader className="space-y-2">
+          <AlertDialogTitle className="text-foreground text-lg font-semibold tracking-tight">
+            {t("title")}
+          </AlertDialogTitle>
+
+          <AlertDialogDescription className="text-muted-foreground text-sm leading-6">
+            {t("description")}
+          </AlertDialogDescription>
         </AlertDialogHeader>
 
-        <AlertDialogFooter>
-          <AlertDialogCancel disabled={loading}>
+        <AlertDialogFooter className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <AlertDialogCancel disabled={loading} className="w-full rounded-2xl">
             {t("cancel")}
           </AlertDialogCancel>
 
           <AlertDialogAction
             onClick={onDelete}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 text-white"
             disabled={loading}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 w-full rounded-2xl disabled:opacity-60"
           >
             {loading ? t("loading") : t("confirm")}
           </AlertDialogAction>

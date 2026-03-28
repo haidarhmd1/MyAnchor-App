@@ -13,7 +13,7 @@ const adventPro = Advent_Pro({
   subsets: ["latin"],
 });
 
-export const viewPort: Viewport = {
+export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
@@ -27,7 +27,6 @@ export const metadata: Metadata = {
   description:
     "MyAnchor helps you face fears with gentle, trackable exposures.",
   generator: "Next.js",
-  // Next serves src/app/manifest.ts as /manifest.webmanifest
   manifest: "/manifest.webmanifest",
   keywords: [
     "mental health",
@@ -58,31 +57,41 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
-  const isRtl = locale.includes("ar");
+  const isRtl = locale.startsWith("ar");
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
   return (
-    // <html lang={locale} dir={isRtl ? "rtl" : "ltr"}>
     <html
       lang={locale}
-      className="m-auto max-w-115 overscroll-contain scroll-smooth bg-white"
       dir={isRtl ? "rtl" : "ltr"}
+      className="dark overscroll-contain scroll-smooth"
+      suppressHydrationWarning
     >
       <body
-        className={`${adventPro.variable} bg-background font-inter text-foreground typography background-color: var(--color-background) min-h-dvh antialiased`}
+        className={`${adventPro.variable} bg-background text-foreground min-h-dvh antialiased`}
       >
         <NextIntlClientProvider>
           <Providers>{children}</Providers>
         </NextIntlClientProvider>
-        <Toaster />
+
+        <Toaster
+          toastOptions={{
+            classNames: {
+              toast:
+                "bg-card text-card-foreground border border-border shadow-lg",
+              description: "text-muted-foreground",
+              actionButton: "bg-primary text-primary-foreground",
+              cancelButton: "bg-secondary text-secondary-foreground",
+            },
+          }}
+        />
       </body>
     </html>
   );

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import z from "zod";
-
 import { Spinner } from "@/components/Spinner/Spinner";
 import { useTranslations } from "next-intl";
 import { OptionItem } from "../helper";
@@ -13,7 +12,6 @@ import { momentLogFormSchema } from "@/lib/zod.types";
 
 type Props = {
   onNext(): void;
-  onPrev?: () => void;
   fieldName: keyof z.infer<typeof momentLogFormSchema>;
   options: OptionItem[];
 };
@@ -35,6 +33,7 @@ export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
     const next = isChecked(id)
       ? selected.filter((x) => x !== id)
       : [...selected, id];
+
     field.onChange(next);
   };
 
@@ -43,80 +42,82 @@ export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
       <div className="space-y-3" role="group">
         {options.map((option) => {
           const checked = isChecked(option.id);
+
           return (
-            <Card
+            <button
               key={option.id}
+              type="button"
               role="checkbox"
               aria-checked={checked}
               onClick={() => toggleOption(option.id)}
               className={cn(
+                "block w-full rounded-4xl text-left",
+                "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
                 "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
-                "cursor-pointer p-2 transition-all duration-200 hover:shadow-md",
-                checked
-                  ? "border-blue-500 bg-blue-50 shadow-sm"
-                  : "hover:border-muted-foreground/50",
               )}
             >
-              <CardContent className="p-2">
-                <div className="flex items-start space-x-3">
-                  {/* Checkbox visual */}
-                  <div
-                    className={cn(
-                      "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors",
-                      checked
-                        ? "border-blue-500 bg-blue-500"
-                        : "border-muted-foreground/30 bg-transparent",
-                    )}
-                  >
-                    {/* checkmark */}
-                    {checked && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        className="h-3 w-3 text-white"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M20 6L9 17l-5-5"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                  </div>
-
-                  <div className="flex-1">
-                    <h3
+              <Card
+                className={cn(
+                  "border-border p-2 shadow-sm transition-all duration-200",
+                  "hover:-translate-y-px hover:shadow-md",
+                  checked
+                    ? "border-primary bg-accent"
+                    : "bg-card hover:bg-muted/40",
+                )}
+              >
+                <CardContent className="p-2">
+                  <div className="flex items-start gap-3">
+                    <div
                       className={cn(
-                        "text-base",
-                        checked ? "text-blue-700" : "text-foreground",
+                        "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors",
+                        checked
+                          ? "border-primary bg-primary"
+                          : "border-border bg-transparent",
                       )}
                     >
-                      {t(`taxonomy.SYMPTOM.${option.id}.label`)}
-                    </h3>
-                    {option.descriptionSlug && (
-                      <p
-                        className={cn(
-                          "mt-1 text-sm",
-                          checked ? "text-blue-600" : "text-muted-foreground",
-                        )}
-                      >
-                        {t(`taxonomy.SYMPTOM.${option.id}.description`)}
-                      </p>
-                    )}
+                      {checked && (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="text-primary-foreground h-3 w-3"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M20 6L9 17l-5-5"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-foreground text-base font-medium">
+                        {t(`taxonomy.SYMPTOM.${option.id}.label`)}
+                      </h3>
+
+                      {option.descriptionSlug && (
+                        <p className="text-muted-foreground mt-1 text-sm leading-6">
+                          {t(`taxonomy.SYMPTOM.${option.id}.description`)}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </button>
           );
         })}
       </div>
 
       <div className="pt-2 text-right">
         {formState.isSubmitting ? (
-          <Button disabled className="bg-blue-500 hover:bg-blue-600">
+          <Button
+            disabled
+            className="bg-primary text-primary-foreground rounded-2xl hover:opacity-95"
+          >
             <Spinner />
             <span>{t("form.submitting")}</span>
           </Button>
@@ -125,7 +126,7 @@ export const MultipleChoice = ({ onNext, options, fieldName }: Props) => {
             type="button"
             onClick={onNext}
             disabled={selected.length === 0}
-            className="bg-blue-500 hover:bg-blue-600"
+            className="bg-primary text-primary-foreground rounded-2xl hover:opacity-95"
           >
             {t("form.next")}
           </Button>

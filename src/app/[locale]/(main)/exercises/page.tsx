@@ -10,43 +10,56 @@ export default async function Page() {
   const t = await getTranslations();
 
   return (
-    <>
+    <article className="bg-background text-foreground pb-8">
       <div
-        className="h-60 w-full rounded-b-4xl"
+        className="bg-muted h-60 w-full rounded-b-4xl"
         style={{
-          backgroundImage: `url(/illustration/exercises.png)`,
+          backgroundImage: "url(/illustration/exercises.png)",
           backgroundPosition: "center",
-          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       />
-      <div className="p-4">
-        <h5 className="font-light">
-          {t(exercisesInteroceptiveContent.titleKey)}
-        </h5>
-        <h2>{t(exercisesInteroceptiveContent.subtitleKey)}</h2>
+
+      <div className="space-y-6 px-4 py-4">
+        <header className="space-y-2">
+          <p className="text-muted-foreground text-sm font-medium tracking-[0.16em] uppercase">
+            {t(exercisesInteroceptiveContent.titleKey)}
+          </p>
+
+          <h1 className="text-foreground text-2xl font-semibold tracking-tight">
+            {t(exercisesInteroceptiveContent.subtitleKey)}
+          </h1>
+        </header>
 
         <Alert
           variant="default"
-          className="border-muted my-4 animate-[fadeUp_.35s_ease-out_both] rounded-4xl bg-amber-50 shadow-none will-change-transform motion-reduce:animate-none"
+          className="border-border bg-accent text-accent-foreground animate-[fadeUp_.35s_ease-out_both] rounded-[2rem] shadow-sm will-change-transform motion-reduce:animate-none"
         >
-          <MessageCircleWarningIcon />
-          <AlertTitle>{t("common.tip")}</AlertTitle>
-          <AlertDescription>{t("exercisesPage.reminder")}</AlertDescription>
+          <MessageCircleWarningIcon className="h-4 w-4" />
+          <AlertTitle className="text-sm font-semibold">
+            {t("common.tip")}
+          </AlertTitle>
+          <AlertDescription className="text-muted-foreground text-sm leading-6">
+            {t("exercisesPage.reminder")}
+          </AlertDescription>
         </Alert>
-        <div className="mb-4">
+
+        {/* <section className="space-y-4">
           {exercisesInteroceptiveContent.content.map((content) => (
             <p
               key={content.id}
-              className="mt-4 animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none"
+              className="text-muted-foreground animate-[fadeUp_.35s_ease-out_both] text-base leading-7 will-change-transform motion-reduce:animate-none"
             >
-              {t(content.textKey)}
+              {t(content.)}
             </p>
           ))}
-        </div>
+        </section> */}
+
         <Information />
         <Exercises />
       </div>
-    </>
+    </article>
   );
 }
 

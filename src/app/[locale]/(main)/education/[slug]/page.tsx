@@ -1,7 +1,6 @@
 import { education } from "@/common/const/links";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-
 import { notFound } from "next/navigation";
 
 type Props = {
@@ -11,56 +10,171 @@ type Props = {
 export default async function Page({ params }: Props) {
   const t = await getTranslations();
   const { slug } = await params;
-  const matchSlugEducation = education.find((e) => e.slug === slug);
-  if (!matchSlugEducation) return notFound();
+
+  const entry = education.find((e) => e.slug === slug);
+
+  if (!entry) {
+    notFound();
+  }
 
   return (
-    <>
+    <article className="bg-background text-foreground pb-8">
       <div
-        className="h-60 w-full rounded-b-4xl"
+        className="bg-muted h-60 w-full rounded-b-4xl"
         style={{
-          backgroundImage: `url(${matchSlugEducation.imgSrc})`,
+          backgroundImage: `url(${entry.imgSrc})`,
           backgroundPosition: "center",
-          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       />
-      <div className="p-4">
-        <h5 className="font-light">{t(matchSlugEducation.content.titleKey)}</h5>
-        <h2 className="text-2xl">
-          {t(matchSlugEducation.content.subtitleKey)}
-        </h2>
-        <div className="pt-4">
-          {matchSlugEducation.content.content.map((content) => (
-            <p key={content.id} className="mt-4 text-lg">
-              {t(content.textKey)}
-            </p>
-          ))}
-        </div>
-        {/* {matchSlugEducation.content.sources.length > 0 && (
-          <div className="mt-8">
-            <h5>Sources:</h5>
-            {matchSlugEducation.content.sources.map((sources) => (
-              <Link
-                key={sources.id}
-                href={sources.url}
-                className="mt-2 block rounded-4xl border border-gray-300 p-4 text-xs font-light break-words text-blue-500"
-              >
-                {sources.url}
-              </Link>
-            ))}
-          </div>
-        )} */}
+
+      <div className="mx-auto max-w-3xl space-y-6 px-4 py-4">
+        <header className="space-y-2">
+          <p className="text-muted-foreground text-sm font-medium tracking-[0.16em] uppercase">
+            {t(entry.content.titleKey)}
+          </p>
+
+          <h1 className="text-foreground text-2xl font-semibold tracking-tight">
+            {t(entry.content.subtitleKey)}
+          </h1>
+        </header>
+
+        <section className="space-y-4">
+          {entry.content.content.map((block) => {
+            switch (block.type) {
+              case "intro":
+                return (
+                  <div
+                    key={block.id}
+                    className="bg-accent border-border rounded-3xl border p-4 shadow-sm"
+                  >
+                    <p className="text-muted-foreground text-sm leading-6">
+                      {t(block.textKey)}
+                    </p>
+                  </div>
+                );
+
+              case "text":
+                return (
+                  <section key={block.id} className="space-y-2">
+                    {block.titleKey ? (
+                      <h2 className="text-foreground text-base font-semibold">
+                        {t(block.titleKey)}
+                      </h2>
+                    ) : null}
+                    <p className="text-muted-foreground text-base leading-7">
+                      {t(block.textKey)}
+                    </p>
+                  </section>
+                );
+
+              case "highlight":
+                return (
+                  <section
+                    key={block.id}
+                    className="bg-card border-border rounded-3xl border p-4 shadow-sm"
+                  >
+                    <h2 className="text-foreground text-base font-semibold">
+                      {t(block.titleKey)}
+                    </h2>
+                    <p className="text-muted-foreground mt-2 text-sm leading-6">
+                      {t(block.textKey)}
+                    </p>
+                  </section>
+                );
+
+              case "list":
+                return (
+                  <section key={block.id} className="space-y-2">
+                    {block.titleKey ? (
+                      <h2 className="text-foreground text-base font-semibold">
+                        {t(block.titleKey)}
+                      </h2>
+                    ) : null}
+                    <ul className="space-y-2 ps-5">
+                      {block.items.map((item) => (
+                        <li
+                          key={item.id}
+                          className="text-muted-foreground list-disc text-sm leading-6"
+                        >
+                          {t(item.textKey)}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                );
+
+              case "steps":
+                return (
+                  <section
+                    key={block.id}
+                    className="bg-secondary border-border rounded-3xl border p-4 shadow-sm"
+                  >
+                    <h2 className="text-foreground text-base font-semibold">
+                      {t(block.titleKey)}
+                    </h2>
+                    <ol className="mt-3 space-y-2 ps-5">
+                      {block.items.map((item) => (
+                        <li
+                          key={item.id}
+                          className="text-muted-foreground list-decimal text-sm leading-6"
+                        >
+                          {t(item.textKey)}
+                        </li>
+                      ))}
+                    </ol>
+                  </section>
+                );
+
+              case "affirmation":
+                return (
+                  <div
+                    key={block.id}
+                    className="border-primary/20 bg-accent rounded-3xl border p-4 shadow-sm"
+                  >
+                    <p className="text-foreground text-sm leading-6">
+                      {t(block.textKey)}
+                    </p>
+                  </div>
+                );
+
+              case "warning":
+                return (
+                  <section
+                    key={block.id}
+                    className="border-destructive/25 bg-destructive/10 rounded-3xl border p-4 shadow-sm"
+                  >
+                    <h2 className="text-foreground text-base font-semibold">
+                      {t(block.titleKey)}
+                    </h2>
+                    <p className="text-muted-foreground mt-2 text-sm leading-6">
+                      {t(block.textKey)}
+                    </p>
+                  </section>
+                );
+
+              default:
+                return null;
+            }
+          })}
+        </section>
       </div>
-    </>
+    </article>
   );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations();
   const { slug } = await params;
-  const matchSlugEducation = education.find((e) => e.slug === slug);
-  if (!matchSlugEducation) return notFound();
+
+  const entry = education.find((e) => e.slug === slug);
+
+  if (!entry) {
+    notFound();
+  }
 
   return {
-    title: `⚓ MyAnchor - Education - ${matchSlugEducation.titleKey}`,
+    title: `⚓ MyAnchor - Education - ${t(entry.titleKey)}`,
   };
 }

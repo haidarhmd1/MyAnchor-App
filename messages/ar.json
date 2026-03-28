@@ -1,4 +1,12 @@
 {
+  "appearance": {
+    "title": "المظهر",
+    "theme": "السمة",
+    "system": "النظام",
+    "light": "فاتح",
+    "language": "اللغة",
+    "english": "الإنجليزية"
+  },
   "aiResponseMomentLog": {
     "affirmation": "تأكيد",
     "symptoms": "لماذا قد تحدث هذه المشاعر",

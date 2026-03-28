@@ -1,4 +1,12 @@
 {
+  "appearance": {
+    "title": "الشكل",
+    "theme": "الثيم",
+    "system": "حسب النظام",
+    "light": "فاتح",
+    "language": "اللغة",
+    "english": "إنجليزي"
+  },
   "aiResponseMomentLog": {
     "affirmation": "تطمن",
     "symptoms": "ليش ممكن يصير معك هالشعور",

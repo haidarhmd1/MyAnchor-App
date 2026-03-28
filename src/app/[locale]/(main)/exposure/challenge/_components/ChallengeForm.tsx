@@ -56,7 +56,7 @@ export default function ChallengeForm({
   const router = useRouter();
   const t = useTranslations();
   const locale = useLocale();
-  const isRtl = locale.includes("ar");
+  const isRtl = locale.startsWith("ar");
 
   const localizedChallenges = useMemo(() => {
     return mapChallengeOptionsToFormFields(challengesOptions);
@@ -68,7 +68,7 @@ export default function ChallengeForm({
       label: `taxonomy.COMPANY.${socialContextOption.slug}.label`,
       description: `taxonomy.COMPANY.${socialContextOption.slug}.description`,
     }));
-  }, [t, socialContextOptions]);
+  }, []);
 
   const formStep = useMemo(() => {
     return [
@@ -108,8 +108,9 @@ export default function ChallengeForm({
 
   const visibleOptions = useMemo(() => {
     if (!isChallengeOptionStep) return currentStep.options;
+
     return (currentStep.options as unknown as ChallengeOption[]).filter(
-      (o) => o.engagement === engagementTab,
+      (option) => option.engagement === engagementTab,
     );
   }, [currentStep.options, isChallengeOptionStep, engagementTab]);
 
@@ -122,20 +123,21 @@ export default function ChallengeForm({
   };
 
   const handleNext = () => {
-    if (currentStepIndex < formStep.length - 1)
+    if (currentStepIndex < formStep.length - 1) {
       setCurrentStepIndex((s) => s + 1);
+    }
   };
 
   const handlePrevious = () => {
     if (currentStepIndex <= 0) return;
 
-    // if previous clear the current selection in the form
     const currentField = formStep[currentStepIndex].fieldName;
-    form.setValue(currentField, "", {
+    form.setValue(currentField, "" as any, {
       shouldDirty: true,
       shouldTouch: true,
       shouldValidate: true,
     });
+
     setCurrentStepIndex((s) => s - 1);
   };
 
@@ -147,6 +149,7 @@ export default function ChallengeForm({
           challengeOptionId: data.challengeOptionId,
         },
       });
+
       router.refresh();
       router.replace("/exposure");
     } catch (e) {
@@ -155,67 +158,86 @@ export default function ChallengeForm({
     }
   };
 
+  const progress = ((currentStepIndex + 1) / formStep.length) * 100;
+
   return (
     <div className="flex items-center justify-center py-0">
       <div className="mx-auto w-full max-w-2xl">
         <div className="space-y-6">
-          <div>
-            <h5 className="font-light">{t(currentStep.labelKey)}</h5>
+          <div className="space-y-2">
+            <p className="text-muted-foreground text-sm font-medium tracking-[0.16em] uppercase">
+              {t("common.step")} {currentStepIndex + 1} {t("common.of")}{" "}
+              {formStep.length}
+            </p>
+
+            <h2 className="text-foreground text-xl font-semibold tracking-tight">
+              {t(currentStep.labelKey)}
+            </h2>
           </div>
 
-          <div className="mb-8">
-            <div className="mb-2 flex items-center justify-between">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
               <span className="text-muted-foreground text-sm">
                 {t("common.step")} {currentStepIndex + 1} {t("common.of")}{" "}
                 {formStep.length}
               </span>
+
               <span className="text-muted-foreground text-sm">
-                {Math.round(((currentStepIndex + 1) / formStep.length) * 100)}%
+                {Math.round(progress)}%
               </span>
             </div>
+
             <div className="bg-muted h-2 w-full rounded-full">
               <div
-                className="h-2 rounded-full bg-blue-500 transition-all duration-300"
-                style={{
-                  width: `${((currentStepIndex + 1) / formStep.length) * 100}%`,
-                }}
+                className="bg-primary h-2 rounded-full transition-all duration-300"
+                style={{ width: `${progress}%` }}
               />
             </div>
           </div>
 
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {isChallengeOptionStep && (
-              <>
-                <div className="mb-4">
-                  <Tabs
-                    value={engagementTab}
-                    onValueChange={(value) =>
-                      setEngagementTab(value as Engagement)
-                    }
-                    className="w-full"
-                  >
-                    <TabsList className="grid w-full grid-cols-3">
-                      <TabsTrigger value={Engagement.STAY}>
-                        {t(`common.engagement.${Engagement.STAY}.label`)}
-                      </TabsTrigger>
-                      <TabsTrigger value={Engagement.PARTICIPATE}>
-                        {t(`common.engagement.${Engagement.PARTICIPATE}.label`)}
-                      </TabsTrigger>
-                      <TabsTrigger value={Engagement.STRETCH}>
-                        {t(`common.engagement.${Engagement.STRETCH}.label`)}
-                      </TabsTrigger>
-                    </TabsList>
-                  </Tabs>
-                  <div className="mt-2 rounded-xl border-0 bg-white p-4 shadow-md">
-                    <p className="text-md font-medium">
-                      {t(`common.engagement.${engagementTab}.title`)}
-                    </p>
-                    <p className="text-sm font-light">
-                      {t(`common.engagement.${engagementTab}.description`)}
-                    </p>
-                  </div>
+              <div className="space-y-3">
+                <Tabs
+                  value={engagementTab}
+                  onValueChange={(value) =>
+                    setEngagementTab(value as Engagement)
+                  }
+                  className="w-full"
+                >
+                  <TabsList className="bg-muted grid h-auto w-full grid-cols-3 rounded-2xl p-1">
+                    <TabsTrigger
+                      value={Engagement.STAY}
+                      className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-xl px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
+                    >
+                      {t(`common.engagement.${Engagement.STAY}.label`)}
+                    </TabsTrigger>
+
+                    <TabsTrigger
+                      value={Engagement.PARTICIPATE}
+                      className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-xl px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
+                    >
+                      {t(`common.engagement.${Engagement.PARTICIPATE}.label`)}
+                    </TabsTrigger>
+
+                    <TabsTrigger
+                      value={Engagement.STRETCH}
+                      className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-xl px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
+                    >
+                      {t(`common.engagement.${Engagement.STRETCH}.label`)}
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
+
+                <div className="surface-soft rounded-3xl p-4 shadow-sm">
+                  <p className="text-foreground text-base font-semibold">
+                    {t(`common.engagement.${engagementTab}.title`)}
+                  </p>
+                  <p className="text-muted-foreground mt-1 text-sm leading-6">
+                    {t(`common.engagement.${engagementTab}.description`)}
+                  </p>
                 </div>
-              </>
+              </div>
             )}
 
             <div
@@ -227,75 +249,84 @@ export default function ChallengeForm({
                 const isSelected = selectedValue === option.id;
 
                 return (
-                  <Card
+                  <button
                     key={option.id}
+                    type="button"
                     role="radio"
                     aria-checked={isSelected}
-                    className={cn(
-                      "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
-                      "cursor-pointer p-2 transition-all duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40",
-                      isSelected
-                        ? "border-blue-500 bg-blue-50 shadow-sm"
-                        : "hover:border-muted-foreground/50",
-                    )}
                     onClick={() => handleSelect(option.id)}
+                    className={cn(
+                      "block w-full rounded-4xl text-left",
+                      "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
+                      "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
+                    )}
                   >
-                    <CardContent className="p-2">
-                      <div className="flex items-start space-x-3">
-                        <div
-                          className={cn(
-                            "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
-                            isSelected
-                              ? "border-blue-500"
-                              : "border-muted-foreground/30",
-                          )}
-                        >
+                    <Card
+                      className={cn(
+                        "border-border p-2 shadow-sm transition-all duration-200",
+                        "hover:-translate-y-px hover:shadow-md",
+                        isSelected
+                          ? "border-primary bg-accent"
+                          : "bg-card hover:bg-muted/40",
+                      )}
+                    >
+                      <CardContent className="p-2">
+                        <div className="flex items-start gap-3">
                           <div
                             className={cn(
-                              "h-2.5 w-2.5 rounded-full transition-colors",
-                              isSelected ? "bg-blue-500" : "bg-transparent",
-                            )}
-                          />
-                        </div>
-
-                        <div className="flex-1">
-                          <h3
-                            className={cn(
-                              "text-base",
-                              isSelected ? "text-blue-700" : "text-foreground",
+                              "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+                              isSelected ? "border-primary" : "border-border",
                             )}
                           >
-                            {t(option.label)}
-                          </h3>
-
-                          {option.description ? (
-                            <p
+                            <div
                               className={cn(
-                                "mt-1 text-sm",
+                                "h-2.5 w-2.5 rounded-full transition-colors",
+                                isSelected ? "bg-primary" : "bg-transparent",
+                              )}
+                            />
+                          </div>
+
+                          <div className="min-w-0 flex-1">
+                            <h3
+                              className={cn(
+                                "text-base font-medium",
                                 isSelected
-                                  ? "text-blue-600"
-                                  : "text-muted-foreground",
+                                  ? "text-foreground"
+                                  : "text-foreground",
                               )}
                             >
-                              {t(option.description)}
-                            </p>
-                          ) : null}
+                              {t(option.label)}
+                            </h3>
+
+                            {option.description ? (
+                              <p
+                                className={cn(
+                                  "mt-1 text-sm leading-6",
+                                  isSelected
+                                    ? "text-muted-foreground"
+                                    : "text-muted-foreground",
+                                )}
+                              >
+                                {t(option.description)}
+                              </p>
+                            ) : null}
+                          </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </button>
                 );
               })}
             </div>
 
-            <div className="flex justify-between pt-6">
+            <div className="flex justify-between gap-3 pt-2">
               <Button
                 type="button"
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 onClick={handlePrevious}
                 disabled={currentStepIndex === 0 || form.formState.isSubmitting}
-                className="flex items-center space-x-2 bg-transparent"
+                className="flex items-center gap-2 rounded-2xl"
               >
                 {isRtl ? (
                   <ChevronRight className="h-4 w-4" />
@@ -310,7 +341,7 @@ export default function ChallengeForm({
                   <Button
                     disabled
                     size="lg"
-                    className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
+                    className="bg-primary text-primary-foreground flex items-center gap-2 rounded-2xl hover:opacity-95 disabled:opacity-50"
                   >
                     <Spinner />
                     <span>{t("common.submitting")}</span>
@@ -320,10 +351,10 @@ export default function ChallengeForm({
                     type="submit"
                     size="lg"
                     disabled={!canGoNext}
-                    className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
+                    className="bg-primary text-primary-foreground flex items-center gap-2 rounded-2xl hover:opacity-95 disabled:opacity-50"
                   >
                     <span>{t("common.submit")}</span>
-                    <Check className="ml-1 h-4 w-4" />
+                    <Check className="h-4 w-4" />
                   </Button>
                 )
               ) : (
@@ -332,7 +363,7 @@ export default function ChallengeForm({
                   size="lg"
                   onClick={handleNext}
                   disabled={!canGoNext || form.formState.isSubmitting}
-                  className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
+                  className="bg-primary text-primary-foreground flex items-center gap-2 rounded-2xl hover:opacity-95 disabled:opacity-50"
                 >
                   <span>{t("common.next")}</span>
                   {isRtl ? (

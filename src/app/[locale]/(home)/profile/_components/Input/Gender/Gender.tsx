@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { SettingsRowInput } from "../../General/SettingsRowInput";
-
 import { useRouter } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
 import {
@@ -21,7 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { updateUserProfile } from "@/lib/api";
@@ -44,28 +42,24 @@ const genderKey = (gender: Gender | string) => {
 
 type FormValues = { gender: Gender | string };
 
-export const GenderPicker = ({
-  label,
-  gender,
-}: {
-  label?: string;
-  gender: string;
-}) => {
+export const GenderPicker = ({ gender }: { gender: string }) => {
   const t = useTranslations("form");
   const router = useRouter();
 
-  const [open, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
-  // Remount form when dialog opens OR when server value changes -> defaultValues re-applied
   const formKey = useMemo(() => {
     return `${open ? "open" : "closed"}-${gender ?? ""}`;
   }, [open, gender]);
 
   return (
-    <Dialog open={open} onOpenChange={setIsOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button type="button" className="w-full text-left">
+        <button
+          type="button"
+          className="focus-visible:ring-ring/70 w-full rounded-2xl text-left transition focus:outline-none focus-visible:ring-2"
+        >
           <SettingsRowInput
             label={t("gender.label")}
             value={t(genderKey(gender))}
@@ -73,18 +67,19 @@ export const GenderPicker = ({
         </button>
       </DialogTrigger>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{t("gender.dialogTitle")}</DialogTitle>
+      <DialogContent className="bg-card text-card-foreground border-border rounded-3xl border shadow-lg">
+        <DialogHeader className="space-y-1">
+          <DialogTitle className="text-foreground text-lg font-semibold tracking-tight">
+            {t("gender.dialogTitle")}
+          </DialogTitle>
         </DialogHeader>
 
         <GenderFormInner
           key={formKey}
           initialGender={gender}
-          t={t}
           isPending={isPending}
           onSaved={() => {
-            setIsOpen(false);
+            setOpen(false);
             startTransition(() => router.refresh());
           }}
         />
@@ -95,23 +90,25 @@ export const GenderPicker = ({
 
 function GenderFormInner({
   initialGender,
-  t,
   isPending,
   onSaved,
 }: {
   initialGender: string;
-  t: ReturnType<typeof useTranslations>;
   isPending: boolean;
   onSaved: () => void;
 }) {
+  const t = useTranslations("form");
+
   const form = useForm<FormValues>({
     defaultValues: { gender: initialGender },
   });
 
   const handleSave = async (data: FormValues) => {
     try {
-      // Optional guard: if you allow "not set", adjust this logic as needed
-      if (!data.gender) return;
+      if (!data.gender) {
+        toast.error(t("gender.toast.error"));
+        return;
+      }
 
       await updateUserProfile({
         data: {
@@ -137,12 +134,12 @@ function GenderFormInner({
             <FormItem>
               <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="bg-background text-foreground border-border h-12 w-full rounded-2xl">
                     <SelectValue placeholder={t("gender.placeholder")} />
                   </SelectTrigger>
                 </FormControl>
 
-                <SelectContent>
+                <SelectContent className="bg-popover text-popover-foreground border-border rounded-2xl border shadow-lg">
                   <SelectItem value={Gender.MALE}>
                     {t("gender.options.male")}
                   </SelectItem>
@@ -158,15 +155,16 @@ function GenderFormInner({
           )}
         />
 
-        <DialogFooter className="grid grid-cols-2">
+        <DialogFooter className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           <DialogClose asChild>
-            <Button variant="outline" type="button">
+            <Button variant="outline" type="button" className="w-full">
               {t("actions.cancel")}
             </Button>
           </DialogClose>
 
           <Button
             type="submit"
+            className="bg-primary text-primary-foreground w-full hover:opacity-95"
             disabled={form.formState.isSubmitting || isPending}
           >
             {form.formState.isSubmitting || isPending

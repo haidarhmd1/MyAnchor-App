@@ -5,12 +5,10 @@ type SettingsRowInputProps = {
 
 export const SettingsRowInput = ({ label, value }: SettingsRowInputProps) => {
   return (
-    <div className="my-2 flex flex-col rounded-3xl border p-4 py-2 shadow-xs">
-      <span className="text-primary text-start text-base leading-6 font-medium">
-        {label}
-      </span>
+    <div className="bg-card hover:bg-muted/60 border-border flex flex-col rounded-3xl border px-4 py-3 text-left shadow-sm transition">
+      <span className="text-foreground text-base font-medium">{label}</span>
       <span
-        className="sub text-start text-xs"
+        className="text-muted-foreground text-sm leading-6"
         aria-label={`${label}: ${value ?? ""}`}
       >
         {value}

@@ -7,11 +7,15 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="background-color: var(--color-background) m-auto max-w-115">
+    <div className="bg-background text-foreground mx-auto min-h-screen max-w-287.5">
       <SignInHeader />
-      <div className="flex min-h-screen grow flex-col bg-[#f6d298]">
-        {children}
-      </div>
+
+      <main className="min-h-[calc(100vh-4rem)] pb-24">
+        <div className="bg-card mx-3 mt-3 flex min-h-full flex-col rounded-4xl shadow-sm">
+          {children}
+        </div>
+      </main>
+
       <BottomNav />
     </div>
   );

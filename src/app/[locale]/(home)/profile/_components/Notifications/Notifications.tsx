@@ -5,20 +5,26 @@ export const Notifications = () => {
   const t = useTranslations("notifications");
 
   return (
-    <div>
-      <div className="flex flex-col items-start self-stretch pt-4 pb-2">
-        <h4>{t("title")}</h4>
+    <section className="space-y-4">
+      <div className="pt-4 pb-1">
+        <h4 className="text-foreground text-base font-semibold tracking-tight">
+          {t("title")}
+        </h4>
       </div>
 
-      <SettingsRowSwitch
-        configTitle={t("practiceReminders.title")}
-        configDesctiption={t("practiceReminders.description")}
-      />
+      <div className="space-y-3">
+        <SettingsRowSwitch
+          id="practice-reminders"
+          configTitle={t("practiceReminders.title")}
+          configDescription={t("practiceReminders.description")}
+        />
 
-      <SettingsRowSwitch
-        configTitle={t("newContent.title")}
-        configDesctiption={t("newContent.description")}
-      />
-    </div>
+        <SettingsRowSwitch
+          id="new-content"
+          configTitle={t("newContent.title")}
+          configDescription={t("newContent.description")}
+        />
+      </div>
+    </section>
   );
 };

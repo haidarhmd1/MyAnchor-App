@@ -7,9 +7,11 @@ export default async function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="m-auto max-w-1150">
+    <div className="bg-background text-foreground m-auto flex min-h-dvh max-w-1150 flex-col">
       <Header />
-      <div className="min-h-screen">{children}</div>
+
+      <main className="flex-1 px-4 pb-24">{children}</main>
+
       <BottomNav />
     </div>
   );

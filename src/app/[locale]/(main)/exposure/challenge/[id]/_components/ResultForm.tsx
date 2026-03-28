@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FormProvider, useForm } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { z } from "zod";
-
 import { useRouter } from "next/navigation";
 import {
   BASE_STEP,
@@ -54,6 +53,9 @@ const STEPS_COMPONENTS: Record<
 
 export function ResultForm({ challengeId }: { challengeId: string }) {
   const t = useTranslations();
+  const router = useRouter();
+  const reduce = useReducedMotion();
+
   const form = useForm<z.infer<typeof ChallengeOutcomeSchema>>({
     defaultValues: {
       hadCompletedChallenge: undefined,
@@ -62,14 +64,15 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
     mode: "onChange",
   });
 
-  const router = useRouter();
-  const reduce = useReducedMotion();
-
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
-  const formStep = !form.watch("hadCompletedChallenge")
-    ? [...BASE_STEP, ...STOP_REASONS, ...PARTIAL_NO_FINISH_SCREEN]
-    : [...BASE_STEP, ...YES_FINISH_SCREEN];
+  const hadCompletedChallenge = form.watch("hadCompletedChallenge");
+
+  const formStep = useMemo(() => {
+    return !hadCompletedChallenge
+      ? [...BASE_STEP, ...STOP_REASONS, ...PARTIAL_NO_FINISH_SCREEN]
+      : [...BASE_STEP, ...YES_FINISH_SCREEN];
+  }, [hadCompletedChallenge]);
 
   const optionByStep: Partial<Record<StepId, SafetyBehaviorOptionItem[]>> = {
     safetyBehavior: PARTIAL_NO_REASONS,
@@ -80,27 +83,40 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
       form.handleSubmit(onSubmit)();
       return;
     }
-    setCurrentStepIndex(currentStepIndex + 1);
+
+    setCurrentStepIndex((prev) => prev + 1);
   };
 
   const handlePrevious = () => {
-    if (currentStepIndex > 0) {
-      const currentField = formStep[currentStepIndex].id;
-      if (
-        currentField === "partialNoFinishScreen" ||
-        currentField === "yesFinishScreen"
-      ) {
-        setCurrentStepIndex(currentStepIndex - 1);
-        return;
-      }
-      form.setValue(currentField, false || "", {
+    if (currentStepIndex <= 0) return;
+
+    const currentField = formStep[currentStepIndex].id;
+
+    if (
+      currentField === "partialNoFinishScreen" ||
+      currentField === "yesFinishScreen"
+    ) {
+      setCurrentStepIndex((prev) => prev - 1);
+      return;
+    }
+
+    if (currentField === "hadCompletedChallenge") {
+      form.setValue("hadCompletedChallenge", undefined as any, {
         shouldDirty: true,
         shouldTouch: true,
         shouldValidate: true,
       });
-
-      setCurrentStepIndex(currentStepIndex - 1);
     }
+
+    if (currentField === "safetyBehavior") {
+      form.setValue("safetyBehavior", "", {
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      });
+    }
+
+    setCurrentStepIndex((prev) => prev - 1);
   };
 
   const onSubmit = async (data: z.infer<typeof ChallengeOutcomeSchema>) => {
@@ -109,16 +125,18 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
         id: challengeId,
         data,
       });
+
       router.refresh();
       router.replace("/exposure");
     } catch (e) {
       console.error(e);
-      toast.error("something went wrong");
+      toast.error(t("common.error"));
     }
   };
 
-  const stepId = formStep[currentStepIndex].id as StepId;
-  const ActiveStepComponent = formStep[currentStepIndex]
+  const currentStep = formStep[currentStepIndex];
+  const stepId = currentStep.id as StepId;
+  const ActiveStepComponent = currentStep
     ? STEPS_COMPONENTS[stepId]
     : () => <div />;
 
@@ -134,35 +152,51 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
 
   const active = formStep[currentStepIndex];
   const option = optionByStep[active.id as StepId] ?? [];
+  const progress = ((currentStepIndex + 1) / formStep.length) * 100;
 
   return (
-    <>
-      <div className="mb-8 flex justify-between">
+    <section className="space-y-6">
+      <div className="flex items-center justify-between">
         <Button
-          variant="secondary"
+          type="button"
+          variant="outline"
           disabled={currentStepIndex === 0}
           onClick={handlePrevious}
+          className="rounded-2xl"
         >
           <ChevronLeft className="h-4 w-4" />
           <span>{t("form.previous")}</span>
         </Button>
+
+        <span className="text-muted-foreground text-sm">
+          {Math.round(progress)}%
+        </span>
       </div>
-      <div className="flex items-center justify-center py-0">
-        <div className="mx-auto w-full max-w-2xl">
+
+      <div className="bg-muted h-2 w-full rounded-full">
+        <div
+          className="bg-primary h-2 rounded-full transition-all duration-300"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+
+      <div className="mx-auto w-full max-w-2xl">
+        <div className="surface-soft rounded-4xl p-5 shadow-sm sm:p-6">
           <FormProvider {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <div className="mb-6 text-center">
-                <h5 className="text-2xl font-light">
-                  {t(formStep[currentStepIndex].titleKey)}
-                </h5>
-                <h2 className="text-xs font-light">
-                  {t(formStep[currentStepIndex].subtitleKey)}
-                </h2>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <div className="space-y-2 text-center">
+                <h1 className="text-foreground text-2xl font-semibold tracking-tight">
+                  {t(currentStep.titleKey)}
+                </h1>
+                <p className="text-muted-foreground text-sm leading-6">
+                  {t(currentStep.subtitleKey)}
+                </p>
               </div>
-              <div className="min-h-65">
+
+              <div className="min-h-64">
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key={formStep[currentStepIndex].id}
+                    key={currentStep.id}
                     variants={variants}
                     initial="initial"
                     animate="animate"
@@ -184,6 +218,6 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
           </FormProvider>
         </div>
       </div>
-    </>
+    </section>
   );
 }

@@ -1,4 +1,12 @@
 {
+  "appearance": {
+    "title": "Darstellung",
+    "theme": "Design",
+    "system": "System",
+    "light": "Hell",
+    "language": "Sprache",
+    "english": "Englisch"
+  },
   "aiResponseMomentLog": {
     "affirmation": "Bestärkung",
     "symptoms": "Warum diese Gefühle auftreten können",

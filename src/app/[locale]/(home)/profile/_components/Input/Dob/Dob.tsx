@@ -43,7 +43,7 @@ export const Dob = ({ dob }: { dob: Date | null }) => {
   const locale = useLocale();
   const router = useRouter();
 
-  const [open, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const dobFormatted = dob
@@ -52,21 +52,18 @@ export const Dob = ({ dob }: { dob: Date | null }) => {
         .toLocaleString(DateTime.DATE_SHORT)
     : null;
 
-  const selectedLabel = (value: Date) =>
-    DateTime.fromJSDate(value)
-      .setLocale(locale)
-      .toLocaleString(DateTime.DATE_MED);
-
-  // Key changes when the incoming dob changes (or when dialog opens) -> form remounts -> defaultValues re-applied
   const formKey = useMemo(() => {
     const iso = dob ? DateTime.fromJSDate(dob).toISODate() : "null";
     return `${open ? "open" : "closed"}-${iso}`;
   }, [open, dob]);
 
   return (
-    <Dialog open={open} onOpenChange={setIsOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button type="button" className="w-full text-left">
+        <button
+          type="button"
+          className="focus-visible:ring-ring/70 w-full rounded-2xl text-left transition focus:outline-none focus-visible:ring-2"
+        >
           <SettingsRowInput
             label={t("dob.label")}
             value={dob ? (dobFormatted as string) : t("dob.notSet")}
@@ -74,18 +71,18 @@ export const Dob = ({ dob }: { dob: Date | null }) => {
         </button>
       </DialogTrigger>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{t("dob.dialogTitle")}</DialogTitle>
+      <DialogContent className="bg-card text-card-foreground border-border rounded-3xl border shadow-lg">
+        <DialogHeader className="space-y-1">
+          <DialogTitle className="text-foreground text-lg font-semibold tracking-tight">
+            {t("dob.dialogTitle")}
+          </DialogTitle>
         </DialogHeader>
 
         <DobFormInner
           key={formKey}
           initialDob={dob}
-          t={t}
-          selectedLabel={selectedLabel}
           onSaved={() => {
-            setIsOpen(false);
+            setOpen(false);
             startTransition(() => router.refresh());
           }}
           isPending={isPending}
@@ -97,24 +94,31 @@ export const Dob = ({ dob }: { dob: Date | null }) => {
 
 function DobFormInner({
   initialDob,
-  t,
-  selectedLabel,
   onSaved,
   isPending,
 }: {
   initialDob: Date | null;
-  t: ReturnType<typeof useTranslations>;
-  selectedLabel: (value: Date) => string;
   onSaved: () => void;
   isPending: boolean;
 }) {
+  const t = useTranslations("form");
+  const locale = useLocale();
+
   const form = useForm<FormValues>({
     defaultValues: { dob: initialDob },
   });
 
+  const selectedLabel = (value: Date) =>
+    DateTime.fromJSDate(value)
+      .setLocale(locale)
+      .toLocaleString(DateTime.DATE_MED);
+
   const handleSave = async (data: FormValues) => {
     try {
-      if (!data.dob) return;
+      if (!data.dob) {
+        toast.error(t("dob.toast.error"));
+        return;
+      }
 
       await updateUserProfile({
         data: { dob: data.dob },
@@ -132,14 +136,16 @@ function DobFormInner({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSave)}
-        className="w-full space-y-8"
+        className="w-full space-y-6"
       >
         <FormField
           control={form.control}
           name="dob"
           render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>{t("dob.label")}</FormLabel>
+            <FormItem className="flex flex-col gap-2">
+              <FormLabel className="text-foreground text-sm font-medium">
+                {t("dob.label")}
+              </FormLabel>
 
               <Popover>
                 <PopoverTrigger asChild>
@@ -148,7 +154,7 @@ function DobFormInner({
                       type="button"
                       variant="outline"
                       className={cn(
-                        "w-full pl-3 text-left font-normal",
+                        "bg-background text-foreground border-border hover:bg-muted h-12 w-full justify-start rounded-2xl px-4 text-left font-normal",
                         !field.value && "text-muted-foreground",
                       )}
                     >
@@ -157,12 +163,15 @@ function DobFormInner({
                       ) : (
                         <span>{t("dob.pickDate")}</span>
                       )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      <CalendarIcon className="text-muted-foreground ml-auto h-4 w-4" />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
 
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent
+                  className="bg-popover text-popover-foreground border-border w-auto rounded-2xl border p-0 shadow-lg"
+                  align="start"
+                >
                   <Calendar
                     mode="single"
                     selected={field.value ?? undefined}
@@ -180,15 +189,16 @@ function DobFormInner({
           )}
         />
 
-        <DialogFooter className="grid grid-cols-2">
+        <DialogFooter className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           <DialogClose asChild>
-            <Button variant="outline" type="button">
+            <Button variant="outline" type="button" className="w-full">
               {t("actions.cancel")}
             </Button>
           </DialogClose>
 
           <Button
             type="submit"
+            className="bg-primary text-primary-foreground w-full hover:opacity-95"
             disabled={form.formState.isSubmitting || isPending}
           >
             {form.formState.isSubmitting || isPending

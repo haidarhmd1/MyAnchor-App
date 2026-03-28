@@ -2,15 +2,58 @@ import { StaticImageData } from "next/image";
 
 export type Source = { id: string; url: string };
 
-export type Paragraph = {
-  id: string;
-  textKey: string;
-};
+export type ArticleBlock =
+  | {
+      id: string;
+      type: "intro";
+      textKey: string;
+    }
+  | {
+      id: string;
+      type: "text";
+      titleKey?: string;
+      textKey: string;
+    }
+  | {
+      id: string;
+      type: "highlight";
+      titleKey: string;
+      textKey: string;
+    }
+  | {
+      id: string;
+      type: "list";
+      titleKey?: string;
+      items: {
+        id: string;
+        textKey: string;
+      }[];
+    }
+  | {
+      id: string;
+      type: "steps";
+      titleKey: string;
+      items: {
+        id: string;
+        textKey: string;
+      }[];
+    }
+  | {
+      id: string;
+      type: "affirmation";
+      textKey: string;
+    }
+  | {
+      id: string;
+      type: "warning";
+      titleKey: string;
+      textKey: string;
+    };
 
-type Article = {
+export type Article = {
   titleKey: string;
   subtitleKey: string;
-  content: Paragraph[];
+  content: ArticleBlock[];
   sources: Source[];
 };
 
@@ -20,51 +63,61 @@ export const understandingAnxiety: Article = {
   subtitleKey: "education.understandingAnxiety.subtitle",
   content: [
     {
-      id: "a5a4c4ea-7bb9-4d67-aeb9-5b90a4f5b0b1",
+      id: "intro",
+      type: "intro",
       textKey: "education.understandingAnxiety.p1",
     },
     {
-      id: "8c94d416-9319-4d66-a586-60ac3aee5576",
+      id: "explanation",
+      type: "text",
       textKey: "education.understandingAnxiety.p2",
     },
     {
-      id: "3473d63d-8ef9-4a4a-b7b3-d177735c471d",
+      id: "body-response",
+      type: "highlight",
+      titleKey: "education.understandingAnxiety.title",
       textKey: "education.understandingAnxiety.p3",
     },
     {
-      id: "9f681b3e-7755-41f5-96d1-93289ec35655",
+      id: "normalization",
+      type: "text",
       textKey: "education.understandingAnxiety.p4",
     },
     {
-      id: "27f8d3ab-fd0d-4719-b93a-d1af2f9a8f5e",
+      id: "takeaway",
+      type: "affirmation",
       textKey: "education.understandingAnxiety.p5",
     },
   ],
   sources: [],
 };
-
 export const panicDisorderExplained: Article = {
   titleKey: "education.panicDisorderExplained.title",
   subtitleKey: "education.panicDisorderExplained.subtitle",
   content: [
     {
       id: "a3b85b4a-b463-4693-84f4-3b8d2eb9a9b0",
+      type: "intro",
       textKey: "education.panicDisorderExplained.p1",
     },
     {
       id: "b8dfe3fb-8d53-4a9a-9c4f-00395f24e1dd",
+      type: "text",
       textKey: "education.panicDisorderExplained.p2",
     },
     {
       id: "e5e03b70-b8a5-4f15-9209-7f7eeb13d651",
+      type: "text",
       textKey: "education.panicDisorderExplained.p3",
     },
     {
       id: "7fa3319d-f988-48f1-8d9b-cc0a36e79da4",
+      type: "text",
       textKey: "education.panicDisorderExplained.p4",
     },
     {
       id: "2e2d56c6-32f5-4d28-92f2-dcfa418c8b7f",
+      type: "affirmation",
       textKey: "education.panicDisorderExplained.p5",
     },
   ],
@@ -77,22 +130,28 @@ export const findYourWayOut: Article = {
   content: [
     {
       id: "29f1861e-6b72-4a0f-9bb7-9cbbe5d29b14",
+      type: "intro",
       textKey: "education.findYourWayOut.p1",
     },
     {
       id: "3c7f7399-5f37-418f-9dd1-cfb46267402a",
+      type: "text",
       textKey: "education.findYourWayOut.p2",
     },
     {
       id: "48f51dcb-95f0-4c11-91f4-f1db27cb599f",
+      type: "text",
       textKey: "education.findYourWayOut.p3",
     },
     {
       id: "b3534f89-08aa-4a4f-b17e-83b6dfc1d1a1",
+      type: "highlight",
+      titleKey: "education.findYourWayOut.title",
       textKey: "education.findYourWayOut.p4",
     },
     {
       id: "ad91a5c0-72b4-44d8-8c62-21d872fb924d",
+      type: "affirmation",
       textKey: "education.findYourWayOut.p5",
     },
   ],
@@ -146,18 +205,23 @@ export const theCurveOfPanic: Article = {
   content: [
     {
       id: "e3aa3e41-55c1-4d69-bab3-146fc2441f77",
+      type: "intro",
       textKey: "education.theCurveOfPanic.p1",
     },
     {
       id: "6c12fd0c-31e6-4edc-b57e-fac81ad6a3b5",
+      type: "text",
       textKey: "education.theCurveOfPanic.p2",
     },
     {
       id: "3fc6dd34-45d4-4634-bf14-65f7a9b2f3e8",
+      type: "text",
       textKey: "education.theCurveOfPanic.p3",
     },
     {
       id: "97b82e60-6f22-4c8a-8e77-7126eb544a44",
+      type: "highlight",
+      titleKey: "education.theCurveOfPanic.title",
       textKey: "education.theCurveOfPanic.p4",
     },
   ],
@@ -170,26 +234,33 @@ export const rewireEffect: Article = {
   content: [
     {
       id: "2d0b356f-15fd-4941-93d6-31a65cc2554b",
+      type: "intro",
       textKey: "education.rewireEffect.p1",
     },
     {
       id: "24c7060b-700f-47e1-888c-dfe04f4e1ed2",
+      type: "text",
       textKey: "education.rewireEffect.p2",
     },
     {
       id: "f52f6d89-c81d-4202-9109-fb873b495b94",
+      type: "text",
       textKey: "education.rewireEffect.p3",
     },
     {
       id: "27de43c1-1abf-414a-b7f8-9df83c0f9269",
+      type: "text",
       textKey: "education.rewireEffect.p4",
     },
     {
       id: "ea0fc6f1-7c7f-4cf0-9775-4204b7e4f47e",
+      type: "highlight",
+      titleKey: "education.rewireEffect.title",
       textKey: "education.rewireEffect.p5",
     },
     {
       id: "30b986c4-b4fd-47a2-830a-6fcd03fbc0ec",
+      type: "affirmation",
       textKey: "education.rewireEffect.p6",
     },
   ],
@@ -202,14 +273,17 @@ export const whyAllowingPanicHelps: Article = {
   content: [
     {
       id: "8a48b39a-4f4a-4ad5-9b63-0dd65e75a3b2",
+      type: "intro",
       textKey: "education.whyAllowingPanicHelps.p1",
     },
     {
       id: "4cc91677-f2f7-4a35-86c2-42ed9f7a7a65",
+      type: "text",
       textKey: "education.whyAllowingPanicHelps.p2",
     },
     {
       id: "2bca6d76-d25e-4748-9a07-ff2adcb5abfa",
+      type: "affirmation",
       textKey: "education.whyAllowingPanicHelps.p3",
     },
   ],
@@ -222,6 +296,7 @@ export const whyThisFeelsHardAtFirst: Article = {
   content: [
     {
       id: "a86f5b84-64b2-4ee0-9e65-6a08c14b00e5",
+      type: "intro",
       textKey: "education.whyThisFeelsHardAtFirst.p1",
     },
   ],
@@ -234,6 +309,7 @@ export const exercisesInteroceptiveContent: Article = {
   content: [
     {
       id: "d219013f-fd0c-4c0c-9a51-340d07420b73",
+      type: "intro",
       textKey: "education.exercisesInteroceptiveContent.p1",
     },
   ],

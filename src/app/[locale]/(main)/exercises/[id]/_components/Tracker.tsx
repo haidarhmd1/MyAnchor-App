@@ -4,6 +4,8 @@ import { Exercise } from "@/common/const/content";
 import { useCountdown } from "@/hooks/useCountdown";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export const Tracker = ({ exercise }: { exercise: Exercise }) => {
   const t = useTranslations("tracker");
@@ -25,58 +27,75 @@ export const Tracker = ({ exercise }: { exercise: Exercise }) => {
     setFinished(false);
   };
 
+  const statusLabel = isRunning
+    ? isPrecountdown
+      ? t("timer.getReady")
+      : t("timer.counting")
+    : finished
+      ? t("timer.finished")
+      : t("timer.notStarted");
+
   return (
-    <>
+    <section className="space-y-10">
       <div className="grid grid-cols-2 gap-4">
-        <div className="block overflow-hidden rounded-md border border-[#DBE5E0] bg-white p-4">
-          <h3>{t("duration")}:</h3>
-          <p>
+        <div className="bg-card border-border rounded-2xl border p-4 shadow-sm">
+          <h3 className="text-foreground text-sm font-semibold">
+            {t("duration")}:
+          </h3>
+          <p className="text-muted-foreground mt-1 text-sm leading-6">
             {exercise.duration} {t("seconds")}
           </p>
         </div>
+
         <div
-          className={`block overflow-hidden rounded-md border ${
+          className={cn(
+            "rounded-2xl border p-4 shadow-sm",
             finished
-              ? "border-green-200 bg-green-50"
+              ? "border-primary/20 bg-accent"
               : isRunning
-                ? "border-yellow-200 bg-yellow-50"
-                : "border-[#DBE5E0] bg-white"
-          } p-4`}
+                ? "border-border bg-secondary"
+                : "border-border bg-card",
+          )}
         >
-          <h3>{t("status")}:</h3>
-          <p>
-            {isRunning
-              ? isPrecountdown
-                ? t("timer.getReady")
-                : t("timer.counting")
-              : finished
-                ? t("timer.finished")
-                : t("timer.notStarted")}
+          <h3 className="text-foreground text-sm font-semibold">
+            {t("status")}:
+          </h3>
+          <p className="text-muted-foreground mt-1 text-sm leading-6">
+            {statusLabel}
           </p>
         </div>
       </div>
 
-      <div className="mt-12 mb-12 flex flex-col items-center gap-6">
-        <div
+      <div className="flex flex-col items-center gap-6 py-4">
+        <button
+          type="button"
           onClick={!isRunning ? handleStart : undefined}
-          className={`flex h-64 w-64 items-center justify-center rounded-full ${
-            !isRunning ? "cursor-pointer bg-blue-100" : "bg-gray-200"
-          }`}
+          disabled={isRunning}
+          className={cn(
+            "flex h-64 w-64 items-center justify-center rounded-full border shadow-sm transition",
+            "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
+            !isRunning
+              ? "border-border bg-accent text-foreground active:scale-[0.98]"
+              : "border-border bg-muted text-muted-foreground cursor-default",
+          )}
+          aria-label={!isRunning ? t("start") : statusLabel}
         >
-          <p className="text-2xl">
+          <p className="text-2xl font-semibold tabular-nums">
             {countdown !== null ? countdown : t("start")}
           </p>
-        </div>
+        </button>
 
         {isRunning && (
-          <button
+          <Button
+            type="button"
             onClick={handleStop}
-            className="rounded-md bg-red-500 px-6 py-2 text-white hover:bg-red-600"
+            variant="outline"
+            className="border-destructive/30 bg-destructive/10 text-foreground hover:bg-destructive/15 rounded-2xl"
           >
             {t("stop")}
-          </button>
+          </Button>
         )}
       </div>
-    </>
+    </section>
   );
 };

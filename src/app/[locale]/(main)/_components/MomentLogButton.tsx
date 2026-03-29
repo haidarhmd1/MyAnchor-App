@@ -44,6 +44,7 @@ export async function MomentLogButton() {
       <Link href="/momentLog" style={{ display: "contents" }}>
         <ShortcutsCard
           size="xs"
+          className="p-6"
           title={t("title")}
           subtitle={t("doneSubtitle")}
         />
@@ -55,6 +56,7 @@ export async function MomentLogButton() {
     <Link href="/momentLog" style={{ display: "contents" }}>
       <ShortcutsCard
         size="xs"
+        className="p-6"
         title={t("title")}
         subtitle={t("addMomentSubtitle")}
       />
@@ -68,6 +70,7 @@ export async function UnauthenticatedMomentLogButton() {
   return (
     <ShortcutsCard
       size="xs"
+      className="p-6"
       title={t("title")}
       subtitle={t("addMomentSubtitle")}
     />

@@ -15,7 +15,7 @@ export default async function Page() {
   const t = await getTranslations("account");
 
   return (
-    <div className="text-foreground space-y-6 px-4 py-4">
+    <div className="text-foreground space-y-6 py-4">
       <section className="surface-soft rounded-4xl p-6 shadow-sm">
         <div className="flex flex-col items-center gap-2 text-center">
           <div>

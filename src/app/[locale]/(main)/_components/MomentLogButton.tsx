@@ -46,10 +46,6 @@ export async function MomentLogButton() {
           size="xs"
           title={t("title")}
           subtitle={t("doneSubtitle")}
-          gradient={{
-            from: "from-primary",
-            to: "to-accent",
-          }}
         />
       </Link>
     );
@@ -61,10 +57,6 @@ export async function MomentLogButton() {
         size="xs"
         title={t("title")}
         subtitle={t("addMomentSubtitle")}
-        gradient={{
-          from: "from-secondary",
-          to: "to-accent",
-        }}
       />
     </Link>
   );
@@ -78,10 +70,6 @@ export async function UnauthenticatedMomentLogButton() {
       size="xs"
       title={t("title")}
       subtitle={t("addMomentSubtitle")}
-      gradient={{
-        from: "from-secondary",
-        to: "to-accent",
-      }}
     />
   );
 }

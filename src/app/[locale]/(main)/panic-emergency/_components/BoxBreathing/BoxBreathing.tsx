@@ -4,7 +4,7 @@ import { easeInOut } from "motion";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Sheet } from "react-modal-sheet";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 type Phase = "inhale" | "hold1" | "exhale" | "hold2";
@@ -32,7 +32,10 @@ const BREATHING_CONFIG: Record<
 const DEFAULT_SECONDS = 4;
 
 export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
+  const locale = useLocale();
   const t = useTranslations("panicEmergency.boxBreathing");
+
+  const isRtl = locale.startsWith("ar");
 
   const [open, setOpen] = useState(false);
   const [started, setStarted] = useState(false);
@@ -150,17 +153,27 @@ export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
         className="surface-soft h-28 min-h-24 w-full rounded-2xl p-3 text-left shadow-sm transition will-change-transform active:scale-[0.98]"
       >
         <div>
-          <h4 className="text-foreground text-sm font-medium">
+          <h4
+            className={cn(
+              "text-foreground text-sm font-medium",
+              isRtl ? "text-right" : "text-left",
+            )}
+          >
             {t("card.title")}
           </h4>
-          <p className="text-muted-foreground text-xs font-light">
+          <p
+            className={cn(
+              "text-muted-foreground text-xs font-light",
+              isRtl ? "text-right" : "text-left",
+            )}
+          >
             {t("card.subtitle")}
           </p>
         </div>
       </button>
 
       <Sheet isOpen={open} onClose={() => setOpen(false)}>
-        <Sheet.Container className="!bg-background !text-foreground">
+        <Sheet.Container className="bg-background! text-foreground!">
           <Sheet.Header />
           <Sheet.Content>
             <div className="space-y-6 px-4 pb-6">

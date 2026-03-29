@@ -156,10 +156,6 @@ export const DailyChallenge = async () => {
               title={t("exposure.newChallenge.dailyChallenge.done.title")}
               subtitle={t("exposure.newChallenge.dailyChallenge.done.subtitle")}
               icon={<CheckCheck className="h-5 w-5" aria-hidden="true" />}
-              gradient={{
-                from: "from-primary",
-                to: "to-accent",
-              }}
             />
           </Link>
         </DailyChallengeShell>

@@ -3,6 +3,7 @@
 import React from "react";
 import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
 
 export type ShortcutsCardTone = "primary" | "secondary" | "accent";
 
@@ -72,11 +73,15 @@ export default function ShortcutsCard({
   onOpen,
   className,
 }: ShortcutsCardProps) {
+  const locale = useLocale();
   const S = sizeStyles[size];
   const Comp = onOpen ? "button" : "div";
 
+  const isRtl = locale.startsWith("ar");
+
   return (
     <Comp
+      // dir={isRtl ? "ltr" : "ltr"}
       {...(onOpen
         ? {
             type: "button" as const,
@@ -96,7 +101,7 @@ export default function ShortcutsCard({
       )}
     >
       <div className="relative flex h-full items-start justify-between gap-3">
-        <div className="min-w-0 pr-2 text-left">
+        <div className={cn("min-w-0 pr-2", isRtl ? "text-right" : "text-left")}>
           <h3
             className={cn(
               "text-foreground truncate leading-snug font-semibold",

@@ -3,9 +3,12 @@
 import { Ear, Eye, Hand, IceCream, Smile } from "lucide-react";
 import { useState } from "react";
 import { Sheet } from "react-modal-sheet";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 export const Grounding = () => {
+  const locale = useLocale();
+  const isRtl = locale.startsWith("ar");
   const t = useTranslations("panicEmergency.grounding");
   const [isOpen, setOpen] = useState(false);
 
@@ -17,17 +20,27 @@ export const Grounding = () => {
         onClick={() => setOpen(true)}
       >
         <div className="flex flex-col text-left">
-          <h4 className="text-foreground text-sm font-medium">
+          <h4
+            className={cn(
+              "text-foreground text-sm font-medium",
+              isRtl ? "text-right" : "text-left",
+            )}
+          >
             {t("card.title")}
           </h4>
-          <p className="text-muted-foreground text-xs font-light">
+          <p
+            className={cn(
+              "text-muted-foreground text-xs font-light",
+              isRtl ? "text-right" : "text-left",
+            )}
+          >
             {t("card.subtitle")}
           </p>
         </div>
       </button>
 
       <Sheet isOpen={isOpen} onClose={() => setOpen(false)}>
-        <Sheet.Container className="!bg-background !text-foreground">
+        <Sheet.Container className="bg-background! text-foreground!">
           <Sheet.Header />
           <Sheet.Content className="p-4">
             <div className="space-y-8 pb-6">

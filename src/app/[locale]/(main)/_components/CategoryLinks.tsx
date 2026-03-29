@@ -1,8 +1,7 @@
 import { categories } from "@/common/const/links";
 import { Card, CardContent } from "@/components/ui/card";
-import clsx from "clsx";
-import { ArrowRight } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +11,7 @@ const toneClasses: Record<(typeof categories)[number]["tone"], string> = {
   accent: "from-accent/75 to-secondary/60",
 };
 export const CategoryLinks = async () => {
+  const isRtl = (await getLocale()).startsWith("ar");
   const t = await getTranslations();
 
   return (
@@ -47,10 +47,17 @@ export const CategoryLinks = async () => {
                 </div>
 
                 <div
-                  className="border-border/50 bg-card/70 text-foreground ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border shadow-sm backdrop-blur-sm"
+                  className={cn(
+                    "border-border/50 bg-card/70 text-foreground flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border shadow-sm backdrop-blur-sm",
+                    isRtl ? "mr-auto" : "ml-auto",
+                  )}
                   aria-hidden
                 >
-                  <ArrowRight size={18} strokeWidth={1.6} />
+                  {isRtl ? (
+                    <ArrowLeft size={18} strokeWidth={1.6} />
+                  ) : (
+                    <ArrowRight size={18} strokeWidth={1.6} />
+                  )}
                 </div>
               </CardContent>
             </Card>

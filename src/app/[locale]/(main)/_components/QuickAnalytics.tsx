@@ -40,10 +40,6 @@ export const QuickAnalytics = async () => {
           icon={<AlertCircleIcon />}
           title={t("title")}
           subtitle={t("subtitle", { count: anxietyAttackmomentLog.length })}
-          gradient={{
-            from: "from-sky-400",
-            to: "to-yellow-200",
-          }}
         />
       </Link>
     </div>

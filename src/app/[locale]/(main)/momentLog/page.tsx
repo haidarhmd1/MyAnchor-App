@@ -83,7 +83,7 @@ const UnauthenticatedMomentLog = async () => {
               </div>
 
               <div className="min-w-0">
-                <h3 className="text-foreground truncate text-base font-semibold">
+                <h3 className="text-foreground text-base font-semibold">
                   {t("momentLog.entry.title")}
                 </h3>
               </div>

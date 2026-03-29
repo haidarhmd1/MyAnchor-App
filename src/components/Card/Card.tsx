@@ -30,7 +30,7 @@ export const CardContainer = ({
           {icon ? <div className="shrink-0">{icon}</div> : null}
 
           <div className="min-w-0 flex-1">
-            <h4 className="text-foreground truncate text-base leading-6 font-medium">
+            <h4 className="text-foreground text-base leading-6 font-medium">
               {title}
             </h4>
 

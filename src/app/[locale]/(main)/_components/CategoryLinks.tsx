@@ -38,7 +38,7 @@ export const CategoryLinks = async () => {
             >
               <CardContent className="flex h-full items-start px-4 py-0">
                 <div className="min-w-0">
-                  <h3 className="text-foreground truncate text-base font-semibold">
+                  <h3 className="text-foreground text-base font-semibold">
                     {t(c.titleKey)}
                   </h3>
                   <p className="text-muted-foreground mt-1 text-sm leading-5">

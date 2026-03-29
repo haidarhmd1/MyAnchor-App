@@ -104,7 +104,7 @@ export default function ShortcutsCard({
         <div className={cn("min-w-0 pr-2", isRtl ? "text-right" : "text-left")}>
           <h3
             className={cn(
-              "text-foreground truncate leading-snug font-semibold",
+              "text-foreground leading-snug font-semibold",
               S.title,
             )}
           >
@@ -112,12 +112,7 @@ export default function ShortcutsCard({
           </h3>
 
           {subtitle && (
-            <p
-              className={cn(
-                "text-muted-foreground mt-1 line-clamp-2",
-                S.subtitle,
-              )}
-            >
+            <p className={cn("text-muted-foreground mt-1", S.subtitle)}>
               {subtitle}
             </p>
           )}

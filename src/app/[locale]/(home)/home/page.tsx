@@ -60,7 +60,7 @@ export default async function Home() {
       </div>
 
       {auth ? (
-        <div className="space-y-8 px-6">
+        <div className="space-y-8">
           <div className="mx-6 p-6">
             <MomentLogButton />
           </div>
@@ -70,7 +70,7 @@ export default async function Home() {
         </div>
       ) : (
         <SignInOverlayButton>
-          <div className="space-y-8 px-6">
+          <div className="space-y-8">
             <div className="mx-6 p-6">
               <UnauthenticatedMomentLogButton />
             </div>
@@ -82,7 +82,7 @@ export default async function Home() {
       )}
 
       <section className="space-y-4">
-        <div className="space-y-1 px-6">
+        <div className="space-y-1">
           <h4 className="text-foreground text-base font-semibold tracking-tight">
             {t("quicktools.main.title")}
           </h4>
@@ -91,13 +91,13 @@ export default async function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 px-6">
+        <div className="grid grid-cols-2 gap-3">
           <BoxBreathing />
           <Grounding />
         </div>
       </section>
 
-      <section className="px-6">
+      <section>
         <CategoryLinks />
       </section>
 

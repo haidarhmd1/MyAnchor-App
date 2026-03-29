@@ -29,7 +29,7 @@ export const ThemeSwitcher = () => {
     );
   }
 
-  const currentTheme = (theme ?? "system") as ThemeOption;
+  const currentTheme = (theme ?? "dark") as ThemeOption;
   const disabled = Boolean(forcedTheme);
 
   const options: ThemeOption[] = ["light", "dark", "system"];

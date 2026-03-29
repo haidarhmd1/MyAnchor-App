@@ -4,11 +4,11 @@ export const SettingsRow = ({
   setting,
 }: {
   config: string;
-  defaultConfig: string;
-  setting: string;
+  defaultConfig?: React.ReactNode;
+  setting: React.ReactNode;
 }) => {
   return (
-    <div className="border-border flex min-h-[4.5rem] items-center justify-between border-b py-3 last:border-b-0">
+    <div className="border-border flex min-h-18 items-center justify-between border-b py-3 last:border-b-0">
       <div className="min-w-0">
         <p className="text-foreground text-base font-medium">{config}</p>
         <p className="text-muted-foreground text-sm leading-6">

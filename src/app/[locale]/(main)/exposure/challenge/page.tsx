@@ -27,7 +27,7 @@ export default async function Page() {
           </h1>
         </header>
 
-        <div className="surface-soft rounded-[2rem] p-5 shadow-sm">
+        <div className="surface-soft rounded-4xl p-5 shadow-sm">
           <p className="text-muted-foreground text-sm leading-6">
             {t("error")}
           </p>

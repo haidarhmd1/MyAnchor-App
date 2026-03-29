@@ -2,6 +2,7 @@
 
 import { SettingsRow } from "../General/SettingsRow";
 import { useTranslations } from "next-intl";
+import { ThemeSwitcher } from "../ThemeSwticher/ThemeSwitcher";
 
 export const Appearance = () => {
   const t = useTranslations("appearance");
@@ -18,7 +19,7 @@ export const Appearance = () => {
         <SettingsRow
           config={t("theme")}
           defaultConfig={t("system")}
-          setting={t("light")}
+          setting={<ThemeSwitcher />}
         />
       </div>
     </section>

@@ -2,10 +2,9 @@
   "appearance": {
     "title": "الشكل",
     "theme": "الثيم",
-    "system": "حسب النظام",
     "light": "فاتح",
-    "language": "اللغة",
-    "english": "إنجليزي"
+    "dark": "غامق",
+    "system": "حسب النظام"
   },
   "aiResponseMomentLog": {
     "affirmation": "تطمن",
@@ -1505,7 +1504,9 @@
       "enterCodeTitle": "حطّ الرمز",
       "enterCodeHint": "بعثنالك رمز من 6 أرقام على {email}",
       "codePlaceholder": "123456",
-      "verify": "تأكيد وتسجيل الدخول"
+      "verify": "تأكيد وتسجيل الدخول",
+      "verificationCode": "رمز التحقق",
+      "resendCode": "إعادة إرسال الرمز"
     }
   }
 }

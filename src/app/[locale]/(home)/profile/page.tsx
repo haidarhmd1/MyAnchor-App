@@ -48,7 +48,7 @@ export default async function Page() {
             <Dob dob={user.dob} />
 
             <GenderPicker gender={user.gender ?? ""} />
-            {/* <Appearance /> */}
+            <Appearance />
           </div>
 
           <div className="bg-border h-px w-full" />

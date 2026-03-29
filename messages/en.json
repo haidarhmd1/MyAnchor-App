@@ -2,10 +2,9 @@
   "appearance": {
     "title": "Appearance",
     "theme": "Theme",
-    "system": "System",
     "light": "Light",
-    "language": "Language",
-    "english": "English"
+    "dark": "Dark",
+    "system": "System"
   },
   "aiResponseMomentLog": {
     "affirmation": "Affirmation",
@@ -1552,7 +1551,9 @@
       "enterCodeTitle": "Enter code",
       "enterCodeHint": "We emailed a 6-digit code to {email}",
       "codePlaceholder": "123456",
-      "verify": "Verify & sign in"
+      "verify": "Verify & sign in",
+      "verificationCode": "Verification code",
+      "resendCode": "Resend code"
     }
   }
 }

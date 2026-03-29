@@ -2,10 +2,9 @@
   "appearance": {
     "title": "Darstellung",
     "theme": "Design",
-    "system": "System",
     "light": "Hell",
-    "language": "Sprache",
-    "english": "Englisch"
+    "dark": "Dunkel",
+    "system": "System"
   },
   "aiResponseMomentLog": {
     "affirmation": "Bestärkung",
@@ -1538,7 +1537,9 @@
       "enterCodeTitle": "Code eingeben",
       "enterCodeHint": "Wir haben dir einen 6-stelligen Code an {email} gesendet",
       "codePlaceholder": "123456",
-      "verify": "Bestätigen & anmelden"
+      "verify": "Bestätigen & anmelden",
+      "verificationCode": "Bestätigungscode",
+      "resendCode": "Code erneut senden"
     }
   }
 }

@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Providers } from "../Provider";
 import { Metadata, Viewport } from "next";
+import { ThemeProvider } from "../ThemeProvider";
 
 const adventPro = Advent_Pro({
   variable: "--font-advent_pro",
@@ -71,14 +72,16 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={isRtl ? "rtl" : "ltr"}
-      className="dark overscroll-contain scroll-smooth"
+      className="overscroll-contain scroll-smooth"
       suppressHydrationWarning
     >
       <body
         className={`${adventPro.variable} bg-background text-foreground min-h-dvh antialiased`}
       >
         <NextIntlClientProvider>
-          <Providers>{children}</Providers>
+          <ThemeProvider>
+            <Providers>{children}</Providers>
+          </ThemeProvider>
         </NextIntlClientProvider>
 
         <Toaster

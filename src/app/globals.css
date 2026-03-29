@@ -57,7 +57,8 @@
   --radius: 1rem;
 
   /* light mode: calm, airy, soft clinical without feeling cold */
-  --background: oklch(0.985 0.008 100);
+  /* --background: oklch(0.985 0.008 100); */
+  --background: oklch(100% 0.00011 271.152);
   --foreground: oklch(0.23 0.02 240);
 
   --card: oklch(0.995 0.006 95);

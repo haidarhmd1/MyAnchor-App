@@ -1469,6 +1469,9 @@
       "pastChallenges": "التحدّيات السابقة"
     },
     "newChallenge": {
+      "actions": {
+        "saving": "جارٍ الحفظ…"
+      },
       "notStarted": {
         "aria": "ابدأ الآن.",
         "title": "ابدأ التعرّض",

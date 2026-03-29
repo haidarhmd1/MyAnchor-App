@@ -1489,6 +1489,9 @@
       }
     },
     "newChallenge": {
+      "actions": {
+        "saving": "Saving…"
+      },
       "notStarted": {
         "aria": "Start now.",
         "title": "Start exposure",

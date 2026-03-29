@@ -1475,6 +1475,9 @@
       "pastChallenges": "Vergangene Übungen"
     },
     "newChallenge": {
+      "actions": {
+        "saving": "Wird gespeichert…"
+      },
       "notStarted": {
         "aria": "Jetzt starten.",
         "title": "Exposition starten",

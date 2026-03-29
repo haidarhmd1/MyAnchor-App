@@ -17,7 +17,7 @@ export const SettingsRow = ({
       </div>
 
       <div className="ml-4 shrink-0">
-        <p className="text-primary text-sm font-medium">{setting}</p>
+        <div className="text-primary text-sm font-medium">{setting}</div>
       </div>
     </div>
   );

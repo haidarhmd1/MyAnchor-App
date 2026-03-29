@@ -20,34 +20,36 @@ export default async function Tip({ params }: Props) {
   return (
     <article className="bg-background text-foreground pb-8">
       <div
-        className="bg-muted relative h-60 w-full overflow-hidden rounded-b-4xl"
+        className="bg-muted h-60 w-full rounded-b-4xl"
         style={{
-          backgroundImage: `url("${matchedSlug.imgSrc}")`,
-          backgroundSize: "cover",
+          backgroundImage: `url(${matchedSlug.imgSrc})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       />
 
-      <div className="mx-auto max-w-3xl space-y-4 px-4 py-6">
-        <div className="inset-x-0 bottom-0 p-4">
-          <div className="mx-auto max-w-3xl">
-            <p className="text-sm font-medium tracking-[0.16em] text-white/80 uppercase">
-              {t(matchedSlug.titleKey)}
-            </p>
-            <h1 className="mt-2 text-2xl font-semibold tracking-tight text-white">
-              {t(matchedSlug.descriptionKey)}
-            </h1>
-          </div>
-        </div>
-        {matchedSlug.content.map((content) => (
-          <p
-            key={content.id}
-            className="text-muted-foreground text-base leading-7"
-          >
-            {t(content.textKey)}
+      <div className="mx-auto max-w-3xl space-y-6 px-4 py-4">
+        <header className="space-y-2">
+          <p className="text-muted-foreground text-sm font-medium tracking-[0.16em] uppercase">
+            {t(matchedSlug.titleKey)}
           </p>
-        ))}
+
+          <h1 className="text-foreground text-2xl font-semibold tracking-tight">
+            {t(matchedSlug.descriptionKey)}
+          </h1>
+        </header>
+
+        <section className="space-y-4">
+          {matchedSlug.content.map((content) => (
+            <p
+              key={content.id}
+              className="text-muted-foreground text-base leading-7"
+            >
+              {t(content.textKey)}
+            </p>
+          ))}
+        </section>
       </div>
     </article>
   );

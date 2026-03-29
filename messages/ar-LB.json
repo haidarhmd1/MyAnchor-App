@@ -1442,6 +1442,9 @@
       }
     },
     "newChallenge": {
+      "actions": {
+        "saving": "عم نحفظ…"
+      },
       "notStarted": {
         "aria": "بلّش هلّق.",
         "title": "بلّش التعرّض",

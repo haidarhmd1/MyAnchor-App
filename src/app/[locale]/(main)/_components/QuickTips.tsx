@@ -23,7 +23,7 @@ export const QuickTips = async () => {
             return (
               <CarouselItem
                 key={c.id}
-                className="basis-[78%] pl-1 sm:basis-1/2"
+                className="basis-[78%] pr-4 sm:basis-1/2"
               >
                 <Link href={`tip/${c.slug}`} style={{ display: "contents" }}>
                   <article className="surface-soft h-full rounded-3xl p-4 shadow-sm transition will-change-transform active:scale-[0.98]">

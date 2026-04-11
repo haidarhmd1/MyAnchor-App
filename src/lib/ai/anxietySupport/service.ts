@@ -12,6 +12,8 @@ import {
 } from "./prompts";
 import { anxietySupportJsonSchema } from "./schema";
 
+const MODEL = "gpt-5-nano";
+
 function buildModelInput(input: AnxietySupportRequest, correction?: string) {
   return {
     location: input.location,
@@ -30,7 +32,7 @@ export async function generateAIResponse(
   correction?: string,
 ): Promise<AnxietySupportResult> {
   const response = await openai.responses.create({
-    model: "gpt-5-nano",
+    model: MODEL,
     input: [
       {
         role: "system",

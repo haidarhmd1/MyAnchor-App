@@ -129,7 +129,11 @@
     }
   },
   "common": {
+    "analyzeAnswers": "Analyze answers",
+    "back": "Back",
     "loading": "Loading, please wait...",
+    "skip": "Skip",
+    "continue": "Continue",
     "engagement": {
       "STAY": {
         "label": "Stay",
@@ -1557,6 +1561,260 @@
       "verify": "Verify & sign in",
       "verificationCode": "Verification code",
       "resendCode": "Resend code"
+    }
+  },
+  "anxietyProfile": {
+    "legal": {
+      "intro": "This questionnaire helps us understand how anxiety shows up for you so we can personalize educational content and self-help tools.",
+      "disclaimer": "It is not a diagnosis and does not replace a licensed mental health professional. You can skip any question.",
+      "emergency": "If you are in immediate danger, think you may harm yourself, or have urgent medical symptoms, seek emergency help right away.",
+      "privacy": "Your answers are used to build your anxiety profile so the app can personalize what you see and how support is organized.",
+      "intendedUse": "This flow is designed to support self-report, personalization, psychoeducation, and self-help planning.",
+      "notIntendedUse": "It is not intended to diagnose, prevent, monitor, predict, or treat a mental health condition on its own."
+    },
+    "entry": {
+      "title": "This helps us understand how anxiety shows up for you.",
+      "subtitle": "Skip anything you’re not sure about."
+    },
+    "situations": {
+      "title": "When does anxiety usually show up?",
+      "subtitle": "Pick anything that fits",
+      "options": {
+        "crowdedPlaces": "Crowded places",
+        "socialSituations": "Social situations",
+        "publicTransport": "Public transport",
+        "beingFarFromHome": "Being far from home",
+        "workOrMeetings": "Work or meetings",
+        "beingAlone": "Being alone",
+        "waitingInLines": "Waiting in lines",
+        "newOrUnfamiliarPlaces": "New or unfamiliar places",
+        "healthRelatedSituations": "Health-related situations",
+        "openSpaces": "Open spaces",
+        "enclosedSpaces": "Enclosed spaces",
+        "drivingOrTraffic": "Driving or traffic",
+        "traveling": "Traveling",
+        "conflictOrConfrontation": "Conflict or confrontation",
+        "beingObserved": "Being watched or observed",
+        "performanceSituations": "Performance situations",
+        "separationFromSafePerson": "Being away from someone I feel safe with",
+        "uncertaintyOrNotKnowing": "Uncertainty or not knowing",
+        "physicalSensationsInBody": "Physical sensations in my body",
+        "bedtimeOrTryingToSleep": "Bedtime or trying to sleep"
+      }
+    },
+    "worryThemes": {
+      "title": "What do you tend to worry about most?",
+      "subtitle": "Pick anything that fits",
+      "options": {
+        "health": "My health",
+        "familyOrLovedOnes": "My family or loved ones",
+        "workOrSchool": "Work or school",
+        "moneyOrFinances": "Money or finances",
+        "futureAndUncertainty": "The future or uncertainty",
+        "makingWrongDecisions": "Making the wrong decision",
+        "dailyResponsibilities": "Daily responsibilities",
+        "relationships": "Relationships",
+        "safetyOrSomethingBadHappening": "Safety or something bad happening",
+        "sleepOrNighttime": "Sleep or nighttime"
+      }
+    },
+    "symptoms": {
+      "title": "What do you feel in your body?",
+      "subtitle": "When anxiety hits",
+      "options": {
+        "racingHeart": "Racing heart",
+        "shortnessOfBreath": "Shortness of breath",
+        "chestTightness": "Chest tightness",
+        "chokingFeeling": "Feeling like I can’t breathe or choking",
+        "dizziness": "Dizziness",
+        "lightheadedness": "Feeling lightheaded",
+        "blurredVision": "Blurred vision",
+        "nausea": "Nausea",
+        "stomachDiscomfort": "Stomach discomfort",
+        "sweating": "Sweating",
+        "hotFlushes": "Hot flushes",
+        "coldChills": "Cold chills",
+        "shaking": "Shaking or trembling",
+        "tingling": "Tingling sensations",
+        "numbness": "Numbness",
+        "derealizationDepersonalization": "Feeling detached from reality or yourself",
+        "feelingUnreal": "Things feel unreal or strange",
+        "urgeToEscape": "Strong urge to escape or leave",
+        "muscleTension": "Muscle tension",
+        "troubleConcentrating": "Trouble concentrating",
+        "irritability": "Irritability",
+        "sleepProblems": "Sleep problems",
+        "feelingOnEdge": "Feeling on edge",
+        "fatigueOrFeelingWornOut": "Fatigue or feeling worn out"
+      }
+    },
+    "primaryFears": {
+      "title": "What feels most scary in that moment?",
+      "subtitle": "Even if you know it might not be true",
+      "options": {
+        "mightFaint": "I might faint",
+        "cantBreathe": "I can’t breathe",
+        "heartProblem": "Something is wrong with my heart",
+        "loseControl": "I might lose control",
+        "goingCrazy": "I might go crazy",
+        "mightDie": "I might die",
+        "iWillPassOutInPublic": "I might pass out in public",
+        "cantEscape": "I won’t be able to escape",
+        "iWillBeTrapped": "I will be trapped",
+        "iWillBeHelpless": "I will be helpless",
+        "embarrassMyself": "I might embarrass myself",
+        "peopleWillJudgeMe": "People might judge me",
+        "somethingTerribleWillHappen": "Something terrible might happen",
+        "iWontBeAbleToCope": "I won’t be able to cope",
+        "illMakeTheWrongDecision": "I’ll make the wrong decision",
+        "ifIDontPrepareSomethingWillGoWrong": "If I don’t prepare, something will go wrong",
+        "iNeedToKnowForSure": "I need to know for sure",
+        "illLetPeopleDown": "I’ll let people down"
+      }
+    },
+    "behaviors": {
+      "title": "What do you usually do when it starts?",
+      "subtitle": "Be honest, there’s no right answer",
+      "options": {
+        "leaveTheSituation": "Leave the situation",
+        "avoidGoingAltogether": "Avoid going altogether",
+        "sitDownOrStopMoving": "Sit down or stop moving",
+        "checkMyBodyPulseBreathing": "Check my body, pulse, or breathing",
+        "callOrTextSomeone": "Call or text someone",
+        "carrySomethingJustInCase": "Carry something with me just in case",
+        "tryToControlMyBreathing": "Try to control my breathing",
+        "distractMyselfImmediately": "Distract myself immediately",
+        "lookForAnExit": "Look for an exit",
+        "stayCloseToSomeoneITrust": "Stay close to someone I trust",
+        "askForHelpOrReassurance": "Ask for help or reassurance",
+        "scanMyBodyForSignsSomethingIsWrong": "Scan my body for signs that something is wrong",
+        "freezeOrGoQuiet": "Freeze or go quiet",
+        "tryToPushThroughIt": "Try to push through it",
+        "useGroundingOrSelfTalk": "Use grounding or calming self-talk",
+        "prayOrRepeatWordsInMyHead": "Pray or repeat words in my head",
+        "drinkWaterOrTakeSomethingWithMe": "Drink water or take something with me",
+        "recheckThingsRepeatedly": "Recheck things repeatedly",
+        "overprepare": "Overprepare",
+        "delayDecisions": "Delay decisions",
+        "googleSymptomsOrWorstCaseScenarios": "Google symptoms or worst-case scenarios",
+        "mentallyReviewWhatCouldGoWrong": "Mentally review what could go wrong"
+      }
+    },
+    "worryControl": {
+      "title": "How hard is it to stop worrying once it starts?",
+      "subtitle": "Choose what fits best",
+      "options": {
+        "usuallyCanStopIt": "I can usually stop it",
+        "sometimesCanStopIt": "I can sometimes stop it",
+        "rarelyCanStopIt": "I can rarely stop it",
+        "almostNeverCanStopIt": "I can almost never stop it"
+      }
+    },
+    "frequency": {
+      "title": "How often does anxiety or panic hit strongly?",
+      "subtitle": "Choose what fits best",
+      "options": {
+        "lessThanOnceAWeek": "Less than once a week",
+        "oneToTwoTimesAWeek": "1–2 times a week",
+        "threeToFiveTimesAWeek": "3–5 times a week",
+        "daily": "Daily",
+        "manyTimesADay": "Many times a day"
+      }
+    },
+    "durationOrCourse": {
+      "title": "How long has this been going on?",
+      "subtitle": "Choose what fits best",
+      "options": {
+        "lessThan1Month": "Less than 1 month",
+        "oneToSixMonths": "1–6 months",
+        "moreThan6Months": "More than 6 months",
+        "comesInWaves": "It comes in waves"
+      }
+    },
+    "impactLevel": {
+      "title": "How much is this affecting your life?",
+      "subtitle": "",
+      "options": {
+        "notMuch": "Not much",
+        "aLittle": "A little",
+        "quiteABit": "Quite a bit",
+        "aLot": "A lot"
+      }
+    },
+    "goals": {
+      "title": "What would you like to feel more comfortable doing?",
+      "subtitle": "",
+      "options": {
+        "goOutWithoutFear": "Go out without fear",
+        "beInCrowdedPlaces": "Be in crowded places",
+        "travelFreely": "Travel freely",
+        "beAloneComfortably": "Be alone comfortably",
+        "handleSocialSituations": "Handle social situations",
+        "focusAtWork": "Focus at work",
+        "feelCalmInMyBody": "Feel calm in my body",
+        "feelInControl": "Feel in control",
+        "notOverthinkEverything": "Stop overthinking everything",
+        "feelSafeInMyBody": "Feel safe in my body",
+        "stopAvoidingThings": "Stop avoiding things",
+        "trustMyselfMore": "Trust myself more"
+      }
+    },
+    "screenInfo": {
+      "entry": {
+        "helperText": "You can skip any question. This is not a diagnosis and does not replace a licensed mental health professional.",
+        "whyThisExists": "This screen sets expectations and explains that the flow builds a structured anxiety profile for personalization.",
+        "legalNote": "Use language like 'personalize your experience' or 'build your anxiety profile.' Avoid claims like 'diagnosis' or 'equivalent to a psychologist intake.'"
+      },
+      "situations": {
+        "helperText": "Pick the situations where anxiety tends to get activated, feel more intense, or become harder to manage.",
+        "whyThisExists": "This identifies the contexts linked to activation, avoidance, escape, and perceived lack of safety.",
+        "legalNote": "Describe this as understanding triggers and patterns. Do not state that selected situations determine a diagnosis."
+      },
+      "worryThemes": {
+        "helperText": "Choose the areas your mind tends to return to when you are anxious or overthinking.",
+        "whyThisExists": "This helps identify whether anxiety is broad and future-oriented across multiple life areas.",
+        "legalNote": "Say this helps understand worry themes, not whether someone has a disorder."
+      },
+      "symptoms": {
+        "helperText": "Choose the symptoms you notice most often when your system feels activated.",
+        "whyThisExists": "This captures the symptom layer, including body sensations linked to panic and ongoing tension-related symptoms linked to generalized anxiety.",
+        "legalNote": "Avoid saying symptoms alone are enough to identify a disorder. They are one part of a broader profile."
+      },
+      "primaryFears": {
+        "helperText": "Choose the fears that feel most true in the moment, even if another part of you knows they may not be accurate.",
+        "whyThisExists": "This identifies the feared outcomes behind the anxiety loop, including body-based catastrophe fears, uncertainty-based fears, and social fears.",
+        "legalNote": "Frame this as understanding feared outcomes. Do not say this screen identifies a medical condition."
+      },
+      "behaviors": {
+        "helperText": "Choose what you usually do to feel safer, reduce discomfort, or prevent something bad from happening.",
+        "whyThisExists": "This identifies safety behaviors, avoidance, reassurance-seeking, checking, and other coping patterns that can maintain anxiety over time.",
+        "legalNote": "Say this helps identify coping patterns and safety behaviors. Avoid stating that the app can determine treatment from this alone."
+      },
+      "worryControl": {
+        "helperText": "Choose the option that best fits your usual experience.",
+        "whyThisExists": "This captures how hard it is to stop or let go of worry once it starts.",
+        "legalNote": "State that this helps understand the style of anxiety, not confirm a diagnosis."
+      },
+      "frequency": {
+        "helperText": "Choose how often strong anxiety or panic shows up for you overall.",
+        "whyThisExists": "This gives a severity baseline and helps distinguish occasional activation from more frequent burden.",
+        "legalNote": "Describe frequency as a self-reported severity indicator, not a diagnostic threshold."
+      },
+      "durationOrCourse": {
+        "helperText": "Choose the option that best matches the overall course of your anxiety.",
+        "whyThisExists": "This helps distinguish shorter-term spikes from more persistent patterns and supports a better long-term formulation.",
+        "legalNote": "Do not imply that duration alone establishes a diagnosis. It is one piece of the overall picture."
+      },
+      "impactLevel": {
+        "helperText": "Choose the option that best reflects the impact anxiety is having on your life overall.",
+        "whyThisExists": "This captures functional impairment, which is essential for understanding severity and planning support.",
+        "legalNote": "Frame this as understanding impact and support needs. Avoid saying the app grades clinical severity like a clinician would."
+      },
+      "goals": {
+        "helperText": "Choose the areas you most want to improve, regain, or feel more confident with.",
+        "whyThisExists": "This helps translate the profile into practical priorities for self-help planning and future CBT-oriented guidance.",
+        "legalNote": "Describe this as personalization and prioritization. Avoid promising individualized treatment."
+      }
     }
   }
 }

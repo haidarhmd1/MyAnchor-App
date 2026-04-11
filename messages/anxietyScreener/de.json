@@ -1,0 +1,254 @@
+{
+  "anxietyScreening": {
+    "analysis": {
+      "title": "Wir schauen uns deine Antworten an",
+      "subtitle": "Das dauert nur einen Moment"
+    },
+    "header": {
+      "eyebrow": "Angstprofil",
+      "badge": "Screening",
+      "stepProgress": "Schritt {current} von {total}"
+    },
+    "intro": {
+      "title": "Bevor du startest",
+      "description": "Das hilft dir, mögliche Angstmuster auf eine einfache Weise besser zu verstehen. Es ist keine Diagnose.",
+      "points": {
+        "honestAnswers": "Antworte so, wie es sich in letzter Zeit wirklich angefühlt hat — nicht so, wie es schlimmer klingt.",
+        "safety": "Wenn du dich gerade unsicher fühlst, hol dir bitte Unterstützung im echten Leben.",
+        "result": "Du bekommst eine kurze, klare Erklärung — keinen klinischen Bericht."
+      }
+    },
+    "common": {
+      "likertLabels": {
+        "0": "Gar nicht",
+        "1": "Manchmal",
+        "2": "Oft",
+        "3": "Fast immer"
+      },
+      "gadDurationLabels": {
+        "lessThan6Months": "Weniger als 6 Monate",
+        "sixMonthsOrMore": "6 Monate oder länger",
+        "notSure": "Nicht sicher"
+      },
+      "frequencyLabels": {
+        "none": "Keinmal",
+        "one": "Einmal",
+        "twoToThree": "2–3 Mal",
+        "fourOrMore": "4+ Mal",
+        "notSure": "Nicht sicher"
+      },
+      "yesNoUnknownLabels": {
+        "yes": "Ja",
+        "no": "Nein",
+        "notSure": "Nicht sicher"
+      },
+      "panicSymptomLabels": {
+        "palpitationsOrRacingHeart": "Rasendes oder stark klopfendes Herz",
+        "sweating": "Schwitzen",
+        "tremblingOrShaking": "Zittern oder Beben",
+        "shortnessOfBreath": "Atemnot",
+        "chokingSensations": "Das Gefühl, nicht richtig Luft zu bekommen oder zu ersticken",
+        "chestPainOrDiscomfort": "Brustschmerzen oder Engegefühl",
+        "nauseaOrAbdominalDistress": "Übelkeit oder Magenbeschwerden",
+        "dizzinessOrLightheadedness": "Schwindel oder Benommenheit",
+        "chillsOrHeatSensations": "Hitze- oder Kältegefühle",
+        "numbnessOrTingling": "Kribbeln oder Taubheitsgefühle",
+        "derealizationOrDepersonalization": "Das Gefühl, unwirklich oder nicht ganz bei sich zu sein",
+        "fearOfLosingControlOrGoingCrazy": "Angst, die Kontrolle zu verlieren",
+        "fearOfDying": "Angst zu sterben"
+      },
+      "impairmentLabels": {
+        "none": "Gar nicht",
+        "mild": "Ein wenig",
+        "moderate": "Mittel",
+        "marked": "Ziemlich stark",
+        "severe": "Sehr stark"
+      }
+    },
+    "gadStep": {
+      "title": "Anhaltende Sorgen",
+      "description": "Diese Fragen schauen auf die letzten 2 Wochen — und darauf, ob dieses Muster schon länger da ist.",
+      "gadDurationLabels": {
+        "lessThan6Months": "Weniger als 6 Monate",
+        "sixMonthsOrMore": "6 Monate oder länger",
+        "notSure": "Nicht sicher"
+      },
+      "gad7ItemQuestions": {
+        "duration": "Geht diese Art von Sorgen schon seit 6 Monaten oder länger?",
+        "feelingNervousOrOnEdge": "Hast du dich oft angespannt oder innerlich unruhig gefühlt?",
+        "difficultyControllingWorry": "Fiel es dir schwer, deine Sorgen zu stoppen oder zu kontrollieren?",
+        "worryingTooMuchAboutDifferentThings": "Hast du dir über viele verschiedene Dinge starke oder anhaltende Sorgen gemacht?",
+        "troubleRelaxing": "Fiel es dir schwer, abzuschalten oder dich zu entspannen?",
+        "restlessness": "Hast du dich so unruhig gefühlt, dass stilles Sitzen schwerfiel?",
+        "irritability": "Warst du schnell gereizt oder genervt?",
+        "fearThatSomethingAwfulMayHappen": "Hattest du oft das Gefühl, dass etwas Schlimmes passieren könnte?"
+      }
+    },
+    "panicStep": {
+      "title": "Plötzliche Angstspitzen",
+      "description": "Hier geht es um Momente, in denen Angst oder Anspannung sehr schnell ansteigt.",
+      "questions": {
+        "hadSurges": "Hattest du im letzten Monat plötzliche Momente mit starker Angst oder Anspannung?",
+        "peakWithinMinutes": "Sind diese schnell stärker geworden und innerhalb weniger Minuten auf den Höhepunkt gestiegen?",
+        "frequency": "Wie oft ist das ungefähr passiert?",
+        "unexpected": "Fühlten sich diese Momente eher unerwartet an — ohne klaren Auslöser?",
+        "symptomsTitle": "Was hast du im stärksten Moment bemerkt?",
+        "persistentConcern": "Hast du dir danach länger Sorgen gemacht, dass es wieder passiert?",
+        "behaviorChange": "Hast du danach dein Verhalten verändert, um so etwas zu vermeiden?"
+      }
+    },
+    "maintainerStep": {
+      "title": "Was es aufrechterhält",
+      "description": "Manche Gewohnheiten können Angst weiter antreiben — auch wenn sie eigentlich helfen sollen.",
+      "worryLoop": {
+        "title": "Sorgenkreislauf",
+        "description": "Wie stark tauchen diese Dinge in deinem Alltag auf?"
+      },
+      "panicLoop": {
+        "title": "Körperlicher Alarmkreislauf",
+        "description": "Diese Dinge können dazu führen, dass plötzliche Angst unfertig oder noch bedrohlicher wirkt."
+      },
+      "panicMaintainerLabels": {
+        "bodyScanning": "Ich achte ständig auf meinen Körper, um Anzeichen von Angst zu bemerken",
+        "carryingSafetyItems": "Ich habe Dinge dabei, um mich sicherer zu fühlen (z. B. Wasser, Medikamente, Handy)",
+        "escapePlanning": "Ich überlege, wie ich schnell wegkomme, wenn die Angst steigt",
+        "avoidingPhysicalExertion": "Ich vermeide Aktivitäten oder Körpergefühle, die sich zu intensiv anfühlen könnten",
+        "needingSafePersonOrExit": "Ich fühle mich nur sicher, wenn eine vertraute Person oder ein schneller Weg raus da ist"
+      },
+      "worryMaintainerLabels": {
+        "reassuranceSeeking": "Ich frage andere nach Beruhigung oder Bestätigung, um runterzukommen",
+        "checkingAndResearching": "Ich überprüfe oder recherchiere Dinge immer wieder, um mich sicherer zu fühlen",
+        "overPreparing": "Ich bereite mich übermäßig vor, damit nichts schiefläuft",
+        "avoidingUncertainty": "Ich vermeide Dinge, wenn das Ergebnis unklar ist",
+        "mentalReviewing": "Ich gehe mögliche Szenarien im Kopf immer wieder durch"
+      }
+    },
+    "impairmentStep": {
+      "title": "Auswirkungen",
+      "description": "Hier geht es darum, wie stark Angst deinen Alltag beeinflusst.",
+      "questions": {
+        "home": "Zu Hause",
+        "workOrStudy": "Bei der Arbeit oder im Studium",
+        "social": "In sozialen Situationen"
+      },
+      "impairmentLabels": {
+        "none": "Gar nicht",
+        "mild": "Ein wenig",
+        "moderate": "Mittel",
+        "marked": "Ziemlich stark",
+        "severe": "Sehr stark"
+      }
+    },
+    "contextStep": {
+      "title": "Wichtiger Kontext",
+      "description": "Diese Fragen helfen dabei, das Ergebnis realistisch zu halten.",
+      "questions": {
+        "symptomsOnlyDuringSubstanceUse": "Passiert das hauptsächlich während oder nach dem Konsum von Substanzen?",
+        "symptomsBetterExplainedByMedicalProblem": "Könnte eine körperliche Ursache das besser erklären?",
+        "recentTraumaCueDominant": "Passiert das vor allem rund um Erinnerungen an ein belastendes Ereignis?",
+        "recentManiaLikeState": "Gab es kürzlich eine Phase mit sehr viel Energie und wenig Schlaf?",
+        "currentlyFeelsUnsafe": "Fühlst du dich gerade unsicher?"
+      }
+    },
+    "previewStep": {
+      "title": "Antworten prüfen",
+      "description": "Das ist eine vorsichtige Vorschau auf Basis deiner Antworten — keine Diagnose.",
+      "tiles": {
+        "likelyFocus": "Hauptmuster",
+        "gad7": "GAD-7",
+        "maintainingLoop": "Aufrechterhaltender Kreislauf",
+        "confidence": "Sicherheit"
+      },
+      "cautionFlagsTitle": "Worauf du achten solltest"
+    },
+    "previewScoring": {
+      "values": {
+        "focus": {
+          "panic_cycle": "Panikartiger Körperalarm-Kreislauf",
+          "generalized_worry": "Allgemeiner Sorgenkreislauf",
+          "mixed_anxiety": "Gemischtes Angstmuster",
+          "uncertain": "Noch unklar"
+        },
+        "dominantLoop": {
+          "worry": "Sorgenkreislauf",
+          "panic": "Körperalarm-Kreislauf",
+          "mixed": "Gemischter Kreislauf",
+          "low_signal": "Schwaches Signal"
+        },
+        "severityBand": {
+          "minimal": "Minimal",
+          "mild": "Leicht",
+          "moderate": "Mittel",
+          "severe": "Stark"
+        },
+        "confidence": {
+          "low": "Niedrig",
+          "moderate": "Mittel"
+        }
+      }
+    },
+    "scoringPreview": {
+      "highlights": {
+        "worry": {
+          "reassuranceSeeking": "Suche nach Beruhigung",
+          "checkingAndResearching": "Kontrollieren oder Recherchieren",
+          "overPreparing": "Übermäßiges Vorbereiten",
+          "avoidingUncertainty": "Vermeidung von Unsicherheit",
+          "mentalReviewing": "Gedankliches Durchgehen"
+        },
+        "panic": {
+          "bodyScanning": "Körperbeobachtung",
+          "carryingSafetyItems": "Sich auf Sicherheitsdinge verlassen",
+          "escapePlanning": "Fluchtplanung",
+          "avoidingPhysicalExertion": "Körpergefühle vermeiden",
+          "needingSafePersonOrExit": "Eine sichere Person oder einen schnellen Ausgang brauchen"
+        }
+      }
+    },
+    "anxietyResult": {
+      "steps": {
+        "big_picture": {
+          "eyebrow": "Worauf das hindeuten könnte",
+          "title": "Das Gesamtbild"
+        },
+        "moment": {
+          "eyebrow": "Der Moment-für-Moment-Kreislauf",
+          "title": "Was im Moment passiert"
+        },
+        "real": {
+          "eyebrow": "Warum es so überzeugend wirkt",
+          "title": "Warum es sich so real anfühlt"
+        },
+        "repeat": {
+          "eyebrow": "Was es weiter antreibt",
+          "title": "Warum es sich wiederholt"
+        },
+        "problem": {
+          "eyebrow": "Worum es eigentlich geht",
+          "title": "Was sich verändern muss"
+        }
+      },
+      "header": {
+        "eyebrow": "Deine Erklärung",
+        "title": "Ein klarer, nicht-diagnostischer Überblick",
+        "badge": "Nur Screening"
+      },
+      "progress": {
+        "step": "Schritt {current} von {total}"
+      },
+      "actions": {
+        "badges": {
+          "possiblePattern": "Mögliches Muster: {pattern}",
+          "meaningfulImpact": "Spürbare Auswirkungen"
+        },
+        "title": "Worauf du achten kannst",
+        "description": "Das sind allgemeine Richtungen — kein Behandlungsplan.",
+        "tiles": {
+          "interpretation": "Wie du Dinge deutest",
+          "behavior": "Was du als Nächstes tust",
+          "relearning": "Wie dein System Sicherheit neu lernt"
+        }
+      }
+    }
+  }
+}

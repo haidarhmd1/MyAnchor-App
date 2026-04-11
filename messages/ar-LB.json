@@ -129,7 +129,11 @@
     }
   },
   "common": {
+    "analyzeAnswers": "حلّل الإجابات",
+    "back": "رجوع",
     "loading": "عم يتحمّل...",
+    "skip": "تخطي",
+    "continue": "كمّل",
     "engagement": {
       "STAY": {
         "label": "بقاء",
@@ -1510,6 +1514,260 @@
       "verify": "تأكيد وتسجيل الدخول",
       "verificationCode": "رمز التحقق",
       "resendCode": "إعادة إرسال الرمز"
+    }
+  },
+  "anxietyProfile": {
+    "legal": {
+      "intro": "هالاستبيان بيساعدنا نفهم كيف القلق بيظهر عندك، حتى نقدر نخصّصلك المحتوى التوعوي وأدوات المساعدة الذاتية.",
+      "disclaimer": "هيدا مش تشخيص، وما بيغني عن تقييم من مختص/ة مرخّص/ة بالصحة النفسية. فيك تتخطّى أي سؤال.",
+      "emergency": "إذا كنت بخطر فوري، أو عم تفكّر تأذي حالك، أو عندك أعراض طبية طارئة، اطلب المساعدة فورًا.",
+      "privacy": "إجاباتك بتنستخدم لنبني ملف القلق الخاص فيك، حتى يقدر التطبيق يخصّصلك اللي بتشوفه وطريقة تنظيم الدعم.",
+      "intendedUse": "هالمسار معمول ليدعم التقييم الذاتي، والتخصيص، والتثقيف النفسي، والتخطيط للمساعدة الذاتية.",
+      "notIntendedUse": "وهو مش معمول ليشخّص أو يمنع أو يراقب أو يتنبأ أو يعالج حالة نفسية لحاله."
+    },
+    "entry": {
+      "title": "هيدا بيساعدنا نفهم كيف القلق بيظهر عندك.",
+      "subtitle": "تخطّى أي شي مش متأكد منه."
+    },
+    "situations": {
+      "title": "إمتى عادةً بيظهر القلق؟",
+      "subtitle": "اختَر كل شي بينطبق عليك",
+      "options": {
+        "crowdedPlaces": "أماكن مزدحمة",
+        "socialSituations": "مواقف اجتماعية",
+        "publicTransport": "مواصلات عامة",
+        "beingFarFromHome": "لما كون بعيد عن البيت",
+        "workOrMeetings": "الشغل أو الاجتماعات",
+        "beingAlone": "لما كون لحالي",
+        "waitingInLines": "الوقوف بالدور",
+        "newOrUnfamiliarPlaces": "أماكن جديدة أو مش مألوفة",
+        "healthRelatedSituations": "مواقف بتتعلق بالصحة",
+        "openSpaces": "أماكن مفتوحة",
+        "enclosedSpaces": "أماكن مسكّرة",
+        "drivingOrTraffic": "السواقة أو زحمة السير",
+        "traveling": "السفر",
+        "conflictOrConfrontation": "الخلاف أو المواجهة",
+        "beingObserved": "لما حس حدا عم يراقبني أو يطلع فيّي",
+        "performanceSituations": "مواقف فيها أداء أو تقييم",
+        "separationFromSafePerson": "لما ابتعد عن شخص بحس معه بالأمان",
+        "uncertaintyOrNotKnowing": "عدم اليقين أو ما بعرف",
+        "physicalSensationsInBody": "أحاسيس جسدية بجسمي",
+        "bedtimeOrTryingToSleep": "وقت النوم أو لما حاول نام"
+      }
+    },
+    "worryThemes": {
+      "title": "عن شو غالبًا بتقلق أكتر شي؟",
+      "subtitle": "اختَر كل شي بينطبق عليك",
+      "options": {
+        "health": "صحتي",
+        "familyOrLovedOnes": "عيلتي أو الناس اللي بحبّن",
+        "workOrSchool": "الشغل أو الدراسة",
+        "moneyOrFinances": "المصاري أو الأمور المالية",
+        "futureAndUncertainty": "المستقبل أو عدم اليقين",
+        "makingWrongDecisions": "إني آخد قرار غلط",
+        "dailyResponsibilities": "المسؤوليات اليومية",
+        "relationships": "العلاقات",
+        "safetyOrSomethingBadHappening": "الأمان أو إنو يصير شي سيّئ",
+        "sleepOrNighttime": "النوم أو الليل"
+      }
+    },
+    "symptoms": {
+      "title": "شو بتحس بجسمك؟",
+      "subtitle": "لما يضرب القلق",
+      "options": {
+        "racingHeart": "دقات قلب سريعة",
+        "shortnessOfBreath": "ضيق نفس",
+        "chestTightness": "شد أو ضيق بالصدر",
+        "chokingFeeling": "إحساس إني مش قادر اتنفس أو كأني عم اختنق",
+        "dizziness": "دوخة",
+        "lightheadedness": "خفة بالرأس",
+        "blurredVision": "تشويش بالرؤية",
+        "nausea": "غثيان",
+        "stomachDiscomfort": "انزعاج بالمعدة",
+        "sweating": "تعرّق",
+        "hotFlushes": "هبات سخنة",
+        "coldChills": "قشعريرة باردة",
+        "shaking": "رجفة أو ارتجاف",
+        "tingling": "وخز أو تنميل خفيف",
+        "numbness": "خدر",
+        "derealizationDepersonalization": "إحساس إني منفصل عن الواقع أو عن حالي",
+        "feelingUnreal": "الأشياء بتصير حاسسها غريبة أو مش حقيقية",
+        "urgeToEscape": "رغبة قوية إني اهرب أو اطلع",
+        "muscleTension": "شد عضلي",
+        "troubleConcentrating": "صعوبة بالتركيز",
+        "irritability": "عصبية أو سرعة انفعال",
+        "sleepProblems": "مشاكل بالنوم",
+        "feelingOnEdge": "إحساس إني متأهّب أو مش مرتاح",
+        "fatigueOrFeelingWornOut": "تعب أو إحساس بالإرهاق"
+      }
+    },
+    "primaryFears": {
+      "title": "شو أكتر شي بخوّفك بهاللحظة؟",
+      "subtitle": "حتى لو بتعرف إنو يمكن ما يكون صحيح",
+      "options": {
+        "mightFaint": "يمكن أغمى عليّي",
+        "cantBreathe": "مش قادر اتنفس",
+        "heartProblem": "في شي غلط بقلبي",
+        "loseControl": "يمكن أفقد السيطرة",
+        "goingCrazy": "يمكن أجنّ",
+        "mightDie": "يمكن أموت",
+        "iWillPassOutInPublic": "يمكن انهار قدّام العالم",
+        "cantEscape": "ما رح اقدر اهرب",
+        "iWillBeTrapped": "رح كون محشور",
+        "iWillBeHelpless": "رح كون عاجز",
+        "embarrassMyself": "يمكن أحرج حالي",
+        "peopleWillJudgeMe": "يمكن الناس تحكم عليّي",
+        "somethingTerribleWillHappen": "يمكن يصير شي كتير سيّئ",
+        "iWontBeAbleToCope": "ما رح اقدر اتحمّل",
+        "illMakeTheWrongDecision": "رح آخد القرار الغلط",
+        "ifIDontPrepareSomethingWillGoWrong": "إذا ما حضرت حالي، رح يخرب شي",
+        "iNeedToKnowForSure": "لازم أعرف أكيد",
+        "illLetPeopleDown": "رح خيّب أمل الناس"
+      }
+    },
+    "behaviors": {
+      "title": "شو بتعمل عادةً لما يبلّش؟",
+      "subtitle": "كون صريح، ما في جواب صح أو غلط",
+      "options": {
+        "leaveTheSituation": "بترك الموقف",
+        "avoidGoingAltogether": "بتجنّب روح من الأساس",
+        "sitDownOrStopMoving": "بقعد أو بوقّف الحركة",
+        "checkMyBodyPulseBreathing": "بفحص جسمي أو نبضي أو نفسي",
+        "callOrTextSomeone": "بتصل بحدا أو ببعتله",
+        "carrySomethingJustInCase": "بحمل معي شي احتياط",
+        "tryToControlMyBreathing": "بحاول سيطر على نفسي",
+        "distractMyselfImmediately": "بشتّت حالي فورًا",
+        "lookForAnExit": "بدور على مخرج",
+        "stayCloseToSomeoneITrust": "بضل قريب من شخص بثق فيه",
+        "askForHelpOrReassurance": "بطلب مساعدة أو طمأنة",
+        "scanMyBodyForSignsSomethingIsWrong": "براقب جسمي إذا في شي غلط",
+        "freezeOrGoQuiet": "بتجمّد أو بسكت",
+        "tryToPushThroughIt": "بحاول كمّل غصب عني",
+        "useGroundingOrSelfTalk": "بستخدم تهدئة أو كلام مطمّن مع حالي",
+        "prayOrRepeatWordsInMyHead": "بدعي أو بكرّر كلمات براسي",
+        "drinkWaterOrTakeSomethingWithMe": "بشرب مي أو باخد شي معي",
+        "recheckThingsRepeatedly": "برجع بتأكد من الأشياء مرارًا",
+        "overprepare": "بحضّر زيادة عن اللزوم",
+        "delayDecisions": "بأجّل القرارات",
+        "googleSymptomsOrWorstCaseScenarios": "بفتّش على جوجل عن الأعراض أو أسوأ الاحتمالات",
+        "mentallyReviewWhatCouldGoWrong": "براجع براسي شو ممكن يخرب"
+      }
+    },
+    "worryControl": {
+      "title": "قديش صعب توقف القلق لما يبلّش؟",
+      "subtitle": "اختَر اللي بناسبك أكتر",
+      "options": {
+        "usuallyCanStopIt": "عادةً فيني وقّفه",
+        "sometimesCanStopIt": "أوقات فيني وقّفه",
+        "rarelyCanStopIt": "نادراً فيني وقّفه",
+        "almostNeverCanStopIt": "تقريبًا ما فيني وقّفه أبدًا"
+      }
+    },
+    "frequency": {
+      "title": "قديش مرة بيضرب القلق أو الهلع عندك بشكل قوي؟",
+      "subtitle": "اختَر اللي بناسبك أكتر",
+      "options": {
+        "lessThanOnceAWeek": "أقل من مرة بالأسبوع",
+        "oneToTwoTimesAWeek": "1–2 مرة بالأسبوع",
+        "threeToFiveTimesAWeek": "3–5 مرات بالأسبوع",
+        "daily": "يوميًا",
+        "manyTimesADay": "مرات كتيرة بالنهار"
+      }
+    },
+    "durationOrCourse": {
+      "title": "من قديش هالشي عم يصير؟",
+      "subtitle": "اختَر اللي بناسبك أكتر",
+      "options": {
+        "lessThan1Month": "أقل من شهر",
+        "oneToSixMonths": "1–6 شهور",
+        "moreThan6Months": "أكتر من 6 شهور",
+        "comesInWaves": "بيجي على شكل موجات"
+      }
+    },
+    "impactLevel": {
+      "title": "قديش هالشي عم يأثر على حياتك؟",
+      "subtitle": "",
+      "options": {
+        "notMuch": "مش كتير",
+        "aLittle": "شوي",
+        "quiteABit": "بشكل واضح",
+        "aLot": "بشكل كبير"
+      }
+    },
+    "goals": {
+      "title": "بشو بتحب تحس حالك أريح أكتر؟",
+      "subtitle": "",
+      "options": {
+        "goOutWithoutFear": "اطلع من دون خوف",
+        "beInCrowdedPlaces": "كون بأماكن مزدحمة",
+        "travelFreely": "سافر بحرية",
+        "beAloneComfortably": "كون مرتاح وأنا لحالي",
+        "handleSocialSituations": "اتعامل أحسن مع المواقف الاجتماعية",
+        "focusAtWork": "ركّز بالشغل",
+        "feelCalmInMyBody": "حس بالهدوء بجسمي",
+        "feelInControl": "حس إني مسيطر",
+        "notOverthinkEverything": "ما ضلّل فكّر زيادة بكل شي",
+        "feelSafeInMyBody": "حس بالأمان بجسمي",
+        "stopAvoidingThings": "بطّل أتجنّب الأشياء",
+        "trustMyselfMore": "ثق بحالي أكتر"
+      }
+    },
+    "screenInfo": {
+      "entry": {
+        "helperText": "فيك تتخطّى أي سؤال. هيدا مش تشخيص، وما بيغني عن مختص/ة مرخّص/ة بالصحة النفسية.",
+        "whyThisExists": "هالشاشة بتوضّح الهدف من هالمسار، وبتشرح إنو عم يبني ملف قلق منظّم لحتى يخصّص التجربة.",
+        "legalNote": "استعمل تعابير مثل «نخصّص تجربتك» أو «نبني ملف القلق الخاص فيك». وتجنّب كلمات مثل «تشخيص» أو «بيعادل تقييم أخصائي نفسي»."
+      },
+      "situations": {
+        "helperText": "اختَر المواقف اللي فيها القلق عادةً بيتفعّل أو بيشتد أو بيصير أصعب تسيطر عليه.",
+        "whyThisExists": "هيدا بيساعد نفهم السياقات المرتبطة بالتفعّل والتجنّب والهروب والشعور بعدم الأمان.",
+        "legalNote": "قدّمه على إنو فهم للمحفزات والأنماط، مش طريقة لتحديد تشخيص."
+      },
+      "worryThemes": {
+        "helperText": "اختَر المجالات اللي بيرجع لها بالك فيها مرارًا لما تكون قلقان أو عم تفرط بالتفكير.",
+        "whyThisExists": "هيدا بيساعد يبين إذا القلق واسع وممتد على أكتر من مجال بحياتك.",
+        "legalNote": "قل إنو هيدا بيساعد يفهم مواضيع القلق، مش إذا الشخص عنده اضطراب أو لا."
+      },
+      "symptoms": {
+        "helperText": "اختَر الأعراض اللي بتلاحظها أكتر لما يكون جهازك العصبي بحالة تفعّل.",
+        "whyThisExists": "هيدا بيلقط طبقة الأعراض، بما فيها الأحاسيس الجسدية المرتبطة بالهلع وأعراض التوتر المستمر المرتبطة بالقلق العام.",
+        "legalNote": "تجنّب تقول إنو الأعراض لحالها بتكفي لتحديد اضطراب. هي جزء واحد من الصورة."
+      },
+      "primaryFears": {
+        "helperText": "اختَر المخاوف اللي بتحسها الأصدق بهاللحظة، حتى لو جزء منك بيعرف إنو يمكن ما تكون صحيحة.",
+        "whyThisExists": "هيدا بيساعد يحدد النتيجة المخيفة اللي ورا حلقة القلق، سواء كانت جسدية أو مرتبطة بعدم اليقين أو اجتماعية.",
+        "legalNote": "قدّمه على إنو فهم للمخاوف المتوقعة، مش على إنو يحدد حالة طبية."
+      },
+      "behaviors": {
+        "helperText": "اختَر شو بتعمل عادةً لتشعر بأمان أكتر أو لتخفف الانزعاج أو لتمنع شي سيّئ من إنو يصير.",
+        "whyThisExists": "هيدا بيساعد يحدد سلوكيات الأمان والتجنّب وطلب الطمأنة والفحص وغيرهم من الأنماط اللي ممكن تضلّها تغذّي القلق مع الوقت.",
+        "legalNote": "قل إنو هيدا بيساعد يفهم أنماط التكيّف وسلوكيات الأمان. وتجنّب القول إنو التطبيق بيقدر يحدد العلاج من هالشي لحاله."
+      },
+      "worryControl": {
+        "helperText": "اختَر الخيار اللي بيوصف تجربتك المعتادة بشكل أفضل.",
+        "whyThisExists": "هيدا بيلقط قديش صعب تترك القلق أو توقفه لما يبلّش.",
+        "legalNote": "اذكر إنو هيدا بيساعد نفهم نمط القلق، مش لتأكيد تشخيص."
+      },
+      "frequency": {
+        "helperText": "اختَر قديش مرة القلق أو الهلع القوي بيظهر عندك بشكل عام.",
+        "whyThisExists": "هيدا بيعطي خط أساس للشدة، وبيساعد يفرق بين التفعّل الخفيف والعبء المتكرر.",
+        "legalNote": "قدّمه على إنو مؤشر شدة مبني على التقرير الذاتي، مش حد تشخيصي."
+      },
+      "durationOrCourse": {
+        "helperText": "اختَر الخيار اللي بيوصف مسار قلقك بشكل عام أحسن شي.",
+        "whyThisExists": "هيدا بيساعد يفرق بين الفترات القصيرة والأنماط المستمرة، وبيعطي فهم أشمل.",
+        "legalNote": "ما توحي إنو المدة لحالها بتحدد التشخيص. هي جزء من الصورة العامة."
+      },
+      "impactLevel": {
+        "helperText": "اختَر الخيار اللي بيعكس أحسن شي قديش القلق مأثر على حياتك بشكل عام.",
+        "whyThisExists": "هيدا بيلقط مستوى التأثير على الأداء والحياة اليومية، وهاد مهم لفهم الشدة واحتياجات الدعم.",
+        "legalNote": "قدّمه على إنو فهم للتأثير واحتياجات الدعم، وتجنّب تقول إنو التطبيق بيقيّم الشدة السريرية مثل المختص."
+      },
+      "goals": {
+        "helperText": "اختَر المجالات اللي بدك تتحسن فيها أو تسترجعها أو تحس فيها بثقة أكبر.",
+        "whyThisExists": "هيدا بيساعد يحوّل الملف لأولويات عملية للمساعدة الذاتية ولدعم مستقبلي مبني على مبادئ CBT.",
+        "legalNote": "قدّمه على إنو تخصيص وترتيب أولويات، وتجنّب الوعد بعلاج فردي مخصص."
+      }
     }
   }
 }

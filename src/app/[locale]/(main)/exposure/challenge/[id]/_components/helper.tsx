@@ -49,7 +49,7 @@ export type Step =
   | partialNoFinishScreen
   | yesFinishScreen;
 
-export const engagementsafetyBehaviorMapper = (
+export const getSafetyBehaviorOptionsByEngagement = (
   engagement: Engagement,
 ): SafetyBehaviorOptionItem[] => {
   switch (engagement) {

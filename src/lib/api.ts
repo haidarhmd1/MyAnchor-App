@@ -20,6 +20,8 @@ import {
   AnxietySupportPreviewResponseSchema,
   SupportedReasoningLocale,
 } from "./ai/anxietySupport/types";
+import { AnxietyProfilePreviewResponse } from "./ai/anxietyProfile/schema/response.schema";
+import { DerivedAnxietyProfile } from "@/app/[locale]/(main)/anxietyProfile/_components/helpers/types";
 
 type CreateChallengeInputType = z.infer<typeof ChallengeSchema>;
 export async function createChallenge({
@@ -90,6 +92,31 @@ export async function createMomentLogEntry({
     throw new Error(`Create moment log entry failed: ${res.status} ${text}`);
   }
   return (await res.json()) as MomentLog;
+}
+
+export async function createAnxietyProfile({
+  profile,
+  locale,
+}: {
+  profile: DerivedAnxietyProfile;
+  locale?: string;
+}): Promise<AnxietyProfilePreviewResponse> {
+  const res = await fetch("/api/anxietyProfile", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      profile,
+      locale,
+    }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`${res.status} ${text}`);
+  }
+
+  const result = await res.json();
+  return result;
 }
 
 export async function getReasoningPreview({

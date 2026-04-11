@@ -1,27 +1,26 @@
 "use client";
 
 import { useController, useFormContext } from "react-hook-form";
-import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { useTranslations } from "next-intl";
 import z from "zod";
 import { momentLogFormSchema } from "@/lib/zod.types";
 import { OptionItem } from "../helper";
+import { useMemo } from "react";
+import { SingleChoiceGroup } from "@/components/Form/Choice";
 
-export const SingleChoice = ({
-  onNext,
-  fieldName,
-  options,
-}: {
+type FormValues = z.infer<typeof momentLogFormSchema>;
+
+type Props = {
   onNext(): void;
-  fieldName: keyof z.infer<typeof momentLogFormSchema>;
+  fieldName: keyof FormValues;
   options: OptionItem[];
-}) => {
+};
+
+export const SingleChoice = ({ onNext, fieldName, options }: Props) => {
   const t = useTranslations();
-  const { control, formState } =
-    useFormContext<z.infer<typeof momentLogFormSchema>>();
+  const { control, formState } = useFormContext<FormValues>();
 
   const { field } = useController({
     name: fieldName,
@@ -33,65 +32,22 @@ export const SingleChoice = ({
     field.value !== null &&
     String(field.value) !== "";
 
+  const mappedOptions = useMemo(
+    () =>
+      options.map((o) => ({
+        id: o.id,
+        label: t(`momentLog.steps.${fieldName}.options.${o.slug}.title`),
+      })),
+    [options, t],
+  );
+
   return (
     <div className="space-y-4">
-      <div className="space-y-3" role="radiogroup">
-        {options.map((option) => {
-          const isSelected = String(field.value) === option.slug;
-
-          return (
-            <button
-              key={option.id}
-              type="button"
-              role="radio"
-              aria-checked={isSelected}
-              onClick={() => field.onChange(option.slug)}
-              className={cn(
-                "block w-full rounded-4xl text-left",
-                "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
-                "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
-              )}
-            >
-              <Card
-                className={cn(
-                  "border-border p-2 shadow-sm transition-all duration-200",
-                  "hover:-translate-y-px hover:shadow-md",
-                  isSelected
-                    ? "border-primary bg-accent"
-                    : "bg-card hover:bg-muted/40",
-                )}
-              >
-                <CardContent className="p-2">
-                  <div className="flex items-start gap-3">
-                    <div
-                      className={cn(
-                        "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
-                        isSelected ? "border-primary" : "border-border",
-                      )}
-                    >
-                      <div
-                        className={cn(
-                          "h-2.5 w-2.5 rounded-full transition-colors",
-                          isSelected ? "bg-primary" : "bg-transparent",
-                        )}
-                      />
-                    </div>
-
-                    <div className="min-w-0 flex-1 space-y-1.5">
-                      <h3 className="text-foreground text-base font-medium">
-                        {t(
-                          `momentLog.steps.${fieldName}.options.${option.slug}.title`,
-                        )}
-                      </h3>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </button>
-          );
-        })}
-      </div>
-
+      <SingleChoiceGroup
+        options={mappedOptions}
+        value={field.value}
+        onChange={field.onChange}
+      />
       <div className="pt-2 text-right">
         {formState.isSubmitting ? (
           <Button

@@ -129,7 +129,11 @@
     }
   },
   "common": {
+    "analyzeAnswers": "Antworten analysieren",
+    "back": "Zurück",
     "loading": "Wird geladen, bitte warten...",
+    "skip": "Überspringen",
+    "continue": "Weiter",
     "engagement": {
       "STAY": {
         "label": "Bleiben",
@@ -1543,6 +1547,260 @@
       "verify": "Bestätigen & anmelden",
       "verificationCode": "Bestätigungscode",
       "resendCode": "Code erneut senden"
+    }
+  },
+  "anxietyProfile": {
+    "legal": {
+      "intro": "Dieser Fragebogen hilft uns zu verstehen, wie sich Angst bei dir zeigt, damit wir Lerninhalte und Selbsthilfe-Tools besser auf dich abstimmen können.",
+      "disclaimer": "Er stellt keine Diagnose und ersetzt keine Einschätzung durch eine zugelassene Fachperson für psychische Gesundheit. Du kannst jede Frage überspringen.",
+      "emergency": "Wenn du in unmittelbarer Gefahr bist, denkst, dir etwas anzutun, oder akute medizinische Symptome hast, suche bitte sofort Notfallhilfe auf.",
+      "privacy": "Deine Antworten werden verwendet, um dein Angstprofil zu erstellen, damit die App Inhalte und Unterstützung besser auf dich abstimmen kann.",
+      "intendedUse": "Dieser Ablauf dient der Selbsteinschätzung, Personalisierung, Psychoedukation und Selbsthilfe-Planung.",
+      "notIntendedUse": "Er ist nicht dafür bestimmt, eigenständig eine psychische Erkrankung zu diagnostizieren, zu verhindern, zu überwachen, vorherzusagen oder zu behandeln."
+    },
+    "entry": {
+      "title": "Das hilft uns zu verstehen, wie sich Angst bei dir zeigt.",
+      "subtitle": "Überspringe alles, bei dem du dir nicht sicher bist."
+    },
+    "situations": {
+      "title": "Wann zeigt sich Angst normalerweise?",
+      "subtitle": "Wähle alles aus, was passt",
+      "options": {
+        "crowdedPlaces": "Menschenmengen",
+        "socialSituations": "Soziale Situationen",
+        "publicTransport": "Öffentliche Verkehrsmittel",
+        "beingFarFromHome": "Weit weg von zu Hause sein",
+        "workOrMeetings": "Arbeit oder Meetings",
+        "beingAlone": "Allein sein",
+        "waitingInLines": "In Warteschlangen stehen",
+        "newOrUnfamiliarPlaces": "Neue oder ungewohnte Orte",
+        "healthRelatedSituations": "Gesundheitsbezogene Situationen",
+        "openSpaces": "Offene Räume",
+        "enclosedSpaces": "Geschlossene Räume",
+        "drivingOrTraffic": "Autofahren oder Verkehr",
+        "traveling": "Reisen",
+        "conflictOrConfrontation": "Konflikt oder Konfrontation",
+        "beingObserved": "Beobachtet werden",
+        "performanceSituations": "Leistungssituationen",
+        "separationFromSafePerson": "Von jemandem getrennt sein, bei dem ich mich sicher fühle",
+        "uncertaintyOrNotKnowing": "Unsicherheit oder Nichtwissen",
+        "physicalSensationsInBody": "Körperliche Empfindungen in meinem Körper",
+        "bedtimeOrTryingToSleep": "Schlafenszeit oder Einschlafen"
+      }
+    },
+    "worryThemes": {
+      "title": "Worüber machst du dir am meisten Sorgen?",
+      "subtitle": "Wähle alles aus, was passt",
+      "options": {
+        "health": "Meine Gesundheit",
+        "familyOrLovedOnes": "Meine Familie oder nahestehende Menschen",
+        "workOrSchool": "Arbeit oder Schule",
+        "moneyOrFinances": "Geld oder Finanzen",
+        "futureAndUncertainty": "Die Zukunft oder Unsicherheit",
+        "makingWrongDecisions": "Die falsche Entscheidung treffen",
+        "dailyResponsibilities": "Tägliche Verpflichtungen",
+        "relationships": "Beziehungen",
+        "safetyOrSomethingBadHappening": "Sicherheit oder dass etwas Schlimmes passiert",
+        "sleepOrNighttime": "Schlaf oder die Nacht"
+      }
+    },
+    "symptoms": {
+      "title": "Was spürst du in deinem Körper?",
+      "subtitle": "Wenn die Angst einsetzt",
+      "options": {
+        "racingHeart": "Herzrasen",
+        "shortnessOfBreath": "Kurzatmigkeit",
+        "chestTightness": "Engegefühl in der Brust",
+        "chokingFeeling": "Gefühl, nicht atmen zu können oder zu ersticken",
+        "dizziness": "Schwindel",
+        "lightheadedness": "Benommenheitsgefühl",
+        "blurredVision": "Verschwommenes Sehen",
+        "nausea": "Übelkeit",
+        "stomachDiscomfort": "Magenbeschwerden",
+        "sweating": "Schwitzen",
+        "hotFlushes": "Hitzewallungen",
+        "coldChills": "Kälteschauer",
+        "shaking": "Zittern oder Beben",
+        "tingling": "Kribbelgefühle",
+        "numbness": "Taubheitsgefühl",
+        "derealizationDepersonalization": "Gefühl, von der Realität oder von sich selbst losgelöst zu sein",
+        "feelingUnreal": "Dinge fühlen sich unwirklich oder seltsam an",
+        "urgeToEscape": "Starker Drang zu fliehen oder wegzugehen",
+        "muscleTension": "Muskelanspannung",
+        "troubleConcentrating": "Konzentrationsprobleme",
+        "irritability": "Reizbarkeit",
+        "sleepProblems": "Schlafprobleme",
+        "feelingOnEdge": "Sich angespannt oder aufgewühlt fühlen",
+        "fatigueOrFeelingWornOut": "Müdigkeit oder sich erschöpft fühlen"
+      }
+    },
+    "primaryFears": {
+      "title": "Was fühlt sich in diesem Moment am beängstigendsten an?",
+      "subtitle": "Auch wenn du weißt, dass es vielleicht nicht stimmt",
+      "options": {
+        "mightFaint": "Ich könnte ohnmächtig werden",
+        "cantBreathe": "Ich kann nicht atmen",
+        "heartProblem": "Mit meinem Herzen stimmt etwas nicht",
+        "loseControl": "Ich könnte die Kontrolle verlieren",
+        "goingCrazy": "Ich könnte verrückt werden",
+        "mightDie": "Ich könnte sterben",
+        "iWillPassOutInPublic": "Ich könnte in der Öffentlichkeit zusammenbrechen",
+        "cantEscape": "Ich werde nicht entkommen können",
+        "iWillBeTrapped": "Ich werde gefangen sein",
+        "iWillBeHelpless": "Ich werde hilflos sein",
+        "embarrassMyself": "Ich könnte mich blamieren",
+        "peopleWillJudgeMe": "Andere könnten mich verurteilen",
+        "somethingTerribleWillHappen": "Etwas Schreckliches könnte passieren",
+        "iWontBeAbleToCope": "Ich werde damit nicht klarkommen",
+        "illMakeTheWrongDecision": "Ich werde die falsche Entscheidung treffen",
+        "ifIDontPrepareSomethingWillGoWrong": "Wenn ich mich nicht vorbereite, wird etwas schiefgehen",
+        "iNeedToKnowForSure": "Ich muss es ganz sicher wissen",
+        "illLetPeopleDown": "Ich werde andere enttäuschen"
+      }
+    },
+    "behaviors": {
+      "title": "Was machst du normalerweise, wenn es anfängt?",
+      "subtitle": "Sei ehrlich, es gibt keine richtige Antwort",
+      "options": {
+        "leaveTheSituation": "Die Situation verlassen",
+        "avoidGoingAltogether": "Ganz vermeiden hinzugehen",
+        "sitDownOrStopMoving": "Mich hinsetzen oder stehen bleiben",
+        "checkMyBodyPulseBreathing": "Meinen Körper, Puls oder meine Atmung überprüfen",
+        "callOrTextSomeone": "Jemanden anrufen oder schreiben",
+        "carrySomethingJustInCase": "Etwas zur Sicherheit bei mir tragen",
+        "tryToControlMyBreathing": "Versuchen, meine Atmung zu kontrollieren",
+        "distractMyselfImmediately": "Mich sofort ablenken",
+        "lookForAnExit": "Nach einem Ausgang suchen",
+        "stayCloseToSomeoneITrust": "In der Nähe von jemandem bleiben, dem ich vertraue",
+        "askForHelpOrReassurance": "Um Hilfe oder Beruhigung bitten",
+        "scanMyBodyForSignsSomethingIsWrong": "Meinen Körper nach Anzeichen absuchen, dass etwas nicht stimmt",
+        "freezeOrGoQuiet": "Erstarren oder still werden",
+        "tryToPushThroughIt": "Versuchen, mich da durchzuzwingen",
+        "useGroundingOrSelfTalk": "Grounding oder beruhigendes Selbstgespräch nutzen",
+        "prayOrRepeatWordsInMyHead": "Beten oder Worte im Kopf wiederholen",
+        "drinkWaterOrTakeSomethingWithMe": "Wasser trinken oder etwas mitnehmen",
+        "recheckThingsRepeatedly": "Dinge immer wieder überprüfen",
+        "overprepare": "Mich übermäßig vorbereiten",
+        "delayDecisions": "Entscheidungen hinauszögern",
+        "googleSymptomsOrWorstCaseScenarios": "Symptome oder schlimmste Szenarien googeln",
+        "mentallyReviewWhatCouldGoWrong": "Im Kopf durchgehen, was alles schiefgehen könnte"
+      }
+    },
+    "worryControl": {
+      "title": "Wie schwer ist es, das Sorgen zu stoppen, wenn es einmal angefangen hat?",
+      "subtitle": "Wähle, was am besten passt",
+      "options": {
+        "usuallyCanStopIt": "Ich kann es meistens stoppen",
+        "sometimesCanStopIt": "Ich kann es manchmal stoppen",
+        "rarelyCanStopIt": "Ich kann es selten stoppen",
+        "almostNeverCanStopIt": "Ich kann es fast nie stoppen"
+      }
+    },
+    "frequency": {
+      "title": "Wie oft wird Angst oder Panik bei dir stark?",
+      "subtitle": "Wähle, was am besten passt",
+      "options": {
+        "lessThanOnceAWeek": "Weniger als einmal pro Woche",
+        "oneToTwoTimesAWeek": "1–2 Mal pro Woche",
+        "threeToFiveTimesAWeek": "3–5 Mal pro Woche",
+        "daily": "Täglich",
+        "manyTimesADay": "Viele Male am Tag"
+      }
+    },
+    "durationOrCourse": {
+      "title": "Wie lange geht das schon so?",
+      "subtitle": "Wähle, was am besten passt",
+      "options": {
+        "lessThan1Month": "Weniger als 1 Monat",
+        "oneToSixMonths": "1–6 Monate",
+        "moreThan6Months": "Mehr als 6 Monate",
+        "comesInWaves": "Es kommt in Wellen"
+      }
+    },
+    "impactLevel": {
+      "title": "Wie sehr beeinflusst das dein Leben?",
+      "subtitle": "",
+      "options": {
+        "notMuch": "Nicht sehr",
+        "aLittle": "Ein wenig",
+        "quiteABit": "Ziemlich stark",
+        "aLot": "Sehr stark"
+      }
+    },
+    "goals": {
+      "title": "Wobei möchtest du dich wieder wohler fühlen?",
+      "subtitle": "",
+      "options": {
+        "goOutWithoutFear": "Ohne Angst rausgehen",
+        "beInCrowdedPlaces": "In Menschenmengen sein",
+        "travelFreely": "Frei reisen",
+        "beAloneComfortably": "Gut allein sein",
+        "handleSocialSituations": "Soziale Situationen besser bewältigen",
+        "focusAtWork": "Mich bei der Arbeit konzentrieren",
+        "feelCalmInMyBody": "Mich in meinem Körper ruhig fühlen",
+        "feelInControl": "Mich unter Kontrolle fühlen",
+        "notOverthinkEverything": "Nicht alles zerdenken",
+        "feelSafeInMyBody": "Mich in meinem Körper sicher fühlen",
+        "stopAvoidingThings": "Dinge nicht mehr vermeiden",
+        "trustMyselfMore": "Mir selbst mehr vertrauen"
+      }
+    },
+    "screenInfo": {
+      "entry": {
+        "helperText": "Du kannst jede Frage überspringen. Das ist keine Diagnose und ersetzt keine zugelassene Fachperson für psychische Gesundheit.",
+        "whyThisExists": "Dieser Bildschirm setzt den Rahmen und erklärt, dass der Ablauf ein strukturiertes Angstprofil zur Personalisierung erstellt.",
+        "legalNote": "Verwende Formulierungen wie „deine Erfahrung personalisieren“ oder „dein Angstprofil erstellen“. Vermeide Aussagen wie „Diagnose“ oder „entspricht einem psychologischen Erstgespräch“."
+      },
+      "situations": {
+        "helperText": "Wähle die Situationen aus, in denen Angst eher aktiviert wird, stärker wird oder schwerer zu bewältigen ist.",
+        "whyThisExists": "Das hilft, Kontexte zu erkennen, die mit Aktivierung, Vermeidung, Flucht und dem Gefühl von Unsicherheit verbunden sind.",
+        "legalNote": "Beschreibe das als Verständnis von Auslösern und Mustern. Sage nicht, dass diese Situationen eine Diagnose bestimmen."
+      },
+      "worryThemes": {
+        "helperText": "Wähle die Bereiche aus, zu denen dein Kopf bei Angst oder Grübeln immer wieder zurückkehrt.",
+        "whyThisExists": "Das hilft zu erkennen, ob Angst breit und zukunftsorientiert über mehrere Lebensbereiche verteilt ist.",
+        "legalNote": "Sag, dass das hilft, Sorgenbereiche zu verstehen, nicht ob jemand eine Störung hat."
+      },
+      "symptoms": {
+        "helperText": "Wähle die Symptome aus, die du am häufigsten bemerkst, wenn dein System aktiviert ist.",
+        "whyThisExists": "Das erfasst die Symptomebene, einschließlich körperlicher Empfindungen bei Panik und anhaltender Spannungssymptome bei generalisierter Angst.",
+        "legalNote": "Vermeide Aussagen, dass Symptome allein ausreichen, um eine Störung festzustellen. Sie sind nur ein Teil des Gesamtbildes."
+      },
+      "primaryFears": {
+        "helperText": "Wähle die Befürchtungen aus, die sich in dem Moment am wahrsten anfühlen, auch wenn ein anderer Teil von dir weiß, dass sie vielleicht nicht stimmen.",
+        "whyThisExists": "Das erfasst die gefürchteten Folgen hinter dem Angstkreislauf, einschließlich körperbezogener Katastrophenängste, Unsicherheitsängste und sozialer Ängste.",
+        "legalNote": "Stelle das als Verständnis gefürchteter Folgen dar. Sage nicht, dass dieser Bildschirm eine medizinische Erkrankung erkennt."
+      },
+      "behaviors": {
+        "helperText": "Wähle aus, was du normalerweise tust, um dich sicherer zu fühlen, Unbehagen zu verringern oder etwas Schlimmes zu verhindern.",
+        "whyThisExists": "Das identifiziert Sicherheitsverhalten, Vermeidung, Rückversicherung, Kontrollieren und andere Muster, die Angst mit der Zeit aufrechterhalten können.",
+        "legalNote": "Sag, dass das hilft, Bewältigungs- und Sicherheitsmuster zu erkennen. Vermeide Aussagen, dass die App allein daraus eine Behandlung ableiten kann."
+      },
+      "worryControl": {
+        "helperText": "Wähle die Option, die am besten zu deiner üblichen Erfahrung passt.",
+        "whyThisExists": "Das erfasst, wie schwer es ist, Sorgen loszulassen oder zu stoppen, wenn sie einmal angefangen haben.",
+        "legalNote": "Sag, dass das hilft, die Art der Angst zu verstehen, nicht eine Diagnose zu bestätigen."
+      },
+      "frequency": {
+        "helperText": "Wähle aus, wie oft starke Angst oder Panik insgesamt bei dir auftritt.",
+        "whyThisExists": "Das gibt einen Ausgangspunkt für die Schwere und hilft, gelegentliche Aktivierung von häufiger Belastung zu unterscheiden.",
+        "legalNote": "Beschreibe Häufigkeit als selbstberichteten Schweregrad, nicht als diagnostischen Grenzwert."
+      },
+      "durationOrCourse": {
+        "helperText": "Wähle die Option, die am besten zum gesamten Verlauf deiner Angst passt.",
+        "whyThisExists": "Das hilft, kürzere Phasen von länger anhaltenden Mustern zu unterscheiden und unterstützt ein besseres Gesamtverständnis.",
+        "legalNote": "Vermittle nicht den Eindruck, dass die Dauer allein eine Diagnose festlegt. Sie ist nur ein Teil des Gesamtbildes."
+      },
+      "impactLevel": {
+        "helperText": "Wähle die Option, die am besten widerspiegelt, wie sehr Angst dein Leben insgesamt beeinflusst.",
+        "whyThisExists": "Das erfasst funktionelle Beeinträchtigung, die wichtig ist, um Schwere und Unterstützungsbedarf zu verstehen.",
+        "legalNote": "Stelle das als Verständnis von Auswirkungen und Unterstützungsbedarf dar. Vermeide Aussagen, dass die App klinische Schwere so bewertet wie eine Fachperson."
+      },
+      "goals": {
+        "helperText": "Wähle die Bereiche aus, in denen du dich verbessern, etwas zurückgewinnen oder dich sicherer fühlen möchtest.",
+        "whyThisExists": "Das hilft, das Profil in praktische Prioritäten für Selbsthilfe und spätere CBT-orientierte Unterstützung zu übersetzen.",
+        "legalNote": "Beschreibe das als Personalisierung und Priorisierung. Vermeide das Versprechen einer individuellen Behandlung."
+      }
     }
   }
 }

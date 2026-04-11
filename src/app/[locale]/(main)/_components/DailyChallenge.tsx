@@ -123,6 +123,7 @@ export const DailyChallenge = async () => {
                 "shadow-sm transition-all",
                 "focus-within:ring-ring focus-within:ring-2 hover:-translate-y-px hover:shadow-md",
                 "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
+                "active:scale-[0.98]",
               )}
               aria-label={t("exposure.newChallenge.pending.aria")}
             >

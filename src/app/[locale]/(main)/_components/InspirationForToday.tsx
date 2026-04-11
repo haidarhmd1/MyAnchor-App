@@ -52,7 +52,7 @@ export const InspirationForToday = () => {
     <div className="w-full max-w-md space-y-4">
       <h2>{t("inspiration.title")}</h2>
 
-      <Card className="rounded-[22px] border-none bg-gradient-to-br from-green-300 to-green-500 p-0 shadow-[0_6px_18px_rgba(0,0,0,0.15)]">
+      <Card className="rounded-[22px] border-none bg-linear-to-br from-green-300 to-green-500 p-0 shadow-[0_6px_18px_rgba(0,0,0,0.15)] active:scale-[0.98]">
         <CardContent className="relative p-6">
           <div
             className={`absolute top-4 right-4 z-50 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/35 shadow-inner backdrop-blur-[2px]`}

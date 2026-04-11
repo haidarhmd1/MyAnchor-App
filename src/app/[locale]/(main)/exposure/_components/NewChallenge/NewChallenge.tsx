@@ -38,6 +38,7 @@ export const NewChallenge = async () => {
           className={cn(
             baseCardClassName,
             "bg-card hover:bg-muted/50 border-dashed",
+            "active:scale-[0.98]",
           )}
         >
           <CardContent className="flex items-center gap-3 p-4">
@@ -71,7 +72,10 @@ export const NewChallenge = async () => {
         aria-label={t("pending.aria")}
       >
         <Card
-          className={cn(baseCardClassName, "bg-accent border-primary/20")}
+          className={cn(
+            baseCardClassName,
+            "bg-accent border-primary/20 active:scale-[0.98]",
+          )}
           aria-label={t("pending.aria")}
         >
           <CardContent className="flex items-start gap-4 p-4 sm:p-5">
@@ -100,7 +104,12 @@ export const UnauthenticatedNewChallenge = async () => {
   const t = await getTranslations("exposure.newChallenge");
 
   return (
-    <Card className={cn(baseCardClassName, "bg-card mt-4 border-dashed")}>
+    <Card
+      className={cn(
+        baseCardClassName,
+        "bg-card mt-4 border-dashed active:scale-[0.98]",
+      )}
+    >
       <CardContent className="flex items-center gap-3 p-4">
         <div className="bg-accent text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl">
           <BadgePlus className="h-5 w-5" />

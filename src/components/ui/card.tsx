@@ -12,7 +12,7 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
       dir={isRtl ? "rtl" : "ltr"}
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground border-border focus-visible:ring-ring/70 flex flex-col gap-6 rounded-4xl border py-6 shadow-sm transition will-change-transform focus:outline-none focus-visible:ring-2 active:scale-[0.98]",
+        "bg-card text-card-foreground border-border focus-visible:ring-ring/70 flex flex-col gap-6 rounded-4xl border py-6 shadow-sm transition will-change-transform focus:outline-none focus-visible:ring-2",
         className,
       )}
       {...props}

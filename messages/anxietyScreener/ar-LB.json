@@ -1,0 +1,254 @@
+{
+  "anxietyScreening": {
+    "analysis": {
+      "title": "عم نراجع إجاباتك",
+      "subtitle": "بدها لحظة صغيرة"
+    },
+    "header": {
+      "eyebrow": "نمط القلق",
+      "badge": "تقييم أولي",
+      "stepProgress": "الخطوة {current} من {total}"
+    },
+    "intro": {
+      "title": "قبل ما تبلّش",
+      "description": "هيدا بيساعدك تفهم نمط القلق عندك بطريقة بسيطة. مش تشخيص.",
+      "points": {
+        "honestAnswers": "جاوب حسب اللي حسيته فعلاً — مش حسب اللي بيبيّن أخطر.",
+        "safety": "إذا مش حاسس حالك بأمان هلّق، تواصل مع حدا أو اطلب مساعدة مباشرة.",
+        "result": "رح تاخد شرح قصير وواضح — مش تقرير طبي."
+      }
+    },
+    "common": {
+      "likertLabels": {
+        "0": "أبداً",
+        "1": "أوقات",
+        "2": "غالباً",
+        "3": "تقريباً دايماً"
+      },
+      "gadDurationLabels": {
+        "lessThan6Months": "أقل من 6 شهور",
+        "sixMonthsOrMore": "6 شهور أو أكتر",
+        "notSure": "مش متأكد"
+      },
+      "frequencyLabels": {
+        "none": "ولا مرة",
+        "one": "مرة وحدة",
+        "twoToThree": "مرتين لـ3 مرات",
+        "fourOrMore": "4 مرات أو أكتر",
+        "notSure": "مش متأكد"
+      },
+      "yesNoUnknownLabels": {
+        "yes": "إيه",
+        "no": "لا",
+        "notSure": "مش متأكد"
+      },
+      "panicSymptomLabels": {
+        "palpitationsOrRacingHeart": "دقات قلب سريعة أو قوية",
+        "sweating": "تعرّق",
+        "tremblingOrShaking": "رجفة أو اهتزاز",
+        "shortnessOfBreath": "ضيق نفس",
+        "chokingSensations": "إحساس إنك عم تختنق أو مش قادر تاخد نفس كفاية",
+        "chestPainOrDiscomfort": "وجع أو ضغط بالصدر",
+        "nauseaOrAbdominalDistress": "غثيان أو انزعاج بالمعدة",
+        "dizzinessOrLightheadedness": "دوخة أو خفة بالرأس",
+        "chillsOrHeatSensations": "شعور بالبرد أو السخن",
+        "numbnessOrTingling": "تنميل أو وخز",
+        "derealizationOrDepersonalization": "إحساس إنك مش حقيقي أو مفصول عن حالك",
+        "fearOfLosingControlOrGoingCrazy": "خوف إنك تفقد السيطرة",
+        "fearOfDying": "خوف من الموت"
+      },
+      "impairmentLabels": {
+        "none": "أبداً",
+        "mild": "شوي",
+        "moderate": "إلى حد ما",
+        "marked": "بشكل واضح",
+        "severe": "بشكل كبير"
+      }
+    },
+    "gadStep": {
+      "title": "قلق مستمر",
+      "description": "هالأسئلة بتطلع على آخر أسبوعين، وإذا هالنمط صارله فترة أطول.",
+      "gadDurationLabels": {
+        "lessThan6Months": "أقل من 6 شهور",
+        "sixMonthsOrMore": "6 شهور أو أكتر",
+        "notSure": "مش متأكد"
+      },
+      "gad7ItemQuestions": {
+        "duration": "هالنوع من القلق صارله 6 شهور أو أكتر؟",
+        "feelingNervousOrOnEdge": "حسّيت حالك كتير متوتر أو مش مرتاح؟",
+        "difficultyControllingWorry": "كان صعب توقف القلق أو تتحكم فيه؟",
+        "worryingTooMuchAboutDifferentThings": "كنت تقلق كتير على شغلات مختلفة؟",
+        "troubleRelaxing": "كان صعب عليك ترتاح أو تهدى؟",
+        "restlessness": "حسّيت حالك مش مرتاح لدرجة صعب تقعد محلّك؟",
+        "irritability": "كنت تتضايق أو تتعصّب بسرعة؟",
+        "fearThatSomethingAwfulMayHappen": "كنت كتير تحس إنه ممكن يصير شي سيّئ؟"
+      }
+    },
+    "panicStep": {
+      "title": "طلعات مفاجئة بالقلق",
+      "description": "هون عم نطلع على لحظات بيطلع فيها الخوف أو القلق بسرعة.",
+      "questions": {
+        "hadSurges": "خلال الشهر الماضي، صار معك لحظات مفاجئة من خوف قوي أو قلق؟",
+        "peakWithinMinutes": "كانت تعلى بسرعة وتوصل لأقصى حد خلال دقايق؟",
+        "frequency": "قديش صار معك هالشي تقريباً؟",
+        "unexpected": "كانت هاللحظات تحسّها فجأة، من دون سبب واضح؟",
+        "symptomsTitle": "بأقوى لحظة، شو لاحظت؟",
+        "persistentConcern": "بعدها، ضليت خايف أو قلقان ترجع تصير؟",
+        "behaviorChange": "غيّرت تصرفاتك كرمال تتجنب إنها ترجع تصير؟"
+      }
+    },
+    "maintainerStep": {
+      "title": "شو اللي بيخلّيه يكفّي",
+      "description": "في عادات ممكن تخلّي القلق يكمّل — حتى لو كانت بنيّتها تساعد.",
+      "worryLoop": {
+        "title": "حلقة القلق",
+        "description": "قديش هالأشياء موجودة بحياتك اليومية؟"
+      },
+      "panicLoop": {
+        "title": "حلقة إنذار الجسد",
+        "description": "هالعادات ممكن تخلّي الخوف المفاجئ يحسّ كأنه بعده ما خلص أو صار أقوى."
+      },
+      "panicMaintainerLabels": {
+        "bodyScanning": "براقب جسمي طول الوقت لأشوف إذا القلق عم يبلّش",
+        "carryingSafetyItems": "بخلي معي أشياء لأحسّ بالأمان (مثل المي أو الدوا أو التليفون)",
+        "escapePlanning": "بفكّر كيف بقدر أطلع بسرعة إذا زاد القلق",
+        "avoidingPhysicalExertion": "بتجنب النشاطات أو الأحاسيس الجسدية اللي ممكن تكون قوية أو مزعجة",
+        "needingSafePersonOrExit": "ما بحس حالي بأمان إلا إذا في شخص موثوق أو طريق خروج واضح"
+      },
+      "worryMaintainerLabels": {
+        "reassuranceSeeking": "بطلب من غيري يطمنوني أو يأكدولي حتى أهدى",
+        "checkingAndResearching": "براجع أو بفتش عن الأشياء بشكل متكرر حتى أحسّ بيقين أكتر",
+        "overPreparing": "بحضّر زيادة عن اللزوم حتى ما تمشي الأمور غلط",
+        "avoidingUncertainty": "بتجنب الأشياء لما النتيجة تكون مش واضحة",
+        "mentalReviewing": "بضل راجع السيناريوهات براسي مرة بعد مرة"
+      }
+    },
+    "impairmentStep": {
+      "title": "التأثير",
+      "description": "هون عم نطلع على قديش القلق عم يأثر على حياتك اليومية.",
+      "questions": {
+        "home": "بالبيت",
+        "workOrStudy": "بالشغل أو بالدراسة",
+        "social": "بالمواقف الاجتماعية"
+      },
+      "impairmentLabels": {
+        "none": "أبداً",
+        "mild": "شوي",
+        "moderate": "إلى حد ما",
+        "marked": "بشكل واضح",
+        "severe": "بشكل كبير"
+      }
+    },
+    "contextStep": {
+      "title": "سياق مهم",
+      "description": "هالأسئلة بتساعد تضل النتيجة واقعية.",
+      "questions": {
+        "symptomsOnlyDuringSubstanceUse": "هالشي بيصير غالباً خلال استخدام مواد معيّنة أو بعده؟",
+        "symptomsBetterExplainedByMedicalProblem": "ممكن يكون في سبب طبي بيفسّره بشكل أفضل؟",
+        "recentTraumaCueDominant": "هالشي بيصير غالباً حوالين تذكيرات بحدث ضاغط أو صادم؟",
+        "recentManiaLikeState": "صار معك مؤخراً فترة طاقة عالية كتير مع نوم قليل؟",
+        "currentlyFeelsUnsafe": "حاسس حالك مش بأمان هلّق؟"
+      }
+    },
+    "previewStep": {
+      "title": "راجع إجاباتك",
+      "description": "هيدا عرض متحفّظ مبني على إجاباتك — مش تشخيص.",
+      "tiles": {
+        "likelyFocus": "النمط الرئيسي",
+        "gad7": "GAD-7",
+        "maintainingLoop": "الحلقة المستمرة",
+        "confidence": "الثقة"
+      },
+      "cautionFlagsTitle": "شغلات مهمّة لازم تنتبهلا"
+    },
+    "previewScoring": {
+      "values": {
+        "focus": {
+          "panic_cycle": "حلقة إنذار جسدي شبيهة بالهلع",
+          "generalized_worry": "حلقة قلق عام",
+          "mixed_anxiety": "نمط قلق مختلط",
+          "uncertain": "بعده مش واضح"
+        },
+        "dominantLoop": {
+          "worry": "حلقة القلق",
+          "panic": "حلقة إنذار الجسد",
+          "mixed": "حلقة مختلطة",
+          "low_signal": "إشارة خفيفة"
+        },
+        "severityBand": {
+          "minimal": "خفيف",
+          "mild": "خفيف",
+          "moderate": "متوسط",
+          "severe": "شديد"
+        },
+        "confidence": {
+          "low": "منخفضة",
+          "moderate": "متوسطة"
+        }
+      }
+    },
+    "scoringPreview": {
+      "highlights": {
+        "worry": {
+          "reassuranceSeeking": "طلب الطمأنة",
+          "checkingAndResearching": "التحقق أو البحث المتكرر",
+          "overPreparing": "التحضير الزيادة",
+          "avoidingUncertainty": "تجنب عدم اليقين",
+          "mentalReviewing": "المراجعة الذهنية المتكررة"
+        },
+        "panic": {
+          "bodyScanning": "مراقبة الجسد",
+          "carryingSafetyItems": "الاعتماد على أشياء للشعور بالأمان",
+          "escapePlanning": "التخطيط للهروب",
+          "avoidingPhysicalExertion": "تجنب الأحاسيس الجسدية",
+          "needingSafePersonOrExit": "الحاجة لشخص موثوق أو طريق خروج واضح"
+        }
+      }
+    },
+    "anxietyResult": {
+      "steps": {
+        "big_picture": {
+          "eyebrow": "شو ممكن يدل عليه هيدا",
+          "title": "الصورة العامة"
+        },
+        "moment": {
+          "eyebrow": "شو بيصير لحظة بلحظة",
+          "title": "شو بيصير بهاللحظة"
+        },
+        "real": {
+          "eyebrow": "ليش بيحس مقنع",
+          "title": "ليش بيحس حقيقي لهالدرجة"
+        },
+        "repeat": {
+          "eyebrow": "شو اللي بيخلّيه يكفّي",
+          "title": "ليش بيتكرر"
+        },
+        "problem": {
+          "eyebrow": "شو اللي الموضوع فعلاً عنه",
+          "title": "شو اللي لازم يتغيّر"
+        }
+      },
+      "header": {
+        "eyebrow": "شرحك",
+        "title": "نظرة واضحة ومش تشخيصية",
+        "badge": "فحص فقط"
+      },
+      "progress": {
+        "step": "الخطوة {current} من {total}"
+      },
+      "actions": {
+        "badges": {
+          "possiblePattern": "النمط المحتمل: {pattern}",
+          "meaningfulImpact": "فيه تأثير واضح"
+        },
+        "title": "شو فيك تركّز عليه",
+        "description": "هيدي اتجاهات عامة — مش خطة علاج.",
+        "tiles": {
+          "interpretation": "كيف عم تفسّر اللي عم يصير",
+          "behavior": "شو بتعمل بعدين",
+          "relearning": "كيف نظامك بيرجع يتعلّم الأمان"
+        }
+      }
+    }
+  }
+}

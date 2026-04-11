@@ -68,7 +68,7 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
 
   const hadCompletedChallenge = form.watch("hadCompletedChallenge");
 
-  const formStep = useMemo(() => {
+  const formSteps = useMemo(() => {
     return !hadCompletedChallenge
       ? [...BASE_STEP, ...STOP_REASONS, ...PARTIAL_NO_FINISH_SCREEN]
       : [...BASE_STEP, ...YES_FINISH_SCREEN];
@@ -79,7 +79,7 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
   };
 
   const handleNext = () => {
-    if (currentStepIndex >= formStep.length - 1) {
+    if (currentStepIndex >= formSteps.length - 1) {
       form.handleSubmit(onSubmit)();
       return;
     }
@@ -90,7 +90,7 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
   const handlePrevious = () => {
     if (currentStepIndex <= 0) return;
 
-    const currentField = formStep[currentStepIndex].id;
+    const currentField = formSteps[currentStepIndex].id;
 
     if (
       currentField === "partialNoFinishScreen" ||
@@ -134,12 +134,6 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
     }
   };
 
-  const currentStep = formStep[currentStepIndex];
-  const stepId = currentStep.id as StepId;
-  const ActiveStepComponent = currentStep
-    ? STEPS_COMPONENTS[stepId]
-    : () => <div />;
-
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
   }, [currentStepIndex, reduce]);
@@ -150,9 +144,14 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
     exit: { opacity: 0, y: -8, filter: "blur(4px)" },
   };
 
-  const active = formStep[currentStepIndex];
-  const option = optionByStep[active.id as StepId] ?? [];
-  const progress = ((currentStepIndex + 1) / formStep.length) * 100;
+  const currentStep = formSteps[currentStepIndex];
+  const currentStepId = currentStep.id as StepId;
+  const ActiveStepComponent = currentStep
+    ? STEPS_COMPONENTS[currentStepId]
+    : () => <div />;
+
+  const option = optionByStep[currentStepId] ?? [];
+  const progress = ((currentStepIndex + 1) / formSteps.length) * 100;
 
   return (
     <section className="space-y-6">

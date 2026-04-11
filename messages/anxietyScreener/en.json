@@ -1,0 +1,254 @@
+{
+  "anxietyScreening": {
+    "analysis": {
+      "title": "We’re reviewing your answers",
+      "subtitle": "This will only take a moment"
+    },
+    "header": {
+      "eyebrow": "Anxiety profile",
+      "badge": "Screening",
+      "stepProgress": "Step {current} of {total}"
+    },
+    "intro": {
+      "title": "Before you start",
+      "description": "This helps you understand possible anxiety patterns in a simple way. It’s not a diagnosis.",
+      "points": {
+        "honestAnswers": "Answer based on your real experience — not what sounds more serious.",
+        "safety": "If you feel unsafe right now, reach out for real-world support.",
+        "result": "You’ll get a short, clear explanation — not a clinical report."
+      }
+    },
+    "common": {
+      "likertLabels": {
+        "0": "Not at all",
+        "1": "Sometimes",
+        "2": "Often",
+        "3": "Almost always"
+      },
+      "gadDurationLabels": {
+        "lessThan6Months": "Less than 6 months",
+        "sixMonthsOrMore": "6 months or more",
+        "notSure": "Not sure"
+      },
+      "frequencyLabels": {
+        "none": "None",
+        "one": "Once",
+        "twoToThree": "2–3 times",
+        "fourOrMore": "4+ times",
+        "notSure": "Not sure"
+      },
+      "yesNoUnknownLabels": {
+        "yes": "Yes",
+        "no": "No",
+        "notSure": "Not sure"
+      },
+      "panicSymptomLabels": {
+        "palpitationsOrRacingHeart": "Racing or pounding heart",
+        "sweating": "Sweating",
+        "tremblingOrShaking": "Shaking or trembling",
+        "shortnessOfBreath": "Shortness of breath",
+        "chokingSensations": "Feeling like you can’t breathe or are choking",
+        "chestPainOrDiscomfort": "Chest pain or tightness",
+        "nauseaOrAbdominalDistress": "Nausea or stomach discomfort",
+        "dizzinessOrLightheadedness": "Dizziness or feeling lightheaded",
+        "chillsOrHeatSensations": "Hot or cold flashes",
+        "numbnessOrTingling": "Numbness or tingling",
+        "derealizationOrDepersonalization": "Feeling unreal or disconnected",
+        "fearOfLosingControlOrGoingCrazy": "Fear of losing control",
+        "fearOfDying": "Fear of dying"
+      },
+      "impairmentLabels": {
+        "none": "Not at all",
+        "mild": "A little",
+        "moderate": "Somewhat",
+        "marked": "Quite a bit",
+        "severe": "A lot"
+      }
+    },
+    "gadStep": {
+      "title": "Ongoing worry",
+      "description": "These questions look at the past 2 weeks, and whether this pattern has been around longer.",
+      "gadDurationLabels": {
+        "lessThan6Months": "Less than 6 months",
+        "sixMonthsOrMore": "6 months or more",
+        "notSure": "Not sure"
+      },
+      "gad7ItemQuestions": {
+        "duration": "Has this kind of worry been going on for 6 months or more?",
+        "feelingNervousOrOnEdge": "Have you often felt tense or on edge?",
+        "difficultyControllingWorry": "Was it hard to stop or control your worrying?",
+        "worryingTooMuchAboutDifferentThings": "Did you worry a lot about different things?",
+        "troubleRelaxing": "Was it hard to relax or switch off?",
+        "restlessness": "Did you feel so restless that it was hard to sit still?",
+        "irritability": "Did you get easily irritated or annoyed?",
+        "fearThatSomethingAwfulMayHappen": "Did you often feel like something bad might happen?"
+      }
+    },
+    "panicStep": {
+      "title": "Sudden anxiety spikes",
+      "description": "This looks at moments where fear or anxiety rises quickly.",
+      "questions": {
+        "hadSurges": "In the past month, did you have sudden spikes of strong fear or anxiety?",
+        "peakWithinMinutes": "Did they build quickly and peak within a few minutes?",
+        "frequency": "How often did this happen?",
+        "unexpected": "Did these moments feel unexpected?",
+        "symptomsTitle": "At the most intense moment, what did you notice?",
+        "persistentConcern": "Afterwards, did you keep worrying about it happening again?",
+        "behaviorChange": "Did you change your behavior to avoid it?"
+      }
+    },
+    "maintainerStep": {
+      "title": "What keeps it going",
+      "description": "Some habits can keep anxiety going — even if they’re meant to help.",
+      "worryLoop": {
+        "title": "Worry loop",
+        "description": "How much do these show up in your daily life?"
+      },
+      "panicLoop": {
+        "title": "Body alarm loop",
+        "description": "These habits can make sudden fear feel unfinished or more intense."
+      },
+      "panicMaintainerLabels": {
+        "bodyScanning": "I scan my body for signs that anxiety is starting",
+        "carryingSafetyItems": "I keep things with me mainly to feel safe (water, meds, phone)",
+        "escapePlanning": "I think about how to leave quickly if anxiety rises",
+        "avoidingPhysicalExertion": "I avoid activities or sensations that might feel intense",
+        "needingSafePersonOrExit": "I feel safer only if I have a trusted person or an easy way out"
+      },
+      "worryMaintainerLabels": {
+        "reassuranceSeeking": "I ask others for reassurance to calm down",
+        "checkingAndResearching": "I repeatedly check or research things to feel certain",
+        "overPreparing": "I over-prepare to prevent things from going wrong",
+        "avoidingUncertainty": "I avoid situations when the outcome feels uncertain",
+        "mentalReviewing": "I go over scenarios in my mind again and again"
+      }
+    },
+    "impairmentStep": {
+      "title": "Impact",
+      "description": "This looks at how much anxiety affects your daily life.",
+      "questions": {
+        "home": "At home",
+        "workOrStudy": "At work or in study",
+        "social": "In social situations"
+      },
+      "impairmentLabels": {
+        "none": "Not at all",
+        "mild": "A little",
+        "moderate": "Somewhat",
+        "marked": "Quite a bit",
+        "severe": "A lot"
+      }
+    },
+    "contextStep": {
+      "title": "Important context",
+      "description": "These help keep the result realistic.",
+      "questions": {
+        "symptomsOnlyDuringSubstanceUse": "Do these mainly happen after substance use?",
+        "symptomsBetterExplainedByMedicalProblem": "Could a medical condition explain this?",
+        "recentTraumaCueDominant": "Do these mostly happen around a recent stressful event?",
+        "recentManiaLikeState": "Have you had a recent period of very high energy and little sleep?",
+        "currentlyFeelsUnsafe": "Do you feel unsafe right now?"
+      }
+    },
+    "previewStep": {
+      "title": "Review your answers",
+      "description": "This is a cautious preview — not a diagnosis.",
+      "tiles": {
+        "likelyFocus": "Main pattern",
+        "gad7": "GAD-7",
+        "maintainingLoop": "Maintaining loop",
+        "confidence": "Confidence"
+      },
+      "cautionFlagsTitle": "Things to keep in mind"
+    },
+    "previewScoring": {
+      "values": {
+        "focus": {
+          "panic_cycle": "Panic-style body alarm loop",
+          "generalized_worry": "General worry loop",
+          "mixed_anxiety": "Mixed anxiety pattern",
+          "uncertain": "Still unclear"
+        },
+        "dominantLoop": {
+          "worry": "Worry loop",
+          "panic": "Body alarm loop",
+          "mixed": "Mixed loop",
+          "low_signal": "Low signal"
+        },
+        "severityBand": {
+          "minimal": "Minimal",
+          "mild": "Mild",
+          "moderate": "Moderate",
+          "severe": "Severe"
+        },
+        "confidence": {
+          "low": "Low",
+          "moderate": "Moderate"
+        }
+      }
+    },
+    "scoringPreview": {
+      "highlights": {
+        "worry": {
+          "reassuranceSeeking": "reassurance seeking",
+          "checkingAndResearching": "checking or researching",
+          "overPreparing": "over-preparing",
+          "avoidingUncertainty": "avoiding uncertainty",
+          "mentalReviewing": "mental reviewing"
+        },
+        "panic": {
+          "bodyScanning": "body scanning",
+          "carryingSafetyItems": "relying on safety items",
+          "escapePlanning": "escape planning",
+          "avoidingPhysicalExertion": "avoiding physical sensations",
+          "needingSafePersonOrExit": "needing a safe person or exit"
+        }
+      }
+    },
+    "anxietyResult": {
+      "steps": {
+        "big_picture": {
+          "eyebrow": "What this may point to",
+          "title": "The big picture"
+        },
+        "moment": {
+          "eyebrow": "The moment-to-moment loop",
+          "title": "What happens in the moment"
+        },
+        "real": {
+          "eyebrow": "Why it feels convincing",
+          "title": "Why it feels so real"
+        },
+        "repeat": {
+          "eyebrow": "What keeps it going",
+          "title": "Why it keeps repeating"
+        },
+        "problem": {
+          "eyebrow": "What the real issue is",
+          "title": "What needs to change"
+        }
+      },
+      "header": {
+        "eyebrow": "Your explanation",
+        "title": "A clear, non-diagnostic walkthrough",
+        "badge": "Screening only"
+      },
+      "progress": {
+        "step": "Step {current} of {total}"
+      },
+      "actions": {
+        "badges": {
+          "possiblePattern": "Possible pattern: {pattern}",
+          "meaningfulImpact": "Noticeable impact"
+        },
+        "title": "What to focus on",
+        "description": "These are general directions — not a treatment plan.",
+        "tiles": {
+          "interpretation": "How you interpret things",
+          "behavior": "What you do next",
+          "relearning": "How your system relearns safety"
+        }
+      }
+    }
+  }
+}

@@ -129,7 +129,11 @@
     }
   },
   "common": {
+    "analyzeAnswers": "تحليل الإجابات",
+    "back": "رجوع",
     "loading": "جارٍ التحميل، يرجى الانتظار...",
+    "skip": "تخطي",
+    "continue": "متابعة",
     "engagement": {
       "STAY": {
         "label": "البقاء",
@@ -1537,6 +1541,260 @@
       "verify": "تأكيد وتسجيل الدخول",
       "verificationCode": "رمز التحقق",
       "resendCode": "إعادة إرسال الرمز"
+    }
+  },
+  "anxietyProfile": {
+    "legal": {
+      "intro": "يساعدنا هذا الاستبيان على فهم كيف يظهر القلق لديك حتى نتمكن من تخصيص المحتوى التثقيفي وأدوات المساعدة الذاتية لك.",
+      "disclaimer": "هذا ليس تشخيصًا ولا يغني عن التقييم من قبل مختص مرخّص في الصحة النفسية. يمكنك تخطي أي سؤال.",
+      "emergency": "إذا كنت في خطر فوري، أو تراودك أفكار بإيذاء نفسك، أو لديك أعراض طبية عاجلة، فاطلب المساعدة الطارئة فورًا.",
+      "privacy": "تُستخدم إجاباتك لإنشاء ملف القلق الخاص بك حتى يتم تخصيص ما تراه داخل التطبيق وكيفية تنظيم الدعم لك.",
+      "intendedUse": "صُمّم هذا المسار لدعم التقييم الذاتي، والتخصيص، والتثقيف النفسي، والتخطيط للمساعدة الذاتية.",
+      "notIntendedUse": "وهو غير مخصّص لتشخيص حالة نفسية أو منعها أو مراقبتها أو التنبؤ بها أو علاجها بشكل مستقل."
+    },
+    "entry": {
+      "title": "هذا يساعدنا على فهم كيف يظهر القلق لديك.",
+      "subtitle": "تخطَّ أي شيء لست متأكدًا منه."
+    },
+    "situations": {
+      "title": "متى يظهر القلق عادةً؟",
+      "subtitle": "اختر كل ما ينطبق",
+      "options": {
+        "crowdedPlaces": "الأماكن المزدحمة",
+        "socialSituations": "المواقف الاجتماعية",
+        "publicTransport": "وسائل النقل العام",
+        "beingFarFromHome": "الوجود بعيدًا عن المنزل",
+        "workOrMeetings": "العمل أو الاجتماعات",
+        "beingAlone": "أن أكون وحدي",
+        "waitingInLines": "الانتظار في الطوابير",
+        "newOrUnfamiliarPlaces": "الأماكن الجديدة أو غير المألوفة",
+        "healthRelatedSituations": "المواقف المتعلقة بالصحة",
+        "openSpaces": "الأماكن المفتوحة",
+        "enclosedSpaces": "الأماكن المغلقة",
+        "drivingOrTraffic": "القيادة أو الازدحام المروري",
+        "traveling": "السفر",
+        "conflictOrConfrontation": "الخلاف أو المواجهة",
+        "beingObserved": "أن أكون مراقبًا أو تحت نظر الآخرين",
+        "performanceSituations": "مواقف الأداء",
+        "separationFromSafePerson": "الابتعاد عن شخص أشعر معه بالأمان",
+        "uncertaintyOrNotKnowing": "عدم اليقين أو عدم المعرفة",
+        "physicalSensationsInBody": "الأحاسيس الجسدية في جسمي",
+        "bedtimeOrTryingToSleep": "وقت النوم أو محاولة النوم"
+      }
+    },
+    "worryThemes": {
+      "title": "ما أكثر الأشياء التي تميل إلى القلق بشأنها؟",
+      "subtitle": "اختر كل ما ينطبق",
+      "options": {
+        "health": "صحتي",
+        "familyOrLovedOnes": "عائلتي أو أحبائي",
+        "workOrSchool": "العمل أو الدراسة",
+        "moneyOrFinances": "المال أو الأمور المالية",
+        "futureAndUncertainty": "المستقبل أو عدم اليقين",
+        "makingWrongDecisions": "اتخاذ القرار الخاطئ",
+        "dailyResponsibilities": "المسؤوليات اليومية",
+        "relationships": "العلاقات",
+        "safetyOrSomethingBadHappening": "السلامة أو حدوث شيء سيئ",
+        "sleepOrNighttime": "النوم أو الليل"
+      }
+    },
+    "symptoms": {
+      "title": "ماذا تشعر في جسدك؟",
+      "subtitle": "عندما يشتد القلق",
+      "options": {
+        "racingHeart": "تسارع ضربات القلب",
+        "shortnessOfBreath": "ضيق في التنفس",
+        "chestTightness": "ضيق في الصدر",
+        "chokingFeeling": "الشعور بعدم القدرة على التنفس أو الاختناق",
+        "dizziness": "دوخة",
+        "lightheadedness": "الشعور بخفة في الرأس",
+        "blurredVision": "تشوش الرؤية",
+        "nausea": "غثيان",
+        "stomachDiscomfort": "انزعاج في المعدة",
+        "sweating": "تعرق",
+        "hotFlushes": "هبات حرارة",
+        "coldChills": "قشعريرة باردة",
+        "shaking": "رجفة أو ارتجاف",
+        "tingling": "تنميل أو وخز",
+        "numbness": "خدر",
+        "derealizationDepersonalization": "الشعور بالانفصال عن الواقع أو عن نفسك",
+        "feelingUnreal": "الشعور بأن الأشياء غير حقيقية أو غريبة",
+        "urgeToEscape": "رغبة قوية في الهروب أو المغادرة",
+        "muscleTension": "شد عضلي",
+        "troubleConcentrating": "صعوبة في التركيز",
+        "irritability": "سرعة الانفعال",
+        "sleepProblems": "مشاكل في النوم",
+        "feelingOnEdge": "الشعور بالتوتر أو الاستنفار",
+        "fatigueOrFeelingWornOut": "تعب أو شعور بالإنهاك"
+      }
+    },
+    "primaryFears": {
+      "title": "ما الذي يبدو أكثر إخافة في تلك اللحظة؟",
+      "subtitle": "حتى لو كنت تعرف أنه قد لا يكون صحيحًا",
+      "options": {
+        "mightFaint": "قد أُغمى عليّ",
+        "cantBreathe": "لا أستطيع التنفس",
+        "heartProblem": "هناك شيء خطير في قلبي",
+        "loseControl": "قد أفقد السيطرة",
+        "goingCrazy": "قد أجنّ",
+        "mightDie": "قد أموت",
+        "iWillPassOutInPublic": "قد أنهار أمام الناس",
+        "cantEscape": "لن أستطيع الهروب",
+        "iWillBeTrapped": "سأكون محاصرًا",
+        "iWillBeHelpless": "سأكون عاجزًا",
+        "embarrassMyself": "قد أحرج نفسي",
+        "peopleWillJudgeMe": "قد يحكم عليّ الناس",
+        "somethingTerribleWillHappen": "قد يحدث شيء رهيب",
+        "iWontBeAbleToCope": "لن أستطيع التحمّل",
+        "illMakeTheWrongDecision": "سأتخذ القرار الخاطئ",
+        "ifIDontPrepareSomethingWillGoWrong": "إذا لم أستعد، فسيحدث شيء سيئ",
+        "iNeedToKnowForSure": "أحتاج أن أعرف بشكل مؤكد",
+        "illLetPeopleDown": "سأخذل الآخرين"
+      }
+    },
+    "behaviors": {
+      "title": "ماذا تفعل عادةً عندما يبدأ الأمر؟",
+      "subtitle": "كن صادقًا، لا توجد إجابة صحيحة",
+      "options": {
+        "leaveTheSituation": "أغادر الموقف",
+        "avoidGoingAltogether": "أتجنبه من الأساس",
+        "sitDownOrStopMoving": "أجلس أو أتوقف عن الحركة",
+        "checkMyBodyPulseBreathing": "أفحص جسدي أو نبضي أو تنفسي",
+        "callOrTextSomeone": "أتصل بأحد أو أراسله",
+        "carrySomethingJustInCase": "أحمل شيئًا معي احتياطًا",
+        "tryToControlMyBreathing": "أحاول التحكم في تنفسي",
+        "distractMyselfImmediately": "أشتت نفسي فورًا",
+        "lookForAnExit": "أبحث عن مخرج",
+        "stayCloseToSomeoneITrust": "أبقى قريبًا من شخص أثق به",
+        "askForHelpOrReassurance": "أطلب المساعدة أو الطمأنة",
+        "scanMyBodyForSignsSomethingIsWrong": "أراقب جسدي بحثًا عن علامات تدل على أن هناك شيئًا خطيرًا",
+        "freezeOrGoQuiet": "أتجمد أو أصمت",
+        "tryToPushThroughIt": "أحاول أن أتحمل وأكمل",
+        "useGroundingOrSelfTalk": "أستخدم تمارين تهدئة أو كلامًا مطمئنًا مع نفسي",
+        "prayOrRepeatWordsInMyHead": "أدعو أو أكرر كلمات في رأسي",
+        "drinkWaterOrTakeSomethingWithMe": "أشرب ماء أو آخذ شيئًا معي",
+        "recheckThingsRepeatedly": "أعيد التحقق من الأشياء مرارًا",
+        "overprepare": "أستعد بشكل مبالغ فيه",
+        "delayDecisions": "أؤجل القرارات",
+        "googleSymptomsOrWorstCaseScenarios": "أبحث في جوجل عن الأعراض أو أسوأ الاحتمالات",
+        "mentallyReviewWhatCouldGoWrong": "أراجع ذهنيًا ما الذي قد يسوء"
+      }
+    },
+    "worryControl": {
+      "title": "ما مدى صعوبة إيقاف القلق عندما يبدأ؟",
+      "subtitle": "اختر ما يناسبك أكثر",
+      "options": {
+        "usuallyCanStopIt": "أستطيع عادةً إيقافه",
+        "sometimesCanStopIt": "أستطيع أحيانًا إيقافه",
+        "rarelyCanStopIt": "نادراً ما أستطيع إيقافه",
+        "almostNeverCanStopIt": "تقريبًا لا أستطيع إيقافه أبدًا"
+      }
+    },
+    "frequency": {
+      "title": "كم مرة يشتد القلق أو الهلع لديك؟",
+      "subtitle": "اختر ما يناسبك أكثر",
+      "options": {
+        "lessThanOnceAWeek": "أقل من مرة في الأسبوع",
+        "oneToTwoTimesAWeek": "1–2 مرة في الأسبوع",
+        "threeToFiveTimesAWeek": "3–5 مرات في الأسبوع",
+        "daily": "يوميًا",
+        "manyTimesADay": "مرات كثيرة في اليوم"
+      }
+    },
+    "durationOrCourse": {
+      "title": "منذ متى وهذا يحدث؟",
+      "subtitle": "اختر ما يناسبك أكثر",
+      "options": {
+        "lessThan1Month": "أقل من شهر",
+        "oneToSixMonths": "1–6 أشهر",
+        "moreThan6Months": "أكثر من 6 أشهر",
+        "comesInWaves": "يأتي على شكل موجات"
+      }
+    },
+    "impactLevel": {
+      "title": "إلى أي مدى يؤثر هذا على حياتك؟",
+      "subtitle": "",
+      "options": {
+        "notMuch": "ليس كثيرًا",
+        "aLittle": "قليلًا",
+        "quiteABit": "إلى حدٍّ كبير",
+        "aLot": "بشكل كبير جدًا"
+      }
+    },
+    "goals": {
+      "title": "بماذا تود أن تشعر براحة أكبر؟",
+      "subtitle": "",
+      "options": {
+        "goOutWithoutFear": "أن أخرج بدون خوف",
+        "beInCrowdedPlaces": "أن أكون في أماكن مزدحمة",
+        "travelFreely": "أن أسافر بحرية",
+        "beAloneComfortably": "أن أكون مرتاحًا وأنا وحدي",
+        "handleSocialSituations": "أن أتعامل بشكل أفضل مع المواقف الاجتماعية",
+        "focusAtWork": "أن أركز في العمل",
+        "feelCalmInMyBody": "أن أشعر بالهدوء في جسدي",
+        "feelInControl": "أن أشعر بأنني مسيطر",
+        "notOverthinkEverything": "أن أتوقف عن التفكير الزائد في كل شيء",
+        "feelSafeInMyBody": "أن أشعر بالأمان في جسدي",
+        "stopAvoidingThings": "أن أتوقف عن تجنب الأشياء",
+        "trustMyselfMore": "أن أثق بنفسي أكثر"
+      }
+    },
+    "screenInfo": {
+      "entry": {
+        "helperText": "يمكنك تخطي أي سؤال. هذا ليس تشخيصًا ولا يغني عن مختص مرخّص في الصحة النفسية.",
+        "whyThisExists": "توضح هذه الشاشة الهدف من المسار وتشرح أنه يبني ملفًا منظمًا للقلق من أجل التخصيص.",
+        "legalNote": "استخدم عبارات مثل «تخصيص تجربتك» أو «إنشاء ملف القلق الخاص بك». وتجنب عبارات مثل «تشخيص» أو «يعادل تقييم أخصائي نفسي»."
+      },
+      "situations": {
+        "helperText": "اختر المواقف التي يميل فيها القلق إلى أن يتفعّل أو يشتد أو يصبح أصعب في التحكم.",
+        "whyThisExists": "هذا يساعد على فهم السياقات المرتبطة بالتفعّل والتجنب والهروب والشعور بعدم الأمان.",
+        "legalNote": "صِف هذا على أنه فهم للمحفزات والأنماط، وليس كوسيلة لتحديد تشخيص."
+      },
+      "worryThemes": {
+        "helperText": "اختر المجالات التي يعود إليها ذهنك مرارًا عندما تكون قلقًا أو كثير التفكير.",
+        "whyThisExists": "هذا يساعد على معرفة ما إذا كان القلق واسعًا وموجّهًا نحو المستقبل عبر عدة مجالات حياتية.",
+        "legalNote": "قل إن هذا يساعد على فهم مجالات القلق، لا على تحديد ما إذا كان الشخص لديه اضطراب."
+      },
+      "symptoms": {
+        "helperText": "اختر الأعراض التي تلاحظها أكثر عندما يكون جهازك العصبي في حالة تفعّل.",
+        "whyThisExists": "هذا يلتقط طبقة الأعراض، بما في ذلك الأحاسيس الجسدية المرتبطة بالهلع وأعراض التوتر المستمر المرتبطة بالقلق العام.",
+        "legalNote": "تجنب القول إن الأعراض وحدها تكفي لتحديد اضطراب. فهي جزء واحد فقط من الصورة الكاملة."
+      },
+      "primaryFears": {
+        "helperText": "اختر المخاوف التي تبدو أكثر واقعية في تلك اللحظة، حتى لو كان جزء منك يعرف أنها قد لا تكون صحيحة.",
+        "whyThisExists": "هذا يحدد النتائج المخيفة الكامنة وراء دائرة القلق، بما في ذلك مخاوف الكارثة الجسدية ومخاوف عدم اليقين والمخاوف الاجتماعية.",
+        "legalNote": "قدّم هذا على أنه فهم للمخاوف المتوقعة، لا على أنه يحدد حالة طبية."
+      },
+      "behaviors": {
+        "helperText": "اختر ما تفعله عادةً لتشعر بأمان أكبر أو لتخفيف الانزعاج أو لمنع حدوث شيء سيئ.",
+        "whyThisExists": "هذا يحدد سلوكيات الأمان والتجنب وطلب الطمأنة والفحص وغيرها من الأنماط التي قد تبقي القلق مستمرًا مع الوقت.",
+        "legalNote": "قل إن هذا يساعد على فهم أنماط التكيف وسلوكيات الأمان. وتجنب القول إن التطبيق يستطيع تحديد العلاج من هذا وحده."
+      },
+      "worryControl": {
+        "helperText": "اختر الخيار الذي يصف تجربتك المعتادة بشكل أفضل.",
+        "whyThisExists": "هذا يلتقط مدى صعوبة ترك القلق أو إيقافه بمجرد أن يبدأ.",
+        "legalNote": "اذكر أن هذا يساعد على فهم نمط القلق، لا على تأكيد تشخيص."
+      },
+      "frequency": {
+        "helperText": "اختر عدد المرات التي يظهر فيها القلق أو الهلع الشديد لديك بشكل عام.",
+        "whyThisExists": "هذا يعطي خط أساس للشدة ويساعد على التمييز بين التفعّل العابر والعبء المتكرر.",
+        "legalNote": "صِف التكرار على أنه مؤشر شدة قائم على التقرير الذاتي، وليس حدًا تشخيصيًا."
+      },
+      "durationOrCourse": {
+        "helperText": "اختر الخيار الذي يطابق المسار العام لقلقك بشكل أفضل.",
+        "whyThisExists": "هذا يساعد على التمييز بين الفترات القصيرة والأنماط المستمرة، ويدعم فهمًا أشمل للحالة.",
+        "legalNote": "لا توحِ بأن المدة وحدها تحدد التشخيص. إنها جزء واحد من الصورة العامة."
+      },
+      "impactLevel": {
+        "helperText": "اختر الخيار الذي يعبّر أفضل عن مدى تأثير القلق على حياتك بشكل عام.",
+        "whyThisExists": "هذا يلتقط مستوى التأثير الوظيفي، وهو مهم لفهم الشدة واحتياجات الدعم.",
+        "legalNote": "قدّم هذا على أنه فهم للتأثير واحتياجات الدعم، وتجنب القول إن التطبيق يقيّم الشدة السريرية كما يفعل المختص."
+      },
+      "goals": {
+        "helperText": "اختر المجالات التي تريد أن تتحسن فيها أو تستعيدها أو تشعر فيها بثقة أكبر.",
+        "whyThisExists": "هذا يساعد على تحويل الملف إلى أولويات عملية للمساعدة الذاتية والدعم المستقبلي القائم على مبادئ CBT.",
+        "legalNote": "صِف هذا على أنه تخصيص وتحديد أولويات، وتجنب الوعد بعلاج فردي مخصص."
+      }
     }
   }
 }

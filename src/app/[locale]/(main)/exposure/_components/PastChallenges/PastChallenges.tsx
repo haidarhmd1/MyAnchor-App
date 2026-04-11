@@ -79,7 +79,7 @@ export const PastChallenges = async () => {
 
   if (pastChallenges.length === 0) {
     return (
-      <Card className="border-border bg-card mt-4 border shadow-sm">
+      <Card className="border-border bg-card mt-4 border shadow-sm active:scale-[0.98]">
         <CardContent className="p-4">
           <p className="text-muted-foreground text-sm leading-6">
             {t("exposure.pastChallenges.empty")}
@@ -154,7 +154,7 @@ export const PastChallenges = async () => {
                 return (
                   <Card
                     key={id}
-                    className="border-border bg-accent/70 shadow-sm transition-all hover:-translate-y-px hover:shadow-md"
+                    className="border-border bg-accent/70 shadow-sm transition-all hover:-translate-y-px hover:shadow-md active:scale-[0.98]"
                   >
                     <CardContent className="flex flex-col gap-4 p-4">
                       <div>
@@ -204,7 +204,7 @@ export const UnauthenticatedPastChallenges = async () => {
   const t = await getTranslations();
 
   return (
-    <Card className="border-border bg-card mt-4 border shadow-sm">
+    <Card className="border-border bg-card mt-4 border shadow-sm active:scale-[0.98]">
       <CardContent className="p-4">
         <p className="text-muted-foreground text-sm leading-6">
           {t("exposure.pastChallenges.empty")}

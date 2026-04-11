@@ -28,27 +28,27 @@ export type OptionItem = {
 
 export const locationOptions: OptionItem[] = [
   {
-    id: "locationOptions_0",
+    id: "gym",
     slug: "gym",
   },
   {
-    id: "locationOptions_1",
+    id: "work",
     slug: "work",
   },
   {
-    id: "locationOptions_2",
+    id: "cafe",
     slug: "cafe",
   },
   {
-    id: "locationOptions_3",
+    id: "transport",
     slug: "transport",
   },
   {
-    id: "locationOptions_4",
+    id: "home",
     slug: "home",
   },
   {
-    id: "locationOptions_5",
+    id: "social_gathering",
     slug: "social_gathering",
   },
 ];

@@ -11,31 +11,31 @@ export type SafetyBehaviorOptions = {
 
 export const PARTIAL_NO_REASONS: SafetyBehaviorOptionItem[] = [
   {
-    id: "PARTIAL_NO_REASONS_0",
+    id: "left-early",
     slug: "left-early",
   },
   {
-    id: "PARTIAL_NO_REASONS_1",
+    id: "pause-to-reset",
     slug: "pause-to-reset",
   },
   {
-    id: "PARTIAL_NO_REASONS_2",
+    id: "avoided-speaking-engaging",
     slug: "avoided-speaking-engaging",
   },
   {
-    id: "PARTIAL_NO_REASONS_3",
+    id: "checked-symptoms",
     slug: "checked-symptoms",
   },
   {
-    id: "PARTIAL_NO_REASONS_4",
+    id: "sought-reassurance",
     slug: "sought-reassurance",
   },
   {
-    id: "PARTIAL_NO_REASONS_5",
+    id: "delayed-until-felt-ready",
     slug: "delayed-until-felt-ready",
   },
   {
-    id: "PARTIAL_NO_REASONS_6",
+    id: "changed-plans-because-of-anxiety",
     slug: "changed-plans-because-of-anxiety",
   },
 ];

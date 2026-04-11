@@ -21,7 +21,7 @@ import { toRenderSections } from "./FinishScreen.helper";
 
 type FormValues = z.infer<typeof momentLogFormSchema>;
 
-const containerVariants: Variants = {
+export const containerVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -31,7 +31,7 @@ const containerVariants: Variants = {
   },
 };
 
-const itemVariants: Variants = {
+export const itemVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 14,
@@ -61,7 +61,7 @@ const itemVariants: Variants = {
   },
 };
 
-const loadingPulse: Variants = {
+export const loadingPulse: Variants = {
   initial: { opacity: 0.55, scale: 0.99 },
   animate: {
     opacity: [0.55, 0.9, 0.55],
@@ -74,7 +74,7 @@ const loadingPulse: Variants = {
   },
 };
 
-const stickyBarVariants: Variants = {
+export const stickyBarVariants: Variants = {
   hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
   visible: {
     opacity: 1,

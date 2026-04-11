@@ -66,7 +66,7 @@ const UnauthenticatedMomentLog = async () => {
 
   return (
     <section className="bg-background text-foreground space-y-4 px-4 py-4">
-      <Card className="border-border bg-card border shadow-sm">
+      <Card className="border-border bg-card border shadow-sm active:scale-[0.98]">
         <CardContent className="p-4">
           <p className="text-muted-foreground text-sm leading-6">
             {t("momentLog.noEntries")}
@@ -117,7 +117,7 @@ const MomentLog = async () => {
 
         <NewMomentLogEntryButton />
 
-        <Card className="border-border bg-card border shadow-sm">
+        <Card className="border-border bg-card border shadow-sm active:scale-[0.98]">
           <CardContent className="p-4">
             <p className="text-muted-foreground text-sm leading-6">
               {t("momentLog.noEntries")}
@@ -211,7 +211,7 @@ const MomentLog = async () => {
                   return (
                     <Card
                       key={pastEntry.id}
-                      className="border-border bg-accent/60 animate-[fadeUp_.35s_ease-out_both] shadow-sm transition-all motion-reduce:animate-none"
+                      className="border-border bg-accent/60 animate-[fadeUp_.35s_ease-out_both] shadow-sm transition-all active:scale-[0.98] motion-reduce:animate-none"
                     >
                       <CardContent className="space-y-2 p-4">
                         <h4 className="text-foreground text-sm font-semibold">

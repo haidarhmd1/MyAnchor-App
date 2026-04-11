@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createChallenge } from "@/lib/api";
 import { toast } from "sonner";
@@ -18,6 +15,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { mapChallengeOptionsToFormFields } from "@/i18n/challengeoptions-mapper";
 import { Engagement, SocialContext } from "@/generated/prisma/enums";
 import { ChallengeOption } from "@/generated/prisma/browser";
+import { SingleChoiceGroup } from "@/components/Form/Choice";
 
 enum STEP_ID {
   CHALLENGE_OPTION = "CHALLENGE_OPTION",
@@ -109,10 +107,23 @@ export default function ChallengeForm({
   const visibleOptions = useMemo(() => {
     if (!isChallengeOptionStep) return currentStep.options;
 
-    return (currentStep.options as unknown as ChallengeOption[]).filter(
+    return (currentStep.options as typeof localizedChallenges).filter(
       (option) => option.engagement === engagementTab,
     );
-  }, [currentStep.options, isChallengeOptionStep, engagementTab]);
+  }, [
+    currentStep.options,
+    isChallengeOptionStep,
+    engagementTab,
+    localizedChallenges,
+  ]);
+
+  const singleChoiceOptions = useMemo(() => {
+    return visibleOptions.map((option) => ({
+      id: option.id,
+      label: t(option.label),
+      description: option.description ? t(option.description) : undefined,
+    }));
+  }, [visibleOptions, t]);
 
   const handleSelect = (optionId: string) => {
     form.setValue(currentStep.fieldName, optionId, {
@@ -132,10 +143,8 @@ export default function ChallengeForm({
     if (currentStepIndex <= 0) return;
 
     const currentField = formStep[currentStepIndex].fieldName;
-    form.setValue(currentField, "" as any, {
-      shouldDirty: true,
-      shouldTouch: true,
-      shouldValidate: true,
+    form.resetField(currentField, {
+      defaultValue: undefined,
     });
 
     setCurrentStepIndex((s) => s - 1);
@@ -240,84 +249,12 @@ export default function ChallengeForm({
               </div>
             )}
 
-            <div
+            <SingleChoiceGroup
+              options={singleChoiceOptions}
+              value={selectedValue ?? null}
+              onChange={handleSelect}
               className="space-y-3"
-              role="radiogroup"
-              aria-label={t(currentStep.labelKey)}
-            >
-              {visibleOptions.map((option) => {
-                const isSelected = selectedValue === option.id;
-
-                return (
-                  <button
-                    key={option.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={isSelected}
-                    onClick={() => handleSelect(option.id)}
-                    className={cn(
-                      "block w-full rounded-4xl text-left",
-                      "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
-                      "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
-                    )}
-                  >
-                    <Card
-                      className={cn(
-                        "border-border p-2 shadow-sm transition-all duration-200",
-                        "hover:-translate-y-px hover:shadow-md",
-                        isSelected
-                          ? "border-primary bg-accent"
-                          : "bg-card hover:bg-muted/40",
-                      )}
-                    >
-                      <CardContent className="p-2">
-                        <div className="flex items-start gap-3">
-                          <div
-                            className={cn(
-                              "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
-                              isSelected ? "border-primary" : "border-border",
-                            )}
-                          >
-                            <div
-                              className={cn(
-                                "h-2.5 w-2.5 rounded-full transition-colors",
-                                isSelected ? "bg-primary" : "bg-transparent",
-                              )}
-                            />
-                          </div>
-
-                          <div className="min-w-0 flex-1">
-                            <h3
-                              className={cn(
-                                "text-base font-medium",
-                                isSelected
-                                  ? "text-foreground"
-                                  : "text-foreground",
-                              )}
-                            >
-                              {t(option.label)}
-                            </h3>
-
-                            {option.description ? (
-                              <p
-                                className={cn(
-                                  "mt-1 text-sm leading-6",
-                                  isSelected
-                                    ? "text-muted-foreground"
-                                    : "text-muted-foreground",
-                                )}
-                              >
-                                {t(option.description)}
-                              </p>
-                            ) : null}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </button>
-                );
-              })}
-            </div>
+            />
 
             <div className="flex justify-between gap-3 pt-2">
               <Button

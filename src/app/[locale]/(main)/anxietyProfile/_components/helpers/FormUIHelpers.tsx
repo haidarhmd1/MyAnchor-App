@@ -5,7 +5,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { AnxietyScreeningInput, Likert0To3 } from "./schema";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FormFieldName } from "../../AnxietyScreeningForm";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export function PreviewTile(props: { label: string; value: string }) {
   return (
@@ -23,6 +23,7 @@ export function FormBooleanCards(props: {
   title: string;
 }) {
   const t = useTranslations("anxietyScreening");
+  const isRtl = useLocale().startsWith("ar");
   const { setValue, control } = useFormContext<AnxietyScreeningInput>();
   const value = useWatch({
     control,
@@ -46,7 +47,8 @@ export function FormBooleanCards(props: {
               })
             }
             className={cn(
-              "rounded-2xl border px-4 py-4 text-left text-sm transition-colors",
+              "rounded-2xl border px-4 py-4 text-sm transition-colors",
+              isRtl ? "text-right" : "text-left",
               value === option.value
                 ? "border-primary bg-primary/10"
                 : "hover:bg-muted/50",
@@ -65,6 +67,7 @@ export function FormLikertCards(props: {
   title: string;
   labels: Record<number, string>;
 }) {
+  const isRtl = useLocale().startsWith("ar");
   const { setValue, control } = useFormContext<AnxietyScreeningInput>();
   const value = useWatch({
     control,
@@ -86,6 +89,7 @@ export function FormLikertCards(props: {
             }
             className={cn(
               "rounded-2xl border px-4 py-4 text-left text-sm transition-colors",
+              isRtl ? "text-right" : "text-left",
               value === option
                 ? "border-primary bg-primary/10"
                 : "hover:bg-muted/50",
@@ -106,6 +110,7 @@ export function FormRadioCards<T extends string>(props: {
   labels: Record<T, string>;
 }) {
   const t = useTranslations();
+  const isRtl = useLocale().startsWith("ar");
   const form = useFormContext<AnxietyScreeningInput>();
   const value = useWatch({
     control: form.control,
@@ -117,6 +122,7 @@ export function FormRadioCards<T extends string>(props: {
       <h3 className="text-sm font-semibold">{props.title}</h3>
 
       <RadioGroup
+        dir={isRtl ? "rtl" : "ltr"}
         value={value ?? ""}
         onValueChange={(nextValue) =>
           form.setValue(props.name as never, nextValue as never, {

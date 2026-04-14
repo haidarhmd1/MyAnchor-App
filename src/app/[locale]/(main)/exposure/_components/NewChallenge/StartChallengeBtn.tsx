@@ -27,7 +27,7 @@ export function StartChallengeBtn({
       disabled={isPending}
       aria-label={t("notStarted.aria")}
       className={cn(
-        "group border-primary/20 bg-accent mt-4 w-full rounded-4xl border text-left shadow-sm transition-all",
+        "group border-primary/20 bg-accent mt-0 w-full rounded-xl border text-left shadow-sm transition-all",
         "hover:-translate-y-px hover:shadow-md",
         "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
         "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
@@ -40,12 +40,12 @@ export function StartChallengeBtn({
         </div>
 
         <div className="space-y-1">
-          <h5 className="text-muted-foreground text-sm leading-none font-medium">
+          <h5 className="text-foreground text-base font-semibold">
             {t("notStarted.title")}
           </h5>
-          <h4 className="text-foreground text-base font-semibold">
+          <p className="text-muted-foreground text-xs font-medium">
             {isPending ? t("actions.saving") : t("notStarted.subtitle")}
-          </h4>
+          </p>
         </div>
       </div>
     </button>

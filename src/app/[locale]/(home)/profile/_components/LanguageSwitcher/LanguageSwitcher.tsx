@@ -43,7 +43,7 @@ export function LanguageSwitcher({
     <Select value={locale} onValueChange={onChange}>
       <SelectTrigger
         className={cn(
-          "bg-card text-card-foreground border-border rounded-md shadow-sm",
+          "bg-card text-card-foreground border-border rounded-3xl shadow-sm",
           "data-placeholder:text-muted-foreground",
           isCompact ? "h-9 min-w-9 gap-2 px-3 text-sm" : "h-10 w-40 gap-2 px-4",
         )}

@@ -34,7 +34,7 @@ export default async function Page() {
 
         <Alert
           variant="default"
-          className="border-border bg-accent text-accent-foreground animate-[fadeUp_.35s_ease-out_both] rounded-[2rem] shadow-sm will-change-transform motion-reduce:animate-none"
+          className="bg-accent text-accent-foreground animate-[fadeUp_.35s_ease-out_both] rounded-3xl border-none shadow-sm will-change-transform motion-reduce:animate-none"
         >
           <MessageCircleWarningIcon className="h-4 w-4" />
           <AlertTitle className="text-sm font-semibold">

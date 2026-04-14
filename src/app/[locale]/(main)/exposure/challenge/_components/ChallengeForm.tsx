@@ -214,31 +214,31 @@ export default function ChallengeForm({
                   }
                   className="w-full"
                 >
-                  <TabsList className="bg-muted grid h-auto w-full grid-cols-3 rounded-2xl p-1">
+                  <TabsList className="bg-muted grid h-auto w-full grid-cols-3 rounded-md p-1">
                     <TabsTrigger
                       value={Engagement.STAY}
-                      className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-xl px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
+                      className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-md px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
                     >
                       {t(`common.engagement.${Engagement.STAY}.label`)}
                     </TabsTrigger>
 
                     <TabsTrigger
                       value={Engagement.PARTICIPATE}
-                      className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-xl px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
+                      className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-md px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
                     >
                       {t(`common.engagement.${Engagement.PARTICIPATE}.label`)}
                     </TabsTrigger>
 
                     <TabsTrigger
                       value={Engagement.STRETCH}
-                      className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-xl px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
+                      className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-md px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
                     >
                       {t(`common.engagement.${Engagement.STRETCH}.label`)}
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
 
-                <div className="surface-soft rounded-3xl p-4 shadow-sm">
+                <div className="surface-soft rounded-xl p-4 shadow-sm">
                   <p className="text-foreground text-base font-semibold">
                     {t(`common.engagement.${engagementTab}.title`)}
                   </p>

@@ -20,8 +20,10 @@ import {
   AnxietySupportPreviewResponseSchema,
   SupportedReasoningLocale,
 } from "./ai/anxietySupport/types";
-import { AnxietyProfilePreviewResponse } from "./ai/anxietyProfile/schema/response.schema";
 import { DerivedAnxietyProfile } from "@/app/[locale]/(main)/anxietyProfile/_components/helpers/types";
+import { AnxietyScreeningInput } from "@/app/[locale]/(main)/anxietyProfile/_components/helpers/schema";
+import { AnxietyProfilePreviewResponse } from "./ai/anxietyProfile/schema/response.schema";
+import { AnxietyResultResponse } from "./ai/anxietyProfile/types";
 
 type CreateChallengeInputType = z.infer<typeof ChallengeSchema>;
 export async function createChallenge({
@@ -63,7 +65,6 @@ export async function createChallengeOutcome({
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
-    // optional in Next.js to avoid caching for mutations:
     cache: "no-store",
   });
 
@@ -94,7 +95,7 @@ export async function createMomentLogEntry({
   return (await res.json()) as MomentLog;
 }
 
-export async function createAnxietyProfile({
+export async function getAnxietyProfilePreview({
   profile,
   locale,
 }: {
@@ -107,6 +108,70 @@ export async function createAnxietyProfile({
     body: JSON.stringify({
       profile,
       locale,
+    }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`${res.status} ${text}`);
+  }
+
+  const result = await res.json();
+  return result;
+}
+
+export async function getAnxietyProfileEntry() {
+  const res = await fetch("/api/anxietyProfile", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`${res.status} ${text}`);
+  }
+
+  const result = await res.json();
+  return result;
+}
+
+export async function deleteAnxietyProfileEntry(id: string) {
+  const res = await fetch(`/api/anxietyProfile/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`${res.status} ${text}`);
+  }
+
+  return res.json();
+}
+
+export async function createAnxietyProfileEntry({
+  locale,
+  anxietyScreeningFormInputs,
+  derivedAnxietyProfile,
+  anxietyProfileResult,
+}: {
+  locale?: string;
+  anxietyScreeningFormInputs: AnxietyScreeningInput;
+  derivedAnxietyProfile: DerivedAnxietyProfile;
+  anxietyProfileResult: AnxietyResultResponse;
+}): Promise<{
+  locale: string;
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+}> {
+  const res = await fetch("/api/anxietyProfile/save", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      locale,
+      input: anxietyScreeningFormInputs,
+      profile: derivedAnxietyProfile,
+      result: anxietyProfileResult,
     }),
   });
 

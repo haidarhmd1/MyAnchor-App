@@ -15,7 +15,7 @@ export const Information = async () => {
       <Accordion
         type="single"
         collapsible
-        className="surface-soft rounded-[2rem] px-4 shadow-sm"
+        className="surface-soft rounded-2xl border-none px-4 shadow-sm"
       >
         {interoceptiveExposureGuide.map((guide) => {
           const description = t(guide.descriptionKey);

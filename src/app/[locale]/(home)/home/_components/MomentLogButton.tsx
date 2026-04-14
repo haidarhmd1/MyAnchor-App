@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { TZ } from "@/lib/timezone";
 import ShortcutsCard from "./ShortcutsCard";
 import { getTranslations } from "next-intl/server";
-import { prisma } from "../../../../../lib/prisma";
+import { prisma } from "../../../../../../lib/prisma";
 
 export async function MomentLogButton() {
   const session = await auth();

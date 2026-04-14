@@ -20,14 +20,14 @@ export const TabSwitcher = async () => {
       <TabsList className="bg-muted text-muted-foreground grid h-auto w-full grid-cols-2 rounded-2xl p-1">
         <TabsTrigger
           value="new-challenge"
-          className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-xl px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
+          className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-sm px-4 py-3 text-xs font-medium data-[state=active]:shadow-sm"
         >
           {t("newDailyChallenge")}
         </TabsTrigger>
 
         <TabsTrigger
           value="past-challenge"
-          className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-xl px-4 py-3 text-sm font-medium data-[state=active]:shadow-sm"
+          className="data-[state=active]:bg-card data-[state=active]:text-foreground rounded-sm px-4 py-3 text-xs font-medium data-[state=active]:shadow-sm"
         >
           {t("pastChallenges")}
         </TabsTrigger>

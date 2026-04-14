@@ -6,6 +6,8 @@
     "dark": "Dunkel",
     "system": "System"
   },
+  "insightsPending": "Noch keine Einblicke. Klicke hier, um jetzt zu starten.",
+  "insightsDone": "Deine Einblicke sind bereit. Du kannst sie jederzeit ansehen.",
   "aiResponseMomentLog": {
     "affirmation": "Bestärkung",
     "symptoms": "Warum diese Gefühle auftreten können",
@@ -114,7 +116,8 @@
     },
     "todaysChallenge": {
       "title": "Heutige Herausforderung",
-      "description": "Wähle eine Exposition für heute"
+      "description": "Wähle eine Exposition für heute",
+      "subDescription": "Finde eine sichere Grenze, um deine Komfortzone behutsam zu erweitern. Beständigkeit führt zu nachhaltiger Veränderung."
     },
     "journey": {
       "title": "Schritte deiner Reise",
@@ -129,6 +132,17 @@
     }
   },
   "common": {
+    "insightsOverview": "Übersicht der Einblicke",
+    "viewInsights": "Einblicke ansehen",
+    "destructiveAction": {
+      "button": "Löschen",
+      "title": "Bist du sicher?",
+      "description": "Diese Aktion kann nicht rückgängig gemacht werden.",
+      "cancel": "Abbrechen",
+      "confirm": "Löschen",
+      "loading": "Wird gelöscht…",
+      "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+    },
     "analyzeAnswers": "Antworten analysieren",
     "back": "Zurück",
     "loading": "Wird geladen, bitte warten...",
@@ -208,13 +222,20 @@
     "log": "Eintrag bestätigen",
     "yes": "Ja",
     "no": "Nein",
+    "goToProfile": "Zum Profil",
     "submitting": "Wird gesendet…",
     "notEmpty": "Feld darf nicht leer sein",
-
     "actions": {
       "cancel": "Abbrechen",
       "saving": "Wird gespeichert…",
-      "saveChanges": "Änderungen speichern"
+      "saveChanges": "Änderungen speichern",
+      "save": "Speichern"
+    },
+    "anxietyProfile": {
+      "toast": {
+        "success": "Deine Einblicke wurden gespeichert. Du kannst sie jederzeit in deinem Profil aufrufen.",
+        "error": "Deine Einblicke konnten nicht gespeichert werden. Bitte versuche es erneut."
+      }
     },
     "dob": {
       "label": "Geburtsdatum",
@@ -756,7 +777,7 @@
       },
       "card": {
         "title": "Box-Atmung",
-        "subtitle": "Reguliere deine Atmung, um dein Nervensystem zu beruhigen."
+        "subtitle": "Eine einfache Technik, um deine Herzfrequenz durch rhythmische Zyklen wieder zu normalisieren."
       },
       "phases": {
         "inhale": "Einatmen",

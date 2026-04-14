@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   Brain,
   RefreshCcw,
+  Trash2Icon,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -24,12 +25,23 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { DerivedAnxietyProfile } from "../helpers/types";
 import { AnxietyResultResponse } from "@/lib/ai/anxietyProfile/types";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { AnxietyScreeningInput } from "../helpers/schema";
+import {
+  createAnxietyProfileEntry,
+  deleteAnxietyProfileEntry,
+} from "@/lib/api";
+import { toast } from "sonner";
+import { useRouter } from "@/i18n/navigation";
+import { DeleteActionButton } from "@/components/DeleteActionButton/DeleteActionButton";
+import { cn } from "@/lib/utils";
 
 type Props = {
+  id: string | null;
+  input: AnxietyScreeningInput;
   profile: DerivedAnxietyProfile;
   anxietyResultResponse: AnxietyResultResponse;
-  onRestart?: () => void;
+  hasAlreadyFilledForm: boolean;
 };
 
 type ResultStep = {
@@ -41,15 +53,22 @@ type ResultStep = {
 };
 
 export default function AnxietyResult({
+  id,
+  input,
   profile,
   anxietyResultResponse,
-  onRestart,
+  hasAlreadyFilledForm,
 }: Props) {
   const t = useTranslations();
+  const locale = useLocale();
+  const isRtl = locale.startsWith("ar");
+
+  const router = useRouter();
+
   const [stepIndex, setStepIndex] = useState(0);
   const prefersReducedMotion = useReducedMotion();
 
-  const steps = useMemo<ResultStep[]>(() => {
+  const results = useMemo<ResultStep[]>(() => {
     return [
       {
         id: "big_picture",
@@ -93,6 +112,23 @@ export default function AnxietyResult({
   const isActionSlide = stepIndex === 1;
   const progress = (stepIndex / totalSlides) * 100;
 
+  const saveAnxietyProfile = async () => {
+    try {
+      await createAnxietyProfileEntry({
+        locale,
+        anxietyScreeningFormInputs: input,
+        derivedAnxietyProfile: profile,
+        anxietyProfileResult: anxietyResultResponse,
+      });
+
+      toast.success(t("form.anxietyProfile.toast.success"));
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to save anxiety profile:", error);
+      toast.error(t("form.anxietyProfile.toast.error"));
+    }
+  };
+
   return (
     <div className="mx-auto flex w-full max-w-md flex-col gap-4 pb-24">
       <div className="bg-background/95 sticky top-21 z-10 rounded-3xl border p-4 shadow-sm backdrop-blur">
@@ -116,11 +152,40 @@ export default function AnxietyResult({
             total: totalSlides + 1,
           })}
         </p>
+        {!hasAlreadyFilledForm && !id ? (
+          <div className="mt-4">
+            <Button
+              type="button"
+              className="flex-1 rounded-2xl"
+              onClick={saveAnxietyProfile}
+            >
+              {t("form.actions.save")}
+            </Button>
+          </div>
+        ) : (
+          <div
+            className={cn("mt-4 w-full", isRtl ? "text-left" : "text-right")}
+          >
+            <DeleteActionButton
+              triggerLabel={<Trash2Icon />}
+              title={t("common.destructiveAction.title")}
+              description={t("common.destructiveAction.description")}
+              confirmLabel={t("common.destructiveAction.confirm")}
+              cancelLabel={t("common.destructiveAction.cancel")}
+              onConfirm={async () => {
+                await deleteAnxietyProfileEntry(id!);
+                router.replace("/home");
+              }}
+              loadingLabel={t("common.destructiveAction.loading")}
+              errorMessage={t("common.destructiveAction.error")}
+            />
+          </div>
+        )}
       </div>
 
       <AnimatePresence mode="wait">
         {!isActionSlide ? (
-          steps.map((s) => (
+          results.map((s) => (
             <motion.div
               key={s.id}
               initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
@@ -161,23 +226,39 @@ export default function AnxietyResult({
             onClick={() => setStepIndex((current) => Math.max(current - 1, 0))}
             disabled={stepIndex === 0}
           >
-            <ArrowLeft className="mr-2 h-4 w-4" />
+            {isRtl ? (
+              <ArrowRight className="ml-2 h-4 w-4" />
+            ) : (
+              <ArrowLeft className="mr-2 h-4 w-4" />
+            )}
             {t("common.back")}
           </Button>
           <Button
             type="button"
             className="flex-1 rounded-2xl"
             onClick={() => {
-              if (isActionSlide) {
-                onRestart?.();
+              if (isActionSlide && hasAlreadyFilledForm) {
+                router.replace("/profile");
                 return;
               }
 
+              if (isActionSlide) {
+                saveAnxietyProfile();
+                return;
+              }
               setStepIndex((current) => Math.min(current + 1, totalSlides));
             }}
           >
-            {isActionSlide ? "Start again" : t("common.next")}
-            {!isActionSlide ? <ArrowRight className="ml-2 h-4 w-4" /> : null}
+            {isActionSlide && hasAlreadyFilledForm && t("form.goToProfile")}
+            {isActionSlide && !hasAlreadyFilledForm && t("form.actions.save")}
+            {!isActionSlide && t("common.next")}
+            {!isActionSlide ? (
+              isRtl ? (
+                <ArrowLeft className="mr-2 h-4 w-4" />
+              ) : (
+                <ArrowRight className="ml-2 h-4 w-4" />
+              )
+            ) : null}
           </Button>
         </div>
       </div>

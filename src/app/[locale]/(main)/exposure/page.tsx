@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <article className="bg-background text-foreground pb-8">
       <div
-        className="bg-muted h-60 w-full rounded-b-[2rem]"
+        className="bg-muted h-60 w-full rounded-b-4xl"
         style={{
           backgroundImage: 'url("/illustration/understanding-anxiety.png")',
           backgroundPosition: "center",
@@ -41,7 +41,7 @@ export default async function Page() {
 
         <Alert
           variant="default"
-          className="border-border bg-accent text-accent-foreground rounded-[2rem] shadow-sm"
+          className="bg-accent text-accent-foreground rounded-2xl border-none p-4 shadow-sm"
         >
           <Lightbulb className="text-primary h-4 w-4" />
           <AlertTitle className="text-foreground text-sm font-semibold">

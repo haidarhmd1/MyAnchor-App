@@ -31,7 +31,7 @@ export function ChoiceCard({
       disabled={disabled}
       onClick={onSelect}
       className={cn(
-        "block w-full rounded-4xl text-left",
+        "block w-full rounded-md text-left",
         "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
         "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
         "disabled:pointer-events-none disabled:opacity-50",
@@ -40,7 +40,7 @@ export function ChoiceCard({
     >
       <Card
         className={cn(
-          "border-border p-2 shadow-sm transition-all duration-200",
+          "border-border rounded-xl p-2 shadow-sm transition-all duration-200",
           "hover:-translate-y-px hover:shadow-md active:scale-[0.98]",
           checked ? "border-primary bg-accent" : "bg-card hover:bg-muted/40",
         )}

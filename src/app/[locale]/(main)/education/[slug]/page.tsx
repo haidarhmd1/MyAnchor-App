@@ -45,10 +45,7 @@ export default async function Page({ params }: Props) {
             switch (block.type) {
               case "intro":
                 return (
-                  <div
-                    key={block.id}
-                    className="bg-accent border-border rounded-3xl border p-4 shadow-sm"
-                  >
+                  <div key={block.id} className="bg-accent rounded-3xl p-4">
                     <p className="text-muted-foreground text-sm leading-6">
                       {t(block.textKey)}
                     </p>
@@ -73,7 +70,7 @@ export default async function Page({ params }: Props) {
                 return (
                   <section
                     key={block.id}
-                    className="bg-card border-border rounded-3xl border p-4 shadow-sm"
+                    className="bg-card rounded-3xl p-4 shadow-sm"
                   >
                     <h2 className="text-foreground text-base font-semibold">
                       {t(block.titleKey)}
@@ -109,7 +106,7 @@ export default async function Page({ params }: Props) {
                 return (
                   <section
                     key={block.id}
-                    className="bg-secondary border-border rounded-3xl border p-4 shadow-sm"
+                    className="bg-secondary rounded-3xl p-4 shadow-sm"
                   >
                     <h2 className="text-foreground text-base font-semibold">
                       {t(block.titleKey)}
@@ -131,7 +128,7 @@ export default async function Page({ params }: Props) {
                 return (
                   <div
                     key={block.id}
-                    className="border-primary/20 bg-accent rounded-3xl border p-4 shadow-sm"
+                    className="bg-accent rounded-3xl p-4 shadow-sm"
                   >
                     <p className="text-foreground text-sm leading-6">
                       {t(block.textKey)}
@@ -143,7 +140,7 @@ export default async function Page({ params }: Props) {
                 return (
                   <section
                     key={block.id}
-                    className="border-destructive/25 bg-destructive/10 rounded-3xl border p-4 shadow-sm"
+                    className="bg-destructive/10 rounded-3xl p-4 shadow-sm"
                   >
                     <h2 className="text-foreground text-base font-semibold">
                       {t(block.titleKey)}

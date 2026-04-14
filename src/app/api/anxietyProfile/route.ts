@@ -4,14 +4,29 @@ import { normalizeReasoningLocale } from "@/lib/ai/normalizeReasoningLocale";
 import { AnxietyProfilePreviewRequestSchema } from "@/lib/ai/anxietyProfile/schema/request.schema";
 import { AnxietyProfilePreviewResponseSchema } from "@/lib/ai/anxietyProfile/schema/response.schema";
 import { generateAnxietyProfilePreview } from "@/lib/ai/anxietyProfile/service";
+import { getUserOrThrow } from "@/lib/auth/auth-helpers";
+import { prisma } from "../../../../lib/prisma";
+
+export const GET = async () => {
+  const { userId } = await getUserOrThrow();
+
+  const anxietyProfile = await prisma.anxietyProfileEntry.findFirst({
+    where: {
+      userId,
+      deletedAt: null,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return NextResponse.json({ anxietyProfile }, { status: 200 });
+};
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const parsed = AnxietyProfilePreviewRequestSchema.safeParse(body);
-    console.log("body", body);
-
-    console.log("parsed", parsed);
 
     if (!parsed.success) {
       return NextResponse.json(

@@ -20,17 +20,17 @@ export const CategoryLinks = async () => {
         <h4 className="text-foreground text-base font-semibold tracking-tight">
           {t("home.journey.title")}
         </h4>
-        <p className="text-muted-foreground text-sm leading-6">
+        {/* <p className="text-muted-foreground text-sm leading-6">
           {t("home.journey.description")}
-        </p>
+        </p> */}
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 gap-3">
         {categories.map((c) => (
           <Link key={c.id} href={c.link} className="block">
             <Card
               className={cn(
-                "border-border/60 relative h-28 overflow-hidden rounded-3xl border bg-linear-to-br pt-4 shadow-sm",
+                "relative h-28 overflow-hidden rounded-3xl border-none bg-linear-to-br pt-4 shadow-sm",
                 "transition will-change-transform active:scale-[0.98]",
                 "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
                 toneClasses[c.tone],

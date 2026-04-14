@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Bubbles, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Bubbles } from "lucide-react";
 import { FormProvider, useForm, type UseWatchProps } from "react-hook-form";
 
 import { Badge } from "@/components/ui/badge";
@@ -22,7 +22,7 @@ import AnxietyResult from "./_components/Steps/AnxietyResult";
 import { type ScreenerStepId } from "./_components/helpers/questions";
 import {
   anxietyScreeningDefaultValues,
-  anxietyScreeningSchema,
+  AnxietyScreeningSchema,
   type AnxietyScreeningInput,
 } from "./_components/helpers/schema";
 import { deriveAnxietyProfile } from "./_components/helpers/scoring";
@@ -35,7 +35,7 @@ import { PanicStep } from "./_components/Steps/PanicStep";
 import { ReviewStep } from "./_components/Steps/ReviewStep";
 import { RuleoutsStep } from "./_components/Steps/RuleoutsStep";
 import { useLocale, useTranslations } from "next-intl";
-import { createAnxietyProfile } from "@/lib/api";
+import { getAnxietyProfilePreview } from "@/lib/api";
 import { AnxietyResultResponse } from "@/lib/ai/anxietyProfile/types";
 import {
   containerVariants,
@@ -58,12 +58,26 @@ const FORM_STEPS: ActiveStepId[] = [
   "review",
 ];
 
-export default function AnxietyScreenerForm() {
+export default function AnxietyScreenerForm({
+  id,
+  anxietyResult,
+  input,
+  profile,
+  hasAlreadyFilledForm,
+}: {
+  id: string | null;
+  anxietyResult: AnxietyResultResponse | null;
+  input: AnxietyScreeningInput | null;
+  profile: DerivedAnxietyProfile | null;
+  hasAlreadyFilledForm: boolean;
+}) {
   const t = useTranslations();
   const locale = useLocale();
+  const isRtl = locale.startsWith("ar");
+
   const form = useForm<AnxietyScreeningInput>({
-    resolver: zodResolver(anxietyScreeningSchema),
-    defaultValues: anxietyScreeningDefaultValues,
+    resolver: zodResolver(AnxietyScreeningSchema),
+    defaultValues: input ?? anxietyScreeningDefaultValues,
     mode: "onSubmit",
   });
 
@@ -72,7 +86,15 @@ export default function AnxietyScreenerForm() {
     input: AnxietyScreeningInput;
     profile: DerivedAnxietyProfile;
     anxietyResultResponse: AnxietyResultResponse;
-  } | null>(null);
+  } | null>(
+    input && profile && anxietyResult
+      ? {
+          input: input,
+          profile: profile,
+          anxietyResultResponse: anxietyResult,
+        }
+      : null,
+  );
   const reduce = useReducedMotion();
 
   useEffect(() => {
@@ -104,7 +126,10 @@ export default function AnxietyScreenerForm() {
         const profile = deriveAnxietyProfile(
           values as AnxietyScreeningRequestInput,
         );
-        const response = await createAnxietyProfile({ profile, locale });
+        const response = await getAnxietyProfilePreview({
+          profile,
+          locale,
+        });
         setResult({
           input: values,
           profile,
@@ -191,13 +216,11 @@ export default function AnxietyScreenerForm() {
   if (result) {
     return (
       <AnxietyResult
+        id={id}
+        input={result.input}
         profile={result.profile}
         anxietyResultResponse={result.anxietyResultResponse}
-        onRestart={() => {
-          setResult(null);
-          setCurrentStepIndex(0);
-          form.reset(anxietyScreeningDefaultValues);
-        }}
+        hasAlreadyFilledForm={hasAlreadyFilledForm}
       />
     );
   }
@@ -252,7 +275,12 @@ export default function AnxietyScreenerForm() {
               onClick={goBack}
               disabled={currentStepIndex === 0}
             >
-              <ChevronLeft className="mr-2 h-4 w-4" />
+              {isRtl ? (
+                <ArrowRight className="ml-2 h-4 w-4" />
+              ) : (
+                <ArrowLeft className="mr-2 h-4 w-4" />
+              )}
+
               {t("common.previous")}
             </Button>
             <Button
@@ -264,7 +292,11 @@ export default function AnxietyScreenerForm() {
               {currentStepId === "review"
                 ? t("common.analyzeAnswers")
                 : t("common.continue")}
-              <ChevronRight className="ml-2 h-4 w-4" />
+              {isRtl ? (
+                <ArrowLeft className="mr-2 h-4 w-4" />
+              ) : (
+                <ArrowRight className="ml-2 h-4 w-4" />
+              )}
             </Button>
           </div>
         </div>

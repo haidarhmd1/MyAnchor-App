@@ -21,12 +21,12 @@ export const CardContainer = ({
     <Link href={link} className="block">
       <Card
         className={cn(
-          "border-border bg-card hover:bg-muted/40 flex shadow-sm transition-all",
+          "border-border bg-card hover:bg-muted/40 flex p-2 shadow-sm transition-all",
           "hover:-translate-y-px hover:shadow-md",
           className,
         )}
       >
-        <CardContent className="flex w-full items-start gap-3 px-4 py-4">
+        <CardContent className="flex w-full items-start gap-3 p-2">
           {icon ? <div className="shrink-0">{icon}</div> : null}
 
           <div className="min-w-0 flex-1">

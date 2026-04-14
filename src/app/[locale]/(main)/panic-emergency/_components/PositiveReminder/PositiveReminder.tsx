@@ -36,7 +36,7 @@ export const PositiveReminder = () => {
         className="h-28 min-h-24 transform rounded-2xl bg-white p-3 shadow-md transition will-change-transform active:scale-[0.98]"
       >
         <div className="space-x-4">
-          {/* <div className="flex h-8 w-8 shrink-0 justify-center rounded-md bg-gray-200">
+          {/* <div className="flex h-8 w-8 shrink-0 justify-center rounded-3xl bg-gray-200">
             <Heart className="self-center" />
           </div> */}
           <div className="flex flex-col text-left">

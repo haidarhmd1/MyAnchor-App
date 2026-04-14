@@ -38,7 +38,7 @@ export const Tracker = ({ exercise }: { exercise: Exercise }) => {
   return (
     <section className="space-y-10">
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-card border-border rounded-2xl border p-4 shadow-sm">
+        <div className="bg-card border-border rounded-2xl border-none p-4 shadow-sm">
           <h3 className="text-foreground text-sm font-semibold">
             {t("duration")}:
           </h3>
@@ -49,7 +49,7 @@ export const Tracker = ({ exercise }: { exercise: Exercise }) => {
 
         <div
           className={cn(
-            "rounded-2xl border p-4 shadow-sm",
+            "rounded-2xl border-none p-4 shadow-sm",
             finished
               ? "border-primary/20 bg-accent"
               : isRunning
@@ -72,7 +72,7 @@ export const Tracker = ({ exercise }: { exercise: Exercise }) => {
           onClick={!isRunning ? handleStart : undefined}
           disabled={isRunning}
           className={cn(
-            "flex h-64 w-64 items-center justify-center rounded-full border shadow-sm transition",
+            "flex h-64 w-64 items-center justify-center rounded-full border-none shadow-sm transition",
             "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",
             !isRunning
               ? "border-border bg-accent text-foreground active:scale-[0.98]"
@@ -90,7 +90,7 @@ export const Tracker = ({ exercise }: { exercise: Exercise }) => {
             type="button"
             onClick={handleStop}
             variant="outline"
-            className="border-destructive/30 bg-destructive/10 text-foreground hover:bg-destructive/15 rounded-2xl"
+            className="bg-destructive/10 text-foreground hover:bg-destructive/15 rounded-2xl border-none"
           >
             {t("stop")}
           </Button>

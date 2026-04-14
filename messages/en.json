@@ -6,6 +6,8 @@
     "dark": "Dark",
     "system": "System"
   },
+  "insightsPending": "No insights yet. Click here to get started now.",
+  "insightsDone": "Your insights are ready. You can view them anytime.",
   "aiResponseMomentLog": {
     "affirmation": "Affirmation",
     "symptoms": "Why these feelings can happen",
@@ -114,7 +116,8 @@
     },
     "todaysChallenge": {
       "title": "Today’s challenge",
-      "description": "Choose one exposure for today"
+      "description": "Choose one exposure for today",
+      "subDescription": "Identify a safe boundary to gently expand your comfort zone. Consistency leads to lasting change."
     },
     "journey": {
       "title": "Journey Steps",
@@ -129,6 +132,17 @@
     }
   },
   "common": {
+    "insightsOverview": "Insights overview",
+    "viewInsights": "View insights",
+    "destructiveAction": {
+      "button": "Delete",
+      "title": "Are you sure?",
+      "description": "This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete",
+      "loading": "Deleting…",
+      "error": "Something went wrong. Please try again."
+    },
     "analyzeAnswers": "Analyze answers",
     "back": "Back",
     "loading": "Loading, please wait...",
@@ -208,12 +222,20 @@
     "log": "Log entry",
     "yes": "Yes",
     "no": "No",
+    "goToProfile": "Go to Profile",
     "submitting": "Submitting…",
     "notEmpty": "Field cannot be empty",
     "actions": {
       "cancel": "Cancel",
       "saving": "Saving…",
-      "saveChanges": "Save changes"
+      "saveChanges": "Save changes",
+      "save": "Save"
+    },
+    "anxietyProfile": {
+      "toast": {
+        "success": "Your insights have been saved. You can access them anytime in your profile.",
+        "error": "We couldn’t save your insights. Please try again."
+      }
     },
     "dob": {
       "label": "Date of birth",
@@ -757,7 +779,7 @@
       },
       "card": {
         "title": "Box Breathing",
-        "subtitle": "Regulate your breathing to calm your nervous system."
+        "subtitle": "A simple technique to return your heart rate to baseline through rhythmic cycles."
       },
       "phases": {
         "inhale": "Inhale",

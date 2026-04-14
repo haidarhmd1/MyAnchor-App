@@ -25,7 +25,7 @@ const sizeStyles = {
     subtitle: "text-xs",
     iconWrap: "h-8 w-8",
     iconSize: 16,
-    rounded: "rounded-3xl",
+    rounded: "rounded-lg",
     padding: "p-3",
   },
   sm: {

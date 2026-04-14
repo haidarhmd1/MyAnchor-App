@@ -35,7 +35,7 @@ export default async function Page({ params }: Props) {
       <div className="space-y-6 px-4 py-4">
         <Alert
           variant="default"
-          className="border-border bg-accent text-accent-foreground rounded-4xl shadow-sm"
+          className="bg-accent text-accent-foreground rounded-2xl border-none shadow-sm"
         >
           <Lightbulb className="text-primary h-4 w-4" />
           <AlertTitle className="text-foreground text-sm font-semibold">

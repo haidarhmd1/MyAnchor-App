@@ -18,7 +18,7 @@ export const NewMomentLogEntryButton = () => {
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "bg-card border-border mt-4 flex w-full items-center rounded-4xl border border-dashed p-12 shadow-sm transition",
+          "bg-card border-border mt-4 flex w-full items-center rounded-3xl border border-dashed p-6 shadow-sm transition",
           isRtl ? "text-right" : "text-left",
           "hover:bg-muted/40 active:scale-[0.98]",
           "focus-visible:ring-ring/70 focus:outline-none focus-visible:ring-2",

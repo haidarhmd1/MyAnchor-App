@@ -14,7 +14,7 @@ export async function Exercises() {
         <CardContainer
           key={exercise.id}
           link={`/exercises/${exercise.id}`}
-          className="mb-4 animate-[fadeUp_.35s_ease-out_both] shadow-sm will-change-transform motion-reduce:animate-none"
+          className="mb-4 animate-[fadeUp_.35s_ease-out_both] border-none shadow-sm will-change-transform active:scale-[0.98] motion-reduce:animate-none"
           title={t(exercise.titleKey)}
           description={t(exercise.descriptionKey)}
           icon={
@@ -27,7 +27,7 @@ export async function Exercises() {
                 backgroundImage: `url(${exercise.imgSrc})`,
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
-                backgroundSize: "contain",
+                backgroundSize: "cover",
               }}
             />
           }

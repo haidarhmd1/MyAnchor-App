@@ -41,7 +41,7 @@ export default async function EducationPage() {
           {education.map((item) => (
             <CardContainer
               key={item.id}
-              className="animate-[fadeUp_.35s_ease-out_both] shadow-sm will-change-transform motion-reduce:animate-none"
+              className="animate-[fadeUp_.35s_ease-out_both] border-none shadow-sm will-change-transform active:scale-[0.98] motion-reduce:animate-none"
               title={t(item.titleKey)}
               description={t(item.descriptionKey)}
               icon={

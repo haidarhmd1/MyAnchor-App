@@ -1,35 +1,56 @@
-import { Award, CheckCheck } from "lucide-react";
+import { ArrowLeft, Award, CheckCheck, CheckCircle } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 
 import ShortcutsCard from "./ShortcutsCard";
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
-import { StartChallengeBtn } from "../exposure/_components/NewChallenge/StartChallengeBtn";
-import { Card, CardContent } from "@/components/ui/card";
+import { StartChallengeBtn } from "../../../(main)/exposure/_components/NewChallenge/StartChallengeBtn";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { prisma } from "../../../../../lib/prisma";
+import { prisma } from "../../../../../../lib/prisma";
 import { ChallengeStatus } from "@/generated/prisma/enums";
+import { ComponentType } from "react";
 
 const DailyChallengeShell = ({
   title,
   description,
+  subDescription,
+  icon,
   children,
 }: {
   title: string;
   description: string;
+  subDescription?: string;
+  icon?: ComponentType<{ className?: string }>;
   children: React.ReactNode;
 }) => {
-  return (
-    <section className="surface-soft space-y-6 rounded-3xl p-4 shadow-sm">
-      <div className="space-y-1">
-        <h4 className="text-foreground text-base font-semibold tracking-tight">
-          {title}
-        </h4>
-        <p className="text-muted-foreground text-sm leading-6">{description}</p>
-      </div>
+  const Icon = icon;
 
-      {children}
-    </section>
+  return (
+    <Card className="rounded-md p-6">
+      <CardHeader>
+        {Icon && (
+          <div className="bg-accent m-auto flex h-12 w-12 justify-center rounded-full">
+            <Icon className="self-center" />
+          </div>
+        )}
+        <div className="mt-4 text-center">
+          <h4 className="text-foreground text-sm font-medium">{title}</h4>
+          <h2 className="text-lg font-bold">{description}</h2>
+          {subDescription && (
+            <p className="text-muted-foreground text-xs font-light">
+              {subDescription}
+            </p>
+          )}
+        </div>
+      </CardHeader>
+      <CardDescription className="text-center">{children}</CardDescription>
+    </Card>
   );
 };
 
@@ -51,7 +72,7 @@ const DailyChallengePrimaryButton = ({
   return (
     <Button
       type="button"
-      className="bg-primary text-primary-foreground w-full rounded-2xl transition will-change-transform hover:opacity-95 active:scale-[0.98]"
+      className="bg-primary text-primary-foreground w-full rounded-sm p-6 transition will-change-transform hover:opacity-95 active:scale-[0.98]"
       asChild
     >
       <Link href={href}>{label}</Link>
@@ -79,10 +100,11 @@ export const DailyChallenge = async () => {
   if (!latestChallenge) {
     return (
       <DailyChallengeShell
+        icon={CheckCircle}
         title={t("home.todaysChallenge.title")}
         description={t("home.todaysChallenge.description")}
+        subDescription={t("home.todaysChallenge.subDescription")}
       >
-        <DailyChallengeInfoCard text={t("dailyChallenge.startNew.subtitle")} />
         <DailyChallengePrimaryButton
           href="/exposure/challenge"
           label={t("tracker.start")}
@@ -119,7 +141,7 @@ export const DailyChallenge = async () => {
           >
             <Card
               className={cn(
-                "bg-accent text-accent-foreground border-border group mt-1 rounded-2xl border",
+                "bg-accent text-accent-foreground border-border group rounded-md border-none p-2",
                 "shadow-sm transition-all",
                 "focus-within:ring-ring focus-within:ring-2 hover:-translate-y-px hover:shadow-md",
                 "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
@@ -127,18 +149,18 @@ export const DailyChallenge = async () => {
               )}
               aria-label={t("exposure.newChallenge.pending.aria")}
             >
-              <CardContent className="flex items-start gap-4 p-4 sm:p-5">
+              <CardContent className="flex items-start gap-4 p-2 sm:p-5">
                 <div className="text-primary shrink-0">
                   <Award className="h-5 w-5" aria-hidden="true" />
                 </div>
 
-                <div className="space-y-1">
-                  <h5 className="text-muted-foreground text-sm leading-none font-medium">
+                <div className="space-y-1 text-left">
+                  <h5 className="text-foreground text-base font-semibold">
                     {t("exposure.newChallenge.pending.title")}
                   </h5>
-                  <h4 className="text-foreground text-base font-semibold">
+                  <p className="text-muted-foreground text-xs font-medium">
                     {t("exposure.newChallenge.pending.subtitle")}
-                  </h4>
+                  </p>
                 </div>
               </CardContent>
             </Card>

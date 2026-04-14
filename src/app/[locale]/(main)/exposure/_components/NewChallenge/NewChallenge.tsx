@@ -8,7 +8,7 @@ import { prisma } from "../../../../../../../lib/prisma";
 import { ChallengeStatus } from "@/generated/prisma/enums";
 
 const baseCardClassName = cn(
-  "mt-4 border border-border shadow-sm transition-all",
+  "border border-none shadow-sm transition-all",
   "hover:-translate-y-px",
   "focus-within:ring-2 focus-within:ring-ring/70",
   "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
@@ -37,12 +37,13 @@ export const NewChallenge = async () => {
         <Card
           className={cn(
             baseCardClassName,
-            "bg-card hover:bg-muted/50 border-dashed",
+            "mt-0 rounded-xl",
+            "bg-card hover:bg-muted/50 border-dashed p-2",
             "active:scale-[0.98]",
           )}
         >
-          <CardContent className="flex items-center gap-3 p-4">
-            <div className="bg-accent text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl">
+          <CardContent className="flex items-center gap-3 p-2">
+            <div className="bg-accent text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
               <BadgePlus className="h-5 w-5" />
             </div>
 
@@ -74,22 +75,23 @@ export const NewChallenge = async () => {
         <Card
           className={cn(
             baseCardClassName,
-            "bg-accent border-primary/20 active:scale-[0.98]",
+            "mt-0 rounded-xl",
+            "bg-accent border-primary/20 p-2 active:scale-[0.98]",
           )}
           aria-label={t("pending.aria")}
         >
-          <CardContent className="flex items-start gap-4 p-4 sm:p-5">
+          <CardContent className="flex items-start gap-4 p-4 sm:p-2">
             <div className="text-primary shrink-0">
               <Award className="h-5 w-5" aria-hidden="true" />
             </div>
 
             <div className="space-y-1">
-              <h5 className="text-muted-foreground text-sm leading-none font-medium">
+              <h5 className="text-foreground text-base font-semibold">
                 {t("pending.title")}
               </h5>
-              <h4 className="text-foreground text-base font-semibold">
+              <p className="text-muted-foreground text-xs font-medium">
                 {t("pending.subtitle")}
-              </h4>
+              </p>
             </div>
           </CardContent>
         </Card>

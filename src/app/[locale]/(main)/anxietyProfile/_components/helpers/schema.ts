@@ -132,7 +132,7 @@ const maintainingFactorsSchema = z.object({
     .optional(),
 });
 
-export const anxietyScreeningSchema = z.object({
+export const AnxietyScreeningSchema = z.object({
   acknowledgements: z.object({
     understandsScreeningOnly: z.literal(true),
     understandsEmergencyLimits: z.literal(true),
@@ -170,7 +170,7 @@ export const anxietyScreeningSchema = z.object({
   }),
 });
 
-export type AnxietyScreeningInput = z.infer<typeof anxietyScreeningSchema>;
+export type AnxietyScreeningInput = z.infer<typeof AnxietyScreeningSchema>;
 
 export const anxietyScreeningDefaultValues: AnxietyScreeningInput = {
   acknowledgements: {

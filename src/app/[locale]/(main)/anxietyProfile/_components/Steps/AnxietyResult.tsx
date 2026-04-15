@@ -131,7 +131,7 @@ export default function AnxietyResult({
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-col gap-4 pb-24">
-      <div className="bg-background/95 sticky top-21 z-10 rounded-3xl border p-4 shadow-sm backdrop-blur">
+      <div className="bg-background/95 rounded-3xl border p-4 shadow-sm backdrop-blur">
         <div className="mb-3 flex items-start justify-between gap-3">
           <div>
             <p className="text-muted-foreground text-xs font-medium tracking-[0.16em] uppercase">

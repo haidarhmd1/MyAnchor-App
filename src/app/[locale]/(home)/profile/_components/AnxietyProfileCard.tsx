@@ -32,6 +32,7 @@ export const AnxietyProfileCard = async ({
   );
   return (
     <>
+      <div className="bg-border h-px w-full" />
       <div className="space-y-4">
         <Card className="border-border/60 rounded-3xl shadow-sm">
           <AnxietyProfileCardHeader id={anxietyProfile.id!} />
@@ -79,7 +80,6 @@ export const AnxietyProfileCard = async ({
           </CardFooter>
         </Card>
       </div>
-      <div className="bg-border h-px w-full" />
     </>
   );
 };

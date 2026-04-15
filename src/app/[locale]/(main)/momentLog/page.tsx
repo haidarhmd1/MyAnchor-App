@@ -10,9 +10,8 @@ import { formatRelative } from "@/i18n/relative-time";
 import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 import { getUser } from "@/lib/auth/auth-helpers";
 import { NewMomentLogEntryButton } from "./_components/NewMomentLogEntryButton";
-import { Plus, Trash2Icon } from "lucide-react";
-import { DeleteActionButton } from "@/components/DeleteActionButton/DeleteActionButton";
-import { MomentLogCard } from "./_components/MomentLogCard";
+import { Plus } from "lucide-react";
+import { MomentLogCard, ResoningOutput } from "./_components/MomentLogCard";
 
 type GroupKey =
   | "today"
@@ -215,6 +214,7 @@ const MomentLog = async () => {
                       key={pastEntry.id}
                       id={pastEntry.id}
                       subtitle={subtitle}
+                      reasoning={pastEntry.aiResponseEn as ResoningOutput}
                     />
                   );
                 })}

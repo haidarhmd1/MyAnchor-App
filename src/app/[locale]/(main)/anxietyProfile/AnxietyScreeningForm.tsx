@@ -37,13 +37,13 @@ import { RuleoutsStep } from "./_components/Steps/RuleoutsStep";
 import { useLocale, useTranslations } from "next-intl";
 import { getAnxietyProfilePreview } from "@/lib/api";
 import { AnxietyResultResponse } from "@/lib/ai/anxietyProfile/types";
-import {
-  containerVariants,
-  loadingPulse,
-} from "../momentLog/_components/Steps/FinishScreen";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getCanProceedForStep } from "./_components/helpers/fromProceed.helper";
 import { AnxietyScreeningRequestInput } from "./_components/helpers/request.schema";
+import {
+  containerVariants,
+  loadingPulse,
+} from "@/common/const/sharedFramerMotionAnimationVars";
 
 export type ActiveStepId = Exclude<ScreenerStepId, "results">;
 export type FormFieldName = UseWatchProps<AnxietyScreeningInput>["name"];

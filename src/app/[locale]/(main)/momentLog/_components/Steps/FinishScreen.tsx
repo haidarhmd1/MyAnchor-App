@@ -7,88 +7,22 @@ import { momentLogFormSchema } from "@/lib/zod.types";
 import { getReasoningPreview } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  type Variants,
-} from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import z from "zod";
 import { toRenderSections } from "./FinishScreen.helper";
+import {
+  itemVariants,
+  containerVariants,
+  loadingPulse,
+  stickyBarVariants,
+} from "@/common/const/sharedFramerMotionAnimationVars";
 
 type FormValues = z.infer<typeof momentLogFormSchema>;
 
-export const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.05,
-    },
-  },
-};
-
-export const itemVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 14,
-    filter: "blur(8px)",
-    scale: 0.985,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 190,
-      damping: 22,
-      mass: 0.8,
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -8,
-    filter: "blur(6px)",
-    transition: {
-      duration: 0.18,
-      ease: "easeOut",
-    },
-  },
-};
-
-export const loadingPulse: Variants = {
-  initial: { opacity: 0.55, scale: 0.99 },
-  animate: {
-    opacity: [0.55, 0.9, 0.55],
-    scale: [0.99, 1, 0.99],
-    transition: {
-      duration: 1.35,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  },
-};
-
-export const stickyBarVariants: Variants = {
-  hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      delay: 0.18,
-      duration: 0.28,
-      ease: "easeOut",
-    },
-  },
-};
-
-function sectionTone(type: string) {
+export function sectionTone(type: string) {
   switch (type) {
     case "intro":
       return "bg-accent border-border";
@@ -105,7 +39,7 @@ function sectionTone(type: string) {
   }
 }
 
-function AnimatedPanel({
+export function AnimatedPanel({
   children,
   className,
 }: {
@@ -123,13 +57,13 @@ function AnimatedPanel({
   );
 }
 
-function SectionHeading({ children }: { children: React.ReactNode }) {
+export function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
     <h3 className="text-foreground text-base font-semibold">{children}</h3>
   );
 }
 
-function syncReasoningToForm(
+export function syncReasoningToForm(
   setValue: ReturnType<typeof useFormContext<FormValues>>["setValue"],
   data: {
     reasoningEn: string;

@@ -35,6 +35,7 @@ import { toast } from "sonner";
 import { useRouter } from "@/i18n/navigation";
 import { DeleteActionButton } from "@/components/DeleteActionButton/DeleteActionButton";
 import { cn } from "@/lib/utils";
+import { itemVariants } from "@/common/const/sharedFramerMotionAnimationVars";
 
 type Props = {
   id: string | null;
@@ -188,6 +189,7 @@ export default function AnxietyResult({
           results.map((s) => (
             <motion.div
               key={s.id}
+              variants={prefersReducedMotion ? itemVariants : undefined}
               initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={prefersReducedMotion ? undefined : { opacity: 0, y: -12 }}
@@ -208,6 +210,7 @@ export default function AnxietyResult({
             animate={{ opacity: 1, y: 0 }}
             exit={prefersReducedMotion ? undefined : { opacity: 0, y: -12 }}
             transition={{ duration: 0.2 }}
+            variants={prefersReducedMotion ? itemVariants : undefined}
           >
             <ActionCard
               profile={profile}

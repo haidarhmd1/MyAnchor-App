@@ -6,6 +6,7 @@ import { formatRelative } from "@/i18n/relative-time";
 import { mapSingleChallengeOptionItemToTranslater } from "@/i18n/challengeoptions-mapper";
 import { prisma } from "../../../../../../../lib/prisma";
 import { ChallengeStatus } from "@/generated/prisma/enums";
+import { PastChallengeCard } from "./PastChallengeCard";
 
 type GroupKey =
   | "today"
@@ -64,6 +65,7 @@ export const PastChallenges = async () => {
     select: {
       id: true,
       socialContext: true,
+      createdAt: true,
       challengeOption: {
         select: {
           id: true,
@@ -99,7 +101,7 @@ export const PastChallenges = async () => {
   };
 
   for (const item of pastChallenges) {
-    const key = getGroupKey(item.challengeOption.createdAt, locale);
+    const key = getGroupKey(item.createdAt, locale);
     groups[key].push(item);
   }
 
@@ -137,61 +139,33 @@ export const PastChallenges = async () => {
             </div>
 
             <div className="space-y-6">
-              {items.map(({ id, challengeOption }: (typeof items)[0]) => {
-                const mappedChallengeOptions =
-                  mapSingleChallengeOptionItemToTranslater(challengeOption);
+              {items.map(
+                ({ id, createdAt, challengeOption }: (typeof items)[0]) => {
+                  const mappedChallengeOptions =
+                    mapSingleChallengeOptionItemToTranslater(challengeOption);
 
-                const dateText = DateTime.fromJSDate(challengeOption.createdAt)
-                  .setLocale(locale)
-                  .toLocaleString(DateTime.DATE_MED);
+                  const dateText = DateTime.fromJSDate(createdAt)
+                    .setLocale(locale)
+                    .toLocaleString(DateTime.DATE_MED);
 
-                const relative = formatRelative(
-                  t,
-                  locale,
-                  challengeOption.createdAt,
-                );
+                  const relative = formatRelative(t, locale, createdAt);
 
-                return (
-                  <Card
-                    key={id}
-                    className="border-border bg-accent/70 shadow-sm transition-all hover:-translate-y-px hover:shadow-md active:scale-[0.98]"
-                  >
-                    <CardContent className="flex flex-col gap-4 p-4">
-                      <div>
-                        <p className="text-muted-foreground text-xs font-medium">
-                          {dateText} • {relative}
-                        </p>
-                      </div>
-
-                      <div className="space-y-1">
-                        <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
-                          {t(mappedChallengeOptions.label)}
-                        </p>
-
-                        {mappedChallengeOptions.description ? (
-                          <p className="text-foreground text-sm leading-6">
-                            {t(mappedChallengeOptions.description)}
-                          </p>
-                        ) : null}
-                      </div>
-
-                      <div className="space-y-1">
-                        <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
-                          {t(mappedChallengeOptions.engagement.label)}
-                        </p>
-
-                        <p className="text-foreground text-sm font-medium">
-                          {t(mappedChallengeOptions.engagement.title)}
-                        </p>
-
-                        <p className="text-muted-foreground text-sm leading-6">
-                          {t(mappedChallengeOptions.engagement.description)}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+                  return (
+                    <PastChallengeCard
+                      key={id}
+                      id={id}
+                      cardContentHeader={`${dateText} • ${relative}`}
+                      label={mappedChallengeOptions.label}
+                      description={mappedChallengeOptions.description}
+                      engagementLabel={mappedChallengeOptions.engagement.label}
+                      engagementTitle={mappedChallengeOptions.engagement.title}
+                      engagementDescription={
+                        mappedChallengeOptions.engagement.description
+                      }
+                    />
+                  );
+                },
+              )}
             </div>
           </section>
         );

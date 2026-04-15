@@ -72,3 +72,75 @@ export const POST = async (request: Request, ctx: Ctx) => {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 };
+
+type RouteContext = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+export async function DELETE(_: Request, context: RouteContext) {
+  try {
+    const { userId } = await getUserOrThrow();
+
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await context.params;
+
+    if (!id) {
+      return NextResponse.json({ error: "Missing entry id" }, { status: 400 });
+    }
+
+    const existingEntry = await prisma.challenge.findFirst({
+      where: {
+        id,
+        userId,
+        deletedAt: null,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!existingEntry) {
+      return NextResponse.json({ error: "Entry not found" }, { status: 404 });
+    }
+
+    const deletedAt = new Date();
+
+    await prisma.$transaction(async (tx) => {
+      await tx.challenge.update({
+        where: {
+          id,
+        },
+        data: {
+          deletedAt,
+        },
+      });
+
+      await tx.challengeOutcome.updateMany({
+        where: {
+          challengeId: id,
+          deletedAt: null,
+        },
+        data: {
+          deletedAt,
+        },
+      });
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Delete challenge entry error:", error);
+
+    return NextResponse.json(
+      {
+        error: "Failed to delete challenge entry",
+        details: error instanceof Error ? error.message : String(error),
+      },
+      { status: 500 },
+    );
+  }
+}

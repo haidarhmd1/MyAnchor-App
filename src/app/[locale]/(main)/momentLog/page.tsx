@@ -10,7 +10,9 @@ import { formatRelative } from "@/i18n/relative-time";
 import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 import { getUser } from "@/lib/auth/auth-helpers";
 import { NewMomentLogEntryButton } from "./_components/NewMomentLogEntryButton";
-import { Plus } from "lucide-react";
+import { Plus, Trash2Icon } from "lucide-react";
+import { DeleteActionButton } from "@/components/DeleteActionButton/DeleteActionButton";
+import { MomentLogCard } from "./_components/MomentLogCard";
 
 type GroupKey =
   | "today"
@@ -209,20 +211,11 @@ const MomentLog = async () => {
                     .toFormat("yyyy LLL dd - HH:mm")} • ${relative}`;
 
                   return (
-                    <Card
+                    <MomentLogCard
                       key={pastEntry.id}
-                      className="border-border bg-accent/60 animate-[fadeUp_.35s_ease-out_both] shadow-sm transition-all active:scale-[0.98] motion-reduce:animate-none"
-                    >
-                      <CardContent className="space-y-2 p-4">
-                        <h4 className="text-foreground text-sm font-semibold">
-                          {t("momentLog.entry.title")}
-                        </h4>
-
-                        <p className="text-muted-foreground text-xs font-medium">
-                          {subtitle}
-                        </p>
-                      </CardContent>
-                    </Card>
+                      id={pastEntry.id}
+                      subtitle={subtitle}
+                    />
                   );
                 })}
               </div>

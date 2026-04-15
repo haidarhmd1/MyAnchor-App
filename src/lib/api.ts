@@ -148,6 +148,32 @@ export async function deleteAnxietyProfileEntry(id: string) {
   return res.json();
 }
 
+export async function deleteMomentLogEntry(id: string) {
+  const res = await fetch(`/api/momentLog/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`${res.status} ${text}`);
+  }
+
+  return res.json();
+}
+
+export async function deleteChallengeEntry(id: string) {
+  const res = await fetch(`/api/challenges/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`${res.status} ${text}`);
+  }
+
+  return res.json();
+}
+
 export async function createAnxietyProfileEntry({
   locale,
   anxietyScreeningFormInputs,

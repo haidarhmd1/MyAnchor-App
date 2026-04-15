@@ -27,7 +27,10 @@ type FormValues = {
 
 export default function SignInPage() {
   const t = useTranslations("auth.signIn");
+  const t2 = useTranslations("common.destructiveAction");
   const isRtl = useLocale().startsWith("ar");
+
+  const [isCodeRequestingLoading, setIsCodeRequestingLoading] = useState(false);
 
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
@@ -39,12 +42,15 @@ export default function SignInPage() {
   const requestCode = async ({ email }: { email: string }) => {
     if (process.env.NODE_ENV === "production") {
       try {
+        setIsCodeRequestingLoading(true);
         await axios.post("/api/auth/otp/request", { email });
         setEmail(email);
         setStep("code");
         toast.success(t("codeSent"));
       } catch (e: any) {
         toast.error(e?.response?.data?.error ?? t("sendCodeError"));
+      } finally {
+        setIsCodeRequestingLoading(false);
       }
     } else {
       setEmail(email);
@@ -53,12 +59,16 @@ export default function SignInPage() {
   };
 
   const verifyCode = async ({ code }: { code: string }) => {
-    await signIn("otp", {
-      email,
-      code,
-      redirect: true,
-      callbackUrl: "/home",
-    });
+    try {
+      await signIn("otp", {
+        email,
+        code,
+        redirect: true,
+        callbackUrl: "/home",
+      });
+    } catch (error) {
+      toast.error(t2("error"));
+    }
   };
 
   return (
@@ -107,10 +117,7 @@ export default function SignInPage() {
               </div>
             </form>
           ) : (
-            <form
-              onSubmit={handleSubmit(verifyCode)}
-              className="surface-soft space-y-6 rounded-4xl p-5 shadow-sm"
-            >
+            <div className="surface-soft space-y-6 rounded-4xl p-5 shadow-sm">
               <h1 className="text-foreground text-2xl font-semibold tracking-tight">
                 {t("enterCodeTitle")}
               </h1>
@@ -131,55 +138,56 @@ export default function SignInPage() {
                     isRtl ? "flex-row-reverse" : "flex-row",
                   )}
                 >
-                  <RefreshCwIcon />
-                  {t("resendCode")}
+                  {isCodeRequestingLoading ? (
+                    <Spinner />
+                  ) : (
+                    <>
+                      <RefreshCwIcon />
+                      {t("resendCode")}
+                    </>
+                  )}
                 </Button>
               </div>
 
-              <div className="space-y-8">
-                <InputOTP
-                  maxLength={6}
-                  value={codeValue || ""}
-                  id="otp-verification"
-                  required
-                  onChange={(value) => setValue("code", value)}
-                >
-                  <InputOTPGroup
-                    className={cn(
-                      "m-auto *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl",
-                      "flex",
-                      isRtl ? "flex-row-reverse" : "flex-row",
-                    )}
-                    dir={isRtl ? "rtl" : "ltr"}
+              <form onSubmit={handleSubmit(verifyCode)}>
+                <div className="space-y-8">
+                  <InputOTP
+                    maxLength={6}
+                    value={codeValue || ""}
+                    id="otp-verification"
+                    required
+                    onChange={(value) => setValue("code", value)}
                   >
-                    <InputOTPSlot index={isRtl ? 2 : 0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={isRtl ? 0 : 2} />
-                  </InputOTPGroup>
-                  <InputOTPSeparator className="m-auto mx-2" />
-                  <InputOTPGroup
-                    className={cn(
-                      "m-auto *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl",
-                      "flex",
-                      isRtl ? "flex-row-reverse" : "flex-row",
-                    )}
-                    dir={isRtl ? "rtl" : "ltr"}
-                  >
-                    <InputOTPSlot index={isRtl ? 5 : 3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={isRtl ? 3 : 5} />
-                  </InputOTPGroup>
-                </InputOTP>
+                    <InputOTPGroup
+                      className={cn(
+                        "m-auto",
+                        // "m-auto *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl",
+                        "flex",
+                        "flex-wrap",
+                        isRtl ? "flex-row-reverse" : "flex-row",
+                      )}
+                      dir={isRtl ? "rtl" : "ltr"}
+                    >
+                      <InputOTPSlot index={0} />
+                      <InputOTPSlot index={1} />
+                      <InputOTPSlot index={2} />
 
-                <Button
-                  type="submit"
-                  className="bg-primary text-primary-foreground h-12 w-full rounded-2xl hover:opacity-95"
-                  disabled={formState.isSubmitting}
-                >
-                  {formState.isSubmitting ? <Spinner /> : t("verify")}
-                </Button>
-              </div>
-            </form>
+                      <InputOTPSlot index={3} />
+                      <InputOTPSlot index={4} />
+                      <InputOTPSlot index={5} />
+                    </InputOTPGroup>
+                  </InputOTP>
+
+                  <Button
+                    type="submit"
+                    className="bg-primary text-primary-foreground h-12 w-full rounded-2xl hover:opacity-95"
+                    disabled={formState.isSubmitting}
+                  >
+                    {formState.isSubmitting ? <Spinner /> : t("verify")}
+                  </Button>
+                </div>
+              </form>
+            </div>
           )}
         </div>
       </div>

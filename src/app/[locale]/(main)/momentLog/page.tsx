@@ -205,6 +205,12 @@ const MomentLog = async () => {
                     pastEntry.createdAt,
                   );
 
+                  const pastEntryTranslationContent =
+                    pastEntry.translations.filter((e) => e.locale === locale)[0]
+                      ?.content;
+                  const aiResponseentry =
+                    pastEntryTranslationContent ?? pastEntry.aiResponseEn;
+
                   const subtitle = `${DateTime.fromJSDate(pastEntry.createdAt)
                     .setZone(TZ)
                     .toFormat("yyyy LLL dd - HH:mm")} • ${relative}`;
@@ -214,7 +220,7 @@ const MomentLog = async () => {
                       key={pastEntry.id}
                       id={pastEntry.id}
                       subtitle={subtitle}
-                      reasoning={pastEntry.aiResponseEn as ResoningOutput}
+                      reasoning={aiResponseentry as ResoningOutput}
                     />
                   );
                 })}

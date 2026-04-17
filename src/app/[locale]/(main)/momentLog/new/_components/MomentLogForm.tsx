@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { FormProvider, useForm } from "react-hook-form";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import {
@@ -15,12 +13,16 @@ import {
 } from "./helper";
 import { toast } from "sonner";
 import { z } from "zod";
-import { useLocale, useTranslations } from "next-intl";
-import { momentLogFormSchema } from "@/lib/zod.types";
+import { useTranslations } from "next-intl";
+import { MomentLogFormSchema, MomentLogFormValues } from "@/lib/zod.types";
 import { SingleChoice } from "./Steps/SingleChoice";
 import { createMomentLogEntry } from "@/lib/api";
 import { MultipleChoice } from "./Steps/MultipleChoice";
 import { FinishScreen } from "./Steps/FinishScreen";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Card, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 export type StepId = Step["id"];
 
@@ -30,6 +32,7 @@ const STEPS_COMPONENTS: Record<
     onNext(): void;
     onPrev(): void;
     option: OptionItem[];
+    disableGoBack: boolean;
   }>
 > = {
   location: (props) => (
@@ -41,19 +44,14 @@ const STEPS_COMPONENTS: Record<
   reasoning: (props) => <FinishScreen {...props} />,
 };
 
-export default function MomentLogForm({
-  callback,
-}: {
-  callback?: VoidFunction;
-}) {
+export default function MomentLogForm() {
   const t = useTranslations();
-  const locale = useLocale();
   const reduce = useReducedMotion();
   const router = useRouter();
-  const isRtl = locale.startsWith("ar");
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
-  const form = useForm<z.infer<typeof momentLogFormSchema>>({
+  const form = useForm<MomentLogFormValues>({
+    resolver: zodResolver(MomentLogFormSchema),
     defaultValues: {
       location: undefined,
       symptoms: [],
@@ -61,14 +59,13 @@ export default function MomentLogForm({
       reasoning: undefined,
       reasoningLocale: undefined,
     },
-    mode: "onChange",
+    mode: "onSubmit",
   });
 
-  const onSubmit = async (data: z.infer<typeof momentLogFormSchema>) => {
+  const onSubmit = async (data: z.infer<typeof MomentLogFormSchema>) => {
     try {
       await createMomentLogEntry({ data });
-      router.refresh();
-      callback?.();
+      router.replace("/momentLog");
     } catch (e) {
       console.error(e);
       toast.error(t("momentLog.momentLogQuestionnaire.errors.saveFailed"));
@@ -151,50 +148,15 @@ export default function MomentLogForm({
   const progress = ((currentStepIndex + 1) / FORM_STEPS.length) * 100;
 
   return (
-    <section className="space-y-6">
-      {currentStepIndex < FORM_STEPS.length - 1 && (
-        <div className="flex items-center justify-between">
-          <Button
-            type="button"
-            variant="outline"
-            disabled={currentStepIndex === 0}
-            onClick={handlePrevious}
-            className="rounded-2xl"
-          >
-            {isRtl ? (
-              <ChevronRight className="h-4 w-4" />
-            ) : (
-              <ChevronLeft className="h-4 w-4" />
-            )}
-            <span>{t("common.previous")}</span>
-          </Button>
-
-          <span className="text-muted-foreground text-sm">
-            {Math.round(progress)}%
-          </span>
-        </div>
-      )}
-
-      {currentStepIndex < FORM_STEPS.length - 1 && (
-        <div className="bg-muted h-2 w-full rounded-full">
-          <div
-            className="bg-primary h-2 rounded-full transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      )}
-
-      <div className="flex items-center justify-center py-0">
-        <div className="mx-auto w-full max-w-2xl">
-          <div className="surface-soft rounded-4xl p-5 shadow-sm sm:p-6">
-            <FormProvider {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6"
-              >
+    <FormProvider {...form}>
+      <div className="mx-auto flex w-full max-w-md flex-col gap-4 pb-24">
+        {stepId !== "reasoning" && (
+          <Card className="border-border/60 rounded-3xl shadow-sm">
+            <CardHeader className="space-y-4">
+              <div className="flex items-start justify-between gap-3">
                 {activeStep.titleKey && activeStep.subtitleKey && (
                   <div className="space-y-2 text-center">
-                    <h1 className="text-foreground text-2xl font-semibold tracking-tight">
+                    <h1 className="text-muted-foreground text-xs font-medium tracking-[0.16em] uppercase">
                       {t(activeStep.titleKey)}
                     </h1>
                     <p className="text-muted-foreground text-sm leading-6">
@@ -203,32 +165,49 @@ export default function MomentLogForm({
                   </div>
                 )}
 
-                <div className="min-h-64">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeStep.id}
-                      variants={variants}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      transition={{
-                        duration: reduce ? 0 : 0.28,
-                        ease: "easeInOut",
-                      }}
-                    >
-                      <ActiveStepComponent
-                        onNext={handleNext}
-                        onPrev={handlePrevious}
-                        option={option}
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </form>
-            </FormProvider>
+                <Badge variant="secondary">
+                  {t("momentLogShortcut.ctaSubtitle")}
+                </Badge>
+              </div>
+
+              <div>
+                <Progress value={progress} className="h-2" />
+                <p className="text-muted-foreground mt-2 text-xs">
+                  {t("anxietyScreening.header.stepProgress", {
+                    current: currentStepIndex + 1,
+                    total: FORM_STEPS.length - 1,
+                  })}
+                </p>
+              </div>
+            </CardHeader>
+          </Card>
+        )}
+
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <div className="min-h-64">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep.id}
+                variants={variants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={{
+                  duration: reduce ? 0 : 0.28,
+                  ease: "easeInOut",
+                }}
+              >
+                <ActiveStepComponent
+                  onNext={handleNext}
+                  onPrev={handlePrevious}
+                  option={option}
+                  disableGoBack={currentStepIndex === 0}
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
-        </div>
+        </form>
       </div>
-    </section>
+    </FormProvider>
   );
 }

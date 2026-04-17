@@ -3,7 +3,7 @@
 import { Spinner } from "@/components/Spinner/Spinner";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { momentLogFormSchema } from "@/lib/zod.types";
+import { MomentLogFormSchema } from "@/lib/zod.types";
 import { getReasoningPreview } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
@@ -20,7 +20,7 @@ import {
   stickyBarVariants,
 } from "@/common/const/sharedFramerMotionAnimationVars";
 
-type FormValues = z.infer<typeof momentLogFormSchema>;
+type FormValues = z.infer<typeof MomentLogFormSchema>;
 
 export function sectionTone(type: string) {
   switch (type) {

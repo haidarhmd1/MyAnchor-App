@@ -16,9 +16,9 @@ const JsonValueSchema: z.ZodType<Prisma.InputJsonValue> = z.lazy(() =>
   z.union([z.string(), z.number(), z.boolean(), z.array(JsonValueSchema)]),
 );
 
-export const momentLogFormSchema = z.object({
-  location: LocationSchema,
-  symptoms: z.array(SymptomSchema).default([]),
+export const MomentLogFormSchema = z.object({
+  location: LocationSchema.optional(),
+  symptoms: z.array(SymptomSchema),
 
   reasoningEn: AnxietySupportResultZodSchema.optional(),
   reasoning: AnxietySupportResultZodSchema.optional(),
@@ -34,7 +34,7 @@ export const submitMomentLogSchema = z.object({
   reasoningLocale: SupportedReasoningLocaleSchema,
 });
 
-export type MomentLogFormValues = z.infer<typeof momentLogFormSchema>;
+export type MomentLogFormValues = z.infer<typeof MomentLogFormSchema>;
 
 export const ChallengeSchema = z.object({
   socialContext: z.enum(SocialContext),

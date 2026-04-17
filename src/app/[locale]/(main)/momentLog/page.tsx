@@ -11,7 +11,8 @@ import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOver
 import { getUser } from "@/lib/auth/auth-helpers";
 import { NewMomentLogEntryButton } from "./_components/NewMomentLogEntryButton";
 import { Plus } from "lucide-react";
-import { MomentLogCard, ResoningOutput } from "./_components/MomentLogCard";
+import { MomentLogCard } from "./_components/MomentLogCard";
+import { ResoningOutput } from "./_components/types";
 
 type GroupKey =
   | "today"
@@ -104,6 +105,7 @@ const MomentLog = async () => {
   const user = await requireAuth();
   const pastEntries = await getPastEntries(user.id);
 
+  // No Past entries
   if (pastEntries.length === 0) {
     return (
       <section className="bg-background text-foreground space-y-8 px-4 py-4">
@@ -128,7 +130,9 @@ const MomentLog = async () => {
       </section>
     );
   }
+  // END No Past entries
 
+  // Past entries available
   const groups: Record<GroupKey, typeof pastEntries> = {
     today: [],
     thisWeek: [],

@@ -2,7 +2,7 @@ import { User } from "next-auth";
 import {
   ChallengeOutcomeSchema,
   ChallengeSchema,
-  momentLogFormSchema,
+  MomentLogFormSchema,
 } from "./zod.types";
 import { z } from "zod";
 import {
@@ -76,7 +76,7 @@ export async function createChallengeOutcome({
   return (await res.json()) as ChallengeOutcome;
 }
 
-type MomentLogInputType = z.infer<typeof momentLogFormSchema>;
+type MomentLogInputType = z.infer<typeof MomentLogFormSchema>;
 export async function createMomentLogEntry({
   data,
 }: {

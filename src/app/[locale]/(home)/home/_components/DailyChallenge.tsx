@@ -1,4 +1,4 @@
-import { ArrowLeft, Award, CheckCheck, CheckCircle } from "lucide-react";
+import { Award, CheckCheck, CheckCircle } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 
 import ShortcutsCard from "./ShortcutsCard";
@@ -80,11 +80,15 @@ const DailyChallengePrimaryButton = ({
   );
 };
 
-export const DailyChallenge = async () => {
+export const DailyChallenge = async ({userId}: {userId:string}) => {
   const t = await getTranslations();
 
   const latestChallenge = await prisma.challenge.findFirst({
     where: {
+      user: {
+        id: userId,
+        deletedAt: null
+      },
       deletedAt: null,
       status: { not: ChallengeStatus.FINISHED },
     },

@@ -73,10 +73,10 @@ export default async function Home() {
         {auth ? (
           <>
             <div className="mx-2 p-2">
-              <MomentLogButton />
+              <MomentLogButton userId={auth.userId} />
             </div>
             <div>
-              <DailyChallenge />
+              <DailyChallenge userId={auth.userId} />
             </div>
           </>
         ) : (

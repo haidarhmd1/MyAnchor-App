@@ -7,7 +7,7 @@ import { Metadata } from "next";
 export default function NotFound() {
   return (
     <div className="bg-background flex min-h-dvh items-center justify-center px-4 py-8">
-      <div className="surface-soft w-full max-w-lg rounded-[2rem] p-6 text-center shadow-sm sm:p-8">
+      <div className="surface-soft w-full max-w-lg rounded-4xl p-6 text-center shadow-sm sm:p-8">
         <div className="flex justify-center">
           <Image
             alt="Not Found"

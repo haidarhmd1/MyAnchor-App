@@ -5,7 +5,7 @@ export const SignInHeader = ({ title = "MyAnchor" }) => {
   return (
     <header className="bg-background/85 border-border sticky top-0 z-20 border-b px-4 py-4 backdrop-blur-md">
       <div className="flex min-h-16 items-center justify-between">
-        <div className="flex items-center">
+        <div className="flex items-center rounded-full border-2">
           <BackArrow />
         </div>
 

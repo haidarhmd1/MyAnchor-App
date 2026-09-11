@@ -14,11 +14,15 @@ const baseCardClassName = cn(
   "animate-[fadeUp_.35s_ease-out_both] will-change-transform motion-reduce:animate-none",
 );
 
-export const NewChallenge = async () => {
+export const NewChallenge = async ({userId} : {userId: string;}) => {
   const t = await getTranslations("exposure.newChallenge");
 
   const latestChallenge = await prisma.challenge.findFirst({
     where: {
+      user: {
+        id: userId,
+        deletedAt: null,
+      },
       deletedAt: null,
       status: { not: ChallengeStatus.FINISHED },
     },

@@ -52,13 +52,17 @@ function groupTone(groupKey: GroupKey) {
   }
 }
 
-export const PastChallenges = async () => {
+export const PastChallenges = async ({userId}: {userId: string}) => {
   const t = await getTranslations();
   const locale = await getLocale();
   const isRtl = locale.startsWith("ar");
 
   const pastChallenges = await prisma.challenge.findMany({
     where: {
+      user: {
+        id: userId,
+        deletedAt: null,
+      },
       status: ChallengeStatus.FINISHED,
       deletedAt: null,
     },

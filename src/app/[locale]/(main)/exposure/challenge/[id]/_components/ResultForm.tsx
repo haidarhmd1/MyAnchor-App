@@ -192,7 +192,7 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
                 </p>
               </div>
 
-              <div className="min-h-64">
+              <div className="h-auto">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentStep.id}

@@ -39,7 +39,7 @@ export const TabSwitcher = async () => {
             <UnauthenticatedNewChallenge />
           </SignInOverlayButton>
         ) : (
-          <NewChallenge />
+          <NewChallenge userId={auth.userId} />
         )}
       </TabsContent>
 
@@ -49,7 +49,7 @@ export const TabSwitcher = async () => {
             <UnauthenticatedPastChallenges />
           </SignInOverlayButton>
         ) : (
-          <PastChallenges />
+          <PastChallenges userId={auth.userId} />
         )}
       </TabsContent>
     </Tabs>

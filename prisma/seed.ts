@@ -1,6 +1,6 @@
 // prisma/seed.ts
 
-import "dotenv/config";
+import "./env";
 import { Engagement, TaxonomyType } from "@/generated/prisma/client";
 import { prisma } from "../lib/prisma";
 

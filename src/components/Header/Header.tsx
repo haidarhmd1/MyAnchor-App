@@ -21,10 +21,6 @@ export async function Header({
           <BackArrow />
         </div>
 
-        <Link href="/home" aria-label={title}>
-          <LogoTile />
-        </Link>
-
         <div className="flex items-center gap-2">
           <LanguageSwitcher variant="xs" />
 

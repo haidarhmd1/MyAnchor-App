@@ -15,6 +15,10 @@ const adventPro = Advent_Pro({
 });
 
 export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#071117" },
+  ],
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
@@ -47,7 +51,6 @@ export const metadata: Metadata = {
     icon: [
       { url: "/icons/favicon.ico" },
       { url: "/icons/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/icons/favicon.svg", type: "image/svg+xml" },
     ],
     apple: "/icons/apple-touch-icon.png",
   },

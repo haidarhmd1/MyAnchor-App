@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/input-otp";
 import { RefreshCwIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LogoTile } from "@/components/Brand/Logo";
 
 type Step = "email" | "code";
 
@@ -84,6 +85,7 @@ export default function SignInPage() {
 
       <div className="border-border/60 bg-background -mt-6 flex grow flex-col rounded-t-4xl border-t px-6 py-6 shadow-sm">
         <div className="mx-auto w-full max-w-md">
+          <LogoTile className="mx-auto -mt-14 flex mb-5 size-16 shadow-lg ring-4 ring-background" />
           {step === "email" ? (
             <form
               onSubmit={handleSubmit(requestCode)}

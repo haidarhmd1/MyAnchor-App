@@ -3,6 +3,7 @@ import { BackArrow } from "./_components/BackArrow";
 import { Link } from "@/i18n/navigation";
 import { getUser } from "@/lib/auth/auth-helpers";
 import { SignInButton } from "../SignInButton/SignInButton";
+import { LogoTile } from "../Brand/Logo";
 import { LanguageSwitcher } from "@/app/[locale]/(home)/profile/_components/LanguageSwitcher/LanguageSwitcher";
 
 export async function Header({
@@ -20,9 +21,9 @@ export async function Header({
           <BackArrow />
         </div>
 
-        {/* <h6 className="text-foreground text-center text-lg font-semibold tracking-tight">
-          {title}
-        </h6> */}
+        <Link href="/home" aria-label={title}>
+          <LogoTile />
+        </Link>
 
         <div className="flex items-center gap-2">
           <LanguageSwitcher variant="xs" />

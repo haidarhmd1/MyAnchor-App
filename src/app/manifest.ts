@@ -12,8 +12,8 @@ export default function manifest(): MetadataRoute.Manifest {
     scope: "/",
 
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#000000",
+    background_color: "#0c1f24",
+    theme_color: "#0c1f24",
 
     // Optional but helpful on Android launchers
     id: "/",
@@ -30,6 +30,12 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes: "512x512",
         type: "image/png",
         purpose: "any",
+      },
+      {
+        src: "/icons/web-app-manifest-maskable-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
       },
     ],
   };

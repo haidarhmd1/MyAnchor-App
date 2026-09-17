@@ -3,6 +3,7 @@ import { SignInButton } from "@/components/SignInButton/SignInButton";
 import { getUser } from "@/lib/auth/auth-helpers";
 import { CircleUser } from "lucide-react";
 import Link from "next/link";
+import { Logo } from "@/components/Brand/Logo";
 import { LanguageSwitcher } from "./profile/_components/LanguageSwitcher/LanguageSwitcher";
 
 export default async function Layout({
@@ -16,9 +17,7 @@ export default async function Layout({
     <div className="bg-background text-foreground mx-auto min-h-screen max-w-287.5">
       <header className="border-border/60 bg-background/85 sticky top-0 z-30 border-b backdrop-blur-md">
         <div className="flex min-h-16 items-center justify-between px-4 py-4">
-          <h6 className="text-foreground text-lg font-semibold tracking-tight">
-            MyAnchor
-          </h6>
+          <Logo />
 
           <div className="flex items-center gap-2">
             <LanguageSwitcher variant="xs" />

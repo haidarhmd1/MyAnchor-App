@@ -9,7 +9,7 @@ export async function Header() {
   const isUserAuth = await getUser();
 
   return (
-    <header className="bg-background/85 border-border sticky top-0 z-20 border-b px-4 py-1 backdrop-blur-md">
+    <header className="bg-background/85 border-border sticky top-0 z-20 border-b px-4 py-1 pt-[calc(0.25rem+env(safe-area-inset-top))] backdrop-blur-md">
       <div className="flex min-h-16 items-center justify-between">
         <div className="flex items-center rounded-full border-2">
           <BackArrow />

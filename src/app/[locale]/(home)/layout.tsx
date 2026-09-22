@@ -15,7 +15,7 @@ export default async function Layout({
 
   return (
     <div className="bg-background text-foreground mx-auto min-h-screen max-w-287.5">
-      <header className="border-border/60 bg-background/85 sticky top-0 z-30 border-b backdrop-blur-md">
+      <header className="border-border/60 bg-background/85 sticky top-0 z-30 border-b pt-[env(safe-area-inset-top)] backdrop-blur-md">
         <div className="flex min-h-16 items-center justify-between px-4 py-4">
           <Logo />
 

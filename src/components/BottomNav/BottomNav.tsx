@@ -93,7 +93,7 @@ const NavLink = ({
 export const BottomNav = () => {
   return (
     <nav
-      className="border-border bg-background/90 sticky bottom-0 z-50 grid h-16 w-full grid-cols-5 border-t backdrop-blur-md"
+      className="border-border bg-background/90 sticky bottom-0 z-50 grid min-h-16 w-full grid-cols-5 border-t pb-[env(safe-area-inset-bottom)] backdrop-blur-md"
       aria-label="Primary"
     >
       <NavLink href="/home" labelKey="home" icon={House} partial={false} />

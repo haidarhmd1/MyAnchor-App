@@ -30,13 +30,6 @@ export async function getAnxietyAnalytics(startDateISO?: string | null) {
     return [];
   }
 
-  const taxonomy = await prisma.taxonomyItem.findMany({
-    select: { id: true, type: true, label: true },
-  });
-
-  // Faster lookups than repeated .find()
-  const taxonomyById = new Map(taxonomy.map((t) => [t.id, t]));
-
   const momentLogWithLabels = anxietyAttackmomentLog.map((a) => ({
     id: a.id,
     date: a.createdAt.toISOString(),

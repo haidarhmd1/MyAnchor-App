@@ -132,8 +132,27 @@ model User {
   createdAt             DateTime              @default(now())
   updatedAt             DateTime              @updatedAt
   anxietyProfileEntries AnxietyProfileEntry[]
+  pushSubscriptions     PushSubscription[]
 
   @@index([deletedAt])
+}
+
+/// One row per browser/device that opted into web push. `endpoint` is the
+/// push service URL handed out by the browser and is globally unique.
+model PushSubscription {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  endpoint  String  @unique
+  p256dh    String
+  auth      String
+  userAgent String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model TaxonomyItem {

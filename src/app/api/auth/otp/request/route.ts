@@ -90,7 +90,7 @@ async function sendWithMailerSend(params: {
     }
     const msg =
       typeof errBody === "object" && errBody && "message" in errBody
-        ? String((errBody as any).message)
+        ? String(errBody.message)
         : `mailersend_http_${res.status}`;
 
     throw Object.assign(new Error(msg), { messageId });
@@ -149,7 +149,7 @@ export async function POST(req: Request) {
   } catch (err: unknown) {
     const msg =
       err && typeof err === "object" && "message" in err
-        ? String((err as any).message)
+        ? String(err.message)
         : "mailersend_error";
 
     await prisma.emailLog.create({

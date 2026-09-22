@@ -101,11 +101,9 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
     }
 
     if (currentField === "hadCompletedChallenge") {
-      form.setValue("hadCompletedChallenge", undefined as any, {
-        shouldDirty: true,
-        shouldTouch: true,
-        shouldValidate: true,
-      });
+      // The field is a required boolean, so "unanswered" only exists as the
+      // default value — resetField is the typed way back to it.
+      form.resetField("hadCompletedChallenge");
     }
 
     if (currentField === "safetyBehavior") {

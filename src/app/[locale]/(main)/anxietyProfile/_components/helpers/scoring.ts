@@ -90,15 +90,6 @@ function getMaxImpairment(
   }, "none");
 }
 
-type PanicDerived = {
-  peakSymptomCount: number;
-  panicAttackSignal: boolean;
-  recurrentAttackSignal: boolean;
-  unexpectedAttackSignal: boolean | null;
-  oneMonthConcernOrBehaviorChangeSignal: boolean | null;
-  catastrophicBodyMeaningLikely: boolean;
-};
-
 function getPanicSignals(panic: AnxietyScreeningRequestInput["panic"]) {
   if (!panic.hadSuddenFearSurgesLastMonth) {
     return {

@@ -8,6 +8,7 @@ import { routing } from "@/i18n/routing";
 import { Providers } from "../Provider";
 import { Metadata, Viewport } from "next";
 import { ThemeProvider } from "../ThemeProvider";
+import { ServiceWorkerRegistrar } from "@/components/ServiceWorkerRegistrar";
 
 const adventPro = Advent_Pro({
   variable: "--font-advent_pro",
@@ -19,8 +20,8 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#071117" },
   ],
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
   viewportFit: "cover",
   width: "device-width",
   initialScale: 1,
@@ -33,13 +34,22 @@ export const metadata: Metadata = {
     "MyAnchor helps you face fears with gentle, trackable exposures.",
   generator: "Next.js",
   manifest: "/manifest.webmanifest",
+  applicationName: "MyAnchor",
+  appleWebApp: {
+    capable: true,
+    title: "MyAnchor",
+    statusBarStyle: "black-translucent",
+  },
+  // Next emits the modern `mobile-web-app-capable`; the legacy tag keeps
+  // standalone mode working on iOS versions before 17.4.
+  other: { "apple-mobile-web-app-capable": "yes" },
   keywords: [
     "mental health",
     "PTSD",
     "Anxiety",
     "Panic disorder",
     "CBT",
-    "next-pwa",
+    "PWA",
   ],
   authors: [
     {
@@ -80,6 +90,8 @@ export default async function RootLayout({
       <body
         className={`${adventPro.variable} bg-background text-foreground min-h-dvh antialiased`}
       >
+        <ServiceWorkerRegistrar />
+
         <NextIntlClientProvider>
           <ThemeProvider>
             <Providers>{children}</Providers>

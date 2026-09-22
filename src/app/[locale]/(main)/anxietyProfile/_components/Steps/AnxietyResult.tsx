@@ -107,7 +107,7 @@ export default function AnxietyResult({
         icon: AlertTriangle,
       },
     ];
-  }, [anxietyResultResponse]);
+  }, [anxietyResultResponse, t]);
 
   const totalSlides = 1;
   const isActionSlide = stepIndex === 1;

@@ -39,6 +39,11 @@ export const useCountdown = (
 
     if (countdown === 0) {
       if (isPrecountdown) {
+        // Timer state machine: the tick that reaches zero hands off from the
+        // pre-countdown to the main countdown. Restructuring this to satisfy
+        // react-hooks/set-state-in-effect would change when the beeps fire, so
+        // it needs an in-app test pass rather than a blind refactor.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsPrecountdown(false);
         playBeep(400, 1000); // start beep
         if (duration > 0) {

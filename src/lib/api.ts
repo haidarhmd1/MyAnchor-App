@@ -286,3 +286,48 @@ export async function getAnxietyAnalytics(startDate: string) {
 
   return await res.json();
 }
+
+export async function savePushSubscription(
+  subscription: PushSubscriptionJSON,
+): Promise<void> {
+  const res = await fetch("/api/push/subscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(subscription),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Saving push subscription failed: ${res.status} ${text}`);
+  }
+}
+
+export async function deletePushSubscription(endpoint: string): Promise<void> {
+  const res = await fetch("/api/push/subscribe", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ endpoint }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Removing push subscription failed: ${res.status} ${text}`);
+  }
+}
+
+export async function sendTestPush(
+  message: string,
+): Promise<{ sent: number; removed: number }> {
+  const res = await fetch("/api/push/test", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Sending notification failed: ${res.status} ${text}`);
+  }
+
+  return await res.json();
+}

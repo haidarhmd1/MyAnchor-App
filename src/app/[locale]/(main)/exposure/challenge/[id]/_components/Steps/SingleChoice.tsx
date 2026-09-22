@@ -38,7 +38,7 @@ export function SingleChoice({ onNext, fieldName, options }: Props) {
         id: o.id,
         label: t(`${fieldName}.options.${o.slug}.title`),
       })),
-    [options, t],
+    [options, t, fieldName],
   );
   return (
     <div className="space-y-4">

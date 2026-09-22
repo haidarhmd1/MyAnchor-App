@@ -20,7 +20,7 @@ export function mapTaxonomiesToFormFields<
     id: x.id,
     label: keyFor(x.type, x.slug, "label"),
     description: x.description ? keyFor(x.type, x.slug, "description") : null,
-  })) as any;
+  }));
 }
 
 export function mapTaxonomyToFormField<

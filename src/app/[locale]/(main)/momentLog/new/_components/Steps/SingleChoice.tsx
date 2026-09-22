@@ -49,7 +49,7 @@ export const SingleChoice = ({
         id: o.id,
         label: t(`momentLog.steps.${fieldName}.options.${o.slug}.title`),
       })),
-    [options, t],
+    [options, t, fieldName],
   );
 
   return (

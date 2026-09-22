@@ -1562,7 +1562,10 @@
       "subscribe": "Enable",
       "unsubscribe": "Disable",
       "placeholder": "Write a test message…",
-      "send": "Send"
+      "send": "Send",
+      "denied": "Notifications are blocked in your browser settings. Allow them there to turn this on.",
+      "sent": "Notification sent.",
+      "error": "Something went wrong. Please try again."
     }
   },
   "auth": {

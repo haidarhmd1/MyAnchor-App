@@ -44,6 +44,8 @@ const STEPS_COMPONENTS: Record<
   reasoning: (props) => <FinishScreen {...props} />,
 };
 
+const EmptyStep = () => <div />;
+
 export default function MomentLogForm() {
   const t = useTranslations();
   const reduce = useReducedMotion();
@@ -95,7 +97,7 @@ export default function MomentLogForm() {
     }
 
     if (currentField === "location") {
-      form.setValue("location", undefined as any, {
+      form.setValue("location", undefined, {
         shouldDirty: true,
         shouldTouch: true,
         shouldValidate: true,
@@ -103,17 +105,17 @@ export default function MomentLogForm() {
     }
 
     if (currentField === "reasoning") {
-      form.setValue("reasoning", undefined as any, {
+      form.setValue("reasoning", undefined, {
         shouldDirty: true,
         shouldTouch: true,
         shouldValidate: true,
       });
-      form.setValue("reasoningEn", undefined as any, {
+      form.setValue("reasoningEn", undefined, {
         shouldDirty: true,
         shouldTouch: true,
         shouldValidate: true,
       });
-      form.setValue("reasoningLocale", undefined as any, {
+      form.setValue("reasoningLocale", undefined, {
         shouldDirty: true,
         shouldTouch: true,
         shouldValidate: true,
@@ -137,7 +139,7 @@ export default function MomentLogForm() {
   const activeStep = FORM_STEPS[currentStepIndex];
   const ActiveStepComponent = FORM_STEPS[currentStepIndex]
     ? STEPS_COMPONENTS[stepId]
-    : () => <div />;
+    : EmptyStep;
 
   const optionsInStep: Partial<Record<StepId, OptionItem[]>> = {
     location: locationOptions,

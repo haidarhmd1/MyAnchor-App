@@ -9,6 +9,7 @@ import { LanguageSwitcher } from "./_components/LanguageSwitcher/LanguageSwitche
 import { DeleteAccountButton } from "@/components/DeleteAccountButton/DeleteAccountButton";
 import { SignOutButton } from "@/components/SignOutButton/SignOutButton";
 import { Appearance } from "./_components/Appearance/Appearance";
+import { Notifications } from "./_components/Notifications/Notifications";
 import { prisma } from "../../../../../lib/prisma";
 import { AnxietyProfileCard } from "./_components/AnxietyProfileCard";
 import { DerivedAnxietyProfile } from "../../(main)/anxietyProfile/_components/helpers/types";
@@ -87,6 +88,10 @@ export default async function Page() {
             <GenderPicker gender={user.gender ?? ""} />
             <Appearance />
           </div>
+
+          <div className="bg-border h-px w-full" />
+
+          <Notifications />
 
           <div className="bg-border h-px w-full" />
 

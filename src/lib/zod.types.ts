@@ -59,3 +59,20 @@ export const UserSchema = z.object({
   dob: z.coerce.date().optional(),
   image: z.string().min(1).optional(),
 });
+
+/** Shape produced by `PushSubscription.toJSON()` in the browser. */
+export const pushSubscriptionSchema = z.object({
+  endpoint: z.string().url().max(2048),
+  keys: z.object({
+    p256dh: z.string().min(1).max(255),
+    auth: z.string().min(1).max(255),
+  }),
+});
+
+export const pushUnsubscribeSchema = z.object({
+  endpoint: z.string().url().max(2048),
+});
+
+export const pushTestMessageSchema = z.object({
+  message: z.string().trim().min(1).max(200),
+});

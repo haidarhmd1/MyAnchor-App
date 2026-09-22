@@ -1,5 +1,11 @@
 import { DateTime } from "luxon";
 
+/** Minimal shape of the next-intl translator this helper needs. */
+type TranslateFn = (
+  key: string,
+  values?: Record<string, string | number>,
+) => string;
+
 function getRelativeTimeKey(unit: string, value: number) {
   // map Luxon units to your i18n keys
   // Luxon gives "years|months|days|hours|minutes|seconds"
@@ -9,7 +15,7 @@ function getRelativeTimeKey(unit: string, value: number) {
   return isOne ? singular : unit;
 }
 
-export function formatRelative(t: any, locale: string, date: Date) {
+export function formatRelative(t: TranslateFn, locale: string, date: Date) {
   const dt = DateTime.fromJSDate(date).setLocale(locale);
   const now = DateTime.now().setLocale(locale);
 

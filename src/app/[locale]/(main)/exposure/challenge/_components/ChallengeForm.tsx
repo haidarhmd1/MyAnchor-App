@@ -110,12 +110,7 @@ export default function ChallengeForm({
     return (currentStep.options as typeof localizedChallenges).filter(
       (option) => option.engagement === engagementTab,
     );
-  }, [
-    currentStep.options,
-    isChallengeOptionStep,
-    engagementTab,
-    localizedChallenges,
-  ]);
+  }, [currentStep.options, isChallengeOptionStep, engagementTab]);
 
   const singleChoiceOptions = useMemo(() => {
     return visibleOptions.map((option) => ({

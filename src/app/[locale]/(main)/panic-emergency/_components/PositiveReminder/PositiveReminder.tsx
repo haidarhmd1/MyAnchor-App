@@ -1,6 +1,5 @@
 "use client";
 
-import { Heart } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useMemo, useState } from "react";
 import { Sheet } from "react-modal-sheet";

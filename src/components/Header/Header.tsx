@@ -3,15 +3,9 @@ import { BackArrow } from "./_components/BackArrow";
 import { Link } from "@/i18n/navigation";
 import { getUser } from "@/lib/auth/auth-helpers";
 import { SignInButton } from "../SignInButton/SignInButton";
-import { LogoTile } from "../Brand/Logo";
 import { LanguageSwitcher } from "@/app/[locale]/(home)/profile/_components/LanguageSwitcher/LanguageSwitcher";
 
-export async function Header({
-  title = "MyAnchor",
-}: {
-  title?: string;
-  right?: React.ReactNode;
-}) {
+export async function Header() {
   const isUserAuth = await getUser();
 
   return (

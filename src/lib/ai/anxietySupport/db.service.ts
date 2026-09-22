@@ -1,7 +1,6 @@
 import { prisma } from "../../../../lib/prisma";
 import { translateSupportResult } from "./service";
 import {
-  AnxietySupportRequest,
   AnxietySupportRequestSchema,
   AnxietySupportResult,
   AnxietySupportResultZodSchema,

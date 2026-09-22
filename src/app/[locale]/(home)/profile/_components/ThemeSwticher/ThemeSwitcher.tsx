@@ -1,19 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 
 type ThemeOption = "light" | "dark" | "system";
 
+/** Never emits: hydration state flips once, when the client snapshot takes over. */
+const subscribeToNothing = () => () => {};
+
 export const ThemeSwitcher = () => {
   const t = useTranslations("appearance");
   const { theme, setTheme, forcedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    subscribeToNothing,
+    () => true,
+    () => false,
+  );
 
   if (!mounted) {
     return (

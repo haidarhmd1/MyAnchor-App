@@ -1547,7 +1547,10 @@
       "subscribe": "Aktivieren",
       "unsubscribe": "Deaktivieren",
       "placeholder": "Testnachricht eingeben…",
-      "send": "Senden"
+      "send": "Senden",
+      "denied": "Benachrichtigungen sind in deinen Browser-Einstellungen blockiert. Erlaube sie dort, um sie hier zu aktivieren.",
+      "sent": "Benachrichtigung gesendet.",
+      "error": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
     }
   },
   "auth": {

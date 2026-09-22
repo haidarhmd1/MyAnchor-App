@@ -1,7 +1,7 @@
 import { Engagement } from "@/generated/prisma/enums";
 import { ChallengeOption } from "@/generated/prisma/browser";
 
-export type TFn = (key: string, values?: Record<string, any>) => string;
+export type TFn = (key: string, values?: Record<string, unknown>) => string;
 
 export type FormFieldType = {
   id: string;
@@ -33,7 +33,7 @@ export function mapChallengeOptionsToFormFields<
     slug: x.slug,
     description: x.description ? keyFor(x.slug, "description") : null,
     engagement: x.engagement,
-  })) as any;
+  }));
 }
 
 export function mapSingleChallengeOptionItemToTranslater(challengeOption: {

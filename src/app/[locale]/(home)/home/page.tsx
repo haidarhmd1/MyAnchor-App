@@ -10,7 +10,7 @@ import { BoxBreathing } from "../../(main)/panic-emergency/_components/BoxBreath
 import { getTranslations } from "next-intl/server";
 import { SignInOverlayButton } from "@/components/SignInOverlayButton/SignInOverlayButton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircleIcon, Brain, Info } from "lucide-react";
+import { AlertCircleIcon, Info } from "lucide-react";
 import { getUser } from "@/lib/auth/auth-helpers";
 import {
   MomentLogButton,

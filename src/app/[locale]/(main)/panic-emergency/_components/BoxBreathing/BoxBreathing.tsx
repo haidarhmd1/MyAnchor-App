@@ -10,8 +10,6 @@ import { cn } from "@/lib/utils";
 type Phase = "inhale" | "hold1" | "exhale" | "hold2";
 type BreathingType = "boxBreathing" | "relaxingBreath";
 
-const PHASES: Phase[] = ["inhale", "hold1", "exhale", "hold2"];
-
 const BREATHING_CONFIG: Record<
   BreathingType,
   Partial<Record<Phase, number>>
@@ -72,8 +70,12 @@ export const BoxBreathing = ({ rounds = 4 }: { rounds?: number }) => {
           ? t("hints.exhale")
           : t("hints.hold2");
 
+  // Resets the exercise when the sheet opens or the breathing type changes.
+  // The idiomatic fix is remounting via `key`, which would drop the sheet's
+  // exit animation, so this stays an effect until that can be tested in-app.
   useEffect(() => {
     if (!open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStarted(false);
       return;
     }

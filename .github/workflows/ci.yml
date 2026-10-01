@@ -42,6 +42,7 @@ jobs:
           node-version-file: .node-version
       - run: corepack enable
       - run: yarn install --immutable
+      - run: yarn prisma:generate
       - run: yarn lint
       - run: yarn typecheck --incremental false
       - run: yarn test

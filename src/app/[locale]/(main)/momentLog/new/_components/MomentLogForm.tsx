@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import {
@@ -23,6 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export type StepId = Step["id"];
 
@@ -55,6 +56,7 @@ export default function MomentLogForm() {
   const form = useForm<MomentLogFormValues>({
     resolver: zodResolver(MomentLogFormSchema),
     defaultValues: {
+      consentsToHealthDataProcessing: false,
       location: undefined,
       symptoms: [],
       reasoningEn: undefined,
@@ -62,6 +64,10 @@ export default function MomentLogForm() {
       reasoningLocale: undefined,
     },
     mode: "onSubmit",
+  });
+  const healthDataConsent = useWatch({
+    control: form.control,
+    name: "consentsToHealthDataProcessing",
   });
 
   const onSubmit = async (data: z.infer<typeof MomentLogFormSchema>) => {
@@ -75,6 +81,14 @@ export default function MomentLogForm() {
   };
 
   const handleNext = () => {
+    if (
+      currentStepIndex === 0 &&
+      !form.getValues("consentsToHealthDataProcessing")
+    ) {
+      toast.error(t("momentLog.healthDataConsentRequired"));
+      return;
+    }
+
     if (currentStepIndex >= FORM_STEPS.length - 1) {
       form.handleSubmit(onSubmit)();
       return;
@@ -181,6 +195,31 @@ export default function MomentLogForm() {
                   })}
                 </p>
               </div>
+
+              {currentStepIndex === 0 && (
+                <div className="flex items-start gap-3 rounded-2xl border p-3">
+                  <Checkbox
+                    id="moment-log-health-consent"
+                    checked={healthDataConsent}
+                    onCheckedChange={(checked) =>
+                      form.setValue(
+                        "consentsToHealthDataProcessing",
+                        checked === true,
+                        {
+                          shouldDirty: true,
+                          shouldValidate: true,
+                        },
+                      )
+                    }
+                  />
+                  <label
+                    htmlFor="moment-log-health-consent"
+                    className="cursor-pointer text-sm leading-5"
+                  >
+                    {t("momentLog.healthDataConsent")}
+                  </label>
+                </div>
+              )}
             </CardHeader>
           </Card>
         )}

@@ -17,6 +17,7 @@ const JsonValueSchema: z.ZodType<Prisma.InputJsonValue> = z.lazy(() =>
 );
 
 export const MomentLogFormSchema = z.object({
+  consentsToHealthDataProcessing: z.boolean(),
   location: LocationSchema.optional(),
   symptoms: z.array(SymptomSchema),
 
@@ -26,6 +27,7 @@ export const MomentLogFormSchema = z.object({
 });
 
 export const submitMomentLogSchema = z.object({
+  consentsToHealthDataProcessing: z.literal(true),
   location: LocationSchema,
   symptoms: z.array(SymptomSchema).min(1).max(12),
 

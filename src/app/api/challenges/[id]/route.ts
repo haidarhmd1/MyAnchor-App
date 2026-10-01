@@ -4,6 +4,8 @@ import { z } from "zod";
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
 import { ChallengeStatus } from "@/generated/prisma/enums";
 import { prisma } from "../../../../../lib/prisma";
+import { apiErrorResponse } from "@/lib/api-errors";
+import { idempotentJson } from "@/lib/idempotency";
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -48,28 +50,32 @@ export const POST = async (request: Request, ctx: Ctx) => {
       );
     }
 
-    await prisma.challenge.update({
-      where: { id: challenge.id },
-      data: {
-        status: ChallengeStatus.FINISHED,
-        outcome: {
-          create: {
-            didComplete: hadCompletedChallenge ?? false,
-            safetyBehavior: safetyBehavior ?? "",
+    return idempotentJson({
+      request,
+      userId,
+      route: `/api/challenges/${id}/outcome`,
+      execute: async (tx) => {
+        await tx.challenge.update({
+          where: { id: challenge.id },
+          data: {
+            status: ChallengeStatus.FINISHED,
+            outcome: {
+              create: {
+                didComplete: hadCompletedChallenge ?? false,
+                safetyBehavior: safetyBehavior ?? "",
+              },
+            },
           },
-        },
+        });
+
+        return {
+          body: { message: "Challenge outcome saved" },
+          status: 201,
+        };
       },
     });
-
-    return NextResponse.json(
-      { message: "Challenge outcome saved" },
-      { status: 201 },
-    );
   } catch (err: unknown) {
-    console.error("POST /api/challenges/[id] error:", err);
-    const message =
-      err instanceof Error ? err.message : "Unexpected server error";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return apiErrorResponse(err, "challenge_outcome_create_failed", request);
   }
 };
 
@@ -133,14 +139,6 @@ export async function DELETE(_: Request, context: RouteContext) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Delete challenge entry error:", error);
-
-    return NextResponse.json(
-      {
-        error: "Failed to delete challenge entry",
-        details: error instanceof Error ? error.message : String(error),
-      },
-      { status: 500 },
-    );
+    return apiErrorResponse(error, "challenge_delete_failed", _);
   }
 }

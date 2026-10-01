@@ -55,6 +55,8 @@
 
 :root {
   --radius: 1rem;
+  --font-advent_pro:
+    "Trebuchet MS", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
 
   /* light mode: calm, airy, soft clinical without feeling cold */
   /* --background: oklch(0.985 0.008 100); */
@@ -91,10 +93,10 @@
 
   /* charts: restrained, not dashboard-garish */
   --chart-1: oklch(0.58 0.12 210); /* teal-blue */
-  --chart-2: oklch(0.7 0.08 170);  /* sage */
+  --chart-2: oklch(0.7 0.08 170); /* sage */
   --chart-3: oklch(0.72 0.09 240); /* mist indigo */
   --chart-4: oklch(0.78 0.09 105); /* calm olive */
-  --chart-5: oklch(0.68 0.11 30);  /* muted coral */
+  --chart-5: oklch(0.68 0.11 30); /* muted coral */
 
   /* sidebar */
   --sidebar: oklch(0.978 0.008 100);
@@ -227,11 +229,11 @@
   }
 
   .surface-soft {
-    @apply bg-card/90 border border-border backdrop-blur-sm;
+    @apply bg-card/90 border-border border backdrop-blur-sm;
   }
 
   .surface-muted {
-    @apply bg-muted/70 border border-border;
+    @apply bg-muted/70 border-border border;
   }
 }
 @keyframes fadeUp {

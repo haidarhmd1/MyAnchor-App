@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
 import { auth } from "./auth";
 import { prisma } from "../../../lib/prisma";
+import { UnauthorizedError } from "@/lib/api-errors";
 
 export async function getUser() {
   const session = await auth();
@@ -13,10 +13,11 @@ export async function getUser() {
 }
 
 export async function getUserOrThrow() {
-  const auth = await getUser();
-  if (!auth) {
-    throw NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const authenticatedUser = await getUser();
+  if (!authenticatedUser) throw new UnauthorizedError();
 
-  return { userId: auth.user.id, user: auth.user };
+  return {
+    userId: authenticatedUser.user.id,
+    user: authenticatedUser.user,
+  };
 }

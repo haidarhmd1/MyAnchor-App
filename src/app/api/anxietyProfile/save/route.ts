@@ -4,16 +4,33 @@ import { normalizeReasoningLocale } from "@/lib/ai/normalizeReasoningLocale";
 import { AnxietyProfileResponseSchema } from "@/lib/ai/anxietyProfile/schema/response.schema";
 import { DerivedAnxietyProfileSchema } from "@/lib/ai/anxietyProfile/schema/request.schema";
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
-import { prisma } from "../../../../../lib/prisma";
 import { Prisma } from "@/generated/prisma/client";
 import { AnxietyScreeningSchema } from "@/app/[locale]/(main)/anxietyProfile/_components/helpers/schema";
+import { apiErrorResponse } from "@/lib/api-errors";
+import { getPrivacyPolicyVersion, HEALTH_DATA_POLICY } from "@/lib/consent";
+import { idempotentJson } from "@/lib/idempotency";
 
-const AnxietyProfileSaveRequestSchema = z.object({
-  locale: z.string().optional(),
-  input: AnxietyScreeningSchema,
-  profile: DerivedAnxietyProfileSchema,
-  result: AnxietyProfileResponseSchema,
-});
+const AnxietyProfileSaveRequestSchema = z
+  .object({
+    locale: z.string().optional(),
+    input: AnxietyScreeningSchema,
+    profile: DerivedAnxietyProfileSchema,
+    result: AnxietyProfileResponseSchema,
+  })
+  .superRefine((value, context) => {
+    const acknowledgements = value.input.acknowledgements;
+    if (
+      !acknowledgements.understandsScreeningOnly ||
+      !acknowledgements.understandsEmergencyLimits ||
+      !acknowledgements.consentsToHealthDataProcessing
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["input", "acknowledgements"],
+        message: "Required acknowledgements were not accepted",
+      });
+    }
+  });
 
 export async function POST(req: Request) {
   try {
@@ -38,38 +55,51 @@ export async function POST(req: Request) {
 
     const locale = normalizeReasoningLocale(parsed.data.locale ?? "en");
     const { input, profile, result } = parsed.data;
+    const policyVersion = getPrivacyPolicyVersion();
 
-    const savedEntry = await prisma.anxietyProfileEntry.create({
-      data: {
-        userId,
-        locale,
-        input: input as Prisma.InputJsonValue,
-        derivedProfile: profile as Prisma.InputJsonValue,
-        result: result as Prisma.InputJsonValue,
-      },
-      select: {
-        id: true,
-        locale: true,
-        createdAt: true,
-        updatedAt: true,
+    return idempotentJson({
+      request: req,
+      userId,
+      route: "/api/anxietyProfile/save",
+      execute: async (tx) => {
+        const entry = await tx.anxietyProfileEntry.create({
+          data: {
+            userId,
+            locale,
+            input: input as Prisma.InputJsonValue,
+            derivedProfile: profile as Prisma.InputJsonValue,
+            result: result as Prisma.InputJsonValue,
+          },
+          select: {
+            id: true,
+            locale: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        });
+
+        const existingConsent = await tx.consent.findFirst({
+          where: {
+            userId,
+            policy: HEALTH_DATA_POLICY,
+            version: policyVersion,
+            withdrawnAt: null,
+          },
+        });
+        if (!existingConsent) {
+          await tx.consent.create({
+            data: {
+              userId,
+              policy: HEALTH_DATA_POLICY,
+              version: policyVersion,
+            },
+          });
+        }
+
+        return { body: { entry }, status: 201 };
       },
     });
-
-    return NextResponse.json(
-      {
-        entry: savedEntry,
-      },
-      { status: 201 },
-    );
   } catch (error) {
-    console.error("Save anxiety profile entry error:", error);
-
-    return NextResponse.json(
-      {
-        error: "Failed to save anxiety profile entry",
-        details: error instanceof Error ? error.message : String(error),
-      },
-      { status: 500 },
-    );
+    return apiErrorResponse(error, "anxiety_profile_save_failed", req);
   }
 }

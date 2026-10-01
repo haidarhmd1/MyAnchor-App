@@ -9,25 +9,32 @@ import {
   createMomentLog,
   upsertMomentLogTranslation,
 } from "@/lib/ai/anxietySupport/db.service";
+import { apiErrorResponse } from "@/lib/api-errors";
+import { recordHealthDataConsent } from "@/lib/consent";
+import { idempotentJson } from "@/lib/idempotency";
 
-export const GET = async () => {
-  const { userId } = await getUserOrThrow();
-  const start = DateTime.now().setZone(TZ).startOf("day");
-  const end = start.endOf("day");
+export const GET = async (request: NextRequest) => {
+  try {
+    const { userId } = await getUserOrThrow();
+    const start = DateTime.now().setZone(TZ).startOf("day");
+    const end = start.endOf("day");
 
-  const momentLog = await prisma.momentLog.findFirst({
-    where: {
-      userId,
-      deletedAt: null,
-      createdAt: {
-        gte: start.toJSDate(),
-        lte: end.toJSDate(),
+    const momentLog = await prisma.momentLog.findFirst({
+      where: {
+        userId,
+        deletedAt: null,
+        createdAt: {
+          gte: start.toJSDate(),
+          lte: end.toJSDate(),
+        },
       },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+      orderBy: { createdAt: "desc" },
+    });
 
-  return NextResponse.json({ momentLog }, { status: 200 });
+    return NextResponse.json({ momentLog }, { status: 200 });
+  } catch (error) {
+    return apiErrorResponse(error, "moment_log_read_failed", request);
+  }
 };
 
 export const POST = async (request: NextRequest) => {
@@ -46,34 +53,36 @@ export const POST = async (request: NextRequest) => {
     const { location, symptoms, reasoningEn, reasoning, reasoningLocale } =
       parsed.data;
 
-    const momentLog = await createMomentLog({
+    await recordHealthDataConsent(userId);
+
+    return idempotentJson({
+      request,
       userId,
-      input: { location, symptoms },
-      aiResponseEn: reasoningEn,
-    });
+      route: "/api/momentLog",
+      execute: async (tx) => {
+        const momentLog = await createMomentLog({
+          userId,
+          input: { location, symptoms },
+          aiResponseEn: reasoningEn,
+          database: tx,
+        });
 
-    if (reasoningLocale !== "en") {
-      await upsertMomentLogTranslation({
-        momentLogId: momentLog.id,
-        locale: reasoningLocale,
-        content: reasoning,
-      });
-    }
+        if (reasoningLocale !== "en") {
+          await upsertMomentLogTranslation({
+            momentLogId: momentLog.id,
+            locale: reasoningLocale,
+            content: reasoning,
+            database: tx,
+          });
+        }
 
-    return NextResponse.json({
-      momentLog,
-      reasoning,
-      reasoningLocale,
+        return {
+          body: { id: momentLog.id },
+          status: 201,
+        };
+      },
     });
   } catch (error) {
-    console.error("Create moment log error:", error);
-
-    return NextResponse.json(
-      {
-        error: "Failed to create moment log",
-        details: error instanceof Error ? error.message : String(error),
-      },
-      { status: 500 },
-    );
+    return apiErrorResponse(error, "moment_log_create_failed", request);
   }
 };

@@ -16,6 +16,11 @@
         "honestAnswers": "Answer based on your real experience — not what sounds more serious.",
         "safety": "If you feel unsafe right now, reach out for real-world support.",
         "result": "You’ll get a short, clear explanation — not a clinical report."
+      },
+      "acknowledgements": {
+        "screening": "I understand this is a self-help screening, not a diagnosis or professional assessment.",
+        "emergency": "I understand this app cannot assess emergencies and I should seek urgent real-world help if I may be in danger.",
+        "privacy": "I agree that my answers may be stored and processed to create and save my anxiety profile. I can delete my account and saved data."
       }
     },
     "common": {

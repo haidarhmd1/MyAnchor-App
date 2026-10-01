@@ -1,6 +1,7 @@
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
 import { NextResponse } from "next/server";
 import { prisma } from "../../../../../lib/prisma";
+import { apiErrorResponse } from "@/lib/api-errors";
 
 type RouteContext = {
   params: Promise<{
@@ -48,14 +49,6 @@ export async function DELETE(_: Request, context: RouteContext) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Delete anxiety profile entry error:", error);
-
-    return NextResponse.json(
-      {
-        error: "Failed to delete anxiety profile entry",
-        details: error instanceof Error ? error.message : String(error),
-      },
-      { status: 500 },
-    );
+    return apiErrorResponse(error, "anxiety_profile_delete_failed", _);
   }
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { z } from "zod";
@@ -51,6 +51,8 @@ const STEPS_COMPONENTS: Record<
   yesFinishScreen: (props) => <StayedFinishScreen {...props} />,
 };
 
+const EmptyStep = () => <div />;
+
 export function ResultForm({ challengeId }: { challengeId: string }) {
   const t = useTranslations();
   const router = useRouter();
@@ -66,7 +68,10 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
-  const hadCompletedChallenge = form.watch("hadCompletedChallenge");
+  const hadCompletedChallenge = useWatch({
+    control: form.control,
+    name: "hadCompletedChallenge",
+  });
 
   const formSteps = useMemo(() => {
     return !hadCompletedChallenge
@@ -146,7 +151,7 @@ export function ResultForm({ challengeId }: { challengeId: string }) {
   const currentStepId = currentStep.id as StepId;
   const ActiveStepComponent = currentStep
     ? STEPS_COMPONENTS[currentStepId]
-    : () => <div />;
+    : EmptyStep;
 
   const option = optionByStep[currentStepId] ?? [];
   const progress = ((currentStepIndex + 1) / formSteps.length) * 100;

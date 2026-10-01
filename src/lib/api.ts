@@ -10,11 +10,7 @@ import {
   Gender,
   SocialContext,
 } from "@/generated/prisma/enums";
-import {
-  Challenge,
-  ChallengeOutcome,
-  MomentLog,
-} from "@/generated/prisma/browser";
+import type { MomentLog } from "@/generated/prisma/browser";
 import {
   AnxietySupportPreviewResponse,
   AnxietySupportPreviewResponseSchema,
@@ -25,15 +21,22 @@ import { AnxietyScreeningInput } from "@/app/[locale]/(main)/anxietyProfile/_com
 import { AnxietyProfilePreviewResponse } from "./ai/anxietyProfile/schema/response.schema";
 import { AnxietyResultResponse } from "./ai/anxietyProfile/types";
 
+function writeHeaders() {
+  return {
+    "Content-Type": "application/json",
+    "Idempotency-Key": crypto.randomUUID(),
+  };
+}
+
 type CreateChallengeInputType = z.infer<typeof ChallengeSchema>;
 export async function createChallenge({
   data,
 }: {
   data: CreateChallengeInputType;
-}): Promise<Challenge> {
+}): Promise<{ id: string }> {
   const res = await fetch("/api/challenges", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: writeHeaders(),
     body: JSON.stringify({
       socialContext:
         data.socialContext === "ALONE"
@@ -50,7 +53,7 @@ export async function createChallenge({
     throw new Error(`Create challenge failed: ${res.status} ${text}`);
   }
 
-  return (await res.json()) as Challenge;
+  return (await res.json()) as { id: string };
 }
 
 type ChallengeOutcomeInputType = z.infer<typeof ChallengeOutcomeSchema>;
@@ -60,10 +63,10 @@ export async function createChallengeOutcome({
 }: {
   id: string;
   data: ChallengeOutcomeInputType;
-}): Promise<ChallengeOutcome> {
+}): Promise<{ message: string }> {
   const res = await fetch(`/api/challenges/${id}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: writeHeaders(),
     body: JSON.stringify(data),
     cache: "no-store",
   });
@@ -73,7 +76,7 @@ export async function createChallengeOutcome({
     throw new Error(`Create challenge outcome failed: ${res.status} ${text}`);
   }
 
-  return (await res.json()) as ChallengeOutcome;
+  return (await res.json()) as { message: string };
 }
 
 type MomentLogInputType = z.infer<typeof MomentLogFormSchema>;
@@ -81,10 +84,10 @@ export async function createMomentLogEntry({
   data,
 }: {
   data: MomentLogInputType;
-}): Promise<MomentLog> {
+}): Promise<{ id: string }> {
   const res = await fetch("/api/momentLog", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: writeHeaders(),
     body: JSON.stringify(data),
   });
 
@@ -92,15 +95,17 @@ export async function createMomentLogEntry({
     const text = await res.text();
     throw new Error(`Create moment log entry failed: ${res.status} ${text}`);
   }
-  return (await res.json()) as MomentLog;
+  return (await res.json()) as { id: string };
 }
 
 export async function getAnxietyProfilePreview({
   profile,
   locale,
+  consentsToHealthDataProcessing,
 }: {
   profile: DerivedAnxietyProfile;
   locale?: string;
+  consentsToHealthDataProcessing: true;
 }): Promise<AnxietyProfilePreviewResponse> {
   const res = await fetch("/api/anxietyProfile", {
     method: "POST",
@@ -108,6 +113,7 @@ export async function getAnxietyProfilePreview({
     body: JSON.stringify({
       profile,
       locale,
+      consentsToHealthDataProcessing,
     }),
   });
 
@@ -192,7 +198,7 @@ export async function createAnxietyProfileEntry({
 }> {
   const res = await fetch("/api/anxietyProfile/save", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: writeHeaders(),
     body: JSON.stringify({
       locale,
       input: anxietyScreeningFormInputs,
@@ -217,6 +223,7 @@ export async function getReasoningPreview({
     location: string;
     symptoms: string[];
     locale: SupportedReasoningLocale;
+    consentsToHealthDataProcessing: true;
   };
 }): Promise<AnxietySupportPreviewResponse> {
   const res = await fetch("/api/reasoning", {

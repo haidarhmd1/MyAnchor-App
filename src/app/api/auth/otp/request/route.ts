@@ -1,53 +1,10 @@
 import { NextResponse } from "next/server";
 import { DateTime } from "luxon";
-import { hashSync } from "bcryptjs";
+import { hash } from "bcryptjs";
 import { prisma } from "../../../../../../lib/prisma";
-
-function generateCode(length = 6) {
-  const min = Math.pow(10, length - 1);
-  const max = Math.pow(10, length) - 1;
-  return String(Math.floor(Math.random() * (max - min + 1)) + min);
-}
-
-// Simple token bucket in DB: refillRate tokens per minute, capacity cap
-async function takeToken(
-  bucketKey: string,
-  capacity: number,
-  refillRatePerMinute: number,
-) {
-  const now = new Date();
-
-  let bucket = await prisma.rateLimitBucket.findUnique({
-    where: { key: bucketKey },
-  });
-  if (!bucket) {
-    bucket = await prisma.rateLimitBucket.create({
-      data: { key: bucketKey, tokens: capacity },
-    });
-  }
-
-  const minutes = Math.max(
-    0,
-    (now.getTime() - bucket.updatedAt.getTime()) / 60000,
-  );
-  const refill = Math.floor(minutes * refillRatePerMinute);
-  let tokens = Math.min(capacity, bucket.tokens + refill);
-
-  if (tokens <= 0) {
-    await prisma.rateLimitBucket.update({
-      where: { key: bucketKey },
-      data: { tokens, updatedAt: now },
-    });
-    return false;
-  }
-
-  tokens -= 1;
-  await prisma.rateLimitBucket.update({
-    where: { key: bucketKey },
-    data: { tokens, updatedAt: now },
-  });
-  return true;
-}
+import { generateOtpCode, OTP_TTL_MINUTES } from "@/lib/auth/otp";
+import { getClientAddress, takeFixedWindowLimit } from "@/lib/rate-limit";
+import { apiErrorResponse, getRequestId } from "@/lib/api-errors";
 
 async function sendWithMailerSend(params: {
   to: string;
@@ -76,6 +33,7 @@ async function sendWithMailerSend(params: {
       text: params.text,
       html: params.html,
     }),
+    signal: AbortSignal.timeout(10_000),
   });
 
   const messageId = res.headers.get("x-message-id");
@@ -100,72 +58,93 @@ async function sendWithMailerSend(params: {
 }
 
 export async function POST(req: Request) {
-  const { email } = (await req.json()) as { email?: string };
-  const normalized = (email || "").trim().toLowerCase();
-  if (!normalized) {
-    return NextResponse.json({ error: "Email required" }, { status: 400 });
-  }
-
-  // x-forwarded-for can be "client, proxy1, proxy2"
-  const rawXff = req.headers.get("x-forwarded-for");
-  const ip = rawXff ? rawXff.split(",")[0]!.trim() : undefined;
-  const userAgent = req.headers.get("user-agent") ?? undefined;
-
-  // Rate limits (tweak as desired)
-  const okIp = await takeToken(`otp:ip:${ip ?? "unknown"}`, 10, 5);
-  const okEmail = await takeToken(`otp:email:${normalized}`, 5, 2);
-  if (!okIp || !okEmail) {
-    return NextResponse.json(
-      { error: "Too many requests. Try again later." },
-      { status: 429 },
-    );
-  }
-
-  const code = generateCode(6);
-  const tokenHash = hashSync(code, 10);
-  const expiresAt = DateTime.utc().plus({ minutes: 30 }).toJSDate();
-
-  await prisma.emailOTP.create({
-    data: { email: normalized, tokenHash, expiresAt, ip, userAgent },
-  });
-
   try {
-    const { messageId } = await sendWithMailerSend({
-      to: normalized,
-      subject: "Your sign-in code",
-      text: `Your code is: ${code}. It expires in 30 minutes.`,
-      html: `<p>Your code is: <strong style="font-size:20px">${code}</strong></p>
-             <p>It expires in 30 minutes.</p>`,
+    const { email } = (await req.json()) as { email?: string };
+    const normalized = (email || "").trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized)) {
+      return NextResponse.json(
+        { error: "Valid email required" },
+        { status: 400 },
+      );
+    }
+
+    const ip = getClientAddress(req);
+    const userAgent = req.headers.get("user-agent") ?? undefined;
+    const [okIp, okEmail] = await Promise.all([
+      ip
+        ? takeFixedWindowLimit({
+            key: `otp:ip:${ip}`,
+            limit: 20,
+            windowSeconds: 15 * 60,
+          })
+        : Promise.resolve(true),
+      takeFixedWindowLimit({
+        key: `otp:email:${normalized}`,
+        limit: 5,
+        windowSeconds: 15 * 60,
+      }),
+    ]);
+
+    if (!okIp || !okEmail) {
+      return NextResponse.json(
+        { error: "Too many requests. Try again later." },
+        { status: 429, headers: { "retry-after": "900" } },
+      );
+    }
+
+    const code = generateOtpCode();
+    const tokenHash = await hash(code, 10);
+    const expiresAt = DateTime.utc()
+      .plus({ minutes: OTP_TTL_MINUTES })
+      .toJSDate();
+
+    await prisma.emailOTP.create({
+      data: {
+        email: normalized,
+        tokenHash,
+        expiresAt,
+        ip: ip ?? undefined,
+        userAgent,
+      },
     });
+
+    let messageId: string | null = null;
+    try {
+      const delivery = await sendWithMailerSend({
+        to: normalized,
+        subject: "Your sign-in code",
+        text: `Your code is: ${code}. It expires in ${OTP_TTL_MINUTES} minutes.`,
+        html: `<p>Your code is: <strong style="font-size:20px">${code}</strong></p>
+               <p>It expires in ${OTP_TTL_MINUTES} minutes.</p>`,
+      });
+      messageId = delivery.messageId;
+    } catch (error) {
+      await prisma.emailLog
+        .create({
+          data: {
+            toEmail: normalized,
+            template: "otp",
+            success: false,
+            error: error instanceof Error ? error.name : "UnknownError",
+          },
+        })
+        .catch(() => undefined);
+      throw error;
+    }
 
     await prisma.emailLog.create({
       data: {
         toEmail: normalized,
         template: "otp",
-        providerId: messageId ?? null,
+        providerId: messageId,
         success: true,
       },
     });
-  } catch (err: unknown) {
-    const msg =
-      err && typeof err === "object" && "message" in err
-        ? String(err.message)
-        : "mailersend_error";
-
-    await prisma.emailLog.create({
-      data: {
-        toEmail: normalized,
-        template: "otp",
-        success: false,
-        error: msg,
-      },
-    });
-
     return NextResponse.json(
-      { error: "Failed to send email" },
-      { status: 500 },
+      { ok: true },
+      { headers: { "x-request-id": getRequestId(req) } },
     );
+  } catch (err: unknown) {
+    return apiErrorResponse(err, "otp_request_failed", req);
   }
-
-  return NextResponse.json({ ok: true });
 }

@@ -64,8 +64,13 @@ export function usePushSubscription() {
       return false;
     }
 
-    const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-    if (!vapidKey) throw new Error("NEXT_PUBLIC_VAPID_PUBLIC_KEY is not set");
+    const keyResponse = await fetch("/api/push/public-key", {
+      cache: "no-store",
+    });
+    if (!keyResponse.ok) throw new Error("VAPID public key is unavailable");
+    const { publicKey: vapidKey } = (await keyResponse.json()) as {
+      publicKey: string;
+    };
 
     const registration = await navigator.serviceWorker.ready;
     const subscription =

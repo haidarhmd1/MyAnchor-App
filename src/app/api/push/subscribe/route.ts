@@ -3,6 +3,7 @@ import z from "zod";
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
 import { pushSubscriptionSchema, pushUnsubscribeSchema } from "@/lib/zod.types";
 import { prisma } from "../../../../../lib/prisma";
+import { apiErrorResponse } from "@/lib/api-errors";
 
 export const POST = async (request: NextRequest) => {
   try {
@@ -40,13 +41,7 @@ export const POST = async (request: NextRequest) => {
 
     return NextResponse.json({ subscribed: true }, { status: 200 });
   } catch (error) {
-    if (error instanceof NextResponse) return error;
-
-    console.error("Push subscribe error:", error);
-    return NextResponse.json(
-      { error: "Failed to save push subscription" },
-      { status: 500 },
-    );
+    return apiErrorResponse(error, "push_subscribe_failed", request);
   }
 };
 
@@ -69,12 +64,6 @@ export const DELETE = async (request: NextRequest) => {
 
     return NextResponse.json({ subscribed: false }, { status: 200 });
   } catch (error) {
-    if (error instanceof NextResponse) return error;
-
-    console.error("Push unsubscribe error:", error);
-    return NextResponse.json(
-      { error: "Failed to remove push subscription" },
-      { status: 500 },
-    );
+    return apiErrorResponse(error, "push_unsubscribe_failed", request);
   }
 };

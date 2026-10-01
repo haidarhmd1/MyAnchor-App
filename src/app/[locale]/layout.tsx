@@ -1,5 +1,4 @@
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { Advent_Pro } from "next/font/google";
 import "../globals.css";
 import { Toaster } from "sonner";
 
@@ -9,11 +8,6 @@ import { Providers } from "../Provider";
 import { Metadata, Viewport } from "next";
 import { ThemeProvider } from "../ThemeProvider";
 import { ServiceWorkerRegistrar } from "@/components/ServiceWorkerRegistrar";
-
-const adventPro = Advent_Pro({
-  variable: "--font-advent_pro",
-  subsets: ["latin"],
-});
 
 export const viewport: Viewport = {
   themeColor: [
@@ -87,9 +81,7 @@ export default async function RootLayout({
       className="overscroll-contain scroll-smooth"
       suppressHydrationWarning
     >
-      <body
-        className={`${adventPro.variable} bg-background text-foreground min-h-dvh antialiased`}
-      >
+      <body className="bg-background text-foreground min-h-dvh antialiased">
         <ServiceWorkerRegistrar />
 
         <NextIntlClientProvider>

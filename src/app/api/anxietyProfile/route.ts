@@ -1,62 +1,28 @@
 import { NextResponse } from "next/server";
 
-import { normalizeReasoningLocale } from "@/lib/ai/normalizeReasoningLocale";
-import { AnxietyProfilePreviewRequestSchema } from "@/lib/ai/anxietyProfile/schema/request.schema";
-import { AnxietyProfilePreviewResponseSchema } from "@/lib/ai/anxietyProfile/schema/response.schema";
-import { generateAnxietyProfilePreview } from "@/lib/ai/anxietyProfile/service";
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
+import { apiErrorResponse } from "@/lib/api-errors";
 import { prisma } from "../../../../lib/prisma";
+import { createAnxietyProfilePost } from "./handler";
 
-export const GET = async () => {
-  const { userId } = await getUserOrThrow();
-
-  const anxietyProfile = await prisma.anxietyProfileEntry.findFirst({
-    where: {
-      userId,
-      deletedAt: null,
-    },
-    select: {
-      id: true,
-    },
-  });
-
-  return NextResponse.json({ anxietyProfile }, { status: 200 });
-};
-
-export async function POST(req: Request) {
+export const GET = async (request: Request) => {
   try {
-    const body = await req.json();
-    const parsed = AnxietyProfilePreviewRequestSchema.safeParse(body);
+    const { userId } = await getUserOrThrow();
 
-    if (!parsed.success) {
-      return NextResponse.json(
-        {
-          error: "Invalid request body",
-          details: parsed.error.flatten(),
-        },
-        { status: 400 },
-      );
-    }
-
-    const locale = normalizeReasoningLocale(parsed.data.locale ?? "en");
-
-    const preview = await generateAnxietyProfilePreview({
-      profile: parsed.data.profile,
-      locale,
+    const anxietyProfile = await prisma.anxietyProfileEntry.findFirst({
+      where: {
+        userId,
+        deletedAt: null,
+      },
+      select: {
+        id: true,
+      },
     });
 
-    const payload = AnxietyProfilePreviewResponseSchema.parse(preview);
-
-    return NextResponse.json(payload);
+    return NextResponse.json({ anxietyProfile }, { status: 200 });
   } catch (error) {
-    console.error("Create anxiety profile preview response error:", error);
-
-    return NextResponse.json(
-      {
-        error: "Failed to create anxiety profile preview response",
-        details: error instanceof Error ? error.message : String(error),
-      },
-      { status: 500 },
-    );
+    return apiErrorResponse(error, "anxiety_profile_read_failed", request);
   }
-}
+};
+
+export const POST = createAnxietyProfilePost();

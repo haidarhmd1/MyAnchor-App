@@ -214,6 +214,19 @@
     "loading": "Deleting…",
     "error": "Something went wrong. Please try again."
   },
+  "healthDataConsent": {
+    "title": "Health-data processing",
+    "active": "You currently allow MyAnchor to process health-related answers for screenings, logs, and AI support.",
+    "inactive": "No current health-data processing consent is active. You will be asked again before using affected features.",
+    "button": "Withdraw consent",
+    "confirmTitle": "Withdraw health-data consent?",
+    "confirmDescription": "New screening and AI processing will stop until you consent again. Existing records remain available so you can review or delete them.",
+    "cancel": "Cancel",
+    "confirm": "Withdraw consent",
+    "loading": "Withdrawing…",
+    "success": "Health-data consent withdrawn.",
+    "error": "Consent could not be withdrawn. Please try again."
+  },
   "form": {
     "next": "Next",
     "previous": "Previous",
@@ -903,7 +916,7 @@
     }
   },
   "reassurances": {
-    "panic_not_emergency": "You are having a panic attack right now. I know it feels overwhelming, but this is not a medical emergency.",
+    "panic_not_emergency": "These feelings can happen with panic, but this app cannot determine their cause. If they are new, severe, unusual, or you may be in danger, seek urgent medical help.",
     "body_is_safe": "Your body is safe, even if the sensations feel scary. This is just your alarm system firing too strongly.",
     "panic_is_wave": "Panic always comes in waves. It rises, it peaks, and it falls. All you need to do is ride the wave until it passes.",
     "no_need_to_escape": "You don’t have to run away. You don’t have to escape. You can stay right here and be okay.",
@@ -922,6 +935,8 @@
     "exposure": "Exposure"
   },
   "momentLog": {
+    "healthDataConsent": "I agree that my answers and AI-generated support can be processed and stored as health-related data under the current privacy policy.",
+    "healthDataConsentRequired": "Please agree to the health-data processing notice before continuing.",
     "disclaimer": {
       "title": "Log moments where anxiety showed up outside a planned challenge.",
       "description": "People don’t recover from panic/GAD because they finally understood it. They recover because they stopped treating internal noise as information."

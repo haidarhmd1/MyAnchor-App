@@ -1,9 +1,11 @@
 import NextAuth, { type NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { compareSync } from "bcryptjs";
+import { compare } from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextResponse } from "next/server";
 import { prisma } from "../../../lib/prisma";
+import { OTP_MAX_ATTEMPTS } from "./otp";
+import { getClientAddress } from "@/lib/rate-limit";
 
 // Keep in sync with your next-intl locales:
 const LOCALES = ["en", "de", "ar", "ar-LB"] as const;
@@ -93,9 +95,11 @@ export const authConfig = {
         // --- DEV MASTER CODE BYPASS (non-production only) ---
         if (process.env.NODE_ENV !== "production") {
           const master = process.env.DEV_MASTER_OTP?.trim();
-          const allow = true;
-          // e.g. restrict to certain domains:
-          // const allow = email.endsWith("@example.test") || email.endsWith("@localhost")
+          const allowedEmails = (process.env.DEV_MASTER_OTP_EMAILS ?? "")
+            .split(",")
+            .map((value) => value.trim().toLowerCase())
+            .filter(Boolean);
+          const allow = allowedEmails.includes(email);
 
           if (master && code === master && allow) {
             let user = await prisma.user.findUnique({ where: { email } });
@@ -103,15 +107,6 @@ export const authConfig = {
               user = await prisma.user.create({
                 data: { email, emailVerified: new Date() },
               });
-              await prisma.consent
-                .create({
-                  data: {
-                    userId: user.id,
-                    policy: "privacy_policy",
-                    version: "v1.0",
-                  },
-                })
-                .catch(() => {});
             }
             if (user.deletedAt) {
               return null;
@@ -140,26 +135,34 @@ export const authConfig = {
         // --- END DEV MASTER CODE BYPASS ---
 
         const record = await prisma.emailOTP.findFirst({
-          where: { email, consumedAt: null, expiresAt: { gt: new Date() } },
+          where: {
+            email,
+            consumedAt: null,
+            expiresAt: { gt: new Date() },
+            attempts: { lt: OTP_MAX_ATTEMPTS },
+          },
           orderBy: { createdAt: "desc" },
         });
         if (!record) return null;
 
-        const ok = compareSync(code, record.tokenHash);
+        const ok = await compare(code, record.tokenHash);
         if (!ok) {
-          await prisma.emailOTP.update({
-            where: { id: record.id },
+          await prisma.emailOTP.updateMany({
+            where: {
+              id: record.id,
+              consumedAt: null,
+              attempts: { lt: OTP_MAX_ATTEMPTS },
+            },
             data: { attempts: { increment: 1 } },
           });
-          // audit failure without user
+
           await prisma.signInAudit
             .create({
               data: {
-                userId: "anon",
                 email,
                 method: "email-otp",
                 outcome: "failure",
-                ip: req?.headers?.get("x-forwarded-for")?.split(",")[0]?.trim(),
+                ip: req ? (getClientAddress(req) ?? undefined) : undefined,
                 userAgent: req?.headers?.get("user-agent") ?? undefined,
               },
             })
@@ -167,10 +170,18 @@ export const authConfig = {
           return null;
         }
 
-        await prisma.emailOTP.update({
-          where: { id: record.id },
+        // updateMany makes one-time consumption atomic: if a concurrent request
+        // consumed the same code first, this request is rejected.
+        const consumed = await prisma.emailOTP.updateMany({
+          where: {
+            id: record.id,
+            consumedAt: null,
+            expiresAt: { gt: new Date() },
+            attempts: { lt: OTP_MAX_ATTEMPTS },
+          },
           data: { consumedAt: new Date() },
         });
+        if (consumed.count !== 1) return null;
 
         // Upsert or get user
         let user = await prisma.user.findUnique({ where: { email } });
@@ -178,16 +189,6 @@ export const authConfig = {
           user = await prisma.user.create({
             data: { email, emailVerified: new Date() },
           });
-          // Record default consent version on first sign-in
-          await prisma.consent
-            .create({
-              data: {
-                userId: user.id,
-                policy: "privacy_policy",
-                version: "v1.0",
-              },
-            })
-            .catch(() => {});
         }
 
         // Prevent sign-in if soft-deleted
@@ -203,7 +204,7 @@ export const authConfig = {
               email,
               method: "email-otp",
               outcome: "success",
-              ip: req?.headers?.get("x-forwarded-for")?.split(",")[0]?.trim(),
+              ip: req ? (getClientAddress(req) ?? undefined) : undefined,
               userAgent: req?.headers?.get("user-agent") ?? undefined,
             },
           })

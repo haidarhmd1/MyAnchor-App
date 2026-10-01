@@ -16,6 +16,11 @@
         "honestAnswers": "Antworte so, wie es sich in letzter Zeit wirklich angefühlt hat — nicht so, wie es schlimmer klingt.",
         "safety": "Wenn du dich gerade unsicher fühlst, hol dir bitte Unterstützung im echten Leben.",
         "result": "Du bekommst eine kurze, klare Erklärung — keinen klinischen Bericht."
+      },
+      "acknowledgements": {
+        "screening": "Ich verstehe, dass dies eine Selbsthilfe-Einschätzung und keine Diagnose oder professionelle Beurteilung ist.",
+        "emergency": "Ich verstehe, dass diese App keine Notfälle beurteilen kann und ich bei möglicher Gefahr sofort reale Hilfe suchen sollte.",
+        "privacy": "Ich stimme zu, dass meine Antworten gespeichert und verarbeitet werden, um mein Angstprofil zu erstellen und zu speichern. Ich kann mein Konto und gespeicherte Daten löschen."
       }
     },
     "common": {

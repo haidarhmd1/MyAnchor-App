@@ -14,6 +14,8 @@ import { prisma } from "../../../../../lib/prisma";
 import { AnxietyProfileCard } from "./_components/AnxietyProfileCard";
 import { DerivedAnxietyProfile } from "../../(main)/anxietyProfile/_components/helpers/types";
 import { AnxietyResultResponse } from "@/lib/ai/anxietyProfile/types";
+import { HealthDataConsent } from "@/components/HealthDataConsent/HealthDataConsent";
+import { getPrivacyPolicyVersion, HEALTH_DATA_POLICY } from "@/lib/consent";
 
 export async function getServerAnxietyProfileEntry(userId: string): Promise<{
   id: string;
@@ -47,6 +49,15 @@ export default async function Page() {
   const user = await requireAuth();
   const t = await getTranslations("account");
   const anxietyProfile = await getServerAnxietyProfileEntry(user.id);
+  const activeHealthDataConsent = await prisma.consent.findFirst({
+    where: {
+      userId: user.id,
+      policy: HEALTH_DATA_POLICY,
+      version: getPrivacyPolicyVersion(),
+      withdrawnAt: null,
+    },
+    select: { id: true },
+  });
 
   return (
     <div className="text-foreground space-y-6 p-4">
@@ -92,6 +103,10 @@ export default async function Page() {
           <div className="bg-border h-px w-full" />
 
           <Notifications />
+
+          <div className="bg-border h-px w-full" />
+
+          <HealthDataConsent active={Boolean(activeHealthDataConsent)} />
 
           <div className="bg-border h-px w-full" />
 

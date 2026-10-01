@@ -8,7 +8,7 @@ import { createChallenge } from "@/lib/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/Spinner/Spinner";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { ChallengeSchema } from "@/lib/zod.types";
 import { z } from "zod";
 import { useLocale, useTranslations } from "next-intl";
@@ -101,7 +101,10 @@ export default function ChallengeForm({
   const currentStep = formStep[currentStepIndex];
   const isChallengeOptionStep = currentStep.id === STEP_ID.CHALLENGE_OPTION;
 
-  const selectedValue = form.watch(currentStep.fieldName);
+  const selectedValue = useWatch({
+    control: form.control,
+    name: currentStep.fieldName,
+  });
   const canGoNext = Boolean(selectedValue);
 
   const visibleOptions = useMemo(() => {

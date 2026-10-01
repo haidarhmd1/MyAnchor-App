@@ -1,105 +1,69 @@
-# ⚓ MyAnchor-App
+# MyAnchor
 
-**MyAnchor-App** is a progressive web application (PWA) designed to support individuals who experience panic attacks or panic disorder.  
-It serves as a **personal anchor** during moments of panic — offering grounding tools, soothing visuals, and psychology-backed techniques to calm the body and mind.  
+MyAnchor is a multilingual self-help application for anxiety education, guided
+exercises, exposure challenges, moment logging, and AI-assisted reflections.
+It is not a diagnostic or emergency-care service.
 
----
+## Local development
 
-## 🌿 Features
+Requirements:
 
-- **Soothing Mode**  
-  Guided breathing animations and calming visuals to regulate your body’s rhythm.  
+- Node.js 24.19.0
+- Corepack with Yarn 4.18.0
+- PostgreSQL
 
-- **Grounding Techniques**  
-  Interactive exercises to help you stay present and reduce anxiety spirals.  
-
-- **Emergency Button**  
-  Instant access to quick-relief strategies when panic peaks.  
-
-- **Education Hub**  
-  Clear and accessible information on anxiety and panic, based on CBT principles.  
-
-- **Inspiration for Today**  
-  Daily quotes and reminders to build resilience.  
-
-- **PWA Support**  
-  Works offline, installable on mobile, always available in your pocket.  
-
----
-
-## 🎯 Purpose
-
-Panic attacks can feel overwhelming and isolating.  
-**MyAnchor-App** is built to be your safe, supportive companion — helping you **breathe, ground yourself, and ride the wave of panic** until it passes.  
-
----
-
-## 🛠️ Tech Stack
-
-- [Next.js](https://nextjs.org/) – React framework  
-- [React](https://react.dev/) – UI library  
-- [TailwindCSS](https://tailwindcss.com/) – styling  
-- [Framer Motion](https://www.framer.com/motion/) – animations  
-- PWA-ready with offline support  
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v18 or later recommended)  
-- npm or yarn  
-
-### Installation
 ```bash
-# clone the repo
-git clone https://github.com/your-username/myanchor-app.git
-
-# go to project folder
-cd myanchor-app
-
-# install dependencies
-npm install
-# or
-yarn install
-```
-
-### Development
-```bash
-npm run dev
-# or
+corepack enable
+yarn install --immutable
+cp env.example .env.local
+yarn db:migrate:deploy
+yarn db:seed
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+Update `.env.local` with your local database and provider credentials. The
+development master OTP works only when both `DEV_MASTER_OTP` and an address in
+`DEV_MASTER_OTP_EMAILS` are configured, and it is disabled in production.
 
-### Production Build
+## Verify changes
+
 ```bash
-npm run build
-npm run start
+yarn lint
+yarn typecheck --incremental false
+yarn test
+yarn prisma:validate
+yarn build
 ```
 
----
+## Deploy on Railway
 
-## 📱 PWA
+Use Railway's Railpack builder; this repository intentionally has no
+Dockerfile. Configure the web service with:
 
-- Installable on mobile & desktop  
-- Offline support enabled  
-- Optimized for performance and accessibility  
+- Build command: `yarn build`
+- Pre-deploy command: `yarn release`
+- Start command: `yarn start`
+- Healthcheck path: `/health/ready`
+- Restart policy: `On Failure`
 
----
+Set `DATABASE_URL` from a Railway PostgreSQL service and configure the values
+listed in `env.example`. In production, set `AUTH_URL` to the public HTTPS URL,
+set `TRUST_PROXY_HEADERS=true`, and never configure the development master OTP.
 
-## 🤝 Contributing
+Create a separate Railway cron service that runs `yarn maintenance:cleanup`
+once per day. Enable scheduled PostgreSQL backups and point-in-time recovery,
+and test a restore before relying on them.
 
-Contributions are welcome! Please open an issue or submit a pull request if you’d like to improve the project.  
+Production schema changes must be committed as Prisma migrations. Railway runs
+them through the pre-deploy command before switching the web deployment.
 
----
+## Runtime checks
 
-## 📜 License
+- `GET /health/live` verifies that the process is running.
+- `GET /health/ready` verifies that the process can reach PostgreSQL.
 
-This project is licensed under the MIT License.  
-See the [LICENSE](LICENSE) file for details.  
+The application emits structured JSON errors with request IDs. Logs must not
+include health answers, AI prompts or results, OTP values, cookies, or secrets.
 
----
-
-> ⚓ *“Your safe space in the storm — MyAnchor-App helps you stay grounded during panic.”*
+Before a public launch, have the privacy, consent, retention, crisis, and
+therapeutic language reviewed by appropriate legal and clinical professionals.

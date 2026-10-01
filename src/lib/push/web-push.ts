@@ -2,8 +2,9 @@ import webpush, {
   type PushSubscription as WebPushSubscription,
 } from "web-push";
 import { prisma } from "../../../lib/prisma";
+import { logWarn } from "@/lib/logger";
 
-const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+const publicKey = process.env.VAPID_PUBLIC_KEY;
 const privateKey = process.env.VAPID_PRIVATE_KEY;
 const contact = process.env.VAPID_SUBJECT ?? "mailto:support@myanchor.app";
 
@@ -44,11 +45,12 @@ export async function sendPushToUser(userId: string, payload: PushPayload) {
   });
 
   if (subscriptions.length === 0) {
-    return { sent: 0, removed: 0 };
+    return { sent: 0, removed: 0, failed: 0 };
   }
 
   const body = JSON.stringify(payload);
   let sent = 0;
+  let failed = 0;
   const expired: string[] = [];
 
   await Promise.all(
@@ -65,6 +67,11 @@ export async function sendPushToUser(userId: string, payload: PushPayload) {
         const statusCode = (error as { statusCode?: number }).statusCode;
         if (statusCode === 404 || statusCode === 410) {
           expired.push(subscription.endpoint);
+        } else {
+          failed += 1;
+          logWarn("push_delivery_failed", {
+            statusCode: statusCode ?? null,
+          });
         }
       }
     }),
@@ -76,5 +83,5 @@ export async function sendPushToUser(userId: string, payload: PushPayload) {
     });
   }
 
-  return { sent, removed: expired.length };
+  return { sent, removed: expired.length, failed };
 }

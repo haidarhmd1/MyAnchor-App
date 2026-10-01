@@ -10,5 +10,5 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ["/((?!api|trpc|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!api|health|trpc|_next|_vercel|.*\\..*).*)"],
 };

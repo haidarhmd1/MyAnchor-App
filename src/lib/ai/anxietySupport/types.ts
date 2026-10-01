@@ -40,6 +40,11 @@ export const AnxietySupportRequestSchema = z.object({
   locale: SupportedReasoningLocaleSchema.default("en"),
 });
 
+export const AnxietySupportPreviewRequestSchema =
+  AnxietySupportRequestSchema.extend({
+    consentsToHealthDataProcessing: z.literal(true),
+  });
+
 export type AnxietySupportRequest = z.infer<typeof AnxietySupportRequestSchema>;
 
 export const ResponseIntentSchema = z.enum([

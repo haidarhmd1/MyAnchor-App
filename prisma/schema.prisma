@@ -82,8 +82,8 @@ model EmailLog {
 
 model SignInAudit {
   id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   email     String   @db.VarChar(255)
   ip        String?
   userAgent String?
@@ -133,8 +133,24 @@ model User {
   updatedAt             DateTime              @updatedAt
   anxietyProfileEntries AnxietyProfileEntry[]
   pushSubscriptions     PushSubscription[]
+  idempotencyRecords    IdempotencyRecord[]
 
   @@index([deletedAt])
+}
+
+model IdempotencyRecord {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  route      String   @db.VarChar(120)
+  key        String   @db.VarChar(128)
+  statusCode Int?
+  response   Json?
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+
+  @@unique([userId, route, key])
+  @@index([expiresAt])
 }
 
 /// One row per browser/device that opted into web push. `endpoint` is the

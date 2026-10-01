@@ -97,8 +97,13 @@ export const FinishScreen = ({ onNext }: { onNext(): void }) => {
 
   const location = watch("location");
   const symptoms = watch("symptoms");
+  const consentsToHealthDataProcessing = watch(
+    "consentsToHealthDataProcessing",
+  );
 
-  const canFetchPreview = Boolean(location && symptoms?.length);
+  const canFetchPreview = Boolean(
+    location && symptoms?.length && consentsToHealthDataProcessing,
+  );
 
   const previewInputKey = useMemo(() => {
     const safeSymptoms = Array.isArray(symptoms) ? [...symptoms].sort() : [];
@@ -106,8 +111,9 @@ export const FinishScreen = ({ onNext }: { onNext(): void }) => {
       location: location ?? null,
       symptoms: safeSymptoms,
       locale,
+      consentsToHealthDataProcessing,
     });
-  }, [location, symptoms, locale]);
+  }, [location, symptoms, locale, consentsToHealthDataProcessing]);
 
   const query = useQuery({
     queryKey: ["reasoningPreview", previewInputKey],
@@ -117,6 +123,7 @@ export const FinishScreen = ({ onNext }: { onNext(): void }) => {
           location: location!,
           symptoms: symptoms!,
           locale,
+          consentsToHealthDataProcessing: true,
         },
       });
     },

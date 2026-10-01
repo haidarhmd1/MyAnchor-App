@@ -3,6 +3,7 @@ import z from "zod";
 import { getUserOrThrow } from "@/lib/auth/auth-helpers";
 import { pushTestMessageSchema } from "@/lib/zod.types";
 import { sendPushToUser } from "@/lib/push/web-push";
+import { apiErrorResponse } from "@/lib/api-errors";
 
 /** Sends a notification to the caller's own devices, for verifying setup. */
 export const POST = async (request: NextRequest) => {
@@ -26,12 +27,6 @@ export const POST = async (request: NextRequest) => {
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    if (error instanceof NextResponse) return error;
-
-    console.error("Push test error:", error);
-    return NextResponse.json(
-      { error: "Failed to send notification" },
-      { status: 500 },
-    );
+    return apiErrorResponse(error, "push_test_failed", request);
   }
 };

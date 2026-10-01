@@ -11,6 +11,12 @@ export function getCanProceedForStep(
 ): boolean {
   switch (stepId) {
     case "intro":
+      return (
+        values.acknowledgements.understandsScreeningOnly === true &&
+        values.acknowledgements.understandsEmergencyLimits === true &&
+        values.acknowledgements.consentsToHealthDataProcessing === true
+      );
+
     case "review":
       return true;
 

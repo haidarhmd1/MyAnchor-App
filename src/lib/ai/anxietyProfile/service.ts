@@ -5,7 +5,7 @@ import {
   AnxietyProfileResponse,
   AnxietyProfileResponseSchema,
 } from "./schema/response.schema";
-import { openai } from "../openai";
+import { getOpenAI } from "../openai";
 import { DerivedAnxietyProfile } from "@/app/[locale]/(main)/anxietyProfile/_components/helpers/types";
 import { buildAnxietyProfilePrompt } from "./prompts";
 
@@ -20,7 +20,7 @@ async function generateStructuredAnxietyProfile({
   profile,
   locale,
 }: GenerateStructuredAnxietyProfileParams): Promise<AnxietyProfileResponse> {
-  const completion = await openai.chat.completions.parse({
+  const completion = await getOpenAI().chat.completions.parse({
     model: MODEL,
     messages: [
       {

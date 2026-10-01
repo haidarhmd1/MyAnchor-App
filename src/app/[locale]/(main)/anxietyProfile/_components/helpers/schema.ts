@@ -134,8 +134,9 @@ const maintainingFactorsSchema = z.object({
 
 export const AnxietyScreeningSchema = z.object({
   acknowledgements: z.object({
-    understandsScreeningOnly: z.literal(true),
-    understandsEmergencyLimits: z.literal(true),
+    understandsScreeningOnly: z.boolean(),
+    understandsEmergencyLimits: z.boolean(),
+    consentsToHealthDataProcessing: z.boolean(),
   }),
   gadWindowConfirmed: z.literal(true).optional(),
   gadDuration: z.enum(gadDurationOptions).optional(),
@@ -174,8 +175,9 @@ export type AnxietyScreeningInput = z.infer<typeof AnxietyScreeningSchema>;
 
 export const anxietyScreeningDefaultValues: AnxietyScreeningInput = {
   acknowledgements: {
-    understandsScreeningOnly: true,
-    understandsEmergencyLimits: true,
+    understandsScreeningOnly: false,
+    understandsEmergencyLimits: false,
+    consentsToHealthDataProcessing: false,
   },
   gadWindowConfirmed: true,
   gadDuration: undefined,

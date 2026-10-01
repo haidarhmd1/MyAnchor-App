@@ -5,19 +5,45 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  compiler: { removeConsole: process.env.NODE_ENV !== "development" },
+  turbopack: {
+    root: process.cwd(),
+  },
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV !== "development"
+        ? { exclude: ["error", "warn"] }
+        : false,
+  },
   async headers() {
+    const securityHeaders = [
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "X-Frame-Options", value: "DENY" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      {
+        key: "Permissions-Policy",
+        value: "camera=(), microphone=(), geolocation=()",
+      },
+      { key: "X-DNS-Prefetch-Control", value: "off" },
+    ];
+
+    if (process.env.NODE_ENV === "production") {
+      securityHeaders.push(
+        {
+          key: "Strict-Transport-Security",
+          value: "max-age=31536000; includeSubDomains",
+        },
+        {
+          key: "Content-Security-Policy",
+          value:
+            "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https:; worker-src 'self' blob:; manifest-src 'self'",
+        },
+      );
+    }
+
     return [
       {
         source: "/(.*)",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "X-Frame-Options", value: "DENY" },
-          {
-            key: "Referrer-Policy",
-            value: "strict-origin-when-cross-origin",
-          },
-        ],
+        headers: securityHeaders,
       },
       {
         source: "/sw.js",

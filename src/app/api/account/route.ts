@@ -1,50 +1,25 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth/auth";
+import { getUserOrThrow } from "@/lib/auth/auth-helpers";
+import { apiErrorResponse } from "@/lib/api-errors";
 import { prisma } from "../../../../lib/prisma";
 
 export async function DELETE(req: Request) {
-  const session = await auth();
-  const email = session?.user?.email?.trim().toLowerCase();
+  try {
+    const { userId, user } = await getUserOrThrow();
+    const email = user.email?.trim().toLowerCase();
 
-  if (!email) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+    await prisma.$transaction(async (tx) => {
+      if (email) {
+        await tx.emailOTP.deleteMany({ where: { email } });
+        await tx.emailLog.deleteMany({ where: { toEmail: email } });
+        await tx.signInAudit.deleteMany({ where: { email } });
+      }
 
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  const userAgent = req.headers.get("user-agent") ?? undefined;
-
-  const user = await prisma.user.findUnique({
-    where: { email },
-    select: { id: true },
-  });
-
-  // Return ok even if user doesn't exist
-  if (!user) return NextResponse.json({ ok: true });
-
-  await prisma.$transaction(async (tx) => {
-    // Invalidate OTPs
-    await tx.emailOTP.updateMany({
-      where: { email, consumedAt: null },
-      data: { consumedAt: new Date() },
+      await tx.user.delete({ where: { id: userId } });
     });
 
-    // Audit record (optional)
-    await tx.signInAudit
-      .create({
-        data: {
-          userId: user.id,
-          email,
-          method: "account-delete(hard)",
-          outcome: "success",
-          ip,
-          userAgent,
-        },
-      })
-      .catch(() => {});
-
-    // Hard delete the user (cascades to SignInAudit, Consent, momentLog, Challenge, etc.)
-    await tx.user.delete({ where: { id: user.id } });
-  });
-
-  return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    return apiErrorResponse(error, "account_delete_failed", req);
+  }
 }

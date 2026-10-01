@@ -1,4 +1,4 @@
-import { openai } from "@/lib/ai/openai";
+import { getOpenAI } from "@/lib/ai/openai";
 import {
   AnxietySupportRequest,
   AnxietySupportResult,
@@ -31,7 +31,7 @@ export async function generateAIResponse(
   input: AnxietySupportRequest,
   correction?: string,
 ): Promise<AnxietySupportResult> {
-  const response = await openai.responses.create({
+  const response = await getOpenAI().responses.create({
     model: MODEL,
     input: [
       {
@@ -75,7 +75,7 @@ export async function translateSupportResult(
   source: AnxietySupportResult,
   targetLocale: Exclude<SupportedReasoningLocale, "en">,
 ): Promise<AnxietySupportResult> {
-  const response = await openai.responses.create({
+  const response = await getOpenAI().responses.create({
     model: "gpt-5-nano",
     input: [
       {

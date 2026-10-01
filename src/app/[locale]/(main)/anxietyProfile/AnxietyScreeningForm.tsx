@@ -4,7 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Bubbles } from "lucide-react";
-import { FormProvider, useForm, type UseWatchProps } from "react-hook-form";
+import {
+  FormProvider,
+  useForm,
+  useWatch,
+  type UseWatchProps,
+} from "react-hook-form";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -110,10 +115,13 @@ export default function AnxietyScreenerForm({
   const progress = ((currentStepIndex + 1) / FORM_STEPS.length) * 100;
   const currentStepId = FORM_STEPS[currentStepIndex];
 
-  const watchedValues = form.watch();
+  const watchedValues = useWatch({ control: form.control });
 
   const canProceed = useMemo(() => {
-    return getCanProceedForStep(currentStepId, watchedValues);
+    return getCanProceedForStep(
+      currentStepId,
+      watchedValues as AnxietyScreeningInput,
+    );
   }, [currentStepId, watchedValues]);
 
   const goNext = async () => {
@@ -129,6 +137,8 @@ export default function AnxietyScreenerForm({
         const response = await getAnxietyProfilePreview({
           profile,
           locale,
+          consentsToHealthDataProcessing: values.acknowledgements
+            .consentsToHealthDataProcessing as true,
         });
         setResult({
           input: values,

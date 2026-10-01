@@ -80,14 +80,14 @@ const DailyChallengePrimaryButton = ({
   );
 };
 
-export const DailyChallenge = async ({userId}: {userId:string}) => {
+export const DailyChallenge = async ({ userId }: { userId: string }) => {
   const t = await getTranslations();
 
   const latestChallenge = await prisma.challenge.findFirst({
     where: {
       user: {
         id: userId,
-        deletedAt: null
+        deletedAt: null,
       },
       deletedAt: null,
       status: { not: ChallengeStatus.FINISHED },

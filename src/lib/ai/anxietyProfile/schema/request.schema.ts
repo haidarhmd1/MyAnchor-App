@@ -151,6 +151,7 @@ export type ScreeningConfidence = z.infer<typeof ScreeningConfidenceSchema>;
 export const AnxietyProfilePreviewRequestSchema = z.object({
   profile: DerivedAnxietyProfileSchema,
   locale: z.string().optional(),
+  consentsToHealthDataProcessing: z.literal(true),
 });
 
 export type AnxietyProfilePreviewRequest = z.infer<

@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17-bookworm
+        env:
+          POSTGRES_DB: myanchor_test
+          POSTGRES_USER: myanchor
+          POSTGRES_PASSWORD: ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U myanchor -d myanchor_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://myanchor:ci-only-password@127.0.0.1:5432/myanchor_test
+      AUTH_SECRET: ci-only-auth-secret-at-least-32-characters
+      AUTH_URL: http://localhost:3000
+      OPENAI_API_KEY: ci-placeholder
+      MAILERSEND_API_KEY: ci-placeholder
+      EMAIL_FROM: no-reply@example.test
+      PRIVACY_POLICY_VERSION: ci-v1
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: yarn
+      - run: corepack enable
+      - run: yarn install --immutable
+      - run: yarn lint
+      - run: yarn typecheck --incremental false
+      - run: yarn test
+      - run: yarn prisma:validate
+      - run: yarn db:migrate:deploy
+      - run: yarn build
+      - run: yarn npm audit --all --recursive --severity high

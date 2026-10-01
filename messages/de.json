@@ -214,6 +214,19 @@
     "loading": "Wird gelöscht…",
     "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
   },
+  "healthDataConsent": {
+    "title": "Verarbeitung von Gesundheitsdaten",
+    "active": "Du erlaubst MyAnchor derzeit, gesundheitsbezogene Antworten für Screenings, Protokolle und KI-Unterstützung zu verarbeiten.",
+    "inactive": "Derzeit ist keine Einwilligung zur Verarbeitung von Gesundheitsdaten aktiv. Vor betroffenen Funktionen wirst du erneut gefragt.",
+    "button": "Einwilligung widerrufen",
+    "confirmTitle": "Einwilligung zu Gesundheitsdaten widerrufen?",
+    "confirmDescription": "Neue Screenings und KI-Verarbeitung werden gestoppt, bis du erneut einwilligst. Bestehende Einträge bleiben zum Prüfen oder Löschen verfügbar.",
+    "cancel": "Abbrechen",
+    "confirm": "Einwilligung widerrufen",
+    "loading": "Wird widerrufen…",
+    "success": "Einwilligung zu Gesundheitsdaten wurde widerrufen.",
+    "error": "Die Einwilligung konnte nicht widerrufen werden. Bitte versuche es erneut."
+  },
   "form": {
     "next": "Weiter",
     "previous": "Zurück",
@@ -901,7 +914,7 @@
     }
   },
   "reassurances": {
-    "panic_not_emergency": "Du hast gerade eine Panikattacke. Ich weiß, es fühlt sich überwältigend an, aber es ist kein medizinischer Notfall.",
+    "panic_not_emergency": "Solche Gefühle können bei Panik auftreten, aber diese App kann ihre Ursache nicht feststellen. Wenn sie neu, stark oder ungewöhnlich sind oder du in Gefahr sein könntest, hole sofort medizinische Hilfe.",
     "body_is_safe": "Dein Körper ist sicher, auch wenn sich die Empfindungen beängstigend anfühlen. Es ist nur dein Alarmsystem, das zu stark reagiert.",
     "panic_is_wave": "Panik kommt in Wellen. Sie steigt an, erreicht ihren Höhepunkt und ebbt wieder ab. Du musst die Welle nur aushalten.",
     "no_need_to_escape": "Du musst nicht weglaufen. Du musst nicht fliehen. Du kannst hier bleiben und es wird okay sein.",
@@ -920,6 +933,8 @@
     "exposure": "Exposition"
   },
   "momentLog": {
+    "healthDataConsent": "Ich stimme zu, dass meine Antworten und die KI-generierte Unterstützung gemäß der aktuellen Datenschutzerklärung als gesundheitsbezogene Daten verarbeitet und gespeichert werden.",
+    "healthDataConsentRequired": "Bitte stimme dem Hinweis zur Verarbeitung von Gesundheitsdaten zu, bevor du fortfährst.",
     "disclaimer": {
       "title": "Protokolliere Momente, in denen Angst außerhalb einer geplanten Challenge auftrat.",
       "description": "Menschen erholen sich nicht von Panik/GAS, weil sie sie endlich verstanden haben. Sie erholen sich, weil sie aufgehört haben, inneres Rauschen als Information zu behandeln."

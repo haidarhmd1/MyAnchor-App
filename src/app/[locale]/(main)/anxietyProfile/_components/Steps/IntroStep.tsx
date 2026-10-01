@@ -7,9 +7,29 @@ import {
 } from "@/components/ui/card";
 import { HeartHandshake } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useFormContext } from "react-hook-form";
+import { Checkbox } from "@/components/ui/checkbox";
+import { AnxietyScreeningInput } from "../helpers/schema";
 
 export const IntroStep = () => {
   const t = useTranslations("anxietyScreening");
+  const form = useFormContext<AnxietyScreeningInput>();
+
+  const acknowledgements = [
+    {
+      name: "acknowledgements.understandsScreeningOnly" as const,
+      label: t("intro.acknowledgements.screening"),
+    },
+    {
+      name: "acknowledgements.understandsEmergencyLimits" as const,
+      label: t("intro.acknowledgements.emergency"),
+    },
+    {
+      name: "acknowledgements.consentsToHealthDataProcessing" as const,
+      label: t("intro.acknowledgements.privacy"),
+    },
+  ];
+
   return (
     <Card className="border-border/60 rounded-3xl shadow-sm">
       <CardHeader>
@@ -30,6 +50,29 @@ export const IntroStep = () => {
         <div className="rounded-2xl border p-4">{t("intro.points.safety")}</div>
 
         <div className="rounded-2xl border p-4">{t("intro.points.result")}</div>
+
+        <div className="space-y-3 rounded-2xl border p-4">
+          {acknowledgements.map(({ name, label }) => {
+            const id = name.replaceAll(".", "-");
+            return (
+              <div key={name} className="flex items-start gap-3">
+                <Checkbox
+                  id={id}
+                  checked={form.watch(name)}
+                  onCheckedChange={(checked) =>
+                    form.setValue(name, checked === true, {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    })
+                  }
+                />
+                <label htmlFor={id} className="cursor-pointer leading-5">
+                  {label}
+                </label>
+              </div>
+            );
+          })}
+        </div>
       </CardContent>
     </Card>
   );

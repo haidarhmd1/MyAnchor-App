@@ -45,6 +45,7 @@ export const anxietyScreeningRequestSchema = z.object({
   acknowledgements: z.object({
     understandsScreeningOnly: z.literal(true),
     understandsEmergencyLimits: z.literal(true),
+    consentsToHealthDataProcessing: z.literal(true),
   }),
   gadWindowConfirmed: z.literal(true),
   gadDuration: z.enum(gadDurationOptions),

@@ -129,6 +129,17 @@
         font-size: 0.875rem;
         line-height: 1.6;
       }
+
+      .steps {
+        margin: 20px 0;
+        padding: 18px 18px 18px 38px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--card);
+        color: var(--muted);
+        text-align: left;
+        line-height: 1.6;
+      }
     </style>
   </head>
   <body>
@@ -137,15 +148,22 @@
 
       <h1>You're offline</h1>
       <p>
-        MyAnchor needs a connection to load this page. Your saved entries are
-        safe.
+        MyAnchor needs a connection for account data and AI support. No private
+        entries are cached on this offline page.
       </p>
+
+      <ol class="steps">
+        <li>Place both feet on the floor if you can.</li>
+        <li>Name five things you see and four things you can feel.</li>
+        <li>Let your breathing find a comfortable, unforced pace.</li>
+      </ol>
 
       <button type="button" onclick="location.reload()">Try again</button>
 
       <p class="note">
-        If you're feeling anxious right now: breathe in for four counts, hold
-        for four, out for six. Repeat until this page loads again.
+        MyAnchor is not emergency care. If you may be in immediate danger, or
+        symptoms are severe or unfamiliar, contact local emergency services or a
+        trusted person now.
       </p>
     </main>
 

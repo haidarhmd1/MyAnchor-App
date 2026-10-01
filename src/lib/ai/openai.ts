@@ -1,9 +1,16 @@
 import OpenAI from "openai";
 
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error("Missing OPENAI_API_KEY");
-}
+let client: OpenAI | undefined;
 
-export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+export function getOpenAI() {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
+
+  client ??= new OpenAI({
+    apiKey,
+    timeout: 20_000,
+    maxRetries: 1,
+  });
+
+  return client;
+}

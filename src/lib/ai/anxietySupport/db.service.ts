@@ -6,6 +6,9 @@ import {
   AnxietySupportResultZodSchema,
   SupportedReasoningLocale,
 } from "./types";
+import { Prisma } from "@/generated/prisma/client";
+
+type DatabaseClient = Prisma.TransactionClient | typeof prisma;
 
 export async function createMomentLog(params: {
   userId: string;
@@ -14,6 +17,7 @@ export async function createMomentLog(params: {
     symptoms: string[];
   };
   aiResponseEn: AnxietySupportResult;
+  database?: DatabaseClient;
 }) {
   const parsedInput = AnxietySupportRequestSchema.omit({ locale: true }).parse(
     params.input,
@@ -23,7 +27,8 @@ export async function createMomentLog(params: {
     params.aiResponseEn,
   );
 
-  return prisma.momentLog.create({
+  const database = params.database ?? prisma;
+  return database.momentLog.create({
     data: {
       userId: params.userId,
       location: parsedInput.location,
@@ -37,10 +42,12 @@ export async function upsertMomentLogTranslation(params: {
   momentLogId: string;
   locale: Exclude<SupportedReasoningLocale, "en">;
   content: AnxietySupportResult;
+  database?: DatabaseClient;
 }) {
   const parsedContent = AnxietySupportResultZodSchema.parse(params.content);
 
-  return prisma.momentLogTranslation.upsert({
+  const database = params.database ?? prisma;
+  return database.momentLogTranslation.upsert({
     where: {
       momentLogId_locale: {
         momentLogId: params.momentLogId,

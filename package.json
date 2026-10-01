@@ -96,11 +96,11 @@
     "@types/react-dom": "19.2.3"
   },
   "resolutions": {
-    "brace-expansion@npm:^1.1.7": "npm:1.1.18",
+    "brace-expansion@npm:^1.1.7": "npm:1.1.20",
     "brace-expansion@npm:^5.0.2": "npm:5.0.12",
     "browserslist@npm:^4.24.0": "npm:4.29.1",
     "deepmerge-ts@npm:7.1.5": "npm:8.0.2",
-    "fast-uri@npm:^3.0.1": "npm:3.1.6",
+    "fast-uri@npm:^3.0.1": "npm:3.1.7",
     "js-yaml@npm:^4.1.1": "npm:4.3.2",
     "mysql2@npm:3.15.3": "npm:3.24.4"
   }
